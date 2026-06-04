@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  DEMO-WEBSITE · BARBERSHOP "KLINGE & KAMM" (Hamm)
+  ----------------------------------------------------------------------------
+  Erstellt für ILIC ECOM HUB® als Referenz-/Demo-Site.
+  ACHTUNG: Erfundenes Unternehmen, Platzhalter-Inhalte, kein echter Kunde.
+  Alles (HTML + CSS + JS) liegt bewusst in EINER Datei — keine Build-Tools.
+  Aufbau folgt der Conversion-Struktur: Hero → Vorteile → Leistungen →
+  Galerie → Team → Bewertungen → FAQ → Kontakt → Footer.
+  ============================================================================
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KLINGE & KAMM — Barbershop in Hamm | Schnitt · Bart · Rasur</title>
+  <meta name="description" content="Klinge & Kamm — der Barbershop in Hamm. Präzise Fades, klassische Schnitte, Bartstyling und Königsrasur mit heißem Tuch. Online Termin buchen oder anrufen." />
+
+  <!-- Open Graph (für schöne Vorschau beim Teilen, z. B. WhatsApp) -->
+  <meta property="og:title" content="KLINGE & KAMM — Barbershop in Hamm" />
+  <meta property="og:description" content="Präzision. Stil. Handwerk. Dein Barbershop in Hamm — seit 2014." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts: Bebas Neue (Display) + Inter (Fließtext) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Favicon als Inline-SVG (kleine Schere) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23121214'/%3E%3Ctext x='50' y='70' font-size='58' text-anchor='middle' fill='%23cba35c' font-family='Georgia'%3EK%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    /* =========================================================================
+       1) DESIGN-TOKENS (Farben, Schrift, Abstände als Variablen)
+       Variablen = zentrale Stellschrauben. Ändert man hier eine Farbe,
+       ändert sie sich überall. So bleibt das Design konsistent.
+       ========================================================================= */
+    :root {
+      --ink:        #101012;   /* fast Schwarz — Hintergrund */
+      --ink-2:      #17171b;   /* etwas heller — Karten */
+      --ink-3:      #1f1f24;   /* Linien, Felder */
+      --cream:      #f4efe5;   /* warmes Weiß — Haupttext */
+      --muted:      #9c958a;   /* gedämpfter Text */
+      --brass:      #cba35c;   /* Messing-Gold — Akzent */
+      --brass-soft: #e0c184;   /* helleres Gold (Hover) */
+      --line:       rgba(244,239,229,.10);
+
+      --maxw: 1180px;          /* maximale Inhaltsbreite */
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 24px 60px -24px rgba(0,0,0,.7);
+
+      --font-display: 'Bebas Neue', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* =========================================================================
+       2) RESET / GRUNDLAGEN
+       ========================================================================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }           /* sanftes Scrollen zu Ankern */
+
+    body {
+      font-family: var(--font-body);
+      background: var(--ink);
+      color: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* Zentrierter Inhaltscontainer */
+    .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+
+    /* Wiederkehrende Typo-Bausteine */
+    .eyebrow {
+      font-size: 13px; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--brass); font-weight: 600;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--brass); opacity: .7; }
+
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: .98; letter-spacing: .01em; }
+
+    .section { padding: clamp(64px, 9vw, 120px) 0; }
+    .section-head { max-width: 640px; margin-bottom: 48px; }
+    .section-head h2 { font-size: clamp(38px, 7vw, 68px); margin: 14px 0 16px; text-transform: uppercase; }
+    .section-head p { color: var(--muted); font-size: 17px; }
+
+    /* =========================================================================
+       3) BUTTONS
+       ========================================================================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: var(--font-body); font-weight: 600; font-size: 15px;
+      padding: 15px 26px; border-radius: 100px; cursor: pointer;
+      border: 1px solid transparent; transition: transform .2s ease, background .2s ease, color .2s ease;
+      white-space: nowrap;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--brass); color: #1a1407; }
+    .btn-primary:hover { background: var(--brass-soft); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--cream); border-color: var(--line); }
+    .btn-ghost:hover { border-color: var(--brass); color: var(--brass-soft); }
+    .btn-block { width: 100%; }
+
+    /* =========================================================================
+       4) STICKY HEADER + MOBILES MENÜ
+       ========================================================================= */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background .3s ease, border-color .3s ease, padding .3s ease;
+      border-bottom: 1px solid transparent; padding: 18px 0;
+    }
+    /* Klasse wird per JS beim Scrollen gesetzt → Header wird kompakter/dunkler */
+    header.scrolled {
+      background: rgba(16,16,18,.86);
+      backdrop-filter: blur(14px);
+      border-bottom-color: var(--line);
+      padding: 12px 0;
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+    .logo { font-family: var(--font-display); font-size: 26px; letter-spacing: .04em; display: flex; align-items: center; gap: 10px; }
+    .logo .dot { color: var(--brass); }
+    .logo small { font-family: var(--font-body); font-size: 9px; letter-spacing: .32em; color: var(--muted); text-transform: uppercase; display: block; line-height: 1; margin-top: 2px;}
+
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-phone { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .nav-phone svg { color: var(--brass); }
+
+    /* Hamburger (nur mobil sichtbar) */
+    .burger { display: none; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; position: relative; }
+    .burger span { position: absolute; left: 11px; right: 11px; height: 2px; background: var(--cream); transition: .3s; }
+    .burger span:nth-child(1) { top: 16px; }
+    .burger span:nth-child(2) { top: 22px; }
+    .burger span:nth-child(3) { top: 28px; }
+    body.menu-open .burger span:nth-child(1) { top: 22px; transform: rotate(45deg); }
+    body.menu-open .burger span:nth-child(2) { opacity: 0; }
+    body.menu-open .burger span:nth-child(3) { top: 22px; transform: rotate(-45deg); }
+
+    /* =========================================================================
+       5) HERO
+       ========================================================================= */
+    .hero { position: relative; padding: 150px 0 90px; overflow: hidden; }
+    /* dezenter Lichtschein im Hintergrund */
+    .hero::before {
+      content: ""; position: absolute; top: -10%; right: -5%; width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(203,163,92,.16), transparent 60%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; position: relative; }
+
+    .hero h1 { font-size: clamp(58px, 11vw, 128px); text-transform: uppercase; margin: 20px 0; }
+    .hero h1 .accent { color: var(--brass); }
+    .hero p.lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 460px; }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 34px 0 28px; }
+
+    /* Trust-Zeile (Sterne + Beleg) */
+    .trust { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .stars { color: var(--brass); letter-spacing: 3px; font-size: 16px; }
+    .trust small { color: var(--muted); font-size: 14px; }
+    .trust b { color: var(--cream); }
+
+    /* Hero-Bild = Platzhalter mit Barber-Pole */
+    .hero-visual { position: relative; }
+    .hero-photo {
+      aspect-ratio: 4/5; border-radius: var(--radius); overflow: hidden; position: relative;
+      box-shadow: var(--shadow); border: 1px solid var(--line);
+    }
+
+    /* Generischer Foto-Platzhalter (überall wiederverwendet) */
+    .ph {
+      position: relative; width: 100%; height: 100%;
+      background:
+        repeating-linear-gradient(45deg, rgba(203,163,92,.05) 0 14px, transparent 14px 28px),
+        linear-gradient(150deg, #1c1c20, #232227 55%, #141416);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      color: var(--muted); text-align: center;
+    }
+    .ph svg { opacity: .45; }
+    .ph span { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+
+    /* Animierter Barber-Pole (kleines, schönes Detail oben rechts) */
+    .pole {
+      position: absolute; top: 18px; right: 18px; width: 26px; height: 96px;
+      border-radius: 100px; overflow: hidden; border: 2px solid rgba(0,0,0,.5);
+      box-shadow: 0 8px 24px rgba(0,0,0,.5);
+    }
+    .pole i {
+      position: absolute; inset: -50% -20%; display: block;
+      background: repeating-linear-gradient(45deg,
+        #b9412f 0 12px, #f4efe5 12px 24px, #2f5fb9 24px 36px, #f4efe5 36px 48px);
+      animation: poleSpin 2.4s linear infinite;
+    }
+    @keyframes poleSpin { to { transform: translateY(48px); } }
+
+    /* Schwebende Info-Karte über dem Bild */
+    .hero-badge {
+      position: absolute; bottom: 18px; left: -18px; background: var(--ink-2);
+      border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow);
+    }
+    .hero-badge .num { font-family: var(--font-display); font-size: 34px; color: var(--brass); line-height: 1; }
+    .hero-badge small { color: var(--muted); font-size: 12px; line-height: 1.3; display: block; }
+
+    /* =========================================================================
+       6) LAUFTEXT-BAND (Marquee)
+       ========================================================================= */
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 20px 0; overflow: hidden; background: var(--ink-2); }
+    .marquee-track { display: flex; gap: 44px; white-space: nowrap; width: max-content; animation: marquee 26s linear infinite; }
+    .marquee-track span { font-family: var(--font-display); font-size: 28px; letter-spacing: .05em; color: var(--cream); text-transform: uppercase; display: inline-flex; align-items: center; gap: 44px; }
+    .marquee-track span::after { content: "✶"; color: var(--brass); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* =========================================================================
+       7) VORTEILE (3 Karten)
+       ========================================================================= */
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .perk { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 28px; transition: transform .25s ease, border-color .25s ease; }
+    .perk:hover { transform: translateY(-4px); border-color: rgba(203,163,92,.4); }
+    .perk .ico { width: 52px; height: 52px; border-radius: 12px; background: rgba(203,163,92,.12); color: var(--brass); display: grid; place-items: center; margin-bottom: 18px; }
+    .perk h3 { font-size: 26px; text-transform: uppercase; margin-bottom: 8px; }
+    .perk p { color: var(--muted); font-size: 15px; }
+
+    /* =========================================================================
+       8) LEISTUNGEN / PREISE (Barber-Menü)
+       ========================================================================= */
+    #leistungen { background: var(--ink-2); }
+    .menu { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 54px; }
+    .menu-item { display: flex; align-items: baseline; gap: 14px; padding: 18px 0; border-bottom: 1px dashed var(--line); }
+    .menu-item .mi-name { font-weight: 600; font-size: 17px; }
+    .menu-item .mi-desc { color: var(--muted); font-size: 13.5px; }
+    .menu-item .dots { flex: 1; border-bottom: 1px dotted rgba(244,239,229,.18); transform: translateY(-4px); }
+    .menu-item .mi-price { font-family: var(--font-display); font-size: 26px; color: var(--brass); white-space: nowrap; }
+    .menu-note { margin-top: 30px; color: var(--muted); font-size: 14px; display: flex; align-items: center; gap: 10px; }
+
+    /* Highlight-Paket-Karte */
+    .combo { margin-top: 34px; background: linear-gradient(135deg, rgba(203,163,92,.16), rgba(203,163,92,.04)); border: 1px solid rgba(203,163,92,.35); border-radius: var(--radius); padding: 28px 30px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .combo h3 { font-size: 30px; text-transform: uppercase; }
+    .combo p { color: var(--muted); font-size: 14.5px; max-width: 420px; }
+    .combo .price-tag { font-family: var(--font-display); font-size: 56px; color: var(--brass); line-height: 1; }
+    .combo .price-tag small { font-family: var(--font-body); font-size: 13px; color: var(--muted); display: block; text-align: right; }
+
+    /* =========================================================================
+       9) GALERIE + VORHER/NACHHER-SLIDER
+       ========================================================================= */
+    .ba-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 40px; }
+    .ba {
+      position: relative; aspect-ratio: 4/3; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--line); user-select: none; touch-action: none; box-shadow: var(--shadow);
+    }
+    .ba .layer { position: absolute; inset: 0; }
+    .ba .after { z-index: 1; }
+    .ba .before { z-index: 2; width: 50%; overflow: hidden; border-right: 2px solid var(--brass); }
+    .ba .before .ph, .ba .after .ph { width: 100vw; max-width: var(--maxw); }
+    .ba .tag { position: absolute; bottom: 12px; z-index: 3; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; background: rgba(0,0,0,.6); padding: 6px 12px; border-radius: 100px; color: var(--cream); }
+    .ba .tag.l { left: 12px; }
+    .ba .tag.r { right: 12px; }
+    .ba .handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 40px; transform: translateX(-50%); z-index: 4; cursor: ew-resize; display: grid; place-items: center; }
+    .ba .handle .knob { width: 40px; height: 40px; border-radius: 50%; background: var(--brass); color: #1a1407; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.5); font-size: 18px; }
+
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 150px; gap: 14px; }
+    .gallery .cell { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); transition: transform .25s; }
+    .gallery .cell:hover { transform: scale(1.02); }
+    .gallery .cell.tall { grid-row: span 2; }
+    .gallery .cell.wide { grid-column: span 2; }
+
+    /* =========================================================================
+       10) TEAM
+       ========================================================================= */
+    #team { background: var(--ink-2); }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .barber { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--ink); }
+    .barber .pic { aspect-ratio: 1/1; }
+    .barber .info { padding: 22px 24px; }
+    .barber .info h3 { font-size: 28px; text-transform: uppercase; }
+    .barber .role { color: var(--brass); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; margin: 4px 0 10px; }
+    .barber .info p { color: var(--muted); font-size: 14.5px; }
+    .barber .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .barber .tags span { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); border: 1px solid var(--line); padding: 5px 10px; border-radius: 100px; }
+
+    /* =========================================================================
+       11) BEWERTUNGEN
+       ========================================================================= */
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .review .stars { font-size: 15px; }
+    .review p { font-size: 15.5px; }
+    .review .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .review .ava { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--brass), #8a6a2f); display: grid; place-items: center; color: #1a1407; font-weight: 700; }
+    .review .who b { font-size: 14px; display: block; }
+    .review .who small { color: var(--muted); font-size: 12px; }
+    .grev { display: inline-flex; align-items: center; gap: 12px; margin-top: 34px; color: var(--muted); font-size: 14px; }
+    .grev b { color: var(--cream); }
+
+    /* =========================================================================
+       12) FAQ (Akkordeon)
+       ========================================================================= */
+    .faq-list { max-width: 820px; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q { width: 100%; background: none; border: 0; color: var(--cream); cursor: pointer; text-align: left; padding: 24px 0; font-size: 18px; font-weight: 600; font-family: var(--font-body); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .faq-q .pm { color: var(--brass); font-size: 26px; transition: transform .3s; flex-shrink: 0; }
+    .faq-item.open .faq-q .pm { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a p { padding-bottom: 24px; color: var(--muted); font-size: 15.5px; }
+
+    /* =========================================================================
+       13) KONTAKT
+       ========================================================================= */
+    #kontakt { background: var(--ink-2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .info-block { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .info-block .ico { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: rgba(203,163,92,.12); color: var(--brass); display: grid; place-items: center; }
+    .info-block b { display: block; font-size: 15px; }
+    .info-block span, .info-block a { color: var(--muted); font-size: 14.5px; }
+    .info-block a:hover { color: var(--brass); }
+    .hours-row { display: flex; justify-content: space-between; font-size: 14.5px; padding: 6px 0; }
+    .hours-row span:first-child { color: var(--muted); }
+    .hours-row.today { color: var(--brass); font-weight: 600; }
+    .hours-row.today span { color: var(--brass); }
+
+    .map { aspect-ratio: 16/10; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); margin-top: 22px; }
+
+    /* Formular */
+    .form { background: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+    .form h3 { font-size: 30px; text-transform: uppercase; margin-bottom: 6px; }
+    .form > p { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 7px; }
+    .field input, .field select, .field textarea {
+      width: 100%; background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+      padding: 13px 15px; color: var(--cream); font-family: var(--font-body); font-size: 15px; transition: border-color .2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--brass); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-success { display: none; text-align: center; padding: 30px 10px; }
+    .form-success.show { display: block; }
+    .form-success .check { width: 64px; height: 64px; border-radius: 50%; background: rgba(203,163,92,.15); color: var(--brass); display: grid; place-items: center; margin: 0 auto 18px; }
+    .form-success h3 { margin-bottom: 8px; }
+    .form-success p { color: var(--muted); }
+
+    /* =========================================================================
+       14) FINALER CTA-BANNER
+       ========================================================================= */
+    .cta-banner { position: relative; text-align: center; padding: clamp(60px,9vw,110px) 0; overflow: hidden; }
+    .cta-banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(203,163,92,.16), transparent 60%); }
+    .cta-banner h2 { font-size: clamp(44px, 9vw, 96px); text-transform: uppercase; position: relative; }
+    .cta-banner p { color: var(--muted); margin: 16px auto 30px; max-width: 520px; position: relative; }
+    .cta-banner .hero-actions { justify-content: center; }
+
+    /* =========================================================================
+       15) FOOTER
+       ========================================================================= */
+    footer { border-top: 1px solid var(--line); padding: 60px 0 30px; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+    .foot-grid h4 { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--brass); margin-bottom: 16px; font-family: var(--font-body); font-weight: 600; }
+    .foot-grid p, .foot-grid a { color: var(--muted); font-size: 14.5px; }
+    .foot-grid a { display: block; margin-bottom: 9px; }
+    .foot-grid a:hover { color: var(--cream); }
+    .foot-logo { font-family: var(--font-display); font-size: 30px; margin-bottom: 12px; }
+    .foot-bottom { border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; }
+
+    /* =========================================================================
+       16) SCHWEBENDER WHATSAPP-BUTTON
+       ========================================================================= */
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 90; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.5); transition: transform .2s; }
+    .wa-float:hover { transform: scale(1.08); }
+
+    /* Demo-Hinweis (oben, klein) */
+    .demo-flag { position: fixed; top: 0; left: 0; z-index: 200; background: var(--brass); color: #1a1407; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-bottom-right-radius: 8px; }
+
+    /* =========================================================================
+       17) SCROLL-ANIMATIONEN (per JS aktiviert)
+       Elemente starten leicht versetzt & unsichtbar, faden beim Scrollen ein.
+       ========================================================================= */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Reduzierte Bewegung respektieren (Barrierefreiheit) */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* =========================================================================
+       18) RESPONSIVE (mobil-first Anpassungen)
+       ========================================================================= */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }   /* Desktop-Menü ausblenden */
+      .nav-phone span { display: none; }
+      .burger { display: block; }
+
+      /* Mobiles Overlay-Menü */
+      .nav-links.mobile {
+        display: flex; position: fixed; inset: 0; top: 0; flex-direction: column;
+        justify-content: center; align-items: center; gap: 28px; background: rgba(16,16,18,.98);
+        backdrop-filter: blur(8px); transform: translateX(100%); transition: transform .35s ease; z-index: 99;
+      }
+      body.menu-open .nav-links.mobile { transform: translateX(0); }
+      .nav-links.mobile a { font-size: 24px; color: var(--cream); font-family: var(--font-display); letter-spacing: .04em; }
+      .nav-links.mobile .btn { font-family: var(--font-body); }
+
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { max-width: 420px; }
+      .hero-badge { left: 0; }
+      .perks { grid-template-columns: 1fr; }
+      .menu { grid-template-columns: 1fr; gap: 0 0; }
+      .combo { flex-direction: column; align-items: flex-start; text-align: left; }
+      .ba-wrap { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: 1fr; }
+      .reviews { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Kleiner Demo-Hinweis, damit klar ist: Beispielseite, kein echter Betrieb -->
+  <div class="demo-flag">Demo · ILIC ECOM HUB</div>
+
+  <!-- =====================================================================
+       HEADER
+       ===================================================================== -->
+  <header id="top">
+    <div class="wrap nav">
+      <a href="#top" class="logo">
+        <span>KLINGE <span class="dot">&amp;</span> KAMM</span>
+      </a>
+
+      <!-- Desktop-Navigation -->
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#team">Team</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="tel:+4923819988770" class="nav-phone">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>02381 99 887 70</span>
+        </a>
+        <a href="#kontakt" class="btn btn-primary">Termin buchen</a>
+        <button class="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
+
+      <!-- Mobiles Menü (gleiche Links) -->
+      <nav class="nav-links mobile">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#team">Team</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#kontakt" class="btn btn-primary">Termin buchen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       HERO
+       ===================================================================== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Barbershop · Hamm · seit 2014</span>
+        <h1>Dein Barber<br>in <span class="accent">Hamm</span></h1>
+        <p class="lead">Präziser Schnitt, sauberer Bart, klassische Rasur mit heißem Tuch. Handwerk, das man sieht — und fühlt.</p>
+
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Termin buchen
+          </a>
+          <a href="tel:+4923819988770" class="btn btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Anrufen
+          </a>
+        </div>
+
+        <div class="trust">
+          <span class="stars">★★★★★</span>
+          <small><b>4,9</b> · 480 Google-Bewertungen</small>
+          <small>·</small>
+          <small><b>12.000+</b> Schnitte</small>
+        </div>
+      </div>
+
+      <!-- Hero-Visual: Foto-Platzhalter mit Barber-Pole + Info-Karte -->
+      <div class="hero-visual reveal">
+        <div class="hero-photo">
+          <div class="ph">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg>
+            <span>Foto: Barbershop-Interieur</span>
+          </div>
+          <div class="pole"><i></i></div>
+        </div>
+        <div class="hero-badge">
+          <span class="num">10+</span>
+          <small>Jahre<br>Handwerk</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       LAUFTEXT-BAND
+       ===================================================================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Fades</span><span>Klassische Schnitte</span><span>Bartstyling</span><span>Königsrasur</span><span>Kinderschnitt</span><span>Heißes Tuch</span>
+      <span>Fades</span><span>Klassische Schnitte</span><span>Bartstyling</span><span>Königsrasur</span><span>Kinderschnitt</span><span>Heißes Tuch</span>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       VORTEILE
+       ===================================================================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="perks">
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Meister­handwerk</h3>
+          <p>Ausgebildete Barber, scharfe Klingen, volle Konzentration auf deinen Look — kein Akkord, sondern Sorgfalt.</p>
+        </div>
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>Schnell &amp; pünktlich</h3>
+          <p>Online in 30 Sekunden buchen oder spontan vorbeikommen. Kurze Wartezeit, fester Termin, kein Stress.</p>
+        </div>
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 15 9l7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg></div>
+          <h3>Faire Preise</h3>
+          <p>Transparente Preisliste ohne Überraschungen. Premium-Qualität, die jeder Geldbeutel sich leisten kann.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       LEISTUNGEN / PREISE
+       ===================================================================== -->
+  <section id="leistungen" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Preisliste</span>
+        <h2>Leistungen &amp; Preise</h2>
+        <p>Klare Preise, keine versteckten Kosten. Beratung ist bei jedem Termin inklusive.</p>
+      </div>
+
+      <div class="menu reveal">
+        <div class="menu-item">
+          <div><div class="mi-name">Herrenschnitt</div><div class="mi-desc">Waschen, Schnitt, Styling</div></div>
+          <div class="dots"></div><div class="mi-price">24 €</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="mi-name">Schnitt &amp; Bart</div><div class="mi-desc">Haarschnitt + Bartkontur</div></div>
+          <div class="dots"></div><div class="mi-price">34 €</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="mi-name">Bart-Styling</div><div class="mi-desc">Trimmen, Konturen, Pflege</div></div>
+          <div class="dots"></div><div class="mi-price">16 €</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="mi-name">Königsrasur</div><div class="mi-desc">Nassrasur mit heißem Tuch</div></div>
+          <div class="dots"></div><div class="mi-price">28 €</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="mi-name">Maschinenschnitt</div><div class="mi-desc">Sauberer Buzz, eine Länge</div></div>
+          <div class="dots"></div><div class="mi-price">16 €</div>
+        </div>
+        <div class="menu-item">
+          <div><div class="mi-name">Kinderschnitt</div><div class="mi-desc">Bis 12 Jahre</div></div>
+          <div class="dots"></div><div class="mi-price">18 €</div>
+        </div>
+      </div>
+
+      <!-- Highlight-Paket -->
+      <div class="combo reveal">
+        <div>
+          <span class="eyebrow">Beliebtestes Paket</span>
+          <h3>Die volle Behandlung</h3>
+          <p>Haarschnitt + Bart-Styling + Königsrasur mit heißem Tuch. Rundum frisch in einem Termin — der Klassiker für besondere Anlässe.</p>
+        </div>
+        <div class="price-tag">49 €<small>ca. 60 Min.</small></div>
+      </div>
+
+      <p class="menu-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brass)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Zahlung bar, mit Karte, Apple&nbsp;Pay &amp; Google&nbsp;Pay möglich. Studenten erhalten Mo–Mi 10&nbsp;% Rabatt.
+      </p>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       GALERIE + VORHER/NACHHER
+       ===================================================================== -->
+  <section id="galerie" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Unsere Arbeit</span>
+        <h2>Galerie</h2>
+        <p>Echte Ergebnisse statt Versprechen. Ziehe den Regler, um den Unterschied zu sehen.</p>
+      </div>
+
+      <div class="ba-wrap reveal">
+        <!-- Interaktiver Vorher/Nachher-Slider -->
+        <div class="ba" id="ba">
+          <div class="layer after">
+            <div class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg><span>Nachher</span></div>
+          </div>
+          <div class="layer before" id="baBefore">
+            <div class="ph" style="filter:grayscale(.6) brightness(.7)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Vorher</span></div>
+          </div>
+          <span class="tag l">Vorher</span>
+          <span class="tag r">Nachher</span>
+          <div class="handle" id="baHandle"><div class="knob">⇄</div></div>
+        </div>
+
+        <div>
+          <h3 style="font-size:34px;text-transform:uppercase;margin-bottom:14px;">Vom Alltag zum Auftritt</h3>
+          <p style="color:var(--muted);">Ein guter Schnitt verändert mehr als die Frisur. Unsere Barber lesen Gesichtsform, Haartyp und deinen Stil — und holen das Beste raus. Egal ob klassisch, modern oder kompletter Wechsel.</p>
+          <div class="hero-actions" style="margin-bottom:0;">
+            <a href="#kontakt" class="btn btn-primary">Jetzt Termin sichern</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Foto-Raster (Platzhalter in verschiedenen Größen für Magazine-Look) -->
+      <div class="gallery reveal">
+        <div class="cell tall"><div class="ph"><span>Fade</span></div></div>
+        <div class="cell"><div class="ph"><span>Bart</span></div></div>
+        <div class="cell"><div class="ph"><span>Classic</span></div></div>
+        <div class="cell wide"><div class="ph"><span>Interieur</span></div></div>
+        <div class="cell"><div class="ph"><span>Crop</span></div></div>
+        <div class="cell"><div class="ph"><span>Rasur</span></div></div>
+        <div class="cell wide"><div class="ph"><span>Team bei der Arbeit</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       TEAM
+       ===================================================================== -->
+  <section id="team" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Die Hände hinter dem Handwerk</span>
+        <h2>Unser Team</h2>
+        <p>Drei Barber, ein Anspruch: Du gehst besser raus, als du reingekommen bist.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="barber reveal">
+          <div class="pic"><div class="ph"><span>Foto: Marco</span></div></div>
+          <div class="info">
+            <h3>Marco Ricci</h3>
+            <div class="role">Inhaber · Master Barber</div>
+            <p>Gründete Klinge &amp; Kamm 2014. Lebt für saubere Übergänge und die klassische Nassrasur.</p>
+            <div class="tags"><span>Fades</span><span>Klassische Rasur</span></div>
+          </div>
+        </div>
+        <div class="barber reveal">
+          <div class="pic"><div class="ph"><span>Foto: Deniz</span></div></div>
+          <div class="info">
+            <h3>Deniz Yıldız</h3>
+            <div class="role">Senior Barber</div>
+            <p>Der Bart-Spezialist. Formt Konturen, die zum Gesicht passen — vom Drei-Tage-Bart bis Vollbart.</p>
+            <div class="tags"><span>Beard Design</span><span>Styling</span></div>
+          </div>
+        </div>
+        <div class="barber reveal">
+          <div class="pic"><div class="ph"><span>Foto: Luka</span></div></div>
+          <div class="info">
+            <h3>Luka Petrović</h3>
+            <div class="role">Barber</div>
+            <p>Präzisions-Fades und moderne Styles. Bleibt immer am Puls der aktuellen Trends.</p>
+            <div class="tags"><span>Skin Fades</span><span>Modern</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       BEWERTUNGEN
+       ===================================================================== -->
+  <section id="bewertungen" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Was Kunden sagen</span>
+        <h2>Bewertungen</h2>
+        <p>Über 480 Bewertungen mit einem Schnitt von 4,9 Sternen.</p>
+      </div>
+
+      <div class="reviews">
+        <div class="review reveal">
+          <span class="stars">★★★★★</span>
+          <p>„Bester Fade in Hamm — Marco nimmt sich richtig Zeit und fragt nach, statt einfach drauflos. Komme seit zwei Jahren nirgendwo anders hin."</p>
+          <div class="who"><div class="ava">JK</div><div><b>Jonas K.</b><small>Google · vor 2 Wochen</small></div></div>
+        </div>
+        <div class="review reveal">
+          <span class="stars">★★★★★</span>
+          <p>„Endlich ein Barbier, der meinen Bart versteht. Deniz hat genau die Form getroffen, die ich wollte. Top Beratung, faire Preise."</p>
+          <div class="who"><div class="ava">ED</div><div><b>Erkan D.</b><small>Google · vor 1 Monat</small></div></div>
+        </div>
+        <div class="review reveal">
+          <span class="stars">★★★★★</span>
+          <p>„Saubere Arbeit, geile Atmosphäre, ehrlicher Preis. Man wird empfangen wie ein Stammgast, auch beim ersten Mal. Klare Empfehlung."</p>
+          <div class="who"><div class="ava">TR</div><div><b>Tim R.</b><small>Google · vor 3 Wochen</small></div></div>
+        </div>
+      </div>
+
+      <div class="grev reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+        <span><b>4,9 / 5,0</b> aus 480 Google-Bewertungen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FAQ
+       ===================================================================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Gut zu wissen</span>
+        <h2>Häufige Fragen</h2>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-q">Muss ich vorher einen Termin machen? <span class="pm">+</span></button>
+          <div class="faq-a"><p>Am besten ja — so wartest du nicht. Du kannst online in 30 Sekunden buchen oder anrufen. Spontane Walk-ins nehmen wir gerne, wenn ein Stuhl frei ist.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Wie kann ich bezahlen? <span class="pm">+</span></button>
+          <div class="faq-a"><p>Bar, mit EC-/Kreditkarte sowie Apple&nbsp;Pay und Google&nbsp;Pay. Egal wie es dir lieber ist.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Wo kann ich parken? <span class="pm">+</span></button>
+          <div class="faq-a"><p>Direkt vor der Tür gibt es kostenlose Kurzzeit-Parkplätze. Das Parkhaus Weststraße ist 2&nbsp;Gehminuten entfernt.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Schneidet ihr auch Kinder? <span class="pm">+</span></button>
+          <div class="faq-a"><p>Klar. Der Kinderschnitt (bis 12&nbsp;Jahre) kostet 18&nbsp;€. Wir nehmen uns Zeit, damit auch die Kleinen entspannt bleiben.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Kann ich meinen Look vorher besprechen? <span class="pm">+</span></button>
+          <div class="faq-a"><p>Unbedingt — die Beratung ist bei jedem Termin inklusive. Bring gern ein Foto mit, dann sind wir sofort auf einer Linie.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       KONTAKT
+       ===================================================================== -->
+  <section id="kontakt" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Termin &amp; Standort</span>
+        <h2>Komm vorbei</h2>
+        <p>Mitten in Hamm. Buch online oder ruf einfach durch — wir freuen uns auf dich.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Linke Spalte: Infos + Karte -->
+        <div class="reveal">
+          <div class="info-block">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><b>Adresse</b><span>Weststraße 42, 59065 Hamm</span></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><b>Telefon</b><a href="tel:+4923819988770">02381 99 887 70</a></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div>
+            <div><b>E-Mail</b><a href="mailto:hallo@klinge-kamm.de">hallo@klinge-kamm.de</a></div>
+          </div>
+
+          <!-- Öffnungszeiten (heute wird per JS hervorgehoben) -->
+          <div style="margin-top:24px;">
+            <b style="display:block;margin-bottom:12px;font-size:15px;">Öffnungszeiten</b>
+            <div class="hours-row" data-day="1"><span>Montag</span><span>09:00 – 19:00</span></div>
+            <div class="hours-row" data-day="2"><span>Dienstag</span><span>09:00 – 19:00</span></div>
+            <div class="hours-row" data-day="3"><span>Mittwoch</span><span>09:00 – 19:00</span></div>
+            <div class="hours-row" data-day="4"><span>Donnerstag</span><span>09:00 – 20:00</span></div>
+            <div class="hours-row" data-day="5"><span>Freitag</span><span>09:00 – 20:00</span></div>
+            <div class="hours-row" data-day="6"><span>Samstag</span><span>09:00 – 16:00</span></div>
+            <div class="hours-row" data-day="0"><span>Sonntag</span><span>Geschlossen</span></div>
+          </div>
+
+          <!-- Karten-Platzhalter -->
+          <div class="map">
+            <div class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Google-Maps-Karte</span></div>
+          </div>
+        </div>
+
+        <!-- Rechte Spalte: Buchungsformular -->
+        <div class="reveal">
+          <form class="form" id="bookForm" novalidate>
+            <h3>Termin anfragen</h3>
+            <p>In 30 Sekunden ausgefüllt. Wir melden uns zur Bestätigung.</p>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Max Mustermann" required />
+              </div>
+              <div class="field">
+                <label for="phone">Telefon</label>
+                <input type="tel" id="phone" name="phone" placeholder="0151 …" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="service">Leistung</label>
+              <select id="service" name="service">
+                <option>Herrenschnitt — 24 €</option>
+                <option>Schnitt &amp; Bart — 34 €</option>
+                <option>Bart-Styling — 16 €</option>
+                <option>Königsrasur — 28 €</option>
+                <option>Die volle Behandlung — 49 €</option>
+                <option>Kinderschnitt — 18 €</option>
+              </select>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="date">Wunschtag</label>
+                <input type="date" id="date" name="date" />
+              </div>
+              <div class="field">
+                <label for="barber">Barber</label>
+                <select id="barber" name="barber">
+                  <option>Egal / nächster frei</option>
+                  <option>Marco</option>
+                  <option>Deniz</option>
+                  <option>Luka</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="msg">Nachricht (optional)</label>
+              <textarea id="msg" name="msg" rows="3" placeholder="z. B. Wunschuhrzeit oder Stil"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Anfrage senden</button>
+            <p style="font-size:12px;color:var(--muted);margin-top:12px;text-align:center;">Demo-Formular — sendet keine echten Daten.</p>
+          </form>
+
+          <!-- Erfolgsmeldung (per JS eingeblendet) -->
+          <div class="form-success" id="formSuccess">
+            <div class="check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg></div>
+            <h3>Anfrage gesendet!</h3>
+            <p>Danke — in einer echten Version würden wir uns jetzt zur Bestätigung bei dir melden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FINALER CTA
+       ===================================================================== -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <h2>Zeit für<br>frischen Schnitt</h2>
+      <p>Buch deinen Termin bei Klinge &amp; Kamm — und geh mit einem Look raus, der sitzt.</p>
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary">Termin buchen</a>
+        <a href="tel:+4923819988770" class="btn btn-ghost">02381 99 887 70</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-logo">KLINGE &amp; KAMM</div>
+          <p>Der Barbershop in Hamm. Präzision, Stil und Handwerk — seit 2014.</p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <a href="#leistungen">Leistungen</a>
+          <a href="#galerie">Galerie</a>
+          <a href="#team">Team</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <a href="tel:+4923819988770">02381 99 887 70</a>
+          <a href="mailto:hallo@klinge-kamm.de">hallo@klinge-kamm.de</a>
+          <p>Weststraße 42<br>59065 Hamm</p>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Klinge &amp; Kamm — Demo-Website</span>
+        <span><a href="#">Impressum</a> · <a href="#">Datenschutz</a> &nbsp;|&nbsp; Erstellt von ILIC ECOM HUB®</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Schwebender WhatsApp-Button (niedrigste Hürde für Kontakt) -->
+  <a class="wa-float" href="https://wa.me/4923819988770" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.06zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <script>
+    /* =========================================================================
+       JAVASCRIPT — alle Interaktionen
+       Reines Vanilla-JS, keine Bibliotheken. Gut kommentiert zum Lernen.
+       ========================================================================= */
+
+    /* --- 1) Header beim Scrollen kompakter machen --------------------------- */
+    const header = document.querySelector('header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    /* --- 2) Mobiles Menü öffnen/schließen ----------------------------------- */
+    const burger = document.querySelector('.burger');
+    burger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+    // Beim Klick auf einen Menü-Link schließen
+    document.querySelectorAll('.nav-links.mobile a').forEach(a =>
+      a.addEventListener('click', () => document.body.classList.remove('menu-open'))
+    );
+
+    /* --- 3) Scroll-Animationen (Elemente einblenden) ------------------------ */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* --- 4) FAQ-Akkordeon ---------------------------------------------------- */
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const answer = btn.nextElementSibling;
+        const isOpen = item.classList.contains('open');
+
+        // Alle schließen (immer nur eine Frage offen)
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-a').style.maxHeight = null;
+        });
+        // Geklickte öffnen, falls sie zu war
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    /* --- 5) Vorher/Nachher-Slider (Maus + Touch) ---------------------------- */
+    const ba = document.getElementById('ba');
+    const baBefore = document.getElementById('baBefore');
+    const baHandle = document.getElementById('baHandle');
+    let dragging = false;
+
+    const setSplit = (clientX) => {
+      const rect = ba.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(2, Math.min(98, pct));        // zwischen 2% und 98% halten
+      baBefore.style.width = pct + '%';
+      baHandle.style.left = pct + '%';
+    };
+    const startDrag = () => dragging = true;
+    const stopDrag = () => dragging = false;
+    const moveDrag = (e) => {
+      if (!dragging) return;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      setSplit(x);
+    };
+    baHandle.addEventListener('mousedown', startDrag);
+    baHandle.addEventListener('touchstart', startDrag, { passive: true });
+    window.addEventListener('mouseup', stopDrag);
+    window.addEventListener('touchend', stopDrag);
+    window.addEventListener('mousemove', moveDrag);
+    window.addEventListener('touchmove', moveDrag, { passive: true });
+    // Klick irgendwo auf das Bild setzt den Regler ebenfalls
+    ba.addEventListener('click', (e) => { if (e.target.closest('.handle')) return; setSplit(e.clientX); });
+
+    /* --- 6) Heutigen Öffnungstag hervorheben -------------------------------- */
+    const today = new Date().getDay(); // 0 = Sonntag … 6 = Samstag
+    const row = document.querySelector(`.hours-row[data-day="${today}"]`);
+    if (row) {
+      row.classList.add('today');
+      const lbl = row.querySelector('span'); // erstes <span> = Wochentag
+      lbl.textContent = 'Heute';
+    }
+
+    /* --- 7) Demo-Buchungsformular: Erfolgsmeldung zeigen -------------------- */
+    const form = document.getElementById('bookForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // kein echtes Absenden (Demo)
+      // Minimale Pflichtfeld-Prüfung
+      const name = form.name.value.trim();
+      const phone = form.phone.value.trim();
+      if (!name || !phone) {
+        alert('Bitte Name und Telefonnummer ausfüllen.');
+        return;
+      }
+      form.style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+    });
+
+    /* --- 8) Jahreszahl im Footer automatisch setzen ------------------------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  DEMO-WEBSITE · BISTRO & BAR "ESSZIMMER" (Hamm)
+  ----------------------------------------------------------------------------
+  Erstellt für ILIC ECOM HUB® als Referenz-/Demo-Site.
+  Erfundenes Restaurant, Platzhalter statt Fotos. Eine eigenständige index.html.
+  Warme, appetitliche Abend-Identität — Espresso, Terrakotta, Olive.
+  ============================================================================
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESSZIMMER — Bistro &amp; Bar in Hamm | Regionale Küche · Reservierung</title>
+  <meta name="description" content="Esszimmer — Bistro & Bar in Hamm. Regionale, saisonale Küche, ehrlich gekocht. Mittagstisch, Abendkarte und gute Weine. Jetzt online Tisch reservieren." />
+
+  <meta property="og:title" content="ESSZIMMER — Bistro & Bar in Hamm" />
+  <meta property="og:description" content="Regionale Küche, ehrlich gekocht. Reservieren Sie Ihren Tisch." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts: Playfair Display (editorial Serif) + Inter (Fließtext) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231b1613'/%3E%3Ctext x='50' y='71' font-size='58' text-anchor='middle' fill='%23cc6b43' font-family='Georgia'%3EE%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    /* DESIGN-TOKENS — warmes Espresso + Terrakotta + Olive */
+    :root {
+      --bg:        #1b1613;   /* tiefes Espresso-Braun */
+      --bg-2:      #241c17;   /* Karten */
+      --bg-3:      #2c221b;
+      --cream:     #f4ead9;   /* warmes Creme — Text */
+      --muted:     #b3a392;
+      --terra:     #cc6b43;   /* Terrakotta — Akzent */
+      --terra-soft:#e08a5f;
+      --olive:     #8a9159;
+      --line:      rgba(244,234,217,.12);
+
+      --maxw: 1180px; --radius: 14px; --radius-sm: 9px;
+      --shadow: 0 24px 60px -28px rgba(0,0,0,.7);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--cream); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; } ul { list-style: none; }
+    .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+
+    .eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--terra); font-weight: 600; display: inline-flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--terra); }
+
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.06; }
+
+    .section { padding: clamp(60px, 9vw, 116px) 0; }
+    .section-head { max-width: 660px; margin: 0 auto 50px; text-align: center; }
+    .section-head .eyebrow { justify-content: center; }
+    .section-head h2 { font-size: clamp(38px, 6.5vw, 68px); margin: 14px 0 14px; }
+    .section-head p { color: var(--muted); font-size: 17px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--font-body); font-weight: 600; font-size: 15px; padding: 15px 28px; border-radius: 100px; cursor: pointer; border: 1px solid transparent; transition: transform .2s, background .2s, color .2s; white-space: nowrap; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--terra); color: #1b1613; }
+    .btn-primary:hover { background: var(--terra-soft); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--cream); border-color: var(--line); }
+    .btn-ghost:hover { border-color: var(--terra); color: var(--terra-soft); }
+    .btn-block { width: 100%; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; transition: background .3s, border-color .3s, padding .3s; border-bottom: 1px solid transparent; }
+    header.scrolled { background: rgba(27,22,19,.88); backdrop-filter: blur(14px); border-bottom-color: var(--line); padding: 12px 0; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { font-family: var(--font-display); font-size: 28px; font-weight: 700; letter-spacing: .02em; }
+    .logo .dot { color: var(--terra); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-phone { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .nav-phone svg { color: var(--terra); }
+    .burger { display: none; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; position: relative; }
+    .burger span { position: absolute; left: 11px; right: 11px; height: 2px; background: var(--cream); transition: .3s; }
+    .burger span:nth-child(1) { top: 16px; } .burger span:nth-child(2) { top: 22px; } .burger span:nth-child(3) { top: 28px; }
+    body.menu-open .burger span:nth-child(1) { top: 22px; transform: rotate(45deg); }
+    body.menu-open .burger span:nth-child(2) { opacity: 0; }
+    body.menu-open .burger span:nth-child(3) { top: 22px; transform: rotate(-45deg); }
+
+    /* PLATZHALTER */
+    .ph { position: relative; width: 100%; height: 100%; background: radial-gradient(circle at 30% 25%, rgba(204,107,67,.14), transparent 55%), linear-gradient(150deg, #2e241c, #3a2c22 55%, #241b15); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--terra-soft); text-align: center; }
+    .ph svg { opacity: .5; } .ph span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 500; opacity: .85; }
+
+    /* HERO */
+    .hero { position: relative; padding: 150px 0 80px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; top: -10%; right: -8%; width: 55vw; height: 55vw; background: radial-gradient(circle, rgba(204,107,67,.18), transparent 62%); pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; position: relative; }
+    .hero h1 { font-size: clamp(56px, 10vw, 120px); margin: 14px 0 18px; }
+    .hero h1 .accent { color: var(--terra); font-style: italic; }
+    .hero p.lead { font-size: clamp(17px, 2.1vw, 20px); color: var(--muted); max-width: 460px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0 26px; }
+    .trust { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .stars { color: var(--terra); letter-spacing: 3px; font-size: 16px; }
+    .trust small { color: var(--muted); font-size: 14px; } .trust b { color: var(--cream); }
+    .hero-visual { position: relative; }
+    .hero-photo { aspect-ratio: 4/5; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+    .hero-badge { position: absolute; bottom: 18px; left: -18px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+    .hero-badge .num { font-family: var(--font-display); font-size: 34px; font-weight: 700; color: var(--terra); line-height: 1; }
+    .hero-badge small { color: var(--muted); font-size: 12px; line-height: 1.3; display: block; }
+
+    /* MARQUEE */
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; overflow: hidden; background: var(--bg-2); }
+    .marquee-track { display: flex; gap: 40px; white-space: nowrap; width: max-content; animation: marquee 28s linear infinite; }
+    .marquee-track span { font-family: var(--font-display); font-style: italic; font-size: 28px; color: var(--cream); display: inline-flex; align-items: center; gap: 40px; }
+    .marquee-track span::after { content: "•"; color: var(--terra); font-style: normal; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* VORTEILE */
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .perk { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 34px 30px; transition: transform .25s, border-color .25s; text-align: center; }
+    .perk:hover { transform: translateY(-4px); border-color: rgba(204,107,67,.4); }
+    .perk .ico { width: 54px; height: 54px; border-radius: 50%; background: var(--bg-3); color: var(--terra); display: grid; place-items: center; margin: 0 auto 16px; }
+    .perk h3 { font-size: 26px; margin-bottom: 6px; }
+    .perk p { color: var(--muted); font-size: 15px; }
+
+    /* SPEISEKARTE */
+    #karte { background: var(--bg-2); }
+    .menu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 54px; }
+    .menu-group { margin-bottom: 18px; }
+    .menu-group h3 { font-size: 28px; color: var(--terra-soft); font-style: italic; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+    .menu-item { display: flex; align-items: baseline; gap: 12px; padding: 12px 0; }
+    .menu-item .mi-name { font-weight: 600; font-size: 16px; }
+    .menu-item .mi-desc { color: var(--muted); font-size: 13px; }
+    .menu-item .dots { flex: 1; border-bottom: 1px dotted rgba(244,234,217,.2); transform: translateY(-4px); }
+    .menu-item .mi-price { font-family: var(--font-display); font-weight: 600; font-size: 19px; color: var(--cream); white-space: nowrap; }
+    .menu-note { margin-top: 26px; color: var(--muted); font-size: 14px; text-align: center; }
+
+    /* GALERIE */
+    .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 150px; gap: 14px; }
+    .gallery .cell { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); transition: transform .25s; }
+    .gallery .cell:hover { transform: scale(1.02); }
+    .gallery .cell.tall { grid-row: span 2; } .gallery .cell.wide { grid-column: span 2; }
+
+    /* ÜBER UNS */
+    #ueber { background: var(--bg-2); }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
+    .about-visual { aspect-ratio: 4/5; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .about-copy h2 { font-size: clamp(34px, 5vw, 56px); margin: 14px 0 16px; }
+    .about-copy p { color: var(--muted); font-size: 16px; margin-bottom: 14px; }
+    .about-copy .sign { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--terra-soft); margin-top: 8px; }
+
+    /* BEWERTUNGEN */
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .review { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; gap: 14px; }
+    .review .stars { color: var(--terra); font-size: 15px; letter-spacing: 2px; }
+    .review p { font-size: 15.5px; font-style: italic; }
+    .review .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .review .ava { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--terra), var(--olive)); display: grid; place-items: center; color: #1b1613; font-weight: 700; }
+    .review .who b { font-size: 14px; display: block; } .review .who small { color: var(--muted); font-size: 12px; }
+    .grev { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 32px; color: var(--muted); font-size: 14px; } .grev b { color: var(--cream); }
+
+    /* FAQ */
+    .faq-list { max-width: 820px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q { width: 100%; background: none; border: 0; color: var(--cream); cursor: pointer; text-align: left; padding: 22px 0; font-size: 18px; font-weight: 600; font-family: var(--font-body); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .faq-q .pm { color: var(--terra); font-size: 26px; transition: transform .3s; flex-shrink: 0; }
+    .faq-item.open .faq-q .pm { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a p { padding-bottom: 22px; color: var(--muted); font-size: 15.5px; }
+
+    /* KONTAKT / RESERVIERUNG */
+    #kontakt { background: var(--bg-2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .info-block { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .info-block .ico { width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: var(--bg-3); color: var(--terra); display: grid; place-items: center; }
+    .info-block b { display: block; font-size: 15px; } .info-block span, .info-block a { color: var(--muted); font-size: 14.5px; }
+    .info-block a:hover { color: var(--terra-soft); }
+    .hours-row { display: flex; justify-content: space-between; font-size: 14.5px; padding: 6px 0; }
+    .hours-row span:first-child { color: var(--muted); }
+    .hours-row.today { color: var(--terra-soft); font-weight: 600; } .hours-row.today span { color: var(--terra-soft); }
+    .map { aspect-ratio: 16/10; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); margin-top: 22px; }
+    .form { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; }
+    .form h3 { font-size: 30px; margin-bottom: 4px; } .form > p { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 7px; }
+    .field input, .field select, .field textarea { width: 100%; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 13px 15px; color: var(--cream); font-family: var(--font-body); font-size: 15px; transition: border-color .2s; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--terra); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+    .form-success { display: none; text-align: center; padding: 30px 10px; } .form-success.show { display: block; }
+    .form-success .check { width: 64px; height: 64px; border-radius: 50%; background: var(--bg-3); color: var(--terra); display: grid; place-items: center; margin: 0 auto 18px; }
+    .form-success h3 { margin-bottom: 8px; font-size: 28px; } .form-success p { color: var(--muted); }
+
+    /* FINALER CTA */
+    .cta-banner { position: relative; text-align: center; padding: clamp(60px,9vw,110px) 0; overflow: hidden; }
+    .cta-banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(204,107,67,.16), transparent 60%); }
+    .cta-banner h2 { font-size: clamp(44px, 8vw, 92px); position: relative; }
+    .cta-banner p { color: var(--muted); margin: 14px auto 28px; max-width: 520px; position: relative; }
+    .cta-banner .hero-actions { justify-content: center; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--line); padding: 60px 0 30px; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+    .foot-grid h4 { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--terra); margin-bottom: 16px; font-weight: 600; }
+    .foot-grid p, .foot-grid a { color: var(--muted); font-size: 14.5px; }
+    .foot-grid a { display: block; margin-bottom: 9px; } .foot-grid a:hover { color: var(--cream); }
+    .foot-logo { font-family: var(--font-display); font-size: 32px; font-weight: 700; margin-bottom: 12px; }
+    .foot-bottom { border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; }
+
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 90; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.5); transition: transform .2s; }
+    .wa-float:hover { transform: scale(1.08); }
+    .demo-flag { position: fixed; top: 0; left: 0; z-index: 200; background: var(--terra); color: #1b1613; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-bottom-right-radius: 8px; }
+
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto; } .reveal { opacity: 1; transform: none; } }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; } .nav-phone span { display: none; } .burger { display: block; }
+      .nav-links.mobile { display: flex; position: fixed; inset: 0; flex-direction: column; justify-content: center; align-items: center; gap: 26px; background: rgba(27,22,19,.98); backdrop-filter: blur(8px); transform: translateX(100%); transition: transform .35s ease; z-index: 99; }
+      body.menu-open .nav-links.mobile { transform: translateX(0); }
+      .nav-links.mobile a { font-size: 26px; color: var(--cream); font-family: var(--font-display); }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; } .hero-visual { max-width: 420px; } .hero-badge { left: 0; }
+      .perks { grid-template-columns: 1fr; } .menu-cols { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: repeat(2, 1fr); } .about-grid { grid-template-columns: 1fr; }
+      .reviews, .contact-grid { grid-template-columns: 1fr; } .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 520px) { .field-row, .field-row.three { grid-template-columns: 1fr; } .hero-actions .btn { width: 100%; } }
+  </style>
+</head>
+
+<body>
+  <div class="demo-flag">Demo · ILIC ECOM HUB</div>
+
+  <header id="top">
+    <div class="wrap nav">
+      <a href="#top" class="logo">Esszimmer<span class="dot">.</span></a>
+      <nav class="nav-links">
+        <a href="#karte">Speisekarte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#ueber">Über uns</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="tel:+4923815566440" class="nav-phone">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>02381 55 664 40</span>
+        </a>
+        <a href="#kontakt" class="btn btn-primary">Tisch reservieren</a>
+        <button class="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
+      <nav class="nav-links mobile">
+        <a href="#karte">Speisekarte</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#ueber">Über uns</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#kontakt" class="btn btn-primary">Tisch reservieren</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Bistro &amp; Bar · Hamm</span>
+        <h1>Ehrlich<br><span class="accent">gekocht</span></h1>
+        <p class="lead">Regionale, saisonale Küche in gemütlicher Atmosphäre. Mittags schnell, abends entspannt — und an der Bar einen guten Tropfen.</p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Tisch reservieren
+          </a>
+          <a href="#karte" class="btn btn-ghost">Zur Speisekarte</a>
+        </div>
+        <div class="trust">
+          <span class="stars">★★★★★</span>
+          <small><b>4,8</b> · 510 Google-Bewertungen</small>
+          <small>·</small>
+          <small><b>seit 2015</b> in Hamm</small>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-photo"><div class="ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v7c0 1.1.9 2 2 2h0c1.1 0 2-.9 2-2V2M5 2v9M11 2v20M11 8c0-3 2-6 5-6v6c0 1.5-1 2-2 2"/></svg><span>Foto hier · Gericht</span></div></div>
+        <div class="hero-badge"><span class="num">Mo–So</span><small>Mittags &amp;<br>abends offen</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Regional</span><span>Saisonal</span><span>Hausgemacht</span><span>Frische Pasta</span><span>Gute Weine</span><span>Mittagstisch</span>
+      <span>Regional</span><span>Saisonal</span><span>Hausgemacht</span><span>Frische Pasta</span><span>Gute Weine</span><span>Mittagstisch</span>
+    </div>
+  </div>
+
+  <!-- VORTEILE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="perks">
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><path d="M12 6c-2 1-2 4 0 5"/></svg></div>
+          <h3>Regionale Zutaten</h3>
+          <p>Wir kaufen, wo möglich, bei Erzeugern aus der Region. Frisch, ehrlich und mit kurzen Wegen.</p>
+        </div>
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="6" width="18" height="15" rx="2"/></svg></div>
+          <h3>Wechselnde Karte</h3>
+          <p>Unsere Gerichte folgen den Jahreszeiten. So gibt es immer wieder Neues zu entdecken.</p>
+        </div>
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8M12 11v11M5 3h14l-1 5a6 6 0 0 1-12 0z"/></svg></div>
+          <h3>Bar &amp; Weine</h3>
+          <p>Ausgewählte Weine, Craft-Bier und Drinks an unserer Bar — der perfekte Ausklang.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEISEKARTE -->
+  <section id="karte" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Was auf den Tisch kommt</span>
+        <h2>Speisekarte</h2>
+        <p>Ein Auszug aus unserer aktuellen Karte. Alles frisch und hausgemacht.</p>
+      </div>
+      <div class="menu-cols reveal">
+        <div>
+          <div class="menu-group">
+            <h3>Vorspeisen</h3>
+            <div class="menu-item"><div><div class="mi-name">Tomatensuppe</div><div class="mi-desc">mit Basilikum &amp; Croûtons</div></div><div class="dots"></div><div class="mi-price">6,5</div></div>
+            <div class="menu-item"><div><div class="mi-name">Burrata</div><div class="mi-desc">mit Ofentomaten &amp; Olivenöl</div></div><div class="dots"></div><div class="mi-price">11</div></div>
+            <div class="menu-item"><div><div class="mi-name">Bruschetta</div><div class="mi-desc">geröstetes Brot, Tomate, Knoblauch</div></div><div class="dots"></div><div class="mi-price">7,5</div></div>
+          </div>
+          <div class="menu-group">
+            <h3>Hauptgerichte</h3>
+            <div class="menu-item"><div><div class="mi-name">Rinderfilet</div><div class="mi-desc">Rosmarinkartoffeln, Saisongemüse</div></div><div class="dots"></div><div class="mi-price">28</div></div>
+            <div class="menu-item"><div><div class="mi-name">Hausgemachte Pasta</div><div class="mi-desc">Pilze, Trüffel, Parmesan</div></div><div class="dots"></div><div class="mi-price">16,5</div></div>
+            <div class="menu-item"><div><div class="mi-name">Lachsfilet</div><div class="mi-desc">Risotto &amp; Zitronenbutter</div></div><div class="dots"></div><div class="mi-price">22</div></div>
+            <div class="menu-item"><div><div class="mi-name">Gemüse-Curry (vegan)</div><div class="mi-desc">Kokos, Kichererbsen, Reis</div></div><div class="dots"></div><div class="mi-price">15</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="menu-group">
+            <h3>Mittagstisch</h3>
+            <div class="menu-item"><div><div class="mi-name">Tagesgericht</div><div class="mi-desc">Mo–Fr, 12–15 Uhr, inkl. Getränk</div></div><div class="dots"></div><div class="mi-price">11,9</div></div>
+            <div class="menu-item"><div><div class="mi-name">Suppe &amp; Salat</div><div class="mi-desc">wechselnd, leicht &amp; frisch</div></div><div class="dots"></div><div class="mi-price">9,5</div></div>
+          </div>
+          <div class="menu-group">
+            <h3>Desserts</h3>
+            <div class="menu-item"><div><div class="mi-name">Tiramisu</div><div class="mi-desc">hausgemacht, klassisch</div></div><div class="dots"></div><div class="mi-price">7</div></div>
+            <div class="menu-item"><div><div class="mi-name">Schokokuchen</div><div class="mi-desc">warm, mit Vanilleeis</div></div><div class="dots"></div><div class="mi-price">7,5</div></div>
+          </div>
+          <div class="menu-group">
+            <h3>Bar &amp; Getränke</h3>
+            <div class="menu-item"><div><div class="mi-name">Offener Wein</div><div class="mi-desc">rot / weiß, 0,2 l</div></div><div class="dots"></div><div class="mi-price">5,5</div></div>
+            <div class="menu-item"><div><div class="mi-name">Aperol Spritz</div><div class="mi-desc">der Klassiker</div></div><div class="dots"></div><div class="mi-price">8</div></div>
+            <div class="menu-item"><div><div class="mi-name">Craft-Bier</div><div class="mi-desc">wechselnd, 0,33 l</div></div><div class="dots"></div><div class="mi-price">4,9</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="menu-note">Alle Preise in €. Vegetarische &amp; vegane Gerichte gekennzeichnet — fragen Sie gern unser Team. Allergene auf Anfrage.</p>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Appetit holen</span>
+        <h2>Galerie</h2>
+        <p>Ein paar Eindrücke von Küche, Tisch und Atmosphäre.</p>
+      </div>
+      <div class="gallery reveal">
+        <div class="cell tall"><div class="ph"><span>Gericht</span></div></div>
+        <div class="cell"><div class="ph"><span>Pasta</span></div></div>
+        <div class="cell"><div class="ph"><span>Dessert</span></div></div>
+        <div class="cell wide"><div class="ph"><span>Gastraum</span></div></div>
+        <div class="cell"><div class="ph"><span>Bar</span></div></div>
+        <div class="cell"><div class="ph"><span>Drink</span></div></div>
+        <div class="cell wide"><div class="ph"><span>Abendstimmung</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÜBER UNS -->
+  <section id="ueber" class="section">
+    <div class="wrap about-grid">
+      <div class="about-visual reveal"><div class="ph"><span>Foto: Küchenchef</span></div></div>
+      <div class="about-copy reveal">
+        <span class="eyebrow">Unsere Geschichte</span>
+        <h2>Aus Liebe zum guten Essen</h2>
+        <p>Das Esszimmer ist 2015 aus einer einfachen Idee entstanden: ein Ort, an dem man sich wie zu Hause fühlt — nur dass jemand anderes kocht. Seitdem stehen wir jeden Tag in der Küche, um regionale Produkte in ehrliche, gute Gerichte zu verwandeln.</p>
+        <p>Ob schneller Mittagstisch, langes Abendessen mit Freunden oder ein Glas Wein an der Bar — bei uns sollst du dich wohlfühlen. Ganz ohne Schnickschnack, dafür mit viel Geschmack.</p>
+        <div class="sign">— Marco &amp; das Esszimmer-Team</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEWERTUNGEN -->
+  <section id="bewertungen" class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Was Gäste sagen</span>
+        <h2>Bewertungen</h2>
+        <p>Über 510 Bewertungen mit einem Schnitt von 4,8 Sternen.</p>
+      </div>
+      <div class="reviews">
+        <div class="review reveal"><span class="stars">★★★★★</span><p>„Das beste Rinderfilet, das ich seit Langem hatte. Tolle Atmosphäre, aufmerksamer Service. Wir kommen wieder!"</p><div class="who"><div class="ava">FK</div><div><b>Felix K.</b><small>Google · vor 1 Woche</small></div></div></div>
+        <div class="review reveal"><span class="stars">★★★★★</span><p>„Mittagstisch top und fair, abends gemütlich mit gutem Wein. Schön, dass es so etwas in Hamm gibt."</p><div class="who"><div class="ava">AD</div><div><b>Anja D.</b><small>Google · vor 2 Wochen</small></div></div></div>
+        <div class="review reveal"><span class="stars">★★★★★</span><p>„Super freundlich, auch mit Kindern. Die hausgemachte Pasta ist ein Traum. Reservieren lohnt sich!"</p><div class="who"><div class="ava">MS</div><div><b>Martin S.</b><small>Google · vor 1 Monat</small></div></div></div>
+      </div>
+      <div class="grev reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+        <span><b>4,8 / 5,0</b> aus 510 Google-Bewertungen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Gut zu wissen</span><h2>Häufige Fragen</h2></div>
+      <div class="faq-list reveal">
+        <div class="faq-item"><button class="faq-q">Muss ich reservieren? <span class="pm">+</span></button><div class="faq-a"><p>Gerade abends und am Wochenende empfehlen wir eine Reservierung. Spontan ist aber auch immer einen Versuch wert — fragen Sie einfach.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Gibt es vegetarische &amp; vegane Gerichte? <span class="pm">+</span></button><div class="faq-a"><p>Ja, auf unserer Karte finden Sie immer fleischlose und vegane Optionen. Unser Team berät Sie gern.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Wo kann ich parken? <span class="pm">+</span></button><div class="faq-a"><p>In den Seitenstraßen finden Sie kostenlose Parkplätze, das Parkhaus am Markt ist 4 Gehminuten entfernt.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Bietet ihr Feiern &amp; Catering an? <span class="pm">+</span></button><div class="faq-a"><p>Für Geburtstage, Firmenfeiern und Familienfeste haben wir Platz und passende Menüs. Sprechen Sie uns auf Catering an.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Sind Hunde willkommen? <span class="pm">+</span></button><div class="faq-a"><p>Liebe Vierbeiner sind bei uns herzlich willkommen — ein Wassernapf steht bereit.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT / RESERVIERUNG -->
+  <section id="kontakt" class="section">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Reservierung &amp; Standort</span><h2>Tisch reservieren</h2><p>Sichern Sie sich Ihren Platz — wir bestätigen Ihre Reservierung schnellstmöglich.</p></div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="info-block"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Adresse</b><span>Marktplatz 5, 59065 Hamm</span></div></div>
+          <div class="info-block"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><b>Telefon</b><a href="tel:+4923815566440">02381 55 664 40</a></div></div>
+          <div class="info-block"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><b>E-Mail</b><a href="mailto:reservierung@esszimmer-hamm.de">reservierung@esszimmer-hamm.de</a></div></div>
+          <div style="margin-top:24px;">
+            <b style="display:block;margin-bottom:12px;font-size:15px;">Öffnungszeiten</b>
+            <div class="hours-row" data-day="1"><span>Montag</span><span>Ruhetag</span></div>
+            <div class="hours-row" data-day="2"><span>Dienstag</span><span>12:00 – 22:00</span></div>
+            <div class="hours-row" data-day="3"><span>Mittwoch</span><span>12:00 – 22:00</span></div>
+            <div class="hours-row" data-day="4"><span>Donnerstag</span><span>12:00 – 22:00</span></div>
+            <div class="hours-row" data-day="5"><span>Freitag</span><span>12:00 – 23:30</span></div>
+            <div class="hours-row" data-day="6"><span>Samstag</span><span>17:00 – 23:30</span></div>
+            <div class="hours-row" data-day="0"><span>Sonntag</span><span>12:00 – 21:00</span></div>
+          </div>
+          <div class="map"><div class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Google-Maps-Karte</span></div></div>
+        </div>
+        <div class="reveal">
+          <form class="form" id="bookForm" novalidate>
+            <h3>Reservierung</h3>
+            <p>Wir bestätigen Ihre Anfrage telefonisch oder per Mail.</p>
+            <div class="field-row">
+              <div class="field"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Ihr Name" required /></div>
+              <div class="field"><label for="phone">Telefon</label><input type="tel" id="phone" name="phone" placeholder="0151 …" required /></div>
+            </div>
+            <div class="field-row three">
+              <div class="field"><label for="date">Datum</label><input type="date" id="date" name="date" /></div>
+              <div class="field"><label for="time">Uhrzeit</label><input type="time" id="time" name="time" value="19:00" /></div>
+              <div class="field"><label for="persons">Personen</label>
+                <select id="persons" name="persons"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7+</option></select>
+              </div>
+            </div>
+            <div class="field"><label for="msg">Anmerkung (optional)</label><textarea id="msg" name="msg" rows="3" placeholder="z. B. Tisch am Fenster, Geburtstag, Allergien"></textarea></div>
+            <button type="submit" class="btn btn-primary btn-block">Reservierung anfragen</button>
+            <p style="font-size:12px;color:var(--muted);margin-top:12px;text-align:center;">Demo-Formular — sendet keine echten Daten.</p>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg></div>
+            <h3>Reservierung angefragt!</h3>
+            <p>Danke — in einer echten Version würden wir Ihren Tisch jetzt bestätigen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALER CTA -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <h2>Hunger bekommen?</h2>
+      <p>Reservieren Sie Ihren Tisch im Esszimmer — wir freuen uns auf Sie.</p>
+      <div class="hero-actions"><a href="#kontakt" class="btn btn-primary">Tisch reservieren</a><a href="tel:+4923815566440" class="btn btn-ghost">02381 55 664 40</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div><div class="foot-logo">Esszimmer.</div><p>Bistro &amp; Bar in Hamm. Regionale, saisonale Küche — ehrlich gekocht, seit 2015.</p></div>
+        <div><h4>Entdecken</h4><a href="#karte">Speisekarte</a><a href="#galerie">Galerie</a><a href="#ueber">Über uns</a><a href="#kontakt">Reservieren</a></div>
+        <div><h4>Kontakt</h4><a href="tel:+4923815566440">02381 55 664 40</a><a href="mailto:reservierung@esszimmer-hamm.de">reservierung@esszimmer-hamm.de</a><p>Marktplatz 5<br>59065 Hamm</p></div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Esszimmer Bistro &amp; Bar — Demo-Website</span>
+        <span><a href="#">Impressum</a> · <a href="#">Datenschutz</a> &nbsp;|&nbsp; Erstellt von ILIC ECOM HUB®</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/4923815566440" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.06zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <script>
+    const header = document.querySelector('header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+    window.addEventListener('scroll', onScroll); onScroll();
+
+    document.querySelector('.burger').addEventListener('click', () => document.body.classList.toggle('menu-open'));
+    document.querySelectorAll('.nav-links.mobile a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
+
+    const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement, answer = btn.nextElementSibling, isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
+        if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+      });
+    });
+
+    const today = new Date().getDay();
+    const row = document.querySelector('.hours-row[data-day="' + today + '"]');
+    if (row) { row.classList.add('today'); row.querySelector('span').textContent = 'Heute'; }
+
+    const form = document.getElementById('bookForm');
+    form.addEventListener('submit', (e) => { e.preventDefault(); if (!form.name.value.trim() || !form.phone.value.trim()) { alert('Bitte Name und Telefonnummer ausfüllen.'); return; } form.style.display = 'none'; document.getElementById('formSuccess').classList.add('show'); });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  DEMO-WEBSITE · TATTOO STUDIO "INKHAUS" (Hamm)
+  ----------------------------------------------------------------------------
+  Erstellt für ILIC ECOM HUB® als Referenz-/Demo-Site.
+  Erfundenes Studio, Platzhalter statt Fotos. Eine eigenständige index.html.
+  Dunkle, künstlerische Identität — Schwarz, Knochen-Weiß, Crimson.
+  Besonderheit: filterbares Portfolio nach Stilen (JS).
+  ============================================================================
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INKHAUS — Tattoo Studio in Hamm | Fine Line · Blackwork · Realistik</title>
+  <meta name="description" content="Inkhaus — Tattoo Studio in Hamm. Fine Line, Blackwork, Realistik, Lettering und mehr. Eigene Entwürfe, sterile Hygiene, erfahrene Artists. Jetzt Anfrage senden." />
+
+  <meta property="og:title" content="INKHAUS — Tattoo Studio in Hamm" />
+  <meta property="og:description" content="Dein Tattoo, von der ersten Idee bis zur letzten Linie." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts: Anton (schweres Display) + Inter (Fließtext) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230c0c0d'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%23e23744' font-family='Arial' font-weight='bold'%3EI%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    /* DESIGN-TOKENS — Schwarz + Knochen-Weiß + Crimson */
+    :root {
+      --bg:        #0c0c0d;
+      --bg-2:      #141416;
+      --bg-3:      #1b1b1e;
+      --bone:      #ece7df;   /* Knochen-Weiß — Text */
+      --muted:     #8a8682;
+      --crimson:   #e23744;   /* Akzent */
+      --crimson-soft:#ff5a66;
+      --line:      rgba(236,231,223,.12);
+
+      --maxw: 1180px; --radius: 12px; --radius-sm: 8px;
+      --shadow: 0 24px 60px -26px rgba(0,0,0,.8);
+
+      --font-display: 'Anton', Impact, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--bone); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; } ul { list-style: none; }
+    .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+
+    .eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--crimson); font-weight: 700; display: inline-flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--crimson); }
+
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: .96; letter-spacing: .01em; text-transform: uppercase; }
+
+    .section { padding: clamp(60px, 9vw, 116px) 0; }
+    .section-head { max-width: 660px; margin-bottom: 48px; }
+    .section-head.center { margin: 0 auto 48px; text-align: center; } .section-head.center .eyebrow { justify-content: center; }
+    .section-head h2 { font-size: clamp(40px, 7vw, 72px); margin: 14px 0 14px; }
+    .section-head p { color: var(--muted); font-size: 17px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--font-body); font-weight: 600; font-size: 15px; padding: 15px 28px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid transparent; transition: transform .2s, background .2s, color .2s; white-space: nowrap; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--crimson); color: #fff; }
+    .btn-primary:hover { background: var(--crimson-soft); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--bone); border-color: var(--line); }
+    .btn-ghost:hover { border-color: var(--crimson); color: var(--crimson-soft); }
+    .btn-block { width: 100%; }
+
+    /* HEADER */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; transition: background .3s, border-color .3s, padding .3s; border-bottom: 1px solid transparent; }
+    header.scrolled { background: rgba(12,12,13,.9); backdrop-filter: blur(14px); border-bottom-color: var(--line); padding: 12px 0; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { font-family: var(--font-display); font-size: 28px; letter-spacing: .04em; text-transform: uppercase; }
+    .logo .dot { color: var(--crimson); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--bone); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-phone { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+    .nav-phone svg { color: var(--crimson); }
+    .burger { display: none; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; position: relative; }
+    .burger span { position: absolute; left: 11px; right: 11px; height: 2px; background: var(--bone); transition: .3s; }
+    .burger span:nth-child(1) { top: 16px; } .burger span:nth-child(2) { top: 22px; } .burger span:nth-child(3) { top: 28px; }
+    body.menu-open .burger span:nth-child(1) { top: 22px; transform: rotate(45deg); }
+    body.menu-open .burger span:nth-child(2) { opacity: 0; }
+    body.menu-open .burger span:nth-child(3) { top: 22px; transform: rotate(-45deg); }
+
+    /* PLATZHALTER */
+    .ph { position: relative; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, rgba(226,55,68,.05) 0 14px, transparent 14px 28px), linear-gradient(150deg, #1a1a1d, #232327 55%, #121214); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); text-align: center; }
+    .ph svg { opacity: .45; } .ph span { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; }
+
+    /* HERO */
+    .hero { position: relative; padding: 150px 0 80px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; top: -10%; right: -8%; width: 56vw; height: 56vw; background: radial-gradient(circle, rgba(226,55,68,.18), transparent 60%); pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; position: relative; }
+    .hero h1 { font-size: clamp(60px, 12vw, 150px); margin: 16px 0; }
+    .hero h1 .accent { color: var(--crimson); }
+    .hero p.lead { font-size: clamp(17px, 2.1vw, 20px); color: var(--muted); max-width: 460px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin: 32px 0 26px; }
+    .trust { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .stars { color: var(--crimson); letter-spacing: 3px; font-size: 16px; }
+    .trust small { color: var(--muted); font-size: 14px; } .trust b { color: var(--bone); }
+    .hero-visual { position: relative; }
+    .hero-photo { aspect-ratio: 4/5; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+    .hero-badge { position: absolute; bottom: 18px; left: -18px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+    .hero-badge .num { font-family: var(--font-display); font-size: 32px; color: var(--crimson); line-height: 1; }
+    .hero-badge small { color: var(--muted); font-size: 12px; line-height: 1.3; display: block; }
+
+    /* MARQUEE */
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; overflow: hidden; background: var(--bg-2); }
+    .marquee-track { display: flex; gap: 44px; white-space: nowrap; width: max-content; animation: marquee 26s linear infinite; }
+    .marquee-track span { font-family: var(--font-display); font-size: 26px; letter-spacing: .04em; color: var(--bone); text-transform: uppercase; display: inline-flex; align-items: center; gap: 44px; }
+    .marquee-track span::after { content: "✶"; color: var(--crimson); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* VORTEILE */
+    .perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .perk { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 28px; transition: transform .25s, border-color .25s; }
+    .perk:hover { transform: translateY(-4px); border-color: rgba(226,55,68,.45); }
+    .perk .ico { width: 52px; height: 52px; border-radius: 10px; background: rgba(226,55,68,.12); color: var(--crimson); display: grid; place-items: center; margin-bottom: 16px; }
+    .perk h3 { font-size: 24px; margin-bottom: 8px; }
+    .perk p { color: var(--muted); font-size: 15px; }
+
+    /* PORTFOLIO / STILE (filterbar) */
+    #portfolio { background: var(--bg-2); }
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+    .filter-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); font-family: var(--font-body); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 9px 18px; border-radius: 100px; cursor: pointer; transition: all .2s; }
+    .filter-btn:hover { color: var(--bone); border-color: var(--bone); }
+    .filter-btn.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .pf { aspect-ratio: 3/4; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); position: relative; transition: transform .25s, opacity .3s; }
+    .pf:hover { transform: scale(1.02); }
+    .pf .label { position: absolute; left: 10px; bottom: 10px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; background: rgba(12,12,13,.7); color: var(--bone); padding: 5px 10px; border-radius: 100px; }
+    .pf.hide { display: none; }
+
+    /* KÜNSTLER */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .barber { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+    .barber .pic { aspect-ratio: 1/1; } .barber .info { padding: 22px 24px; }
+    .barber .info h3 { font-size: 26px; } .barber .role { color: var(--crimson); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; margin: 4px 0 10px; }
+    .barber .info p { color: var(--muted); font-size: 14.5px; }
+    .barber .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .barber .tags span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--bone); border: 1px solid var(--line); padding: 5px 10px; border-radius: 100px; }
+
+    /* ABLAUF */
+    #ablauf { background: var(--bg-2); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .step { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 24px; }
+    .step .n { font-family: var(--font-display); font-size: 40px; color: var(--crimson); line-height: 1; margin-bottom: 10px; }
+    .step h3 { font-size: 20px; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: 14px; }
+
+    /* BEWERTUNGEN */
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .review { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .review .stars { color: var(--crimson); font-size: 15px; letter-spacing: 2px; }
+    .review p { font-size: 15.5px; }
+    .review .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .review .ava { width: 42px; height: 42px; border-radius: 8px; background: var(--crimson); display: grid; place-items: center; color: #fff; font-weight: 700; }
+    .review .who b { font-size: 14px; display: block; } .review .who small { color: var(--muted); font-size: 12px; }
+    .grev { display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; color: var(--muted); font-size: 14px; } .grev b { color: var(--bone); }
+
+    /* FAQ */
+    .faq-list { max-width: 820px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q { width: 100%; background: none; border: 0; color: var(--bone); cursor: pointer; text-align: left; padding: 22px 0; font-size: 18px; font-weight: 600; font-family: var(--font-body); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .faq-q .pm { color: var(--crimson); font-size: 26px; transition: transform .3s; flex-shrink: 0; }
+    .faq-item.open .faq-q .pm { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a p { padding-bottom: 22px; color: var(--muted); font-size: 15.5px; }
+
+    /* KONTAKT */
+    #kontakt { background: var(--bg-2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .info-block { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .info-block .ico { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: rgba(226,55,68,.12); color: var(--crimson); display: grid; place-items: center; }
+    .info-block b { display: block; font-size: 15px; } .info-block span, .info-block a { color: var(--muted); font-size: 14.5px; }
+    .info-block a:hover { color: var(--crimson-soft); }
+    .hours-row { display: flex; justify-content: space-between; font-size: 14.5px; padding: 6px 0; }
+    .hours-row span:first-child { color: var(--muted); }
+    .hours-row.today { color: var(--crimson-soft); font-weight: 600; } .hours-row.today span { color: var(--crimson-soft); }
+    .map { aspect-ratio: 16/10; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); margin-top: 22px; }
+    .form { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+    .form h3 { font-size: 30px; margin-bottom: 4px; } .form > p { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 7px; }
+    .field input, .field select, .field textarea { width: 100%; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 13px 15px; color: var(--bone); font-family: var(--font-body); font-size: 15px; transition: border-color .2s; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--crimson); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    /* Datei-Upload (Demo) */
+    .file-drop { border: 1.5px dashed var(--line); border-radius: var(--radius-sm); padding: 18px; text-align: center; color: var(--muted); font-size: 13.5px; cursor: pointer; transition: border-color .2s, color .2s; }
+    .file-drop:hover { border-color: var(--crimson); color: var(--bone); }
+    .file-drop input { display: none; }
+    .file-drop svg { color: var(--crimson); margin-bottom: 6px; }
+    .form-success { display: none; text-align: center; padding: 30px 10px; } .form-success.show { display: block; }
+    .form-success .check { width: 64px; height: 64px; border-radius: 50%; background: rgba(226,55,68,.15); color: var(--crimson); display: grid; place-items: center; margin: 0 auto 18px; }
+    .form-success h3 { margin-bottom: 8px; font-size: 28px; } .form-success p { color: var(--muted); }
+
+    /* FINALER CTA */
+    .cta-banner { position: relative; text-align: center; padding: clamp(60px,9vw,110px) 0; overflow: hidden; }
+    .cta-banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(226,55,68,.18), transparent 60%); }
+    .cta-banner h2 { font-size: clamp(46px, 9vw, 100px); position: relative; }
+    .cta-banner p { color: var(--muted); margin: 14px auto 28px; max-width: 520px; position: relative; }
+    .cta-banner .hero-actions { justify-content: center; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--line); padding: 60px 0 30px; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 44px; }
+    .foot-grid h4 { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--crimson); margin-bottom: 16px; font-weight: 700; }
+    .foot-grid p, .foot-grid a { color: var(--muted); font-size: 14.5px; }
+    .foot-grid a { display: block; margin-bottom: 9px; } .foot-grid a:hover { color: var(--bone); }
+    .foot-logo { font-family: var(--font-display); font-size: 30px; margin-bottom: 12px; text-transform: uppercase; }
+    .foot-bottom { border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; }
+
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 90; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.5); transition: transform .2s; }
+    .wa-float:hover { transform: scale(1.08); }
+    .demo-flag { position: fixed; top: 0; left: 0; z-index: 200; background: var(--crimson); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-bottom-right-radius: 8px; }
+
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto; } .reveal { opacity: 1; transform: none; } }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; } .nav-phone span { display: none; } .burger { display: block; }
+      .nav-links.mobile { display: flex; position: fixed; inset: 0; flex-direction: column; justify-content: center; align-items: center; gap: 26px; background: rgba(12,12,13,.98); backdrop-filter: blur(8px); transform: translateX(100%); transition: transform .35s ease; z-index: 99; }
+      body.menu-open .nav-links.mobile { transform: translateX(0); }
+      .nav-links.mobile a { font-size: 26px; color: var(--bone); font-family: var(--font-display); }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; } .hero-visual { max-width: 420px; } .hero-badge { left: 0; }
+      .perks { grid-template-columns: 1fr; } .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid, .reviews, .contact-grid { grid-template-columns: 1fr; } .steps { grid-template-columns: 1fr 1fr; }
+      .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } .steps { grid-template-columns: 1fr; } .hero-actions .btn { width: 100%; } }
+  </style>
+</head>
+
+<body>
+  <div class="demo-flag">Demo · ILIC ECOM HUB</div>
+
+  <header id="top">
+    <div class="wrap nav">
+      <a href="#top" class="logo">INK<span class="dot">·</span>HAUS</a>
+      <nav class="nav-links">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#artists">Artists</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="tel:+4923818899110" class="nav-phone">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>02381 88 991 10</span>
+        </a>
+        <a href="#kontakt" class="btn btn-primary">Anfrage senden</a>
+        <button class="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+      </div>
+      <nav class="nav-links mobile">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#artists">Artists</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="#kontakt" class="btn btn-primary">Anfrage senden</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Tattoo Studio · Hamm</span>
+        <h1>Dein<br>Statement<br><span class="accent">in Haut</span></h1>
+        <p class="lead">Von der ersten Idee bis zur letzten Linie. Individuelle Entwürfe, saubere Arbeit und ein Studio, in dem du dich wohlfühlst.</p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4-14 14H4v-4z"/><path d="m14 6 4 4"/></svg>
+            Anfrage senden
+          </a>
+          <a href="#portfolio" class="btn btn-ghost">Portfolio ansehen</a>
+        </div>
+        <div class="trust">
+          <span class="stars">★★★★★</span>
+          <small><b>4,9</b> · 270 Google-Bewertungen</small>
+          <small>·</small>
+          <small><b>seit 2016</b> in Hamm</small>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="hero-photo"><div class="ph"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m18 2 4 4-14 14H4v-4z"/><path d="m14 6 4 4"/></svg><span>Foto hier · Tattoo</span></div></div>
+        <div class="hero-badge"><span class="num">100%</span><small>eigene<br>Entwürfe</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Fine Line</span><span>Blackwork</span><span>Realistik</span><span>Old School</span><span>Lettering</span><span>Geometrie</span>
+      <span>Fine Line</span><span>Blackwork</span><span>Realistik</span><span>Old School</span><span>Lettering</span><span>Geometrie</span>
+    </div>
+  </div>
+
+  <!-- VORTEILE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="perks">
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 2 4 4-14 14H4v-4z"/><path d="m14 6 4 4"/></svg></div>
+          <h3>Eigene Entwürfe</h3>
+          <p>Jedes Motiv wird individuell für dich gezeichnet — kein Katalog von der Stange, sondern dein Design.</p>
+        </div>
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Sterile Hygiene</h3>
+          <p>Steril verpacktes Einwegmaterial, geprüfte Farben und höchste Hygienestandards — deine Sicherheit zuerst.</p>
+        </div>
+        <div class="perk reveal">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 15 9l7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg></div>
+          <h3>Erfahrene Artists</h3>
+          <p>Drei Tätowierer mit eigenen Spezialgebieten — für genau den Stil, der zu deiner Idee passt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="section">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Arbeiten nach Stilen</span>
+        <h2>Portfolio</h2>
+        <p>Filtere nach Stil und finde Inspiration für dein nächstes Tattoo.</p>
+      </div>
+      <!-- Filter-Buttons (steuern per JS, welche Kacheln sichtbar sind) -->
+      <div class="filters reveal">
+        <button class="filter-btn active" data-filter="all">Alle</button>
+        <button class="filter-btn" data-filter="fineline">Fine Line</button>
+        <button class="filter-btn" data-filter="blackwork">Blackwork</button>
+        <button class="filter-btn" data-filter="realistik">Realistik</button>
+        <button class="filter-btn" data-filter="oldschool">Old School</button>
+        <button class="filter-btn" data-filter="lettering">Lettering</button>
+      </div>
+      <div class="portfolio-grid reveal">
+        <div class="pf" data-style="fineline"><div class="ph"><span>Fine Line</span></div><span class="label">Fine Line</span></div>
+        <div class="pf" data-style="blackwork"><div class="ph"><span>Blackwork</span></div><span class="label">Blackwork</span></div>
+        <div class="pf" data-style="realistik"><div class="ph"><span>Realistik</span></div><span class="label">Realistik</span></div>
+        <div class="pf" data-style="oldschool"><div class="ph"><span>Old School</span></div><span class="label">Old School</span></div>
+        <div class="pf" data-style="lettering"><div class="ph"><span>Lettering</span></div><span class="label">Lettering</span></div>
+        <div class="pf" data-style="fineline"><div class="ph"><span>Fine Line</span></div><span class="label">Fine Line</span></div>
+        <div class="pf" data-style="blackwork"><div class="ph"><span>Blackwork</span></div><span class="label">Blackwork</span></div>
+        <div class="pf" data-style="realistik"><div class="ph"><span>Realistik</span></div><span class="label">Realistik</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTISTS -->
+  <section id="artists" class="section">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Die Köpfe hinter der Nadel</span>
+        <h2>Unsere Artists</h2>
+        <p>Jeder mit eigener Handschrift — gemeinsam decken wir fast jeden Stil ab.</p>
+      </div>
+      <div class="team-grid">
+        <div class="barber reveal"><div class="pic"><div class="ph"><span>Foto: Niko</span></div></div><div class="info"><h3>Niko</h3><div class="role">Inhaber · Realistik</div><p>Gründete Inkhaus 2016. Spezialist für fotorealistische Porträts und Schwarz-Grau.</p><div class="tags"><span>Realistik</span><span>Black &amp; Grey</span></div></div></div>
+        <div class="barber reveal"><div class="pic"><div class="ph"><span>Foto: Mara</span></div></div><div class="info"><h3>Mara</h3><div class="role">Artist · Fine Line</div><p>Feine Linien, florale Motive und filigrane Designs mit ruhiger Hand.</p><div class="tags"><span>Fine Line</span><span>Floral</span></div></div></div>
+        <div class="barber reveal"><div class="pic"><div class="ph"><span>Foto: Ben</span></div></div><div class="info"><h3>Ben</h3><div class="role">Artist · Blackwork</div><p>Kräftiges Blackwork, Geometrie und Old-School-Klassiker mit klarer Linie.</p><div class="tags"><span>Blackwork</span><span>Old School</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABLAUF -->
+  <section id="ablauf" class="section">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">So entsteht dein Tattoo</span>
+        <h2>Der Ablauf</h2>
+        <p>Vier Schritte von der Idee bis zum fertigen Werk.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="n">01</div><h3>Anfrage</h3><p>Schick uns deine Idee und gern ein Referenzbild. Wir melden uns mit allen Infos.</p></div>
+        <div class="step reveal"><div class="n">02</div><h3>Beratung</h3><p>Im Studio besprechen wir Motiv, Größe, Platzierung und Preis — ganz in Ruhe.</p></div>
+        <div class="step reveal"><div class="n">03</div><h3>Entwurf</h3><p>Dein Artist zeichnet einen individuellen Entwurf. Feinschliff machen wir gemeinsam.</p></div>
+        <div class="step reveal"><div class="n">04</div><h3>Termin</h3><p>Am Tattoo-Tag setzen wir dein Motiv — und du bekommst eine Pflegeanleitung mit.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEWERTUNGEN -->
+  <section id="bewertungen" class="section">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Was Kunden sagen</span>
+        <h2>Bewertungen</h2>
+        <p>Über 270 Bewertungen mit einem Schnitt von 4,9 Sternen.</p>
+      </div>
+      <div class="reviews">
+        <div class="review reveal"><span class="stars">★★★★★</span><p>„Niko hat mein Porträt-Tattoo umgesetzt — unglaublich detailliert. Super Beratung, top Hygiene, mega Ergebnis."</p><div class="who"><div class="ava">TM</div><div><b>Tobias M.</b><small>Google · vor 2 Wochen</small></div></div></div>
+        <div class="review reveal"><span class="stars">★★★★★</span><p>„Mein erstes Tattoo bei Mara — sie hat mir die Angst genommen und das Fine-Line-Design ist perfekt geworden."</p><div class="who"><div class="ava">LW</div><div><b>Lisa W.</b><small>Google · vor 1 Monat</small></div></div></div>
+        <div class="review reveal"><span class="stars">★★★★★</span><p>„Sauberes Studio, ehrliche Beratung, faire Preise. Ben hat mein Blackwork richtig clean gestochen. Klare Empfehlung!"</p><div class="who"><div class="ava">DK</div><div><b>Deniz K.</b><small>Google · vor 3 Wochen</small></div></div></div>
+      </div>
+      <div class="grev reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+        <span><b>4,9 / 5,0</b> aus 270 Google-Bewertungen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head center reveal"><span class="eyebrow">Gut zu wissen</span><h2>Häufige Fragen</h2></div>
+      <div class="faq-list reveal">
+        <div class="faq-item"><button class="faq-q">Was kostet ein Tattoo? <span class="pm">+</span></button><div class="faq-a"><p>Das hängt von Größe, Stil und Aufwand ab. Kleine Motive starten ab ca. 90 €, größere rechnen wir pro Stunde ab. Im Beratungsgespräch nennen wir dir einen festen Preis.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Ab welchem Alter kann ich mich tätowieren lassen? <span class="pm">+</span></button><div class="faq-a"><p>Ab 18 Jahren ohne Einschränkung. Minderjährige tätowieren wir nicht — auch nicht mit Einverständnis der Eltern.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Tut es weh? <span class="pm">+</span></button><div class="faq-a"><p>Ein gewisses Gefühl ist normal, aber gut auszuhalten. Wir arbeiten ruhig, machen Pausen und nehmen Rücksicht — gerade beim ersten Mal.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Wie steht es um die Hygiene? <span class="pm">+</span></button><div class="faq-a"><p>Wir arbeiten ausschließlich mit steril verpacktem Einwegmaterial und geprüften Farben. Sauberkeit hat bei uns oberste Priorität.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Kann ich mein eigenes Motiv mitbringen? <span class="pm">+</span></button><div class="faq-a"><p>Unbedingt. Schick uns deine Idee oder Referenzbilder über das Formular — wir entwickeln daraus einen individuellen Entwurf.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt" class="section">
+    <div class="wrap">
+      <div class="section-head center reveal"><span class="eyebrow">Anfrage &amp; Standort</span><h2>Anfrage senden</h2><p>Beschreib deine Idee, häng gern ein Referenzbild an — wir melden uns mit Terminvorschlägen.</p></div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="info-block"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Adresse</b><span>Bahnhofstraße 30, 59065 Hamm</span></div></div>
+          <div class="info-block"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><b>Telefon</b><a href="tel:+4923818899110">02381 88 991 10</a></div></div>
+          <div class="info-block"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><b>E-Mail &amp; Insta</b><a href="mailto:hey@inkhaus-hamm.de">hey@inkhaus-hamm.de · @inkhaus.hamm</a></div></div>
+          <div style="margin-top:24px;">
+            <b style="display:block;margin-bottom:12px;font-size:15px;">Öffnungszeiten</b>
+            <div class="hours-row" data-day="1"><span>Montag</span><span>Geschlossen</span></div>
+            <div class="hours-row" data-day="2"><span>Dienstag</span><span>11:00 – 19:00</span></div>
+            <div class="hours-row" data-day="3"><span>Mittwoch</span><span>11:00 – 19:00</span></div>
+            <div class="hours-row" data-day="4"><span>Donnerstag</span><span>11:00 – 20:00</span></div>
+            <div class="hours-row" data-day="5"><span>Freitag</span><span>11:00 – 20:00</span></div>
+            <div class="hours-row" data-day="6"><span>Samstag</span><span>10:00 – 16:00</span></div>
+            <div class="hours-row" data-day="0"><span>Sonntag</span><span>Geschlossen</span></div>
+          </div>
+          <div class="map"><div class="ph"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Google-Maps-Karte</span></div></div>
+        </div>
+        <div class="reveal">
+          <form class="form" id="bookForm" novalidate>
+            <h3>Tattoo-Anfrage</h3>
+            <p>Je mehr Infos, desto besser können wir dich beraten.</p>
+            <div class="field-row">
+              <div class="field"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Dein Name" required /></div>
+              <div class="field"><label for="phone">Telefon</label><input type="tel" id="phone" name="phone" placeholder="0151 …" required /></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label for="style">Stil</label>
+                <select id="style" name="style"><option>Fine Line</option><option>Blackwork</option><option>Realistik</option><option>Old School</option><option>Lettering</option><option>Geometrie</option><option>Noch unklar</option></select>
+              </div>
+              <div class="field"><label for="size">Größe (ca.)</label>
+                <select id="size" name="size"><option>Klein (bis 8 cm)</option><option>Mittel (8–15 cm)</option><option>Groß (15 cm+)</option><option>Sleeve / großflächig</option></select>
+              </div>
+            </div>
+            <div class="field"><label for="msg">Deine Idee</label><textarea id="msg" name="msg" rows="3" placeholder="Motiv, Körperstelle, Wunschtermin …"></textarea></div>
+            <div class="field">
+              <label>Referenzbild (optional)</label>
+              <label class="file-drop" for="ref">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg><br>
+                Motiv oder Referenz anhängen
+                <input type="file" id="ref" name="ref" accept="image/*" />
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Anfrage senden</button>
+            <p style="font-size:12px;color:var(--muted);margin-top:12px;text-align:center;">Demo-Formular — sendet keine echten Daten.</p>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg></div>
+            <h3>Anfrage gesendet!</h3>
+            <p>Danke — in einer echten Version würden wir uns jetzt mit Terminvorschlägen melden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALER CTA -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <h2>Bereit für<br>frische Tinte?</h2>
+      <p>Schick uns deine Idee — der Rest entsteht gemeinsam im Inkhaus.</p>
+      <div class="hero-actions"><a href="#kontakt" class="btn btn-primary">Anfrage senden</a><a href="tel:+4923818899110" class="btn btn-ghost">02381 88 991 10</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div><div class="foot-logo">INK·HAUS</div><p>Tattoo Studio in Hamm. Individuelle Entwürfe, saubere Arbeit, erfahrene Artists — seit 2016.</p></div>
+        <div><h4>Studio</h4><a href="#portfolio">Portfolio</a><a href="#artists">Artists</a><a href="#ablauf">Ablauf</a><a href="#kontakt">Anfrage</a></div>
+        <div><h4>Kontakt</h4><a href="tel:+4923818899110">02381 88 991 10</a><a href="mailto:hey@inkhaus-hamm.de">hey@inkhaus-hamm.de</a><p>Bahnhofstraße 30<br>59065 Hamm</p></div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Inkhaus Tattoo — Demo-Website</span>
+        <span><a href="#">Impressum</a> · <a href="#">Datenschutz</a> &nbsp;|&nbsp; Erstellt von ILIC ECOM HUB®</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/4923818899110" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.06zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <script>
+    const header = document.querySelector('header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+    window.addEventListener('scroll', onScroll); onScroll();
+
+    document.querySelector('.burger').addEventListener('click', () => document.body.classList.toggle('menu-open'));
+    document.querySelectorAll('.nav-links.mobile a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
+
+    const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* Portfolio-Filter: Buttons zeigen/verstecken Kacheln nach data-style */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const tiles = document.querySelectorAll('.pf');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        tiles.forEach(t => t.classList.toggle('hide', f !== 'all' && t.dataset.style !== f));
+      });
+    });
+
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement, answer = btn.nextElementSibling, isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
+        if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
+      });
+    });
+
+    const today = new Date().getDay();
+    const row = document.querySelector('.hours-row[data-day="' + today + '"]');
+    if (row) { row.classList.add('today'); row.querySelector('span').textContent = 'Heute'; }
+
+    const form = document.getElementById('bookForm');
+    form.addEventListener('submit', (e) => { e.preventDefault(); if (!form.name.value.trim() || !form.phone.value.trim()) { alert('Bitte Name und Telefonnummer ausfüllen.'); return; } form.style.display = 'none'; document.getElementById('formSuccess').classList.add('show'); });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
