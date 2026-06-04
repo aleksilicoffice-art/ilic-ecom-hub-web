@@ -212,6 +212,9 @@ footer .mark .top{border-bottom-color:var(--cream)}
 footer .legal{font-size:.84rem;display:flex;gap:22px;flex-wrap:wrap}
 footer .legal span{display:block}
 .imp{font-size:.8rem;color:rgba(246,241,233,.45);margin-top:14px;line-height:1.7}
+.legal-links{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:6px}
+.legal-links a{font-size:.85rem;color:rgba(246,241,233,.78);font-weight:600}
+.legal-links a:hover{color:var(--cream)}
 
 /* ---------- MOBILE ---------- */
 #mob{position:fixed;inset:0;background:var(--cream);z-index:1500;transform:translateX(100%);transition:transform .4s ease;display:flex;flex-direction:column;padding:30px 28px;gap:8px}
@@ -238,7 +241,7 @@ footer .legal span{display:block}
     <a href="#top" class="mark" aria-label="ILIC ECOM HUB">
       <span class="bar"></span>
       <span class="stack">
-        <span class="top">ILIC<span class="reg">®</span></span>
+        <span class="top">ILIC</span>
         <span class="bot">ECOM HUB</span>
       </span>
     </a>
@@ -508,7 +511,7 @@ footer .legal span{display:block}
     <div class="mark">
       <span class="bar"></span>
       <span class="stack">
-        <span class="top">ILIC<span class="reg">®</span></span>
+        <span class="top">ILIC</span>
         <span class="bot">ECOM HUB</span>
       </span>
     </div>
@@ -519,7 +522,13 @@ footer .legal span{display:block}
     </div>
   </div>
   <div class="wrap">
-    <p class="imp">Impressum: Aleksandar Ilic · Östingstraße 103, 59067 Hamm · E-Mail: aleksilic.office@gmail.com · Tel: 0176 43478923 · Kleingewerbe gem. §19 UStG. — Vollständiges Impressum & Datenschutzerklärung vor Veröffentlichung ergänzen.</p>
+    <nav class="legal-links" aria-label="Rechtliches">
+      <a href="./impressum.html">Impressum</a>
+      <a href="./datenschutz.html">Datenschutz</a>
+      <a href="./agb.html">AGB</a>
+      <a href="./widerruf.html">Widerrufsbelehrung</a>
+    </nav>
+    <p class="imp">Aleksandar Ilic · Östingstraße 103, 59067 Hamm · Kleinunternehmer gem. § 19 UStG</p>
   </div>
 </footer>
 
