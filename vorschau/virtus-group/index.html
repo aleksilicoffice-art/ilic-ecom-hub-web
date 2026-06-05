@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<!--
+  DEMO-WEBSITE · VIRTUS GROUP GMBH (Großküchentechnik, Hamm)
+  Erstellt von ILIC ECOM HUB als Pitch-Demo. Inhalte/Bilder vom Betrieb.
+  Eigenständige Datei (HTML + CSS + JS inline). Mobil-first.
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Virtus Group GmbH — Großküchentechnik aus Hamm | Solutions for Cooking</title>
+  <meta name="description" content="Virtus Group GmbH — Hersteller & Distributor professioneller Großküchentechnik aus Hamm. Kochtechnik, Kühlung, Spültechnik & Cook & Chill. In über 60 Ländern. Seit 1989." />
+  <meta property="og:title" content="Virtus Group GmbH — Solutions for Cooking" />
+  <meta property="og:description" content="Professionelle Großküchentechnik aus Hamm. In über 60 Ländern. Seit 1989." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230c0e12'/%3E%3Ctext x='50' y='70' font-size='62' text-anchor='middle' fill='%23ffffff' font-family='Arial Black,sans-serif' font-weight='900'%3EV%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN-TOKENS
+       ============================================================ */
+    :root {
+      --ink:      #0b0d11;   /* fast schwarz */
+      --ink-2:    #12151c;   /* karten */
+      --ink-3:    #1a1f29;   /* linien/felder */
+      --steel:    #e8ecf3;   /* haupttext hell */
+      --muted:    #8a93a4;   /* gedämpft */
+      --blue:     #2f7be6;   /* Virtus-Blau Akzent */
+      --blue-2:   #5aa0ff;
+      --gold:     #c8ad75;   /* champagner (premium-akzent) */
+      --line:     rgba(232,236,243,.10);
+      --maxw:     1240px;
+      --radius:   16px;
+      --radius-sm:10px;
+      --font-d:  'Oswald', system-ui, sans-serif;
+      --font-b:  'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--steel);
+      font-family: var(--font-b);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    section { position: relative; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    h1, h2, h3, .display {
+      font-family: var(--font-d);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+    .eyebrow {
+      font-family: var(--font-d);
+      font-weight: 500;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      font-size: 12.5px;
+      color: var(--gold);
+      display: inline-flex; align-items: center; gap: 12px;
+    }
+    .eyebrow::before { content:""; width: 34px; height: 1px; background: var(--gold); opacity: .7; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-d); font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; font-size: 14px;
+      padding: 15px 28px; border-radius: 999px;
+      border: 1px solid transparent; cursor: pointer;
+      transition: transform .2s, background .2s, border-color .2s, color .2s;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-2); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--steel); border-color: rgba(232,236,243,.25); }
+    .btn-ghost:hover { border-color: var(--steel); transform: translateY(-2px); }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 0; transition: padding .3s, background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+    header.scrolled {
+      padding: 11px 0;
+      background: rgba(11,13,17,.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo .mark {
+      width: 38px; height: 38px; flex: 0 0 38px;
+      display: grid; place-items: center;
+    }
+    .logo .mark svg { width: 100%; height: 100%; }
+    .logo .word {
+      font-family: var(--font-d); font-weight: 700; font-size: 25px;
+      letter-spacing: .02em; text-transform: none; color: #fff;
+    }
+    .logo .word b { color: var(--blue-2); font-weight: 700; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--steel); }
+    .nav-cta { display: flex; align-items: center; gap: 14px; }
+    .burger { display: none; background: none; border: 0; cursor: pointer; flex-direction: column; gap: 5px; padding: 6px; }
+    .burger span { width: 24px; height: 2px; background: var(--steel); transition: .3s; }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 140px 0 80px; position: relative; overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .42; transform: scale(1.05); }
+    .hero-bg::after {
+      content:""; position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(11,13,17,.6) 0%, rgba(11,13,17,.4) 40%, var(--ink) 100%),
+        radial-gradient(900px 500px at 25% 35%, rgba(47,123,230,.20), transparent 70%);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 820px; }
+    .hero h1 {
+      font-size: clamp(44px, 8vw, 92px); font-weight: 700; margin: 20px 0 18px;
+      color: #fff; letter-spacing: .005em;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(100deg, var(--blue-2), var(--gold));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p.lead { font-size: clamp(16px, 2.2vw, 20px); color: var(--steel); max-width: 600px; margin-bottom: 34px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 46px; }
+    .hero-trust { display: flex; gap: 30px; flex-wrap: wrap; align-items: center; }
+    .hero-trust .ht { display: flex; flex-direction: column; }
+    .hero-trust .ht b { font-family: var(--font-d); font-size: 30px; font-weight: 600; color: #fff; line-height: 1; }
+    .hero-trust .ht span { font-size: 12.5px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-top: 6px; }
+    .hero-trust .sep { width: 1px; height: 40px; background: var(--line); }
+
+    /* ============================================================
+       MARQUEE
+       ============================================================ */
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; overflow: hidden; background: var(--ink-2); }
+    .marquee-track { display: flex; gap: 48px; white-space: nowrap; animation: scroll 32s linear infinite; }
+    .marquee-track span { font-family: var(--font-d); font-weight: 500; letter-spacing: .18em; text-transform: uppercase; font-size: 15px; color: var(--muted); display: inline-flex; align-items: center; gap: 48px; }
+    .marquee-track span::after { content: "◆"; color: var(--blue); font-size: 9px; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    /* ============================================================
+       ALLGEMEIN SECTION
+       ============================================================ */
+    .section { padding: 100px 0; }
+    .section-head { max-width: 720px; margin-bottom: 56px; }
+    .section-head h2 { font-size: clamp(32px, 5vw, 52px); margin: 16px 0 16px; color: #fff; }
+    .section-head p { color: var(--muted); font-size: 17px; }
+    .center { text-align: center; margin-left: auto; margin-right: auto; }
+    .center .eyebrow { justify-content: center; }
+
+    /* PILLARS */
+    .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .pillar {
+      background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 34px 26px; transition: transform .25s, border-color .25s, background .25s;
+    }
+    .pillar:hover { transform: translateY(-6px); border-color: rgba(47,123,230,.5); background: #141a24; }
+    .pillar .ico { width: 52px; height: 52px; color: var(--blue-2); margin-bottom: 22px; }
+    .pillar h3 { font-size: 21px; color: #fff; margin-bottom: 10px; }
+    .pillar p { font-size: 14.5px; color: var(--muted); }
+
+    /* STATS */
+    .stats { background: linear-gradient(180deg, var(--ink-2), var(--ink)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 64px 0; }
+    .stat { text-align: center; }
+    .stat b { font-family: var(--font-d); font-weight: 600; font-size: clamp(40px, 6vw, 60px); color: #fff; line-height: 1; display: block; }
+    .stat b .accent { color: var(--gold); }
+    .stat span { display: block; margin-top: 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    /* PRODUKTE GRID */
+    .prod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .prod {
+      position: relative; background: var(--ink-2); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 30px 28px; overflow: hidden;
+      transition: transform .25s, border-color .25s;
+    }
+    .prod::before {
+      content:""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(var(--blue), var(--gold)); transform: scaleY(0); transform-origin: top; transition: transform .3s;
+    }
+    .prod:hover { transform: translateY(-5px); border-color: rgba(232,236,243,.2); }
+    .prod:hover::before { transform: scaleY(1); }
+    .prod .ico { width: 40px; height: 40px; color: var(--blue-2); margin-bottom: 18px; }
+    .prod h3 { font-size: 19px; color: #fff; margin-bottom: 8px; }
+    .prod p { font-size: 14px; color: var(--muted); }
+
+    /* FEATURE SPLIT */
+    .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .feature.rev .f-media { order: 2; }
+    .f-media { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); position: relative; aspect-ratio: 4/5; }
+    .f-media img { width: 100%; height: 100%; object-fit: cover; }
+    .f-body h2 { font-size: clamp(30px, 4.5vw, 46px); color: #fff; margin: 16px 0 18px; }
+    .f-body p { color: var(--muted); font-size: 16px; margin-bottom: 16px; }
+    .f-list { list-style: none; display: grid; gap: 12px; margin-top: 24px; }
+    .f-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--steel); }
+    .f-list li svg { flex: 0 0 20px; color: var(--blue-2); margin-top: 2px; }
+
+    /* WORLDWIDE */
+    .world { background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+    .world .big { font-family: var(--font-d); font-weight: 600; font-size: clamp(36px, 6vw, 68px); color: #fff; text-transform: uppercase; line-height: 1.05; }
+    .world .big .accent { color: var(--blue-2); }
+    .world .locs { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 40px; }
+    .world .loc b { font-family: var(--font-d); font-size: 22px; color: #fff; display: block; }
+    .world .loc span { font-size: 13px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* REFERENZEN */
+    .ref-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .ref {
+      position: relative; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 4/3;
+      border: 1px solid var(--line);
+    }
+    .ref.tall { grid-row: span 2; aspect-ratio: auto; }
+    .ref img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .ref:hover img { transform: scale(1.06); }
+    .ref .cap {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 16px 14px;
+      background: linear-gradient(transparent, rgba(11,13,17,.92));
+    }
+    .ref .cap b { font-family: var(--font-d); font-weight: 600; font-size: 15px; color: #fff; display: block; letter-spacing: .04em; }
+    .ref .cap span { font-size: 12px; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ABOUT */
+    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-media { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/11; }
+    .about-media img { width: 100%; height: 100%; object-fit: cover; }
+    .about-body h2 { font-size: clamp(30px, 4.5vw, 46px); color: #fff; margin: 16px 0 18px; }
+    .about-body p { color: var(--muted); font-size: 16px; margin-bottom: 16px; }
+    .about-body .sign { font-family: var(--font-d); color: var(--steel); font-size: 18px; margin-top: 22px; letter-spacing: .02em; }
+
+    /* KONTAKT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+    .info-block { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .info-block .ico { width: 42px; height: 42px; flex: 0 0 42px; border-radius: 10px; background: var(--ink-3); display: grid; place-items: center; color: var(--blue-2); }
+    .info-block .ico svg { width: 20px; height: 20px; }
+    .info-block b { display: block; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+    .info-block a, .info-block span { color: var(--steel); font-size: 16px; }
+    .map { aspect-ratio: 16/10; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); margin-top: 26px; }
+    .map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(.3) invert(.9) hue-rotate(180deg); }
+    .form { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 34px; }
+    .form h3 { font-size: 24px; color: #fff; margin-bottom: 6px; }
+    .form > p { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 7px; letter-spacing: .04em; }
+    .field input, .field textarea, .field select {
+      width: 100%; background: var(--ink); border: 1px solid var(--ink-3); border-radius: var(--radius-sm);
+      padding: 13px 15px; color: var(--steel); font-family: var(--font-b); font-size: 15px; transition: border-color .2s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--blue); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form .btn-primary { width: 100%; justify-content: center; margin-top: 6px; }
+    .form-note { font-size: 12px; color: var(--muted); margin-top: 14px; text-align: center; }
+
+    /* CTA BANNER */
+    .cta-banner { padding: 90px 0; text-align: center; position: relative; overflow: hidden; }
+    .cta-banner::before { content:""; position: absolute; inset: 0; background: radial-gradient(700px 340px at 50% 0%, rgba(47,123,230,.22), transparent 70%); }
+    .cta-banner .inner { position: relative; }
+    .cta-banner h2 { font-size: clamp(32px, 5.5vw, 58px); color: #fff; margin-bottom: 18px; }
+    .cta-banner p { color: var(--muted); font-size: 17px; margin-bottom: 30px; }
+    .cta-banner .hero-actions { justify-content: center; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--line); padding: 64px 0 30px; background: var(--ink-2); }
+    .foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 44px; }
+    .foot-logo { font-family: var(--font-d); font-weight: 700; font-size: 26px; color: #fff; margin-bottom: 14px; }
+    .foot-grid p, .foot-grid a { color: var(--muted); font-size: 14.5px; }
+    .foot-grid h4 { font-family: var(--font-d); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; font-size: 13px; color: var(--steel); margin-bottom: 16px; }
+    .foot-grid .col a { display: block; margin-bottom: 9px; transition: color .2s; }
+    .foot-grid .col a:hover { color: var(--steel); }
+    .foot-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+
+    /* REVEAL ANIM */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s, transform .7s; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .nav-cta .btn-primary { display: none; }
+      .burger { display: flex; }
+      .nav-links.open { display: flex; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: rgba(11,13,17,.97); backdrop-filter: blur(14px); padding: 24px; gap: 20px; border-bottom: 1px solid var(--line); }
+      .pillars { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .prod-grid { grid-template-columns: repeat(2, 1fr); }
+      .feature, .about, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+      .feature.rev .f-media { order: 0; }
+      .f-media { aspect-ratio: 16/11; }
+      .ref-grid { grid-template-columns: repeat(2, 1fr); }
+      .ref.tall { grid-row: span 1; aspect-ratio: 4/3; }
+      .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .hero-trust { gap: 20px; }
+      .hero-trust .sep { display: none; }
+    }
+    @media (max-width: 560px) {
+      .section { padding: 70px 0; }
+      .pillars, .stats-grid, .prod-grid, .ref-grid, .field-row { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header id="top">
+    <div class="wrap nav">
+      <a href="#top" class="logo" aria-label="Virtus Group">
+        <span class="mark">
+          <svg viewBox="0 0 100 100" fill="none">
+            <path d="M50 6 L88 20 V50 C88 74 71 90 50 96 C29 90 12 74 12 50 V20 Z" fill="#12151c" stroke="#2f7be6" stroke-width="3"/>
+            <path d="M34 44c4-7 11-9 16-6 2-5 7-7 12-5-3 1-5 4-5 7 4 1 7 4 8 8-5-3-9-3-13-1-3-4-8-5-12-3-2-2-4-2-6 0z" fill="#e8ecf3"/>
+          </svg>
+        </span>
+        <span class="word">Virtus<b>.</b></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#produkte">Produkte</a>
+        <a href="#referenzen">Referenzen</a>
+        <a href="#ueber">Über uns</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#kontakt" class="btn btn-primary">Anfrage stellen</a>
+        <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-bg"><img src="fotos/slider01.jpg" alt="Virtus Firmensitz" /></div>
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Großküchentechnik seit 1989</span>
+      <h1>Solutions for<br><span class="grad">Cooking.</span></h1>
+      <p class="lead">Professionelle Großküchentechnik aus Hamm — Kochen, Kühlen, Spülen und Cook&nbsp;&amp;&nbsp;Chill. Ein Sortiment, ein Partner, weltweit lieferbereit.</p>
+      <div class="hero-actions">
+        <a href="#produkte" class="btn btn-primary">Produktwelt entdecken</a>
+        <a href="#kontakt" class="btn btn-ghost">Beratung anfragen</a>
+      </div>
+      <div class="hero-trust">
+        <div class="ht"><b>1989</b><span>Gegründet</span></div>
+        <div class="sep"></div>
+        <div class="ht"><b>60+</b><span>Länder beliefert</span></div>
+        <div class="sep"></div>
+        <div class="ht"><b>20.000&nbsp;m²</b><span>Lagerfläche</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Kochtechnik</span><span>Cook &amp; Chill</span><span>Kühlung</span><span>Spültechnik</span><span>Edelstahlmöbel</span><span>Pizzeria</span><span>Bar &amp; Café</span><span>Hygiene</span>
+      <span>Kochtechnik</span><span>Cook &amp; Chill</span><span>Kühlung</span><span>Spültechnik</span><span>Edelstahlmöbel</span><span>Pizzeria</span><span>Bar &amp; Café</span><span>Hygiene</span>
+    </div>
+  </div>
+
+  <!-- ================= PILLARS / LEISTUNGEN ================= -->
+  <section class="section" id="leistungen">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Vier Kompetenzen, ein Anbieter</span>
+        <h2>Alles für die Profiküche</h2>
+        <p>Von der Flamme bis zur Spüle: Wir liefern aufeinander abgestimmte Technik für jede gewerbliche Küche — sofort ab Lager.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar reveal">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c1 3-2 4-2 7a2 2 0 0 0 4 0c0-1 0-2 1-3 2 2 3 4 3 7a6 6 0 1 1-12 0c0-4 4-6 6-11z"/></svg>
+          <h3>Kochtechnik</h3>
+          <p>Herdreihen 700 &amp; 900, Heißluftöfen und Kombidämpfer für höchste Ansprüche.</p>
+        </div>
+        <div class="pillar reveal">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M4 7l16 10M20 7L4 17M12 2l3 3M12 2L9 5M12 22l3-3M12 22l-3-3M4 7l.3 3.5M20 17l-.3-3.5M20 7l-.3 3.5M4 17l.3-3.5"/></svg>
+          <h3>Kühlung</h3>
+          <p>Schockkühler, Kühl- und Tiefkühlschränke der Serie „Evolution" — zuverlässig &amp; effizient.</p>
+        </div>
+        <div class="pillar reveal">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c3 4 5 6 5 9a5 5 0 0 1-10 0c0-3 2-5 5-9z"/></svg>
+          <h3>Spültechnik</h3>
+          <p>Hauben-, Korb- und Bandspülmaschinen — hygienisch sauber, sparsam im Verbrauch.</p>
+        </div>
+        <div class="pillar reveal">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M6 8a6 6 0 0 1 12 0M6.5 8c-1.6.6-2.5 2-2.5 3.6 0 1 .6 1.4 1.5 1.4h13c.9 0 1.5-.4 1.5-1.4 0-1.6-.9-3-2.5-3.6M7 13v8M17 13v8M7 17h10"/></svg>
+          <h3>Profi-Ausstattung</h3>
+          <p>Edelstahlmöbel, Vorbereitung, Lüftung &amp; Hygiene — die komplette Kücheneinrichtung.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat reveal"><b data-count="35" data-suffix="+">0</b><span>Jahre Erfahrung</span></div>
+      <div class="stat reveal"><b data-count="60" data-suffix="+">0</b><span>Länder weltweit</span></div>
+      <div class="stat reveal"><b><span class="accent">19</span></b><span>Produktbereiche</span></div>
+      <div class="stat reveal"><b data-count="20000" data-suffix=" m²">0</b><span>Lager &amp; Logistik</span></div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUKTE ================= -->
+  <section class="section" id="produkte">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Produktwelt</span>
+        <h2>Ein Sortiment für jede Küche</h2>
+        <p>19 Produktbereiche unter einem Dach — von der À-la-carte-Linie bis zur Großverpflegung. Permanent ab Lager verfügbar.</p>
+      </div>
+      <div class="prod-grid">
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M7 7h.01M11 7h.01"/></svg><h3>Kochserien 700 / 900</h3><p>Modulare Herdreihen für intensiven Dauerbetrieb.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h4"/></svg><h3>Cook &amp; Chill</h3><p>Heißluftöfen + Schockkühler perfekt aufeinander abgestimmt.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6v4M9 14v4"/></svg><h3>Kühlung „Evolution"</h3><p>Kühl- &amp; Tiefkühlschränke, Schockkühler, energieeffizient.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="4"/></svg><h3>Spülmaschinen</h3><p>Hauben-, Front- und Bandspülsysteme für jede Größe.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V8l8-4 8 4v12M4 20h16M9 20v-6h6v6"/></svg><h3>Edelstahlmöbel</h3><p>Arbeitstische, Schränke, Spülen — robust &amp; hygienisch.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7l3 5h-6z"/></svg><h3>Pizzeria</h3><p>Pizzaöfen, Teigtechnik &amp; Kühltische für Pizzabetriebe.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h13a3 3 0 0 1 0 6h-1M4 8v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M7 4v2M11 4v2"/></svg><h3>Bar, Café &amp; Eis</h3><p>Ausstattung für Cafeterias, Bars und Eisdielen.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h12l-1 7H7zM7 10l-1 11h12l-1-11M9 14h6"/></svg><h3>Hygiene &amp; Reinigung</h3><p>Spülchemie, Reinigung und Abfallbehandlung.</p></div>
+        <div class="prod reveal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18M3 12a9 9 0 0 1 18 0M3 12a9 9 0 0 0 18 0M12 3v18"/></svg><h3>Internationale Küche</h3><p>Spezialgeräte für Küchen aller Kulturen weltweit.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE: COOK & CHILL ================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="feature reveal">
+        <div class="f-media"><img src="fotos/cook-snack-11.jpg" alt="Cook & Snack — Foodservice" /></div>
+        <div class="f-body">
+          <span class="eyebrow">The Pursuit of Excellence</span>
+          <h2>Technik, die Köche stärker macht</h2>
+          <p>Jedes Gerät von Virtus ist darauf ausgelegt, exzellente und reproduzierbare Ergebnisse zu liefern — Service für Service, ohne Kompromisse.</p>
+          <ul class="f-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Aufeinander abgestimmte Geräte aus einer Hand</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Permanente Lagerverfügbarkeit des Sortiments</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Schnelle Logistik &amp; zuverlässiger After-Sales-Service</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURE: EXCELLENCE (reversed) ================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="feature rev reveal">
+        <div class="f-media"><img src="fotos/excellenge-11.jpg" alt="Virtus — Pursuit of Excellence" /></div>
+        <div class="f-body">
+          <span class="eyebrow">Mehr als ein Lieferant</span>
+          <h2>Ein echter Partner</h2>
+          <p>Virtus ist kein reiner Großhandel: Vom Großhändler zum Hersteller gewachsen, begleiten wir Gastronomen, Hotels und Caterer von der Planung bis zum laufenden Betrieb.</p>
+          <p>Diese Nähe zum Handwerk macht den Unterschied — wir verstehen, was eine Profiküche wirklich braucht, weil unsere Wurzeln genau dort liegen.</p>
+          <div class="hero-actions" style="margin-top:26px;margin-bottom:0;">
+            <a href="#referenzen" class="btn btn-ghost">Unsere Projekte ansehen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WORLDWIDE ================= -->
+  <section class="section world">
+    <div class="wrap reveal">
+      <span class="eyebrow center" style="display:flex;justify-content:center;margin-bottom:20px;">Weltweit zuhause</span>
+      <div class="big">In über <span class="accent">60 Ländern</span><br>die Wahl der Profis</div>
+      <div class="locs">
+        <div class="loc"><b>Hamm</b><span>Deutschland · Hauptsitz</span></div>
+        <div class="loc"><b>Lainate</b><span>Italien · Logistikzentrum</span></div>
+        <div class="loc"><b>5 Kontinente</b><span>Hotels · Restaurants · Ketten</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REFERENZEN ================= -->
+  <section class="section" id="referenzen">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Referenzen</span>
+        <h2>Vertrauen rund um den Globus</h2>
+        <p>Vom 5-Sterne-Resort bis zur internationalen Restaurantkette — Küchen mit Virtus-Technik stehen weltweit für Qualität.</p>
+      </div>
+      <div class="ref-grid">
+        <div class="ref tall reveal"><img src="fotos/RegentHotel.jpg" alt="Regent Hotel"><div class="cap"><b>Regent Hotel</b><span>Tivat · Montenegro</span></div></div>
+        <div class="ref reveal"><img src="fotos/Maafushivaru.jpg" alt="Maafushivaru Resort"><div class="cap"><b>Maafushivaru Resort</b><span>Malediven</span></div></div>
+        <div class="ref reveal"><img src="fotos/experience-04.jpg" alt="Papa John's"><div class="cap"><b>Papa John's</b><span>International</span></div></div>
+        <div class="ref reveal"><img src="fotos/SEVSAMORA_resortspa.jpg" alt="Sevsamora Resort & Spa"><div class="cap"><b>Sevsamora Resort &amp; Spa</b><span>Tbilisi · Georgien</span></div></div>
+        <div class="ref tall reveal"><img src="fotos/experience-11.jpg" alt="Konokono Beach Resort"><div class="cap"><b>Konokono Beach Resort</b><span>Sansibar</span></div></div>
+        <div class="ref reveal"><img src="fotos/Bocconcino.jpg" alt="Bocconcino"><div class="cap"><b>Bocconcino</b><span>London · UK</span></div></div>
+        <div class="ref reveal"><img src="fotos/experience-13.jpg" alt="I Galletti"><div class="cap"><b>I Galletti</b><span>Münster · DE</span></div></div>
+        <div class="ref reveal"><img src="fotos/experience-16.jpg" alt="Blend Brothers"><div class="cap"><b>Blend Brothers</b><span>Marrakesch · MA</span></div></div>
+        <div class="ref reveal"><img src="fotos/experience-06.jpg" alt="Virgin Megastore"><div class="cap"><b>Virgin Megastore</b><span>Marrakech · MA</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section" id="ueber" style="background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="about">
+        <div class="about-media reveal"><img src="fotos/slider03.jpg" alt="Virtus Group Standort"></div>
+        <div class="about-body reveal">
+          <span class="eyebrow">Über Virtus</span>
+          <h2>Seit 1989 in der Profiküche zuhause</h2>
+          <p>Was Francesco Marrocchino 1989 mit über 15 Jahren Gastronomie-Erfahrung begann, führte sein Sohn Vittorio 2004 zur heutigen Virtus Group GmbH weiter — und vollzog den Wandel vom Großhandel zum Hersteller.</p>
+          <p>Von Hamm aus halten wir das gesamte Sortiment dauerhaft auf Lager und liefern schnell in über 60 Länder. Ein zweites Logistikzentrum in Lainate (Italien) stärkt unsere Reichweite zusätzlich.</p>
+          <div class="sign">„Virtus — much more than a supplier, a real Partner."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KONTAKT ================= -->
+  <section class="section" id="kontakt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Kontakt &amp; Standort</span>
+        <h2>Sprechen wir über Ihre Küche</h2>
+        <p>Ob Planung, Angebot oder Ersatzteil — unser Team in Hamm ist für Sie da.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><b>Adresse</b><span>Hüserstraße 53, 59075 Hamm, Deutschland</span></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><b>Telefon</b><a href="tel:+4923819737110">+49 (0)2381 97371-0</a></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div>
+            <div><b>E-Mail</b><a href="mailto:info@virtusnet.de">info@virtusnet.de</a></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+            <div><b>Fax</b><span>+49 (0)2381 97371-88</span></div>
+          </div>
+          <div class="map">
+            <iframe title="Standort Virtus Group Hamm" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=H%C3%BCserstra%C3%9Fe%2053%2C%2059075%20Hamm&z=15&output=embed"></iframe>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form class="form" id="anfrageForm" novalidate>
+            <h3>Anfrage stellen</h3>
+            <p>Wir melden uns kurzfristig mit einem passenden Angebot.</p>
+            <div class="field-row">
+              <div class="field"><label for="name">Name</label><input id="name" type="text" placeholder="Ihr Name" required></div>
+              <div class="field"><label for="firma">Firma</label><input id="firma" type="text" placeholder="Betrieb / Hotel"></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label for="email">E-Mail</label><input id="email" type="email" placeholder="name@firma.de" required></div>
+              <div class="field"><label for="tel">Telefon</label><input id="tel" type="tel" placeholder="Für Rückfragen"></div>
+            </div>
+            <div class="field">
+              <label for="bereich">Interesse</label>
+              <select id="bereich">
+                <option>Kochtechnik (700 / 900)</option>
+                <option>Cook &amp; Chill</option>
+                <option>Kühlung</option>
+                <option>Spültechnik</option>
+                <option>Komplette Kücheneinrichtung</option>
+                <option>Ersatzteile &amp; Service</option>
+              </select>
+            </div>
+            <div class="field"><label for="nachricht">Nachricht</label><textarea id="nachricht" rows="4" placeholder="Worum geht es?"></textarea></div>
+            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+            <p class="form-note">Demo-Formular — versendet keine echten Daten.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BANNER ================= -->
+  <section class="cta-banner">
+    <div class="wrap inner reveal">
+      <h2>Bereit für die nächste Stufe?</h2>
+      <p>Rüsten Sie Ihre Küche mit Technik aus, die Profis weltweit vertrauen.</p>
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary">Jetzt Beratung anfragen</a>
+        <a href="tel:+4923819737110" class="btn btn-ghost">+49 2381 97371-0</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-logo">Virtus<span style="color:var(--blue-2)">.</span></div>
+          <p>Professionelle Großküchentechnik aus Hamm. Solutions for cooking — in über 60 Ländern.</p>
+        </div>
+        <div class="col">
+          <h4>Produkte</h4>
+          <a href="#produkte">Kochtechnik</a>
+          <a href="#produkte">Cook &amp; Chill</a>
+          <a href="#produkte">Kühlung</a>
+          <a href="#produkte">Spültechnik</a>
+        </div>
+        <div class="col">
+          <h4>Unternehmen</h4>
+          <a href="#ueber">Über uns</a>
+          <a href="#referenzen">Referenzen</a>
+          <a href="#kontakt">Kontakt</a>
+          <a href="#kontakt">Karriere</a>
+        </div>
+        <div class="col">
+          <h4>Kontakt</h4>
+          <a href="tel:+4923819737110">+49 2381 97371-0</a>
+          <a href="mailto:info@virtusnet.de">info@virtusnet.de</a>
+          <p>Hüserstraße 53<br>59075 Hamm</p>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> Virtus Group GmbH — Demo-Website</span>
+        <span><a href="../../../agency-website/impressum.html">Impressum</a> · <a href="../../../agency-website/datenschutz.html">Datenschutz</a> &nbsp;|&nbsp; Konzept &amp; Design: ILIC ECOM HUB</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Jahr
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Header-Scroll
+    const header = document.getElementById('top');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 30);
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mobile-Menü
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Scroll-Reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Zähler-Animation
+    const fmt = n => n.toLocaleString('de-DE');
+    const counters = document.querySelectorAll('[data-count]');
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target; const target = +el.dataset.count; const suffix = el.dataset.suffix || '';
+        let cur = 0; const step = Math.ceil(target / 60);
+        const tick = () => { cur += step; if (cur >= target) { el.textContent = fmt(target) + suffix; } else { el.textContent = fmt(cur) + suffix; requestAnimationFrame(tick); } };
+        tick(); cio.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => cio.observe(c));
+
+    // Formular (Demo)
+    document.getElementById('anfrageForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.target.querySelector('button').textContent = 'Danke! (Demo)';
+    });
+  </script>
+</body>
+</html>
