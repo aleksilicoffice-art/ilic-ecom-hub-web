@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+  DEMO-WEBSITE · STRASSENFARBE Tattooladen Hamm
+  Erstellt von ILIC ECOM HUB als Pitch-Demo. Inhalte/Bilder vom Betrieb.
+  Eigenständige Datei (HTML + CSS + JS inline). Mobil-first.
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>STRASSENFARBE — Tattooladen Hamm | Realism · Fine Line · Blackwork</title>
+  <meta name="description" content="STRASSENFARBE Tattooladen in Hamm. Realism, Fine Line, Blackwork, Portrait, Lettering & mehr. Termin anfragen, Beratung mittwochs. Banningstraße 15, 59067 Hamm." />
+  <meta property="og:title" content="STRASSENFARBE — Tattooladen Hamm" />
+  <meta property="og:description" content="Dein Tattoo, dein Statement. Realism, Fine Line, Blackwork & mehr — mitten in Hamm." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230b0b0d'/%3E%3Ctext x='50' y='71' font-size='60' text-anchor='middle' fill='%23e11d2a' font-family='Arial Black,sans-serif' font-weight='900'%3ES%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --ink:#0a0a0c; --ink-2:#121216; --ink-3:#1c1c22;
+      --bone:#f2efe9; --muted:#8c8c96;
+      --red:#e11d2a; --red-2:#ff3b45;
+      --line:rgba(242,239,233,.10);
+      --maxw:1240px; --radius:14px;
+      --fd:'Oswald',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--ink);color:var(--bone);font-family:var(--fb);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+    img{display:block;max-width:100%;}
+    a{color:inherit;text-decoration:none;}
+    h1,h2,h3,.dsp{font-family:var(--fd);font-weight:600;line-height:1.02;text-transform:uppercase;letter-spacing:.01em;}
+    .eyebrow{font-family:var(--fd);font-weight:500;letter-spacing:.3em;text-transform:uppercase;font-size:12.5px;color:var(--red-2);display:inline-flex;align-items:center;gap:12px;}
+    .eyebrow::before{content:"";width:30px;height:2px;background:var(--red);}
+    .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:14px;padding:15px 28px;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,color .2s;}
+    .btn-primary{background:var(--red);color:#fff;}
+    .btn-primary:hover{background:var(--red-2);transform:translateY(-2px);}
+    .btn-ghost{background:transparent;color:var(--bone);border-color:rgba(242,239,233,.28);}
+    .btn-ghost:hover{border-color:var(--bone);transform:translateY(-2px);}
+
+    /* HEADER */
+    header{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:.3s;border-bottom:1px solid transparent;}
+    header.scrolled{padding:11px 0;background:rgba(10,10,12,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+    .nav{display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:center;gap:12px;}
+    .logo img{height:38px;width:auto;}
+    .logo .word{font-family:var(--fd);font-weight:700;font-size:23px;letter-spacing:.04em;color:#fff;}
+    .nav-links{display:flex;align-items:center;gap:30px;}
+    .nav-links a{font-size:14px;color:var(--muted);font-weight:500;transition:color .2s;}
+    .nav-links a:hover{color:var(--bone);}
+    .nav-cta{display:flex;align-items:center;gap:14px;}
+    .burger{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:6px;}
+    .burger span{width:24px;height:2px;background:var(--bone);}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 80px;position:relative;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;z-index:0;}
+    .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;}
+    .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.55),rgba(10,10,12,.4) 35%,var(--ink) 100%),radial-gradient(800px 460px at 22% 40%,rgba(225,29,42,.22),transparent 70%);}
+    .hero-inner{position:relative;z-index:2;max-width:840px;}
+    .hero h1{font-size:clamp(46px,9vw,108px);font-weight:700;margin:20px 0 18px;color:#fff;}
+    .hero h1 .red{color:var(--red-2);}
+    .hero p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--bone);max-width:580px;margin-bottom:32px;}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:42px;}
+    .hero-trust{display:flex;gap:28px;flex-wrap:wrap;align-items:center;}
+    .hero-trust .ht b{font-family:var(--fd);font-size:28px;font-weight:600;color:#fff;display:block;line-height:1;}
+    .hero-trust .ht span{font-size:12px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:6px;display:block;}
+    .hero-trust .sep{width:1px;height:38px;background:var(--line);}
+
+    /* MARQUEE */
+    .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;overflow:hidden;background:var(--ink-2);}
+    .mt{display:flex;gap:40px;white-space:nowrap;animation:scroll 34s linear infinite;}
+    .mt span{font-family:var(--fd);font-weight:500;letter-spacing:.16em;text-transform:uppercase;font-size:15px;color:var(--muted);display:inline-flex;align-items:center;gap:40px;}
+    .mt span::after{content:"✕";color:var(--red);font-size:10px;}
+    @keyframes scroll{to{transform:translateX(-50%);}}
+
+    .section{padding:100px 0;}
+    .section-head{max-width:720px;margin-bottom:52px;}
+    .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+    .section-head.center .eyebrow{justify-content:center;}
+    .section-head h2{font-size:clamp(32px,5.5vw,56px);margin:16px 0 14px;color:#fff;}
+    .section-head p{color:var(--muted);font-size:17px;}
+
+    /* STILE */
+    .stile{display:flex;flex-wrap:wrap;gap:12px;}
+    .stil{border:1px solid var(--line);border-radius:999px;padding:12px 22px;font-family:var(--fd);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:15px;color:var(--bone);background:var(--ink-2);transition:.2s;}
+    .stil:hover{border-color:var(--red);color:#fff;transform:translateY(-3px);}
+
+    /* GALERIE */
+    .gal{columns:4;column-gap:14px;}
+    .gal .cell{break-inside:avoid;margin-bottom:14px;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative;}
+    .gal .cell img{width:100%;height:auto;transition:transform .5s,filter .3s;display:block;filter:grayscale(.15);}
+    .gal .cell:hover img{transform:scale(1.05);filter:grayscale(0);}
+    .gal .cell::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(225,29,42,.18));opacity:0;transition:.3s;}
+    .gal .cell:hover::after{opacity:1;}
+    .gal-cta{text-align:center;margin-top:40px;}
+
+    /* ABLAUF */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+    .stepc{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;position:relative;transition:.25s;}
+    .stepc:hover{border-color:rgba(225,29,42,.5);transform:translateY(-5px);}
+    .stepc .n{font-family:var(--fd);font-weight:700;font-size:46px;color:var(--red);line-height:1;margin-bottom:14px;}
+    .stepc h3{font-size:20px;color:#fff;margin-bottom:8px;}
+    .stepc p{font-size:14.5px;color:var(--muted);}
+
+    /* ABOUT */
+    .about{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;}
+    .about-media{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;}
+    .about-media img{width:100%;height:100%;object-fit:cover;}
+    .about-body h2{font-size:clamp(30px,4.5vw,48px);color:#fff;margin:16px 0 18px;}
+    .about-body p{color:var(--muted);font-size:16px;margin-bottom:16px;}
+
+    /* KONTAKT */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;}
+    .info-block{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);}
+    .info-block .ico{width:42px;height:42px;flex:0 0 42px;border-radius:8px;background:var(--ink-3);display:grid;place-items:center;color:var(--red-2);}
+    .info-block .ico svg{width:20px;height:20px;}
+    .info-block b{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-weight:600;}
+    .info-block a,.info-block span{color:var(--bone);font-size:16px;}
+    .map{aspect-ratio:16/10;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);margin-top:24px;}
+    .map iframe{width:100%;height:100%;border:0;filter:grayscale(.4) invert(.92) hue-rotate(180deg);}
+    .form{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:32px;}
+    .form h3{font-size:24px;color:#fff;margin-bottom:6px;}
+    .form>p{color:var(--muted);font-size:14.5px;margin-bottom:20px;}
+    .field{margin-bottom:15px;}
+    .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;}
+    .field input,.field textarea,.field select{width:100%;background:var(--ink);border:1px solid var(--ink-3);border-radius:8px;padding:12px 14px;color:var(--bone);font-family:var(--fb);font-size:15px;transition:border-color .2s;}
+    .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--red);}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .form .btn-primary{width:100%;justify-content:center;margin-top:4px;}
+    .form-note{font-size:12px;color:var(--muted);margin-top:12px;text-align:center;}
+
+    /* CTA */
+    .cta-banner{padding:90px 0;text-align:center;position:relative;overflow:hidden;}
+    .cta-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(680px 320px at 50% 0%,rgba(225,29,42,.22),transparent 70%);}
+    .cta-banner .inner{position:relative;}
+    .cta-banner h2{font-size:clamp(32px,5.5vw,58px);color:#fff;margin-bottom:16px;}
+    .cta-banner p{color:var(--muted);font-size:17px;margin-bottom:28px;}
+    .cta-banner .hero-actions{justify-content:center;}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--line);padding:60px 0 30px;background:var(--ink-2);}
+    .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+    .foot-logo{font-family:var(--fd);font-weight:700;font-size:24px;color:#fff;margin-bottom:12px;letter-spacing:.04em;}
+    .foot-grid p,.foot-grid a{color:var(--muted);font-size:14.5px;}
+    .foot-grid h4{font-family:var(--fd);font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:13px;color:var(--bone);margin-bottom:14px;}
+    .foot-grid .col a{display:block;margin-bottom:9px;transition:color .2s;}
+    .foot-grid .col a:hover{color:var(--bone);}
+    .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);}
+
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s;}
+    .reveal.in{opacity:1;transform:none;}
+
+    @media (max-width:980px){
+      .nav-links{display:none;}
+      .nav-cta .btn-primary{display:none;}
+      .burger{display:flex;}
+      .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(10,10,12,.97);backdrop-filter:blur(14px);padding:24px;gap:20px;border-bottom:1px solid var(--line);}
+      .gal{columns:2;}
+      .steps{grid-template-columns:repeat(2,1fr);}
+      .about,.contact-grid{grid-template-columns:1fr;gap:34px;}
+      .hero-trust .sep{display:none;}
+    }
+    @media (max-width:560px){
+      .logo .word{display:none;}
+      .section{padding:70px 0;}
+      .gal{columns:1;}
+      .steps,.field-row{grid-template-columns:1fr;}
+      .foot-grid{grid-template-columns:1fr;gap:28px;}
+      .hero-actions{flex-direction:column;align-items:stretch;}
+      .btn{justify-content:center;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="top">
+    <div class="wrap nav">
+      <a href="#top" class="logo" aria-label="Strassenfarbe">
+        <img src="fotos/logo.png" alt="Strassenfarbe" onerror="this.style.display='none'">
+        <span class="word">STRASSENFARBE</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#stile">Stile</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#kontakt" class="btn btn-primary">Termin anfragen</a>
+        <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"><img src="fotos/2.jpg" alt="Tattoo-Kunst bei Strassenfarbe"></div>
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Tattooladen · Hamm</span>
+      <h1>Dein Tattoo.<br>Deine <span class="red">Strassenfarbe.</span></h1>
+      <p class="lead">Vom feinen Fine Line bis zum kompromisslosen Blackwork — handgemachte Tattoos mit Charakter, mitten in Hamm.</p>
+      <div class="hero-actions">
+        <a href="#galerie" class="btn btn-primary">Galerie ansehen</a>
+        <a href="#kontakt" class="btn btn-ghost">Termin anfragen</a>
+      </div>
+      <div class="hero-trust">
+        <div class="ht"><b>12+</b><span>Tattoo-Stile</span></div>
+        <div class="sep"></div>
+        <div class="ht"><b>Hamm</b><span>Banningstraße 15</span></div>
+        <div class="sep"></div>
+        <div class="ht"><b>Mi</b><span>Beratung 16–19 Uhr</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="mt">
+      <span>Realism</span><span>Fine Line</span><span>Blackwork</span><span>Portrait</span><span>Lettering</span><span>Dotwork</span><span>Geometric</span><span>Surrealism</span>
+      <span>Realism</span><span>Fine Line</span><span>Blackwork</span><span>Portrait</span><span>Lettering</span><span>Dotwork</span><span>Geometric</span><span>Surrealism</span>
+    </div>
+  </div>
+
+  <!-- STILE -->
+  <section class="section" id="stile">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Was wir stechen</span>
+        <h2>Stile &amp; Spezialisierungen</h2>
+        <p>Egal ob fein und filigran oder schwarz und flächig — sag uns deine Idee, wir setzen sie in den richtigen Stil um.</p>
+      </div>
+      <div class="stile reveal">
+        <span class="stil">Realism</span><span class="stil">Fine Line</span><span class="stil">Blackwork</span>
+        <span class="stil">Portrait</span><span class="stil">Lettering</span><span class="stil">Black &amp; Grey</span>
+        <span class="stil">Dotwork</span><span class="stil">Sketch Work</span><span class="stil">Geometric</span>
+        <span class="stil">Ornamental</span><span class="stil">Surrealism</span><span class="stil">Comic</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section class="section" id="galerie" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Echte Arbeiten</span>
+        <h2>Galerie</h2>
+        <p>Ein Auszug aus unseren Tattoos. Mehr läuft täglich auf Instagram.</p>
+      </div>
+      <div class="gal reveal">
+        <div class="cell"><img src="fotos/1.jpg" alt="Tattoo 1" loading="lazy"></div>
+        <div class="cell"><img src="fotos/2.jpg" alt="Tattoo 2" loading="lazy"></div>
+        <div class="cell"><img src="fotos/3.jpg" alt="Tattoo 3" loading="lazy"></div>
+        <div class="cell"><img src="fotos/4.jpg" alt="Tattoo 4" loading="lazy"></div>
+        <div class="cell"><img src="fotos/5.jpg" alt="Tattoo 5" loading="lazy"></div>
+        <div class="cell"><img src="fotos/6.jpg" alt="Tattoo 6" loading="lazy"></div>
+        <div class="cell"><img src="fotos/7.jpg" alt="Tattoo 7" loading="lazy"></div>
+        <div class="cell"><img src="fotos/8.jpg" alt="Tattoo 8" loading="lazy"></div>
+      </div>
+      <div class="gal-cta">
+        <a href="https://instagram.com/strassenfarbe" target="_blank" rel="noopener" class="btn btn-ghost">Mehr auf Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABLAUF -->
+  <section class="section" id="ablauf" style="background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">So läuft's</span>
+        <h2>Von der Idee zum Tattoo</h2>
+        <p>Kein Stress, kein Rätselraten — vier klare Schritte bis zu deinem Tattoo.</p>
+      </div>
+      <div class="steps">
+        <div class="stepc reveal"><div class="n">01</div><h3>Anfrage</h3><p>Schick uns deine Idee, Stil, Größe und Körperstelle über das Formular.</p></div>
+        <div class="stepc reveal"><div class="n">02</div><h3>Beratung</h3><p>Wir besprechen Motiv und Umsetzung — mittwochs 16–19 Uhr im Studio.</p></div>
+        <div class="stepc reveal"><div class="n">03</div><h3>Termin</h3><p>Wir reservieren deinen Termin und bereiten dein Design vor.</p></div>
+        <div class="stepc reveal"><div class="n">04</div><h3>Dein Tattoo</h3><p>Sauber, steril und mit voller Konzentration auf dein Motiv.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="wrap">
+      <div class="about">
+        <div class="about-media reveal"><img src="fotos/6.jpg" alt="Strassenfarbe Studio"></div>
+        <div class="about-body reveal">
+          <span class="eyebrow">Das Studio</span>
+          <h2>Handwerk mit Haltung</h2>
+          <p>Strassenfarbe steht für Tattoos mit Charakter — von fotorealistischen Portraits bis zu kraftvollem Blackwork. Bei uns zählt nicht Masse, sondern ein Motiv, das zu dir passt und ein Leben lang sitzt.</p>
+          <p>Wir nehmen uns Zeit für Beratung, arbeiten sauber und steril, und behandeln jede Idee, als wäre es unsere eigene. Komm vorbei und überzeug dich selbst — mitten in Hamm.</p>
+          <div class="hero-actions" style="margin:24px 0 0;">
+            <a href="#kontakt" class="btn btn-primary">Termin anfragen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section" id="kontakt" style="background:var(--ink-2);border-top:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Kontakt &amp; Standort</span>
+        <h2>Komm vorbei</h2>
+        <p>Schreib uns deine Idee oder ruf an. Beratung mittwochs 16–19 Uhr.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><b>Adresse</b><span>Banningstraße 15, 59067 Hamm</span></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><b>Telefon</b><a href="tel:+4923818950599">02381 8950599</a></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div>
+            <div><b>E-Mail</b><a href="mailto:info@strassenfarbe.de">info@strassenfarbe.de</a></div>
+          </div>
+          <div class="info-block">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><b>Öffnungszeiten</b><span>Mo–Fr 11:00–17:00 · Beratung Mi 16:00–19:00</span></div>
+          </div>
+          <div class="map">
+            <iframe title="Standort Strassenfarbe Hamm" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Banningstra%C3%9Fe%2015%2C%2059067%20Hamm&z=15&output=embed"></iframe>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form class="form" id="anfrageForm" novalidate>
+            <h3>Tattoo anfragen</h3>
+            <p>Erzähl uns von deiner Idee — wir melden uns für die Beratung.</p>
+            <div class="field-row">
+              <div class="field"><label for="name">Name</label><input id="name" type="text" placeholder="Dein Name" required></div>
+              <div class="field"><label for="kontakt">Telefon / E-Mail</label><input id="kontakt" type="text" placeholder="Für die Rückmeldung" required></div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="stil">Stil</label>
+                <select id="stil">
+                  <option>Realism</option><option>Fine Line</option><option>Blackwork</option>
+                  <option>Portrait</option><option>Lettering</option><option>Black &amp; Grey</option>
+                  <option>Dotwork</option><option>Geometric</option><option>Ornamental</option>
+                  <option>Surrealism</option><option>Comic</option><option>Weiß ich noch nicht</option>
+                </select>
+              </div>
+              <div class="field"><label for="stelle">Körperstelle &amp; Größe</label><input id="stelle" type="text" placeholder="z. B. Unterarm, ca. 15 cm"></div>
+            </div>
+            <div class="field"><label for="idee">Deine Idee</label><textarea id="idee" rows="4" placeholder="Beschreib dein Motiv — gern auch Referenzbilder beim Termin."></textarea></div>
+            <button type="submit" class="btn btn-primary">Anfrage senden</button>
+            <p class="form-note">Demo-Formular — versendet keine echten Daten.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="wrap inner reveal">
+      <h2>Bereit für dein nächstes Tattoo?</h2>
+      <p>Sichere dir deinen Beratungstermin — wir freuen uns auf deine Idee.</p>
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn btn-primary">Jetzt anfragen</a>
+        <a href="tel:+4923818950599" class="btn btn-ghost">02381 8950599</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-logo">STRASSENFARBE</div>
+          <p>Tattooladen in Hamm. Realism, Fine Line, Blackwork &amp; mehr — handgemacht, mit Charakter.</p>
+        </div>
+        <div class="col">
+          <h4>Studio</h4>
+          <a href="#stile">Stile</a>
+          <a href="#galerie">Galerie</a>
+          <a href="#ablauf">Ablauf</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+        <div class="col">
+          <h4>Folgen &amp; Kontakt</h4>
+          <a href="https://instagram.com/strassenfarbe" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://facebook.com/strassenfarbe" target="_blank" rel="noopener">Facebook</a>
+          <a href="tel:+4923818950599">02381 8950599</a>
+          <a href="mailto:info@strassenfarbe.de">info@strassenfarbe.de</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© <span id="year"></span> STRASSENFARBE — Demo-Website</span>
+        <span><a href="../../../agency-website/impressum.html">Impressum</a> · <a href="../../../agency-website/datenschutz.html">Datenschutz</a> &nbsp;|&nbsp; Konzept &amp; Design: ILIC ECOM HUB</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const header=document.getElementById('top');
+    const onScroll=()=>header.classList.toggle('scrolled',window.scrollY>30);
+    onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+    const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+    burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    document.getElementById('anfrageForm').addEventListener('submit',(e)=>{e.preventDefault();e.target.querySelector('button').textContent='Danke! (Demo)';});
+  </script>
+</body>
+</html>
