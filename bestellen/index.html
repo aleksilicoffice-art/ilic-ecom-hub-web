@@ -231,11 +231,31 @@
   footer .fl a:hover{color:var(--cream);}
   footer .bot{padding-top:22px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;}
 
+  /* ---- Referenzen / Demo-Karten (klickbar, öffnen Demo in neuem Tab) ---- */
+  .refs{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .ref{display:flex; flex-direction:column; text-decoration:none; color:inherit; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;}
+  .ref:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--oxblood);}
+  .ref .top{height:118px; display:flex; align-items:flex-start; padding:14px;}
+  .ref .top .tg{background:rgba(246,241,233,.92); color:var(--oxblood); font-size:.7rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:4px 11px; border-radius:999px;}
+  .ref .bd{padding:15px 16px 18px; flex:1; display:flex; flex-direction:column;}
+  .ref .bd h4{font-family:'Fraunces',serif; font-size:1.12rem; font-weight:600; margin-bottom:4px;}
+  .ref .bd p{font-size:.85rem; color:var(--ink-soft); margin-bottom:12px; flex:1;}
+  .ref .bd .go{font-size:.86rem; font-weight:700; color:var(--oxblood);}
+  .ref.hidden{display:none;}
+  .ref-more{margin-top:28px; text-align:center;}
+  .r1 .top{background:linear-gradient(135deg,#3a2a1c,#53170F);}
+  .r2 .top{background:linear-gradient(135deg,#b06a86,#7a3550);}
+  .r3 .top{background:linear-gradient(135deg,#4a6b7c,#2c4955);}
+  .r4 .top{background:linear-gradient(135deg,#5a8a72,#356049);}
+  .r5 .top{background:linear-gradient(135deg,#9a6a3a,#6b4420);}
+  .r6 .top{background:linear-gradient(135deg,#3a3a44,#1a1a22);}
+  .r7 .top{background:linear-gradient(135deg,#a88a5a,#6b5430);}
+
   /* ---- Responsive ---- */
-  @media(max-width:900px){ .g3,.steps,.plans{grid-template-columns:1fr 1fr;} }
+  @media(max-width:900px){ .g3,.steps,.plans,.refs{grid-template-columns:1fr 1fr;} }
   @media(max-width:680px){
     .pad{padding:60px 0;} .hero{padding:120px 0 56px;}
-    .g3,.g2,.steps,.plans,.row2{grid-template-columns:1fr;}
+    .g3,.g2,.steps,.plans,.row2,.refs{grid-template-columns:1fr;}
     .strip .row{gap:14px;} .strip .it{width:45%;}
     .wz-body{padding:24px 18px;} .wz-top,.wz-foot{padding:18px;}
   }
@@ -246,7 +266,7 @@
   <!-- ================= HEADER ================= -->
   <header id="hd">
     <div class="wrap bar">
-      <a class="logo" href="../index.html" aria-label="ILIC ECOM HUB Startseite">
+      <a class="logo" href="../agency-website/index.html" aria-label="ILIC ECOM HUB Startseite">
         <span class="mk">I</span>
         <span><span class="lt">ILIC</span><span class="ls">ECOM&nbsp;HUB</span></span>
       </a>
@@ -293,7 +313,7 @@
       <div class="sec-head center">
         <span class="eyebrow">Das Problem</span>
         <h2>Deine Kunden suchen dich online. Was finden sie?</h2>
-        <p>9 von 10 Menschen googeln einen Betrieb, bevor sie hingehen. Ohne gute Website verlierst du
+        <p>9 von 10 Menschen googeln einen Anbieter, bevor sie sich entscheiden. Ohne gute Website verlierst du
           sie an den Nächsten — oft, ohne es zu merken.</p>
       </div>
       <div class="grid g3">
@@ -339,14 +359,25 @@
   </section>
 
   <!-- ================= REFERENZEN ================= -->
-  <section class="pad alt">
+  <section class="pad alt" id="referenzen">
     <div class="wrap">
       <div class="sec-head center">
         <span class="eyebrow">Arbeiten</span>
         <h2>So sehen meine Websites aus</h2>
-        <p>Echte Demo-Seiten für lokale Betriebe — jede mit eigener Identität, nicht von der Stange.</p>
+        <p>Echte Demo-Seiten — anklicken und live ansehen. Jede mit eigener Identität, nicht von der Stange.
+          Vom lokalen Laden bis zum Coach ohne Ladengeschäft.</p>
       </div>
-      <div class="center"><a class="btn ghost big" href="../index.html#arbeiten">Referenzen ansehen →</a></div>
+      <!-- Klick öffnet die Live-Demo in neuem Tab → Kunde bleibt auf der Bestellseite -->
+      <div class="refs" id="refGrid">
+        <a class="ref r1" href="../demos/friseur/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Friseur</span></div><div class="bd"><h4>Klinge &amp; Kamm</h4><p>Barbershop · Buchung, Galerie, Team</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref r2" href="../demos/nagelstudio/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Nagelstudio</span></div><div class="bd"><h4>Studio Rosé</h4><p>Beauty · Vorher-Nachher, Menü, Buchung</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref r3" href="../demos/handwerk/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Handwerk</span></div><div class="bd"><h4>Frisch &amp; Farbe</h4><p>Malermeister · Projekte, Einzugsgebiet, Anfrage</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref r4" href="../demos/physio/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Physio</span></div><div class="bd"><h4>Praxis Balance</h4><p>Physiotherapie · Leistungen, Ablauf, Termin</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref r5 hidden" href="../demos/gastro/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Gastro</span></div><div class="bd"><h4>Esszimmer</h4><p>Bistro &amp; Bar · Karte, Galerie, Reservierung</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref r6 hidden" href="../demos/tattoo/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Tattoo</span></div><div class="bd"><h4>Inkhaus</h4><p>Tattoo-Studio · Portfolio-Filter, Artists, Anfrage</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref r7 hidden" href="../demos/hundesalon/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Hundesalon</span></div><div class="bd"><h4>Pfote &amp; Schere</h4><p>Hundesalon · Preise nach Größe, Vorher-Nachher</p><span class="go">Live-Demo ansehen →</span></div></a>
+      </div>
+      <div class="ref-more" id="refMore"><button class="btn ghost big" id="refMoreBtn" type="button">Mehr Branchen anzeigen ↓</button></div>
     </div>
   </section>
 
@@ -357,7 +388,7 @@
         <div>
           <span class="eyebrow">Wer baut deine Seite?</span>
           <h2 style="font-size:clamp(1.9rem,3.6vw,2.6rem); margin:10px 0 16px;">Hallo, ich bin Aleksandar.</h2>
-          <p style="color:var(--ink-soft); margin-bottom:14px;">Ich bin 19, komme aus Hamm und baue Websites für lokale Betriebe wie deinen. Kein anonymes Agentur-Callcenter — du sprichst direkt mit der Person, die deine Seite baut.</p>
+          <p style="color:var(--ink-soft); margin-bottom:14px;">Ich bin 19, komme aus Hamm und baue Websites für lokale Betriebe, Dienstleister und Selbstständige — ob mit Ladengeschäft oder ortsunabhängig als Coach, Berater oder Freelancer. Kein anonymes Agentur-Callcenter — du sprichst direkt mit der Person, die deine Seite baut.</p>
           <p style="color:var(--ink-soft);">Mein Versprechen ist einfach: Ich zeige dir zuerst, was ich kann — mit einer fertigen Demo. Überzeugt sie dich nicht, hat es dich keinen Cent gekostet. So ehrlich arbeite ich.</p>
           <div class="trust" style="margin-top:24px; color:var(--ink-faint); display:flex; gap:18px 26px; flex-wrap:wrap; font-weight:600;">
             <span>📍 Hamm, NRW</span><span>📞 Persönlich erreichbar</span><span>🧾 Kleinunternehmer §19</span>
@@ -431,15 +462,18 @@
           <div class="wz-step on" data-step="1">
             <h3>Erzähl mir von deinem Betrieb</h3>
             <p class="hint">Damit ich deine Demo persönlich gestalten kann.</p>
-            <label class="fld"><span>Name des Betriebs *</span><input id="fBetrieb" placeholder="z. B. Bro's Barbershop" required></label>
+            <label class="fld"><span>Name deines Betriebs / Projekts *</span><input id="fBetrieb" placeholder="z. B. dein Geschäfts- oder Markenname" required></label>
             <div class="row2">
-              <label class="fld"><span>Ort *</span><input id="fOrt" placeholder="z. B. Hamm" required></label>
+              <label class="fld"><span>Ort *</span><input id="fOrt" placeholder="z. B. deine Stadt" required></label>
               <label class="fld"><span>Branche *</span><select id="fBranche" required>
                 <option value="">— wählen —</option>
                 <option>Friseur / Barbershop</option><option>Nagelstudio</option><option>Kosmetik / Beauty</option>
-                <option>Gastronomie / Café</option><option>Handwerk</option><option>Physiotherapie</option>
+                <option>Gastronomie / Café</option><option>Handwerk</option><option>Physiotherapie / Praxis</option>
                 <option>Tattoo / Piercing</option><option>Hundesalon</option><option>Kiosk / Späti</option>
-                <option>Einzelhandel</option><option>Sonstiges</option>
+                <option>Einzelhandel</option>
+                <option>Coaching / Beratung</option><option>Dienstleistung / Freiberuf</option>
+                <option>Fitness / Personal Training</option><option>Onlineshop / E-Commerce</option>
+                <option>Sonstiges</option>
               </select></label>
             </div>
           </div>
@@ -473,7 +507,7 @@
               <span class="chip" data-v="Professioneller wirken">Seriöser wirken</span>
               <span class="chip" data-v="Bei Google gefunden werden">Bei Google gefunden</span>
             </div></label>
-            <label class="fld"><span>Stil / Vorbilder (Farben, Stimmung, Beispielseiten)</span><input id="fStil" placeholder="z. B. warm & rustikal, dunkles Holz; wie Otto's Barbershop"></label>
+            <label class="fld"><span>Stil / Vorbilder (Farben, Stimmung, Beispielseiten)</span><input id="fStil" placeholder="z. B. modern & minimalistisch, helle Farben — gern mit Link zu einer Seite, die dir gefällt"></label>
             <label class="fld"><span>Hast du schon Bilder & Texte?</span><select id="fInhalte">
               <option value="">— wählen —</option><option value="Ja, alles vorhanden">Ja, alles da</option>
               <option value="Teilweise vorhanden">Teilweise</option><option value="Nein, bitte übernehmen">Nein, bitte übernehmen</option>
@@ -490,7 +524,7 @@
               <label class="fld"><span>Telefon / WhatsApp</span><input id="fTel" placeholder="optional, für Rückfragen"></label>
             </div>
             <label class="consent"><input type="checkbox" id="fConsent">
-              <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="../datenschutz.html" target="_blank">Datenschutzerklärung</a>. *</span></label>
+              <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="../agency-website/datenschutz.html" target="_blank">Datenschutzerklärung</a>. *</span></label>
           </div>
 
           <!-- Schritt 6: Zusammenfassung -->
@@ -507,7 +541,7 @@
             <h3>Geschafft — deine Anfrage ist da!</h3>
             <p>Danke, <b id="dkName">!</b> Ich baue jetzt deine persönliche Demo und melde mich innerhalb von <b>48 Stunden</b> bei dir.</p>
             <p>Schau ab und zu in dein E-Mail-Postfach (auch Spam).</p>
-            <a class="btn big" href="../index.html" style="margin-top:22px;">Zurück zur Startseite</a>
+            <a class="btn big" href="../agency-website/index.html" style="margin-top:22px;">Zurück zur Startseite</a>
           </div>
         </div>
 
@@ -524,15 +558,15 @@
     <div class="wrap">
       <div class="top">
         <div>
-          <a class="logo" href="../index.html"><span class="mk">I</span><span><span class="lt">ILIC</span><span class="ls">ECOM&nbsp;HUB</span></span></a>
-          <p style="margin-top:12px; max-width:300px;">Moderne Websites für lokale Betriebe. Persönlich aus Hamm.</p>
+          <a class="logo" href="../agency-website/index.html"><span class="mk">I</span><span><span class="lt">ILIC</span><span class="ls">ECOM&nbsp;HUB</span></span></a>
+          <p style="margin-top:12px; max-width:300px;">Moderne Websites für Selbstständige, Dienstleister &amp; lokale Betriebe. Persönlich aus Hamm — deutschlandweit.</p>
         </div>
         <div class="fl">
-          <a href="../index.html">Startseite</a>
-          <a href="../impressum.html">Impressum</a>
-          <a href="../datenschutz.html">Datenschutz</a>
-          <a href="../agb.html">AGB</a>
-          <a href="../widerruf.html">Widerruf</a>
+          <a href="../agency-website/index.html">Startseite</a>
+          <a href="../agency-website/impressum.html">Impressum</a>
+          <a href="../agency-website/datenschutz.html">Datenschutz</a>
+          <a href="../agency-website/agb.html">AGB</a>
+          <a href="../agency-website/widerruf.html">Widerruf</a>
         </div>
       </div>
       <div class="bot">

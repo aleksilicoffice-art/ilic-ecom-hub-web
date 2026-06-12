@@ -48,6 +48,12 @@ $("faq").addEventListener("click", (e) => {
   if (btn) btn.closest(".q").classList.toggle("open");
 });
 
+// Referenzen: „Mehr Branchen anzeigen" blendet die restlichen Demo-Karten ein
+$("refMoreBtn")?.addEventListener("click", () => {
+  document.querySelectorAll(".ref.hidden").forEach((el) => el.classList.remove("hidden"));
+  $("refMore").style.display = "none";
+});
+
 // ============================== Preis-Karten (Sektion „Preise") ==============================
 function renderPlans() {
   $("planCards").innerHTML = PAKETE.map((p) => `
