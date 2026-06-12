@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professionelle Website für deinen Betrieb — fertige Demo in 48 Stunden, kostenlos & unverbindlich. Erst wenn sie dir gefällt, zahlst du an. Domain, Einrichtung & Betrieb übernehme ich.">
+  <meta name="theme-color" content="#53170F">
+  <title>Website bestellen — ILIC ECOM HUB | Demo in 48h, kostenlos</title>
+
+  <!-- Open Graph (für Social-Media- & Ad-Vorschau) -->
+  <meta property="og:title" content="Deine neue Website — fertig gebaut, bevor du zahlst">
+  <meta property="og:description" content="Sag mir kurz, was du brauchst. In 48h bekommst du eine kostenlose Demo. Gefällt sie dir, übernehme ich alles.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2353170F'/><text x='50' y='70' font-size='62' text-anchor='middle' fill='%23F6F1E9' font-family='Georgia'>I</text></svg>">
+
+  <!-- Marken-Schriften (selbst gehostet, DSGVO) — aus der Hauptseite extrahiert -->
+  <link rel="stylesheet" href="./fonts.css">
+
+  <style>
+  /* =========================================================================
+     ILIC ECOM HUB — Bestellseite. Design-Tokens & Komponenten an die Hauptseite
+     angelehnt (gleiche Farben/Schriften), aber als verkaufsfokussierte Landingpage
+     mit Konfigurator neu aufgebaut. Reines HTML/CSS/JS, kein Build. Mobil-first.
+     ========================================================================= */
+  :root{
+    --ink:#1A1310; --ink-soft:#5A4D45; --ink-faint:#8A7C72;
+    --oxblood:#53170F; --oxblood-bright:#7E2417;
+    --cream:#F6F1E9; --cream-deep:#EFE7DB; --surface:#FCFAF5;
+    --line:rgba(83,23,15,.14); --line-soft:rgba(26,19,16,.08);
+    --gold:#B07A2C;
+    --shadow:0 18px 50px rgba(26,19,16,.12);
+    --radius:16px;
+    --maxw:1140px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+    font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.serif{font-family:'Fraunces',Georgia,serif; font-weight:600; letter-spacing:-.015em; line-height:1.12;}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  .pad{padding:84px 0;}
+  .pad.alt{background:var(--surface);}
+  .center{text-align:center;}
+  .eyebrow{font-size:13px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--oxblood);}
+  .sec-head{max-width:640px; margin:0 auto 44px;}
+  .sec-head.left{margin-left:0;}
+  .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.7rem); margin:10px 0 12px;}
+  .sec-head p{color:var(--ink-soft); font-size:1.06rem;}
+
+  /* ---- Buttons ---- */
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; cursor:pointer;
+    font-family:'Hanken Grotesk',sans-serif; font-weight:700; font-size:1rem;
+    padding:15px 26px; border-radius:999px; border:1.5px solid var(--oxblood);
+    background:var(--oxblood); color:var(--cream); text-decoration:none;
+    transition:transform .15s ease, background .2s ease, box-shadow .2s ease;
+    box-shadow:0 6px 18px rgba(83,23,15,.22);
+  }
+  .btn:hover{background:var(--oxblood-bright); border-color:var(--oxblood-bright); transform:translateY(-2px); box-shadow:0 10px 26px rgba(83,23,15,.3);}
+  .btn.ghost{background:transparent; color:var(--oxblood); box-shadow:none;}
+  .btn.ghost:hover{background:rgba(83,23,15,.06); transform:none;}
+  .btn.big{padding:18px 34px; font-size:1.08rem;}
+  .btn.full{width:100%; justify-content:center;}
+  .btn:disabled{opacity:.45; cursor:not-allowed; transform:none; box-shadow:none;}
+
+  /* ---- Header ---- */
+  header{position:fixed; top:0; left:0; right:0; z-index:50; transition:background .25s ease, box-shadow .25s ease, padding .25s ease;}
+  header .bar{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  header.scrolled{background:rgba(246,241,233,.92); backdrop-filter:blur(10px); box-shadow:0 1px 0 var(--line);}
+  .logo{display:flex; align-items:center; gap:11px; text-decoration:none;}
+  .logo .mk{width:38px; height:38px; border-radius:10px; background:var(--oxblood); color:var(--cream); display:grid; place-items:center; font-family:'Fraunces',serif; font-weight:600; font-size:22px;}
+  .logo .lt{font-family:'Fraunces',serif; font-weight:600; font-size:18px; letter-spacing:.02em; color:var(--oxblood); line-height:1;}
+  .logo .ls{display:block; font-family:'Hanken Grotesk',sans-serif; font-weight:700; font-size:8.5px; letter-spacing:.34em; color:var(--oxblood);}
+  header .hcta{display:flex; align-items:center; gap:14px;}
+  header .hcta a.tel{text-decoration:none; font-weight:700; color:var(--ink); font-size:.95rem;}
+  @media(max-width:680px){ header .hcta a.tel{display:none;} header .btn{padding:12px 20px; font-size:.95rem;} }
+
+  /* ---- Hero ---- */
+  .hero{position:relative; padding:148px 0 78px; overflow:hidden;}
+  .hero::before{content:""; position:absolute; inset:0; background:
+    radial-gradient(60% 70% at 85% 0%, rgba(176,122,44,.10), transparent 60%),
+    radial-gradient(50% 60% at 0% 100%, rgba(83,23,15,.07), transparent 55%); pointer-events:none;}
+  .hero .inner{position:relative; max-width:760px;}
+  .hero .badge{display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--line); border-radius:999px; padding:7px 15px; font-size:.85rem; font-weight:600; color:var(--ink-soft); margin-bottom:22px;}
+  .hero .badge b{color:var(--oxblood);}
+  .hero h1{font-size:clamp(2.3rem,5.6vw,4rem); line-height:1.04;}
+  .hero h1 .hl{color:var(--oxblood); font-style:italic; font-weight:500;}
+  .hero p.sub{font-size:clamp(1.08rem,2vw,1.3rem); color:var(--ink-soft); margin:22px 0 32px; max-width:620px;}
+  .hero .cta-row{display:flex; flex-wrap:wrap; gap:14px; align-items:center;}
+  .hero .trust{display:flex; flex-wrap:wrap; gap:18px 26px; margin-top:34px; color:var(--ink-faint); font-size:.92rem; font-weight:600;}
+  .hero .trust span{display:flex; align-items:center; gap:8px;}
+  .hero .trust .ic{color:var(--oxblood);}
+
+  /* ---- Value strip ---- */
+  .strip{background:var(--oxblood); color:var(--cream);}
+  .strip .row{display:flex; flex-wrap:wrap; justify-content:space-between; gap:18px; padding:22px 0;}
+  .strip .it{display:flex; align-items:center; gap:11px; font-weight:600; font-size:.96rem;}
+  .strip .it b{font-family:'Fraunces',serif; font-size:1.35rem; display:block; line-height:1;}
+  .strip .it .ic{font-size:1.4rem; opacity:.9;}
+
+  /* ---- Karten / Grids ---- */
+  .grid{display:grid; gap:22px;}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .g2{grid-template-columns:repeat(2,1fr);}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
+  .card .ic{font-size:1.7rem;}
+  .card h3{font-size:1.28rem; margin:14px 0 8px;}
+  .card p{color:var(--ink-soft); font-size:.99rem;}
+
+  /* ---- Ablauf ---- */
+  .steps{counter-reset:s; display:grid; gap:20px; grid-template-columns:repeat(4,1fr);}
+  .step{position:relative; padding:26px 22px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);}
+  .step .n{counter-increment:s; width:42px; height:42px; border-radius:12px; background:var(--oxblood); color:var(--cream); font-family:'Fraunces',serif; font-size:1.25rem; display:grid; place-items:center; margin-bottom:14px;}
+  .step .n::before{content:counter(s);}
+  .step h3{font-size:1.12rem; margin-bottom:6px;}
+  .step p{font-size:.93rem; color:var(--ink-soft);}
+
+  /* ---- Preise ---- */
+  .plans{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; align-items:stretch;}
+  .plan{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:26px 22px; display:flex; flex-direction:column;}
+  .plan.pop{border-color:var(--oxblood); box-shadow:var(--shadow); position:relative;}
+  .plan.pop .tag{position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--oxblood); color:var(--cream); font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:5px 13px; border-radius:999px;}
+  .plan .pn{font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600;}
+  .plan .pp{font-family:'Fraunces',serif; font-size:2rem; color:var(--oxblood); margin:8px 0 2px;}
+  .plan .pp small{font-size:.95rem; color:var(--ink-faint); font-weight:400;}
+  .plan .pd{font-size:.92rem; color:var(--ink-soft); margin:10px 0 16px; min-height:38px;}
+  .plan ul{list-style:none; margin-bottom:20px; flex:1;}
+  .plan li{font-size:.9rem; padding:7px 0 7px 24px; position:relative; border-top:1px solid var(--line-soft); color:var(--ink-soft);}
+  .plan li::before{content:"✓"; position:absolute; left:0; color:var(--oxblood); font-weight:800;}
+  .abos-note{margin-top:22px; text-align:center; color:var(--ink-soft); font-size:.95rem;}
+
+  /* ---- FAQ ---- */
+  .faq{max-width:760px; margin:0 auto;}
+  .q{border-bottom:1px solid var(--line); padding:20px 0;}
+  .q button{width:100%; display:flex; justify-content:space-between; align-items:center; gap:16px; background:none; border:none; cursor:pointer; text-align:left; font-family:'Fraunces',serif; font-size:1.14rem; font-weight:600; color:var(--ink);}
+  .q .a{max-height:0; overflow:hidden; transition:max-height .3s ease; color:var(--ink-soft);}
+  .q.open .a{max-height:260px;}
+  .q .a p{padding-top:12px; font-size:.99rem;}
+  .q .pl{color:var(--oxblood); font-size:1.4rem; transition:transform .25s ease; flex:none;}
+  .q.open .pl{transform:rotate(45deg);}
+
+  /* ---- Risiko-Umkehr Band ---- */
+  .reverse{background:var(--ink); color:var(--cream);}
+  .reverse .in{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:24px;}
+  .reverse h2{font-size:clamp(1.7rem,3.4vw,2.4rem); color:var(--cream); max-width:620px;}
+  .reverse p{color:rgba(246,241,233,.78); margin-top:8px; max-width:560px;}
+  .reverse .btn{background:var(--cream); color:var(--oxblood); border-color:var(--cream);}
+  .reverse .btn:hover{background:#fff; border-color:#fff;}
+
+  /* ===== Konfigurator ===== */
+  .konf{background:var(--cream-deep);}
+  .wz{max-width:760px; margin:0 auto; background:var(--surface); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); overflow:hidden;}
+  .wz-top{padding:22px 26px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:16px; background:#fff;}
+  .wz-top .lbl{font-size:.82rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+  .wz-top .price{text-align:right;}
+  .wz-top .price .v{font-family:'Fraunces',serif; font-size:1.6rem; color:var(--oxblood); font-weight:600; line-height:1;}
+  .wz-top .price .c{font-size:.78rem; color:var(--ink-faint);}
+  .wz-prog{height:5px; background:var(--cream-deep);}
+  .wz-prog i{display:block; height:100%; width:16%; background:var(--oxblood); transition:width .3s ease;}
+  .wz-body{padding:30px 26px;}
+  .wz-step{display:none; animation:fade .25s ease;}
+  .wz-step.on{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  .wz-step h3{font-size:1.4rem; margin-bottom:4px;}
+  .wz-step .hint{color:var(--ink-soft); font-size:.96rem; margin-bottom:22px;}
+  .fld{display:block; margin-bottom:16px;}
+  .fld > span{display:block; font-size:.85rem; font-weight:700; color:var(--ink-soft); margin-bottom:6px;}
+  .fld input, .fld select, .fld textarea{
+    width:100%; font-family:inherit; font-size:1rem; color:var(--ink);
+    padding:13px 14px; border:1.5px solid var(--line); border-radius:11px; background:#fff; transition:border-color .2s ease;
+  }
+  .fld input:focus, .fld select:focus, .fld textarea:focus{outline:none; border-color:var(--oxblood);}
+  .fld input.bad, .fld select.bad{border-color:#c0392b; background:#fdf3f2;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+
+  /* Paket-/Abo-Auswahlkarten */
+  .pick{display:grid; gap:12px;}
+  .pk{display:flex; align-items:flex-start; gap:14px; padding:16px; border:1.5px solid var(--line); border-radius:13px; cursor:pointer; background:#fff; transition:border-color .2s ease, background .2s ease;}
+  .pk:hover{border-color:var(--oxblood-bright);}
+  .pk.sel{border-color:var(--oxblood); background:#fff; box-shadow:0 0 0 3px rgba(83,23,15,.08);}
+  .pk input{margin-top:3px; accent-color:var(--oxblood); width:18px; height:18px; flex:none;}
+  .pk .pkt{flex:1;}
+  .pk .pkt b{font-family:'Fraunces',serif; font-size:1.08rem; font-weight:600;}
+  .pk .pkt .pop-tag{display:inline-block; margin-left:8px; background:var(--oxblood); color:var(--cream); font-size:.66rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:2px 8px; border-radius:999px; vertical-align:middle;}
+  .pk .pkt small{display:block; color:var(--ink-soft); font-size:.9rem; margin-top:3px;}
+  .pk .pkp{font-family:'Fraunces',serif; font-weight:600; color:var(--oxblood); white-space:nowrap; font-size:1.02rem;}
+
+  .chips{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip{padding:9px 15px; border:1.5px solid var(--line); border-radius:999px; background:#fff; cursor:pointer; font-size:.92rem; font-weight:600; color:var(--ink-soft); transition:all .18s ease;}
+  .chip.sel{background:var(--oxblood); border-color:var(--oxblood); color:var(--cream);}
+
+  .consent{display:flex; gap:11px; align-items:flex-start; font-size:.9rem; color:var(--ink-soft); margin-top:6px;}
+  .consent input{margin-top:3px; width:18px; height:18px; accent-color:var(--oxblood); flex:none;}
+  .consent a{color:var(--oxblood); font-weight:600;}
+  .consent.bad, .consent.bad a{color:#c0392b;}
+
+  /* Zusammenfassung */
+  .sum{border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#fff;}
+  .sum .li{display:flex; justify-content:space-between; gap:14px; padding:13px 16px; border-bottom:1px solid var(--line-soft); font-size:.96rem;}
+  .sum .li small{display:block; color:var(--ink-faint); font-size:.82rem;}
+  .sum .li.tot{background:var(--cream); font-family:'Fraunces',serif; font-weight:600; font-size:1.15rem; color:var(--oxblood); border-bottom:none;}
+  .sum .li b{white-space:nowrap;}
+  .sum .li.abo{color:var(--ink-soft);}
+  .pay-note{margin-top:16px; padding:14px 16px; background:var(--cream); border:1px dashed var(--line); border-radius:12px; font-size:.9rem; color:var(--ink-soft);}
+  .pay-note b{color:var(--oxblood);}
+
+  .wz-foot{display:flex; justify-content:space-between; gap:12px; padding:20px 26px; border-top:1px solid var(--line); background:#fff;}
+  .wz-foot .btn.ghost{border-color:var(--line); color:var(--ink-soft);}
+
+  /* Danke-Screen */
+  .danke{display:none; text-align:center; padding:54px 26px;}
+  .danke.on{display:block;}
+  .danke .big{font-size:3rem;}
+  .danke h3{font-size:1.7rem; margin:14px 0 10px;}
+  .danke p{color:var(--ink-soft); max-width:460px; margin:0 auto 8px;}
+
+  /* ---- Footer ---- */
+  footer{background:var(--ink); color:rgba(246,241,233,.72); padding:54px 0 30px; font-size:.92rem;}
+  footer .top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:28px; padding-bottom:26px; border-bottom:1px solid rgba(246,241,233,.12);}
+  footer .logo .lt, footer .logo .ls{color:var(--cream);}
+  footer .logo .mk{background:var(--cream); color:var(--oxblood);}
+  footer .fl{display:flex; flex-wrap:wrap; gap:14px 22px;}
+  footer .fl a{color:rgba(246,241,233,.72); text-decoration:none;}
+  footer .fl a:hover{color:var(--cream);}
+  footer .bot{padding-top:22px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px;}
+
+  /* ---- Responsive ---- */
+  @media(max-width:900px){ .g3,.steps,.plans{grid-template-columns:1fr 1fr;} }
+  @media(max-width:680px){
+    .pad{padding:60px 0;} .hero{padding:120px 0 56px;}
+    .g3,.g2,.steps,.plans,.row2{grid-template-columns:1fr;}
+    .strip .row{gap:14px;} .strip .it{width:45%;}
+    .wz-body{padding:24px 18px;} .wz-top,.wz-foot{padding:18px;}
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header id="hd">
+    <div class="wrap bar">
+      <a class="logo" href="../index.html" aria-label="ILIC ECOM HUB Startseite">
+        <span class="mk">I</span>
+        <span><span class="lt">ILIC</span><span class="ls">ECOM&nbsp;HUB</span></span>
+      </a>
+      <div class="hcta">
+        <a class="tel" href="tel:+4917643478923">0176 43478923</a>
+        <a class="btn" href="#konfigurator">Jetzt starten</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap inner">
+      <div class="badge">⚡ <b>Kostenlose Demo in 48&nbsp;Stunden</b> · ohne Risiko</div>
+      <h1>Deine neue Website —<br><span class="hl">fertig gebaut, bevor du zahlst.</span></h1>
+      <p class="sub">Sag mir in 2 Minuten, was du brauchst. Ich baue dir eine fertige Demo deiner Website
+        — <strong>kostenlos & unverbindlich</strong>. Gefällt sie dir, übernehme ich alles: Domain,
+        Einrichtung, Betrieb. Du kümmerst dich um dein Geschäft, ich um deine Online-Präsenz.</p>
+      <div class="cta-row">
+        <a class="btn big" href="#konfigurator">In 2 Minuten starten →</a>
+        <a class="btn ghost big" href="#ablauf">So läuft's ab</a>
+      </div>
+      <div class="trust">
+        <span><span class="ic">✓</span> Du zahlst erst nach der Demo</span>
+        <span><span class="ic">✓</span> Die Website gehört dir</span>
+        <span><span class="ic">✓</span> Persönlich aus Hamm</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VALUE STRIP ================= -->
+  <div class="strip">
+    <div class="wrap row">
+      <div class="it"><span class="ic">⏱️</span><span><b>48&nbsp;h</b>bis zur Demo</span></div>
+      <div class="it"><span class="ic">💶</span><span><b>0&nbsp;€</b>bis du überzeugt bist</span></div>
+      <div class="it"><span class="ic">📱</span><span><b>100%</b>mobil-optimiert</span></div>
+      <div class="it"><span class="ic">🔑</span><span><b>Du</b>besitzt alles</span></div>
+    </div>
+  </div>
+
+  <!-- ================= PROBLEM (emotional) ================= -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Das Problem</span>
+        <h2>Deine Kunden suchen dich online. Was finden sie?</h2>
+        <p>9 von 10 Menschen googeln einen Betrieb, bevor sie hingehen. Ohne gute Website verlierst du
+          sie an den Nächsten — oft, ohne es zu merken.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card"><div class="ic">🔍</div><h3>Unsichtbar bei Google</h3><p>Keine Seite heißt: Kunden finden dich nicht — oder nur den Wettbewerber nebenan, der eine hat.</p></div>
+        <div class="card"><div class="ic">📵</div><h3>Veraltet & nicht mobil</h3><p>Eine alte Seite, die am Handy nicht funktioniert, wirkt schlechter als gar keine. Vertrauen weg in 3 Sekunden.</p></div>
+        <div class="card"><div class="ic">⏳</div><h3>Keine Zeit & kein Plan</h3><p>Website selbst bauen? Baukasten-Chaos, Technik-Frust, am Ende halbfertig. Genau das nehme ich dir ab.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LÖSUNG / WAS DU BEKOMMST (rational) ================= -->
+  <section class="pad alt">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Die Lösung</span>
+        <h2>Eine Website, die für dich arbeitet</h2>
+        <p>Schnell, modern, gefunden — und so gebaut, dass aus Besuchern Anrufe, Termine und Kunden werden.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card"><div class="ic">📞</div><h3>Mehr Anfragen</h3><p>Klick-zum-Anrufen, WhatsApp-Button, Kontaktformular & Google-Maps — der Kunde erreicht dich in einem Tipp.</p></div>
+        <div class="card"><div class="ic">🚀</div><h3>Schnell & gefunden</h3><p>Sauberer Code, blitzschnell auf dem Handy, mit SEO-Grundlagen, damit Google dich vorne zeigt.</p></div>
+        <div class="card"><div class="ic">🤝</div><h3>Alles aus einer Hand</h3><p>Domain, Texte, Bilder, Einrichtung, Betrieb — ich erledige das Technische. Du musst nichts können.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABLAUF (Vertrauen) ================= -->
+  <section class="pad" id="ablauf">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">So einfach geht's</span>
+        <h2>In 4 Schritten zu deiner Website</h2>
+        <p>Das Beste: Die ganze Arbeit beginnt bei mir — du gehst kein Risiko ein.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n"></div><h3>Du konfigurierst</h3><p>2 Minuten: Branche, Paket, Wünsche. Du siehst direkt den Preis.</p></div>
+        <div class="step"><div class="n"></div><h3>Demo in 48&nbsp;h</h3><p>Ich baue dir eine echte Demo deiner Website — kostenlos & unverbindlich.</p></div>
+        <div class="step"><div class="n"></div><h3>Gefällt? Du zahlst an</h3><p>Erst wenn du überzeugt bist, leistest du eine Anzahlung. Dann finalisiere ich alles.</p></div>
+        <div class="step"><div class="n"></div><h3>Live & deins</h3><p>Ich schalte die Seite live, übergebe alle Zugänge. Auf Wunsch pflege ich sie dauerhaft.</p></div>
+      </div>
+      <div class="center" style="margin-top:38px;"><a class="btn big" href="#konfigurator">Jetzt meine Demo anfordern →</a></div>
+    </div>
+  </section>
+
+  <!-- ================= REFERENZEN ================= -->
+  <section class="pad alt">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Arbeiten</span>
+        <h2>So sehen meine Websites aus</h2>
+        <p>Echte Demo-Seiten für lokale Betriebe — jede mit eigener Identität, nicht von der Stange.</p>
+      </div>
+      <div class="center"><a class="btn ghost big" href="../index.html#arbeiten">Referenzen ansehen →</a></div>
+    </div>
+  </section>
+
+  <!-- ================= ÜBER MICH (authentisch) ================= -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="grid g2" style="align-items:center; gap:44px;">
+        <div>
+          <span class="eyebrow">Wer baut deine Seite?</span>
+          <h2 style="font-size:clamp(1.9rem,3.6vw,2.6rem); margin:10px 0 16px;">Hallo, ich bin Aleksandar.</h2>
+          <p style="color:var(--ink-soft); margin-bottom:14px;">Ich bin 19, komme aus Hamm und baue Websites für lokale Betriebe wie deinen. Kein anonymes Agentur-Callcenter — du sprichst direkt mit der Person, die deine Seite baut.</p>
+          <p style="color:var(--ink-soft);">Mein Versprechen ist einfach: Ich zeige dir zuerst, was ich kann — mit einer fertigen Demo. Überzeugt sie dich nicht, hat es dich keinen Cent gekostet. So ehrlich arbeite ich.</p>
+          <div class="trust" style="margin-top:24px; color:var(--ink-faint); display:flex; gap:18px 26px; flex-wrap:wrap; font-weight:600;">
+            <span>📍 Hamm, NRW</span><span>📞 Persönlich erreichbar</span><span>🧾 Kleinunternehmer §19</span>
+          </div>
+        </div>
+        <div class="card" style="background:var(--oxblood); color:var(--cream); border:none;">
+          <div style="font-family:'Fraunces',serif; font-size:1.5rem; line-height:1.3;">„Du musst nichts tun außer Ja sagen, wenn dir die Demo gefällt.“</div>
+          <p style="color:rgba(246,241,233,.8); margin-top:14px;">Domain, Technik, Texte, Bilder, Betrieb — alles übernehme ich. Du konzentrierst dich auf dein Geschäft.</p>
+          <a class="btn" href="#konfigurator" style="background:var(--cream); color:var(--oxblood); border-color:var(--cream); margin-top:20px;">Demo anfordern →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PREISE ================= -->
+  <section class="pad alt" id="preise">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Preise</span>
+        <h2>Transparent & fair</h2>
+        <p>Einmalpreise — kein Abo-Zwang. Du siehst im Konfigurator sofort, was deine Wunsch-Seite kostet.</p>
+      </div>
+      <div class="plans" id="planCards"><!-- aus katalog.js gefüllt --></div>
+      <p class="abos-note">Optional: dauerhafte Pflege ab <b>63&nbsp;€/Monat</b> (Hosting, Wartung, Updates) — du musst dich um nichts kümmern.</p>
+    </div>
+  </section>
+
+  <!-- ================= RISIKO-UMKEHR ================= -->
+  <section class="reverse pad">
+    <div class="wrap in">
+      <div>
+        <h2>Du gehst kein Risiko ein.</h2>
+        <p>Die Demo ist komplett kostenlos und unverbindlich. Du entscheidest in Ruhe — und zahlst erst, wenn du deine fertige Website vor dir siehst und sie dir gefällt.</p>
+      </div>
+      <a class="btn big" href="#konfigurator">Kostenlose Demo starten →</a>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="sec-head center"><span class="eyebrow">Häufige Fragen</span><h2>Gut zu wissen</h2></div>
+      <div class="faq" id="faq">
+        <div class="q"><button>Was kostet mich die Demo? <span class="pl">+</span></button><div class="a"><p>Nichts. Die Demo ist kostenlos und unverbindlich. Erst wenn sie dir gefällt und du weitermachen willst, leistest du eine Anzahlung — die voll auf den Preis angerechnet wird.</p></div></div>
+        <div class="q"><button>Und wenn mir die Demo nicht gefällt? <span class="pl">+</span></button><div class="a"><p>Dann zahlst du nichts und wir gehen freundlich auseinander. Kein Haken, kein Kleingedrucktes. Du hast nur gewonnen: einen Eindruck, wie deine Seite aussehen könnte.</p></div></div>
+        <div class="q"><button>Gehört mir die Website am Ende? <span class="pl">+</span></button><div class="a"><p>Ja. Domain und Inhalte gehören dir. Nach Zahlung übergebe ich dir alle Zugänge. Auf Wunsch pflege ich die Seite im Abo weiter — musst du aber nicht.</p></div></div>
+        <div class="q"><button>Wie lange dauert es bis die Seite live ist? <span class="pl">+</span></button><div class="a"><p>Die Demo bekommst du in rund 48 Stunden. Nach deiner Zusage und Anzahlung ist die fertige Seite in der Regel in 1–2 Wochen live.</p></div></div>
+        <div class="q"><button>Ich habe keine Bilder oder Texte — geht das trotzdem? <span class="pl">+</span></button><div class="a"><p>Klar. Ich erstelle passende Texte und Bilder (auf Wunsch komme ich für ein Fotoshooting vorbei oder generiere Bilder per KI). Du musst nichts vorbereiten.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KONFIGURATOR ================= -->
+  <section class="konf pad" id="konfigurator">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">Dein Konfigurator</span>
+        <h2>Stell dir deine Website zusammen</h2>
+        <p>2 Minuten, kein Konto nötig. Am Ende forderst du deine kostenlose Demo an.</p>
+      </div>
+
+      <div class="wz" id="wz">
+        <div class="wz-top">
+          <div><div class="lbl">Schritt <span id="wzNum">1</span> von 6</div><div id="wzTitle" style="font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem;">Dein Betrieb</div></div>
+          <div class="price"><div class="v" id="wzPrice">—</div><div class="c">einmalig, inkl. Auswahl</div></div>
+        </div>
+        <div class="wz-prog"><i id="wzBar"></i></div>
+
+        <div class="wz-body">
+          <!-- Schritt 1: Betrieb -->
+          <div class="wz-step on" data-step="1">
+            <h3>Erzähl mir von deinem Betrieb</h3>
+            <p class="hint">Damit ich deine Demo persönlich gestalten kann.</p>
+            <label class="fld"><span>Name des Betriebs *</span><input id="fBetrieb" placeholder="z. B. Bro's Barbershop" required></label>
+            <div class="row2">
+              <label class="fld"><span>Ort *</span><input id="fOrt" placeholder="z. B. Hamm" required></label>
+              <label class="fld"><span>Branche *</span><select id="fBranche" required>
+                <option value="">— wählen —</option>
+                <option>Friseur / Barbershop</option><option>Nagelstudio</option><option>Kosmetik / Beauty</option>
+                <option>Gastronomie / Café</option><option>Handwerk</option><option>Physiotherapie</option>
+                <option>Tattoo / Piercing</option><option>Hundesalon</option><option>Kiosk / Späti</option>
+                <option>Einzelhandel</option><option>Sonstiges</option>
+              </select></label>
+            </div>
+          </div>
+
+          <!-- Schritt 2: Paket -->
+          <div class="wz-step" data-step="2">
+            <h3>Welches Paket passt?</h3>
+            <p class="hint">Du kannst es später jederzeit anpassen — nichts ist endgültig.</p>
+            <div class="pick" id="pakPick"><!-- aus katalog.js --></div>
+          </div>
+
+          <!-- Schritt 3: Extras + Abo -->
+          <div class="wz-step" data-step="3">
+            <h3>Noch etwas dazu?</h3>
+            <p class="hint">Alles optional. Hak nur an, was du wirklich willst.</p>
+            <div class="pick" id="upPick" style="margin-bottom:22px;"><!-- aus katalog.js --></div>
+            <label class="fld"><span>Dauerhafte Pflege (optional)</span><select id="fAbo"></select></label>
+            <label class="fld" id="aboLzWrap" style="display:none;"><span>Laufzeit</span><select id="fAboLz">
+              <option value="3">3 Monate</option><option value="6">6 Monate</option><option value="12" selected>12 Monate (günstigster Preis)</option>
+            </select></label>
+          </div>
+
+          <!-- Schritt 4: Wünsche -->
+          <div class="wz-step" data-step="4">
+            <h3>Deine Wünsche</h3>
+            <p class="hint">Je mehr ich weiß, desto besser wird die Demo. Alles freiwillig.</p>
+            <label class="fld"><span>Was soll die Website vor allem erreichen?</span><div class="chips" id="zielChips">
+              <span class="chip" data-v="Mehr Anrufe & Anfragen">Mehr Anrufe</span>
+              <span class="chip" data-v="Mehr Termine / Buchungen">Mehr Termine</span>
+              <span class="chip" data-v="Neukunden gewinnen">Neukunden</span>
+              <span class="chip" data-v="Professioneller wirken">Seriöser wirken</span>
+              <span class="chip" data-v="Bei Google gefunden werden">Bei Google gefunden</span>
+            </div></label>
+            <label class="fld"><span>Stil / Vorbilder (Farben, Stimmung, Beispielseiten)</span><input id="fStil" placeholder="z. B. warm & rustikal, dunkles Holz; wie Otto's Barbershop"></label>
+            <label class="fld"><span>Hast du schon Bilder & Texte?</span><select id="fInhalte">
+              <option value="">— wählen —</option><option value="Ja, alles vorhanden">Ja, alles da</option>
+              <option value="Teilweise vorhanden">Teilweise</option><option value="Nein, bitte übernehmen">Nein, bitte übernehmen</option>
+            </select></label>
+          </div>
+
+          <!-- Schritt 5: Kontakt -->
+          <div class="wz-step" data-step="5">
+            <h3>Wohin schicke ich deine Demo?</h3>
+            <p class="hint">Ich melde mich innerhalb von 48 Stunden mit deiner fertigen Demo.</p>
+            <label class="fld"><span>Dein Name *</span><input id="fName" placeholder="Vor- und Nachname" required></label>
+            <div class="row2">
+              <label class="fld"><span>E-Mail *</span><input id="fEmail" type="email" placeholder="name@beispiel.de" required></label>
+              <label class="fld"><span>Telefon / WhatsApp</span><input id="fTel" placeholder="optional, für Rückfragen"></label>
+            </div>
+            <label class="consent"><input type="checkbox" id="fConsent">
+              <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Details in der <a href="../datenschutz.html" target="_blank">Datenschutzerklärung</a>. *</span></label>
+          </div>
+
+          <!-- Schritt 6: Zusammenfassung -->
+          <div class="wz-step" data-step="6">
+            <h3>Deine Zusammenfassung</h3>
+            <p class="hint">Passt das so? Dann fordere jetzt deine kostenlose Demo an.</p>
+            <div class="sum" id="sumBox"></div>
+            <div class="pay-note">💡 <b>Kein Zahlungsschritt jetzt.</b> Du bekommst zuerst deine kostenlose Demo. Erst wenn sie dir gefällt, schicke ich dir einen sicheren Bezahllink für die Anzahlung.</div>
+          </div>
+
+          <!-- Danke -->
+          <div class="danke" id="danke">
+            <div class="big">🎉</div>
+            <h3>Geschafft — deine Anfrage ist da!</h3>
+            <p>Danke, <b id="dkName">!</b> Ich baue jetzt deine persönliche Demo und melde mich innerhalb von <b>48 Stunden</b> bei dir.</p>
+            <p>Schau ab und zu in dein E-Mail-Postfach (auch Spam).</p>
+            <a class="btn big" href="../index.html" style="margin-top:22px;">Zurück zur Startseite</a>
+          </div>
+        </div>
+
+        <div class="wz-foot" id="wzFoot">
+          <button class="btn ghost" id="btnBack" style="visibility:hidden;">← Zurück</button>
+          <button class="btn" id="btnNext">Weiter →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <a class="logo" href="../index.html"><span class="mk">I</span><span><span class="lt">ILIC</span><span class="ls">ECOM&nbsp;HUB</span></span></a>
+          <p style="margin-top:12px; max-width:300px;">Moderne Websites für lokale Betriebe. Persönlich aus Hamm.</p>
+        </div>
+        <div class="fl">
+          <a href="../index.html">Startseite</a>
+          <a href="../impressum.html">Impressum</a>
+          <a href="../datenschutz.html">Datenschutz</a>
+          <a href="../agb.html">AGB</a>
+          <a href="../widerruf.html">Widerruf</a>
+        </div>
+      </div>
+      <div class="bot">
+        <span>© <span id="yr"></span> ILIC ECOM HUB · Aleksandar Ilic · Kleinunternehmer §19 UStG</span>
+        <span>kontakt@ilic-ecomhub.de · 0176 43478923</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
