@@ -220,6 +220,18 @@
   .danke .big{font-size:3rem;}
   .danke h3{font-size:1.7rem; margin:14px 0 10px;}
   .danke p{color:var(--ink-soft); max-width:460px; margin:0 auto 8px;}
+  .danke .dk-spam{font-size:.9rem; color:var(--ink-faint); margin-top:22px;}
+
+  /* Termin-Block im Danke-Screen */
+  .dk-termin{margin:26px auto 0; max-width:720px; text-align:center;
+    background:var(--surface); border:1px solid var(--line); border-radius:18px;
+    padding:24px 20px 20px; box-shadow:0 14px 40px rgba(83,23,15,.08);}
+  .dk-termin-h{font-family:'Fraunces',serif; font-weight:600; font-size:1.3rem; color:var(--oxblood); margin-bottom:6px;}
+  .dk-termin-p{color:var(--ink-soft); max-width:520px; margin:0 auto 16px; font-size:.98rem;}
+  .dk-termin-p b{color:var(--oxblood);}
+  #cal-embed{min-height:560px; width:100%; overflow:hidden; border-radius:12px;
+    border:1px solid var(--line-soft); background:#fff;}
+  @media (max-width:680px){ #cal-embed{min-height:620px;} .dk-termin{padding:18px 12px 14px;} }
 
   /* ---- Footer ---- */
   footer{background:var(--ink); color:rgba(246,241,233,.72); padding:54px 0 30px; font-size:.92rem;}
@@ -539,9 +551,17 @@
           <div class="danke" id="danke">
             <div class="big">🎉</div>
             <h3>Geschafft — deine Anfrage ist da!</h3>
-            <p>Danke, <b id="dkName">!</b> Ich baue jetzt deine persönliche Demo und melde mich innerhalb von <b>48 Stunden</b> bei dir.</p>
-            <p>Schau ab und zu in dein E-Mail-Postfach (auch Spam).</p>
-            <a class="btn big" href="../agency-website/index.html" style="margin-top:22px;">Zurück zur Startseite</a>
+            <p>Danke, <b id="dkName">!</b> Ich baue jetzt deine persönliche Demo. Jetzt der schnellste Weg zu deiner Seite: 👇</p>
+
+            <!-- Termin-Buchung (Cal.com) — der starke nächste Schritt -->
+            <div class="dk-termin" id="dkTermin">
+              <div class="dk-termin-h">📅 Letzter Schritt: Lern mich kurz kennen</div>
+              <p class="dk-termin-p">Buch dir direkt <b>15 Minuten</b> — wir schauen zusammen auf deine Demo, klären offene Fragen und die nächsten Schritte. Kostenlos &amp; unverbindlich.</p>
+              <div id="cal-embed"></div>
+            </div>
+
+            <p class="dk-spam">Lieber später? Kein Problem — ich melde mich innerhalb von <b>48 Stunden</b> per Mail (schau auch im Spam).</p>
+            <a class="btn big" href="../agency-website/index.html" style="margin-top:10px;">Zurück zur Startseite</a>
           </div>
         </div>
 

@@ -21,6 +21,11 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykanorw";
 const PAY_LINK = "";
 const KONTAKT_MAIL = "kontakt@ilic-ecomhub.de";
 
+// 3) CAL_LINK — Cal.com-Termin am Ende (Danke-Screen). Form "username/event-slug".
+//    Buchungen landen automatisch in Aleks' Google-Kalender + Bestätigungsmail.
+//    LEER lassen → kein Kalender, Danke-Screen bleibt unverändert.
+const CAL_LINK = "aleksandar-ilic-9nquq7/kennenlernen-demo-zusammen-anschauen";
+
 const $ = (id) => document.getElementById(id);
 const ANZAHLUNG_PROZENT = 50;   // wie im Angebots-Standard (Cockpit/AGB: bis zu 50 %)
 
@@ -282,8 +287,47 @@ function showDanke(d, viaMail) {
     a.textContent = "Optional: Anzahlung direkt sichern →";
     $("danke").appendChild(a);
   }
+  // Termin-Kalender (Cal.com) einblenden — der starke nächste Schritt vom warmen Lead.
+  if (CAL_LINK) mountCalEmbed(d);
+  else { const t = $("dkTermin"); if (t) t.style.display = "none"; }
+
   $("danke").classList.add("on");
   $("wz").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+// Cal.com-Inline-Embed lazy laden + mit den Formulardaten vorbefüllen.
+// Lädt erst HIER (nach Absenden/Einwilligung) — kein Drittanbieter-Script vorher.
+let calMounted = false;
+function mountCalEmbed(d) {
+  if (calMounted) return;
+  calMounted = true;
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let doc = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal, ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; doc.head.appendChild(doc.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const ns = ar[1];
+        api.q = api.q || [];
+        if (typeof ns === "string") { cal.ns[ns] = cal.ns[ns] || api; p(cal.ns[ns], ar); p(cal, ["initNamespace", ns]); }
+        else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  const notes = `Betrieb: ${d.betrieb || "—"} (${d.ort || "—"}) · ${d.branche || "—"} · Paket: ${d.paket || "—"}`;
+  window.Cal("init", { origin: "https://cal.com" });
+  window.Cal("inline", {
+    elementOrSelector: "#cal-embed",
+    calLink: CAL_LINK,
+    layout: "month_view",
+    config: { name: d.name || "", email: d.email || "", notes },
+  });
+  window.Cal("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: { light: { "cal-brand": "#53170F" } } });
 }
 
 // ============================== Start ==============================
