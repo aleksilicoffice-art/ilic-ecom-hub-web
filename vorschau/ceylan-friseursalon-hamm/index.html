@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CEYLAN Friseursalon, Damen & Herren in Hamm (seit 2001)</title>
+<meta name="description" content="CEYLAN Friseursalon in Hamm: Damen, Herren & Kinder. Seit 2001, 3 Standorte (Pelkum, Herringen, Mitte). Termin einfach per WhatsApp anfragen.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CEYLAN Friseursalon, Damen & Herren in Hamm">
+<meta property="og:description" content="Modernes Friseurhandwerk in Hamm, seit 2001. Damen, Herren & Kinder. Termin per WhatsApp.">
+<meta property="og:image" content="fotos/g-herringen-1.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
+<style>
+:root{
+  --bg:oklch(0.985 0.003 95);
+  --surface:oklch(0.965 0.004 95);
+  --ink:oklch(0.24 0.012 60);
+  --muted:oklch(0.52 0.012 65);
+  --gold:oklch(0.70 0.095 75);
+  --gold-deep:oklch(0.55 0.10 70);
+  --dark:oklch(0.22 0.012 60);
+  --dark-2:oklch(0.27 0.012 60);
+  --wa:oklch(0.72 0.16 150);
+  --wa-bright:oklch(0.77 0.17 150);
+  --line:oklch(0.90 0.006 80);
+  --line-strong:oklch(0.84 0.008 80);
+  --disp:"Bricolage Grotesque",-apple-system,system-ui,sans-serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  --maxw:1200px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:clamp(1rem,0.97rem + 0.15vw,1.06rem);line-height:1.6;font-weight:400;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:700;line-height:1.05;letter-spacing:-0.02em;text-wrap:balance}
+p{text-wrap:pretty;max-width:66ch}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--gold);color:#fff}
+:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px;border-radius:3px}
+.wrap{width:min(100% - 2.5rem,var(--maxw));margin-inline:auto}
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);display:inline-block}
+.section{padding:clamp(4rem,3.5rem + 5vw,8rem) 0}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);
+  font-weight:600;font-size:.95rem;padding:.9rem 1.6rem;border-radius:999px;cursor:pointer;border:1px solid transparent;
+  min-height:48px;transition:transform .35s var(--ease),background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),box-shadow .35s var(--ease)}
+.btn-primary{background:var(--dark);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px -12px oklch(0.22 0.012 60 / .5)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{background:var(--wa-bright);transform:translateY(-2px);box-shadow:0 12px 30px -12px oklch(0.72 0.16 150 / .6)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn-ghost.on-dark{color:#fff;border-color:oklch(1 0 0 / .3)}
+.btn-ghost.on-dark:hover{border-color:#fff;background:oklch(1 0 0 / .08)}
+.btn.sm{padding:.6rem 1.1rem;font-size:.86rem;min-height:42px}
+
+/* Nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem clamp(1.25rem,5vw,3rem);
+  transition:background .35s var(--ease),box-shadow .35s var(--ease)}
+.nav.scrolled{background:oklch(0.985 0.003 95 / .97);box-shadow:0 1px 0 var(--line),0 8px 30px -20px oklch(0.22 0.012 60 / .4)}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--disp);font-weight:700;font-size:1.3rem;letter-spacing:-0.01em;color:var(--ink)}
+.brand .mark{width:38px;height:38px;border:1.5px solid var(--gold);border-radius:50%;display:grid;place-items:center;
+  font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--gold-deep);flex:0 0 auto}
+.brand.on-hero,.brand.on-hero .mark{color:#fff}.brand.on-hero .mark{border-color:oklch(1 0 0 / .6)}
+.nav-links{display:flex;align-items:center;gap:1.9rem}
+.nav-links a:not(.btn){font-size:.92rem;font-weight:500;position:relative;color:inherit;padding:.2rem 0}
+.nav-links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-2px;width:100%;height:1.5px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav-links a:not(.btn):hover::after{transform:scaleX(1)}
+.nav:not(.scrolled) .nav-links a:not(.btn){color:#fff}
+.nav-toggle{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:.4rem}
+.nav:not(.scrolled) .nav-toggle{color:#fff}
+@media(max-width:900px){
+  .nav-links{position:fixed;inset:0;flex-direction:column;justify-content:center;gap:1.7rem;
+    background:oklch(0.985 0.003 95 / .99);backdrop-filter:blur(8px);transform:translateX(100%);transition:transform .45s var(--ease)}
+  .nav-links a:not(.btn){font-size:1.4rem;font-family:var(--disp);color:var(--ink)!important}
+  .nav-open .nav-links{transform:translateX(0)}
+  .nav-toggle{display:block;z-index:1}
+}
+
+/* Hero */
+.hero{position:relative;min-height:100svh;display:grid;align-items:end;isolation:isolate;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:-2}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;animation:heroZoom 16s var(--ease) forwards}
+@keyframes heroZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,oklch(0.2 0.01 60 / .92) 0%,oklch(0.2 0.01 60 / .5) 34%,oklch(0.2 0.01 60 / .25) 60%,oklch(0.2 0.01 60 / .55) 100%)}
+.hero-inner{padding-bottom:clamp(3.5rem,3rem + 5vw,6.5rem);padding-top:7rem;color:#fff}
+.hero .kicker{color:oklch(0.85 0.07 78);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;font-family:var(--sans)}
+.hero h1{font-size:clamp(2.3rem,1rem + 6.2vw,7rem);letter-spacing:-0.03em;margin:.7rem 0 0;line-height:.95}
+.hero-tag{margin-top:1.1rem;font-size:clamp(1.05rem,1rem + .5vw,1.35rem);font-weight:500;color:oklch(0.96 0.005 95)}
+.hero-sub{margin-top:.4rem;color:oklch(0.86 0.01 95);font-size:1rem}
+.hero-cta{margin-top:2.2rem;display:flex;gap:.9rem;flex-wrap:wrap}
+.hero-scroll{position:absolute;left:50%;bottom:1.3rem;translate:-50% 0;z-index:1;color:oklch(0.9 0.01 95);
+  font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.hero-scroll span{width:1px;height:32px;background:linear-gradient(var(--gold),transparent);animation:sp 2.2s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+.js .hero h1,.js .hero .kicker,.js .hero-tag,.js .hero-sub,.js .hero-cta{opacity:0;transform:translateY(24px);filter:blur(5px)}
+.js .hero.lit .kicker{animation:rise .9s var(--ease) .1s forwards}
+.js .hero.lit h1{animation:rise 1s var(--ease) .22s forwards}
+.js .hero.lit .hero-tag{animation:rise 1s var(--ease) .42s forwards}
+.js .hero.lit .hero-sub{animation:rise 1s var(--ease) .54s forwards}
+.js .hero.lit .hero-cta{animation:rise 1s var(--ease) .68s forwards}
+@keyframes rise{to{opacity:1;transform:none;filter:blur(0)}}
+
+/* Reveal */
+.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+.js .reveal.d1{transition-delay:.08s}.js .reveal.d2{transition-delay:.16s}.js .reveal.d3{transition-delay:.24s}
+
+/* Section heads */
+.sec-head{max-width:46rem}
+.sec-head.center{margin-inline:auto;text-align:center}
+.sec-head h2{font-size:clamp(2.1rem,1.5rem + 3vw,3.4rem);margin:.6rem 0 .8rem}
+.sec-head p{color:var(--muted)}
+.sec-head.center p{margin-inline:auto}
+
+/* Über uns */
+.about{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.about-fig{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px -35px oklch(0.22 0.012 60 / .45)}
+.about-fig img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.about-fig:hover img{transform:scale(1.04)}
+.about h2{font-size:clamp(2rem,1.5rem + 3vw,3.2rem);margin:.7rem 0 1.1rem}
+.about p + p{margin-top:.9rem}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:1.9rem}
+.stats .n{font-family:var(--disp);font-weight:700;font-size:2rem;color:var(--ink);line-height:1}
+.stats .n b{color:var(--gold-deep);font-weight:700}
+.stats .l{font-size:.82rem;color:var(--muted);margin-top:.25rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.tags span{font-size:.83rem;border:1px solid var(--line-strong);border-radius:999px;padding:.4rem .9rem;color:var(--muted)}
+
+/* Leistungen */
+.leist{background:var(--surface)}
+.leist-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:2.5rem}
+.lcard{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:1.6rem 1.5rem;display:flex;flex-direction:column}
+.lcard h3{font-size:1.3rem;display:flex;align-items:center;gap:.55rem}
+.lcard h3 .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex:0 0 auto}
+.lcard ul{list-style:none;margin:1.1rem 0 1.4rem;display:grid;gap:.55rem}
+.lcard li{font-size:.96rem;color:var(--ink);padding-left:1.3rem;position:relative}
+.lcard li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--line-strong)}
+.lcard .btn{margin-top:auto;align-self:flex-start}
+.leist-note{margin-top:1.6rem;font-size:.88rem;color:var(--muted);text-align:center}
+
+/* Galerie */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.gal figure{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.gal figure:hover img{transform:scale(1.06)}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.4rem .9rem .7rem;color:#fff;font-family:var(--disp);font-weight:600;font-size:.98rem;
+  background:linear-gradient(transparent,oklch(0.2 0.01 60 / .8))}
+
+/* Reels (dunkle Sektion) */
+.film{background:var(--dark);color:#fff}
+.film .eyebrow{color:oklch(0.82 0.07 78)}
+.film h2{color:#fff;font-size:clamp(2.1rem,1.5rem + 3vw,3.4rem);margin:.6rem 0 .8rem}
+.film p{color:oklch(0.82 0.01 95)}
+.reels{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:1.2rem;margin-top:2.6rem;align-items:start}
+.reel{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:9/16;background:#000;
+  box-shadow:0 40px 70px -40px #000,0 0 0 1px oklch(1 0 0 / .08)}
+.reel video{width:100%;height:100%;object-fit:cover;display:block}
+.reel .cap{position:absolute;left:0;right:0;bottom:0;padding:1.5rem .9rem .8rem;font-family:var(--disp);font-weight:600;font-size:.95rem;
+  background:linear-gradient(transparent,oklch(0.12 0.01 60 / .85))}
+.reel .badge{position:absolute;top:.8rem;left:.8rem;display:flex;align-items:center;gap:.4rem;font-size:.66rem;letter-spacing:.1em;
+  text-transform:uppercase;background:oklch(0.12 0.01 60 / .55);backdrop-filter:blur(6px);padding:.3rem .6rem;border-radius:999px}
+.reel .badge .d{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+
+/* Team */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.team-fig{border-radius:8px;overflow:hidden;box-shadow:0 30px 60px -35px oklch(0.22 0.012 60 / .45)}
+.team-fig img{width:100%;height:auto;display:block}
+.team h2{font-size:clamp(2rem,1.5rem + 3vw,3.2rem);margin:.7rem 0 1rem}
+
+/* Bewertungen */
+.revs{background:var(--surface)}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2.5rem}
+.rev{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:1.5rem 1.5rem 1.3rem}
+.rev .stars{color:var(--gold);letter-spacing:2px;font-size:.95rem}
+.rev p{font-size:1rem;margin:.7rem 0 1rem;color:var(--ink)}
+.rev .who{font-size:.85rem;color:var(--muted)}
+.rev .who b{color:var(--ink);font-weight:600}
+.rev-foot{margin-top:1.8rem;text-align:center;font-size:.95rem;color:var(--muted)}
+.rev-foot b{color:var(--ink)}
+
+/* Standorte */
+.loc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem;margin-top:2.6rem}
+.loc{background:var(--bg);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.loc:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px oklch(0.22 0.012 60 / .4)}
+.loc .foto{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--dark)}
+.loc .foto img{width:100%;height:100%;object-fit:cover}
+.loc .foto.empty{display:grid;place-items:center;background:linear-gradient(135deg,var(--dark),var(--dark-2))}
+.loc .foto.empty .ce{font-family:var(--disp);font-weight:700;font-size:2.4rem;color:oklch(1 0 0 / .85);letter-spacing:.04em}
+.loc .tag{position:absolute;top:.8rem;left:.8rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  background:oklch(0.985 0.003 95 / .94);color:var(--gold-deep);padding:.32rem .7rem;border-radius:999px}
+.loc .bd{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;flex:1}
+.loc h3{font-size:1.4rem}
+.loc .addr{color:var(--muted);font-size:.95rem;margin:.5rem 0 .9rem;line-height:1.5}
+.loc .addr a{color:var(--ink);font-weight:600}.loc .addr a:hover{color:var(--gold-deep)}
+.loc .zeiten{font-size:.9rem;border-top:1px solid var(--line);padding-top:.8rem;margin-bottom:1.1rem}
+.loc .z{display:flex;justify-content:space-between;padding:.28rem 0;color:var(--muted)}
+.loc .z.today{color:var(--ink);font-weight:600}.loc .z.today b{color:var(--gold-deep)}
+.loc .z.closed b{color:var(--muted)}
+.loc .acts{display:flex;gap:.6rem;margin-top:auto;flex-wrap:wrap}
+.loc .acts .btn{flex:1;min-width:120px}
+
+/* Footer */
+.footer{background:var(--dark);color:oklch(0.82 0.01 95);padding:clamp(3rem,5vw,4.5rem) 0 2.4rem}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2.4rem}
+.footer .brand{color:#fff;margin-bottom:.8rem}.footer .brand .mark{color:var(--gold);border-color:oklch(1 0 0 / .4)}
+.footer p{font-size:.93rem;color:oklch(0.78 0.01 95)}
+.footer h4{font-family:var(--sans);font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.footer a{display:block;color:oklch(0.78 0.01 95);font-size:.94rem;padding:.24rem 0;transition:color .3s}
+.footer a:hover{color:#fff}
+.footer-bottom{margin-top:2.8rem;padding-top:1.5rem;border-top:1px solid oklch(1 0 0 / .12);display:flex;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;font-size:.82rem;color:oklch(0.66 0.01 95)}
+.footer-bottom a{display:inline;color:var(--gold)}
+.disclaimer{font-size:.74rem;color:oklch(0.6 0.01 95);max-width:62ch;margin-top:.5rem}
+
+/* Floating WhatsApp */
+.wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:max(1.1rem,env(safe-area-inset-bottom));z-index:200;
+  display:flex;align-items:center;gap:.6rem;background:var(--wa);color:#fff;font-family:var(--sans);font-weight:600;font-size:.95rem;
+  padding:.85rem 1.2rem .85rem .95rem;border-radius:999px;box-shadow:0 14px 34px -10px oklch(0.72 0.16 150 / .65);
+  transition:transform .35s var(--ease),background .3s var(--ease);min-height:56px}
+.wa-float:hover{background:var(--wa-bright);transform:translateY(-3px) scale(1.02)}
+.wa-float svg{width:26px;height:26px;flex:0 0 auto}
+.wa-float .t{white-space:nowrap}
+@media(max-width:560px){.wa-float .t{display:none}.wa-float{padding:0;width:60px;height:60px;justify-content:center}}
+
+/* Responsive */
+@media(max-width:900px){
+  .about,.team{grid-template-columns:1fr}
+  .about-fig{order:-1;aspect-ratio:16/11}
+  .reels{grid-template-columns:1fr 1fr}.reels .reel:first-child{grid-column:1/-1;max-width:340px;margin-inline:auto}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .gal{grid-template-columns:1fr 1fr;gap:.7rem}
+  .reels{grid-template-columns:1fr;max-width:330px;margin-inline:auto}.reels .reel:first-child{max-width:none}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-cta{flex-direction:column}.hero-cta .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .hero-media img{animation:none}
+  .js .hero h1,.js .hero .kicker,.js .hero-tag,.js .hero-sub,.js .hero-cta,.js .reveal{opacity:1!important;transform:none!important;filter:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand on-hero" id="brand"><span class="mark">CE</span>CEYLAN</a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#about">Salon</a>
+    <a href="#leistungen">Leistungen</a>
+    <a href="#standorte">Standorte</a>
+    <a href="#bewertungen">Bewertungen</a>
+    <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20gern%20einen%20Termin%20anfragen." target="_blank" rel="noopener" class="btn btn-wa sm">Termin per WhatsApp</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img src="fotos/g-herringen-1.jpg" alt="Moderner Innenraum des CEYLAN Friseursalons mit Gold-Vintage-Stühlen, Hexagon-Licht und hellem Holz">
+  </div>
+  <div class="wrap hero-inner">
+    <span class="kicker">Damen &amp; Herren · seit 2001</span>
+    <h1>CEYLAN<br>Friseursalon</h1>
+    <p class="hero-tag">Modernes Friseurhandwerk in Hamm, für Damen, Herren &amp; Kinder.</p>
+    <p class="hero-sub">3 Standorte · Pelkum · Herringen · Mitte</p>
+    <div class="hero-cta">
+      <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20gern%20einen%20Termin%20anfragen." target="_blank" rel="noopener" class="btn btn-wa">Termin per WhatsApp</a>
+      <a href="#leistungen" class="btn btn-ghost on-dark">Unsere Leistungen</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">Mehr<span></span></div>
+</section>
+
+<!-- ÜBER UNS -->
+<section class="section" id="about">
+  <div class="wrap about">
+    <div>
+      <span class="eyebrow reveal">Willkommen bei CEYLAN</span>
+      <h2 class="reveal d1">Ein Salon für alle, seit über 20 Jahren.</h2>
+      <p class="reveal d1">Seit 2001 steht CEYLAN in Hamm für sauberes Handwerk und einen Schnitt, der sitzt. Bei uns sind Damen, Herren und Kinder zuhause, mit einem eigenen, abgeschirmten Bereich für unsere Damen. Vom klassischen Herrenschnitt über Bart und Coloration bis zu Soft Waves und Hochsteckfrisuren.</p>
+      <p class="reveal d2">Drei Standorte, ein Anspruch: Du gehst gepflegt und zufrieden wieder raus. Auch spontan, oft ohne lange Wartezeit.</p>
+      <div class="stats">
+        <div class="reveal d1"><div class="n">seit <b>2001</b></div><div class="l">in Hamm</div></div>
+        <div class="reveal d2"><div class="n"><b>3</b> Standorte</div><div class="l">Pelkum · Herringen · Mitte</div></div>
+        <div class="reveal d3"><div class="n"><b>4,5</b>★</div><div class="l">über 100 Google-Bewertungen</div></div>
+      </div>
+      <div class="tags reveal d2">
+        <span>Damen</span><span>Herren</span><span>Kinder</span><span>Separater Damenbereich</span><span>Termin auch spontan</span>
+      </div>
+    </div>
+    <figure class="about-fig reveal d1">
+      <img loading="lazy" decoding="async" src="fotos/g-pelkum-8.jpg" alt="Heller, moderner Empfangsbereich im CEYLAN Friseursalon">
+    </figure>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section class="section leist" id="leistungen">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow reveal">Leistungen</span>
+      <h2 class="reveal d1">Was wir für dich machen.</h2>
+      <p class="reveal d1">Vom schnellen Schnitt bis zum kompletten Styling. Preise auf Anfrage, schreib uns einfach per WhatsApp, wir finden den passenden Termin.</p>
+    </div>
+    <div class="leist-grid">
+      <div class="lcard reveal">
+        <h3><span class="dot"></span>Herren</h3>
+        <ul><li>Haarschnitt &amp; Styling</li><li>Maschinenschnitt</li><li>Bart trimmen &amp; Konturen</li><li>Rasur</li></ul>
+        <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20einen%20Herren-Termin%20anfragen." target="_blank" rel="noopener" class="btn btn-primary sm">Termin anfragen</a>
+      </div>
+      <div class="lcard reveal d1">
+        <h3><span class="dot"></span>Damen</h3>
+        <ul><li>Waschen · Schneiden · Föhnen</li><li>Styling &amp; Soft Waves</li><li>Hochsteck- &amp; Event-Frisuren</li><li>Strähnen &amp; Coloration</li></ul>
+        <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20einen%20Damen-Termin%20anfragen." target="_blank" rel="noopener" class="btn btn-primary sm">Termin anfragen</a>
+      </div>
+      <div class="lcard reveal d2">
+        <h3><span class="dot"></span>Kinder</h3>
+        <ul><li>Kinderschnitt, Mädchen &amp; Jungen</li><li>Geduldig &amp; entspannt</li><li>Auch der erste Haarschnitt</li></ul>
+        <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20einen%20Kinder-Termin%20anfragen." target="_blank" rel="noopener" class="btn btn-primary sm">Termin anfragen</a>
+      </div>
+      <div class="lcard reveal d3">
+        <h3><span class="dot"></span>Pflege &amp; Extras</h3>
+        <ul><li>Haarpflege &amp; Treatments</li><li>Augenbrauen</li><li>Kopfmassage</li><li>Beratung &amp; Typveränderung</li></ul>
+        <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20habe%20eine%20Frage%20zu%20euren%20Leistungen." target="_blank" rel="noopener" class="btn btn-primary sm">Termin anfragen</a>
+      </div>
+    </div>
+    <p class="leist-note reveal">Du bist unsicher, was zu dir passt? Schreib uns kurz, wir beraten dich ehrlich und finden gemeinsam den passenden Look.</p>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="section" id="galerie">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow reveal">Galerie</span>
+      <h2 class="reveal d1">Unsere Arbeit spricht für sich.</h2>
+    </div>
+    <div class="gal">
+      <figure class="reveal"><img loading="lazy" decoding="async" src="fotos/upload-herren.jpg" alt="Herren-Fade mit sauberen Konturen und gepflegtem Bart"><figcaption>Herren · Fade &amp; Bart</figcaption></figure>
+      <figure class="reveal d1"><img loading="lazy" decoding="async" src="fotos/upload-damen.jpg" alt="Damen Soft Waves mit eleganten Flecht-Details"><figcaption>Damen · Soft Waves</figcaption></figure>
+      <figure class="reveal d2"><img loading="lazy" decoding="async" src="fotos/g-herringen-3.jpg" alt="Stimmungsvoller Salon-Innenraum am Abend mit warmem Licht"><figcaption>Salon Herringen</figcaption></figure>
+      <figure class="reveal"><img loading="lazy" decoding="async" src="fotos/g-herringen-6.jpg" alt="Heller Salonbereich mit Stylingplätzen und Produktwand"><figcaption>Stylingplätze</figcaption></figure>
+      <figure class="reveal d1"><img loading="lazy" decoding="async" src="fotos/g-pelkum-8.jpg" alt="Empfangs- und Wartebereich im Salon Pelkum"><figcaption>Salon Pelkum</figcaption></figure>
+      <figure class="reveal d2"><img loading="lazy" decoding="async" src="fotos/g-pelkum-5.jpg" alt="Außenansicht des CEYLAN Friseursalons in Pelkum"><figcaption>Standort Pelkum</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- REELS / FILM -->
+<section class="section film" id="film">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow reveal">CEYLAN in Bewegung</span>
+      <h2 class="reveal d1">Echte Schnitte, echtes Handwerk.</h2>
+      <p class="reveal d1">Ein kurzer Blick in den Salon, frisch eröffnet, mitten im Tun.</p>
+    </div>
+    <div class="reels">
+      <div class="reel reveal">
+        <span class="badge"><span class="d"></span>Eröffnung</span>
+        <video src="video/reel-opening.mp4" autoplay muted loop playsinline preload="metadata" poster="fotos/g-herringen-1.jpg"></video>
+        <div class="cap">Neuer Look, neuer Salon</div>
+      </div>
+      <div class="reel reveal d1">
+        <span class="badge"><span class="d"></span>Herren</span>
+        <video src="video/reel-herren.mp4" autoplay muted loop playsinline preload="metadata" poster="fotos/upload-herren.jpg"></video>
+        <div class="cap">Let's start with hair</div>
+      </div>
+      <div class="reel reveal d2">
+        <span class="badge"><span class="d"></span>Damen</span>
+        <video src="video/reel-damen.mp4" autoplay muted loop playsinline preload="metadata" poster="fotos/upload-damen.jpg"></video>
+        <div class="cap">Soft Waves · Styling von Zehra</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="wrap team">
+    <figure class="team-fig reveal">
+      <img loading="lazy" decoding="async" src="fotos/upload-team.jpg" alt="Das Team des CEYLAN Friseursalons vor der grünen Wand">
+    </figure>
+    <div>
+      <span class="eyebrow reveal">Unser Team</span>
+      <h2 class="reveal d1">Die Hände hinter dem Schnitt.</h2>
+      <p class="reveal d1">Rund um Inhaber <strong>Batuhan</strong> steht ein eingespieltes Team aus erfahrenen Stylistinnen und Stylisten, vom präzisen Herrenschnitt bis zum festlichen Damen-Styling. Wer einmal da war, kommt wieder.</p>
+      <p class="reveal d2">Du wirst herzlich empfangen, gut beraten und gehst zufrieden raus. Genau so soll Friseur sein.</p>
+      <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20gern%20einen%20Termin%20anfragen." target="_blank" rel="noopener" class="btn btn-wa reveal d2" style="margin-top:1.4rem">Termin per WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- BEWERTUNGEN -->
+<section class="section revs" id="bewertungen">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow reveal">Bewertungen</span>
+      <h2 class="reveal d1">Was unsere Gäste sagen.</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Ich bin schon seit 2 Jahren beim CEYLAN Friseursalon und mehr als zufrieden. Die Gäste werden herzlich empfangen und respektiert."</p><div class="who"><b>Enes Baycan</b> · Pelkum</div></div>
+      <div class="rev reveal d1"><div class="stars">★★★★★</div><p>„Jedes Mal rundum zufrieden! Er nimmt sich viel Zeit für seine Arbeit und arbeitet sehr sorgfältig, das Ergebnis stimmt einfach immer."</p><div class="who"><b>S. Citrazoglu</b> · Pelkum</div></div>
+      <div class="rev reveal d2"><div class="stars">★★★★★</div><p>„Wirklich vollends zufrieden. Es gibt sogar einen separaten, abgeschirmten Bereich für Frauen."</p><div class="who"><b>Marvin Oberznik</b> · Pelkum</div></div>
+      <div class="rev reveal"><div class="stars">★★★★★</div><p>„Super freundliche Begrüßung, auch ohne Termin machbar. Macht ihren Job klasse, 1A Beratung."</p><div class="who"><b>Silke Scholz</b> · Herringen</div></div>
+      <div class="rev reveal d1"><div class="stars">★★★★★</div><p>„Emre hat meine Haare geschnitten. Danke Emre, ich bin sehr zufrieden!"</p><div class="who"><b>Ahmet Cetiner</b> · Herringen</div></div>
+      <div class="rev reveal d2"><div class="stars">★★★★★</div><p>„Glückwunsch zum neuen Laden! War mega zufrieden und komme immer wieder."</p><div class="who"><b>Andre Ohlendorf</b> · Herringen</div></div>
+    </div>
+    <p class="rev-foot reveal"><b>4,5–5,0 ★</b> an unseren Standorten · über 120 Google-Bewertungen insgesamt</p>
+  </div>
+</section>
+
+<!-- STANDORTE -->
+<section class="section" id="standorte">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow reveal">Standorte &amp; Öffnungszeiten</span>
+      <h2 class="reveal d1">Dreimal in Hamm für dich.</h2>
+      <p class="reveal d1">Pelkum, Herringen und Mitte, such dir aus, wo's für dich am besten passt. Mo–Sa geöffnet.</p>
+    </div>
+    <div class="loc-grid">
+
+      <div class="loc reveal" data-loc>
+        <div class="foto"><span class="tag">Stammhaus</span><img loading="lazy" decoding="async" src="fotos/g-pelkum-5.jpg" alt="CEYLAN Friseursalon Pelkum, Außenansicht"></div>
+        <div class="bd">
+          <h3>Hamm-Pelkum</h3>
+          <div class="addr">Kamener Str. 105 · 59077 Hamm<br><a href="tel:+4923819155922">02381 9155922</a></div>
+          <div class="zeiten">
+            <div class="z" data-d="1"><span>Mo – Fr</span><b>09:00 – 18:00</b></div>
+            <div class="z" data-d="6"><span>Samstag</span><b>09:00 – 18:00</b></div>
+            <div class="z closed" data-d="0"><span>Sonntag</span><b>Geschlossen</b></div>
+          </div>
+          <div class="acts">
+            <a class="btn btn-wa sm" href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%20Pelkum%2C%20ich%20m%C3%B6chte%20einen%20Termin%20anfragen." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-ghost sm" href="https://maps.google.com/?cid=18073443859793426976" target="_blank" rel="noopener">Route</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc reveal d1" data-loc>
+        <div class="foto"><span class="tag">Neueröffnung</span><img loading="lazy" decoding="async" src="fotos/g-herringen-6.jpg" alt="CEYLAN Friseursalon Herringen, moderner Innenraum"></div>
+        <div class="bd">
+          <h3>Hamm-Herringen</h3>
+          <div class="addr">Neufchâteaustraße 2 · 59077 Hamm<br><a href="tel:+4923814949197">02381 4949197</a></div>
+          <div class="zeiten">
+            <div class="z" data-d="1"><span>Mo – Fr</span><b>09:00 – 18:00</b></div>
+            <div class="z" data-d="6"><span>Samstag</span><b>09:00 – 18:00</b></div>
+            <div class="z closed" data-d="0"><span>Sonntag</span><b>Geschlossen</b></div>
+          </div>
+          <div class="acts">
+            <a class="btn btn-wa sm" href="https://wa.me/4923814949197?text=Hallo%20CEYLAN%20Herringen%2C%20ich%20m%C3%B6chte%20einen%20Termin%20anfragen." target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-ghost sm" href="https://maps.google.com/?cid=10836106014903810387" target="_blank" rel="noopener">Route</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc reveal d2" data-loc>
+        <div class="foto empty"><span class="tag">Fußgängerzone</span><span class="ce">CEYLAN</span></div>
+        <div class="bd">
+          <h3>Hamm-Mitte</h3>
+          <div class="addr">Weststraße 38 · 59065 Hamm<br><a href="tel:+4923814949197">02381 4949197</a></div>
+          <div class="zeiten">
+            <div class="z" data-d="1"><span>Mo – Fr</span><b>09:00 – 18:30</b></div>
+            <div class="z" data-d="6"><span>Samstag</span><b>09:00 – 18:30</b></div>
+            <div class="z closed" data-d="0"><span>Sonntag</span><b>Geschlossen</b></div>
+          </div>
+          <div class="acts">
+            <a class="btn btn-primary sm" href="tel:+4923814949197">Anrufen</a>
+            <a class="btn btn-ghost sm" href="https://maps.google.com/?cid=16031148951609446535" target="_blank" rel="noopener">Route</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"><span class="mark">CE</span>CEYLAN</div>
+        <p>Friseursalon für Damen, Herren &amp; Kinder. Modernes Handwerk in Hamm, seit 2001, an drei Standorten.</p>
+      </div>
+      <div>
+        <h4>Entdecken</h4>
+        <a href="#about">Salon</a>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#standorte">Standorte</a>
+      </div>
+      <div>
+        <h4>Termin &amp; Kontakt</h4>
+        <a href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20gern%20einen%20Termin%20anfragen." target="_blank" rel="noopener">Termin per WhatsApp</a>
+        <a href="tel:+4923819155922">02381 9155922 · Pelkum</a>
+        <a href="https://www.instagram.com/ceylan_friseursalon" target="_blank" rel="noopener">@ceylan_friseursalon</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CEYLAN Friseursalon · Hamm</span>
+      <span>Gestaltet von <a href="https://ilic-ecomhub.de" target="_blank" rel="noopener">ILIC ECOM HUB</a></span>
+    </div>
+    <p class="disclaimer">Vorschau-Demo. Angaben zu Leistungen &amp; Öffnungszeiten laut Google/Instagram-Stand; vor Veröffentlichung mit dem Inhaber zu bestätigen. Fotos © CEYLAN Friseursalon / Google-Profil.</p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/4923819155922?text=Hallo%20CEYLAN%2C%20ich%20m%C3%B6chte%20gern%20einen%20Termin%20anfragen." target="_blank" rel="noopener" aria-label="Termin per WhatsApp anfragen">
+  <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.3l-.4-.2-4.9 1 1-4.8-.3-.4c-.9-1.5-1.4-3.2-1.4-5 0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.2 10.7-8.6 10.7zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3z"/></svg>
+  <span class="t">Termin</span>
+</a>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var nav=document.getElementById('nav'), brand=document.getElementById('brand');
+  var onScroll=function(){ var s=scrollY>40; nav.classList.toggle('scrolled',s); brand.classList.toggle('on-hero',!s); };
+  onScroll(); addEventListener('scroll',onScroll,{passive:true});
+
+  var toggle=document.getElementById('navToggle'), links=document.getElementById('navLinks');
+  var setOpen=function(o){ document.body.classList.toggle('nav-open',o); toggle.setAttribute('aria-expanded',o?'true':'false'); toggle.setAttribute('aria-label',o?'Menü schließen':'Menü öffnen'); };
+  toggle.addEventListener('click',function(){ setOpen(!document.body.classList.contains('nav-open')); });
+  links.addEventListener('click',function(e){ if(e.target.closest('a')) setOpen(false); });
+
+  var hero=document.querySelector('.hero');
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ hero.classList.add('lit'); }); });
+
+  var rev=[].slice.call(document.querySelectorAll('.reveal'));
+  if(reduce||!('IntersectionObserver' in window)){ rev.forEach(function(el){el.classList.add('in');}); }
+  else{
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -10% 0px',threshold:.08});
+    rev.forEach(function(el){ io.observe(el); });
+    setTimeout(function(){ rev.forEach(function(el){ el.classList.add('in'); }); },2600);
+  }
+
+  // Öffnungszeiten: heute hervorheben (Mo-Fr=1, Sa=6, So=0)
+  var day=new Date().getDay();
+  document.querySelectorAll('[data-loc]').forEach(function(card){
+    var sel = day===0 ? '0' : day===6 ? '6' : '1';
+    var row=card.querySelector('.z[data-d="'+sel+'"]');
+    if(row) row.classList.add('today');
+  });
+
+  // Reels: nur abspielen, wenn sichtbar (spart Akku/CPU)
+  if('IntersectionObserver' in window){
+    var vo=new IntersectionObserver(function(es){ es.forEach(function(e){ var v=e.target; if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); } }); },{threshold:.2});
+    document.querySelectorAll('.reel video').forEach(function(v){ vo.observe(v); });
+  }
+})();
+</script>
+</body>
+</html>
