@@ -1,0 +1,166 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auftragsbestätigung — BP Gartengestaltung | ILIC ECOM HUB</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--oxblood:#53170F;--oxblood-bright:#7E2417;--cream:#F6F1E9;--cream-deep:#EFE7DB;--ink:#241a16;--muted:#8a7d72;--line:#e3d8c9;}
+  body{background:#cfc7bb;font-family:'Hanken Grotesk',system-ui,-apple-system,sans-serif;color:var(--ink);padding:24px;}
+  .page{width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:18mm 18mm 14mm;position:relative;box-shadow:0 18px 50px rgba(0,0,0,.25);}
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.01em;}
+  .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--oxblood);padding-bottom:16px;}
+  .mark{display:flex;gap:9px;align-items:stretch;}
+  .mark .bar{width:3px;background:var(--oxblood);border-radius:2px;}
+  .mark .top{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:21px;letter-spacing:.02em;color:var(--oxblood);border-bottom:2px solid var(--oxblood);padding-bottom:3px;line-height:1;}
+  .mark .bot{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:9px;letter-spacing:.42em;color:var(--oxblood);padding-top:5px;}
+  .doc-meta{text-align:right;font-size:11px;color:var(--muted);line-height:1.7;}
+  .doc-meta .big{font-family:'Fraunces',Georgia,serif;font-size:30px;color:var(--oxblood);font-weight:600;display:block;letter-spacing:0;margin-bottom:4px;}
+  .parties{display:flex;justify-content:space-between;gap:30px;margin-top:22px;}
+  .party{font-size:12px;line-height:1.6;}
+  .party .lbl{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+  .party b{font-weight:700;}
+  .intro{margin-top:22px;font-size:12.5px;line-height:1.6;color:#4a3f37;}
+  .intro h2{font-size:18px;color:var(--oxblood);margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:12px;}
+  thead th{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 0 8px;border-bottom:1.5px solid var(--oxblood);font-weight:600;}
+  thead th.r{text-align:right;}
+  tbody td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top;}
+  tbody td.r{text-align:right;white-space:nowrap;font-weight:600;}
+  .pos b{font-weight:700;font-size:12.5px;}
+  .pos small{display:block;color:var(--muted);font-size:10.5px;line-height:1.45;margin-top:3px;}
+  .disc td{color:var(--muted);font-weight:500;}
+  .sum-row td{padding-top:12px;border-bottom:none;font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:600;color:var(--oxblood);}
+  .cols{display:flex;gap:26px;margin-top:18px;}
+  .cols .c{flex:1;}
+  .cols h3{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);margin-bottom:7px;font-family:'Hanken Grotesk',sans-serif;font-weight:700;}
+  .cols ul{list-style:none;font-size:10.8px;line-height:1.55;color:#4a3f37;}
+  .cols li{padding-left:13px;position:relative;margin-bottom:4px;}
+  .cols li::before{content:"\203a";position:absolute;left:0;color:var(--oxblood);font-weight:700;}
+  .accept{margin-top:20px;border-top:1.5px solid var(--oxblood);padding-top:14px;}
+  .accept .t{font-size:11px;color:#4a3f37;margin-bottom:18px;line-height:1.5;}
+  .sign-row{display:flex;gap:40px;}
+  .sign{flex:1;border-top:1px solid var(--ink);padding-top:5px;font-size:9.5px;color:var(--muted);letter-spacing:.04em;}
+  .foot{margin-top:16px;border-top:1px solid var(--line);padding-top:8px;font-size:9px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;}
+  .printbar{position:sticky;top:0;z-index:10;background:#241a16;color:#f6f1e9;display:flex;align-items:center;gap:14px;justify-content:center;padding:10px 16px;font-size:13px;font-family:'Hanken Grotesk',sans-serif;}
+  .printbar button{background:#f6f1e9;color:#241a16;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;}
+  .printbar span{opacity:.75;font-size:11.5px;}
+  @media print{
+    body{background:#fff;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .page{box-shadow:none;width:auto;min-height:auto;margin:0;padding:14mm 16mm;}
+    .printbar{display:none!important;}
+    @page{size:A4;margin:0;}
+  }
+  .hinweis{margin-top:14px;background:#fff7ed;border:1px solid #f0d9b8;border-radius:10px;padding:11px 14px;font-size:10.5px;color:#7a5a2e;line-height:1.5;}
+  .hinweis b{color:#7a3e0e;}
+</style></head>
+<body>
+
+  <div class="printbar">
+    <button onclick="window.print()">🖨️ Drucken / Als PDF speichern</button>
+    <span>Auftragsbestätigung · A4 · im Druckdialog „Hintergrundgrafiken" aktivieren, Ränder „Keine"</span>
+  </div>
+<div class="page">
+  <div class="head">
+
+  <div class="mark">
+    <div class="bar"></div>
+    <div><div class="top">ILIC</div><div class="bot">ECOM&nbsp;HUB</div></div>
+  </div>
+    <div class="doc-meta">
+      <span class="big">Auftrag</span>
+      Nr. 2026-06-30-BP<br>
+      Auftragsdatum: 30. Juni 2026<br>
+      Einmalprojekt
+    </div>
+  </div>
+
+  <div class="parties">
+
+  <div class="party">
+    <div class="lbl">Von</div>
+    <b>Aleksandar Ilic</b> · ILIC ECOM HUB<br>
+    Östingstraße 103<br>59067 Hamm<br>
+    kontakt@ilic-ecomhub.de<br>
+    ilic-ecomhub.de
+  </div>
+
+  <div class="party" style="text-align:right;">
+    <div class="lbl">Für</div>
+    <b>BP Gartengestaltung</b><br>
+    Boris Basic Palkovic<br>
+    Kalthofstraße 12<br>
+    45891 Gelsenkirchen<br>
+    Tel./WhatsApp: +49 1578 9293429
+  </div>
+  </div>
+
+  <div class="intro">
+    <h2>Auftragsbestätigung</h2>
+    Hiermit wird der Auftrag über die folgende Leistung verbindlich bestätigt. Als Kleinunternehmer
+    gemäß §&nbsp;19 UStG wird keine Umsatzsteuer berechnet. Der Festpreis ist ein einmaliger,
+    reduzierter Freundschaftspreis (50&nbsp;% Nachlass auf das reguläre Premium-Paket).
+  </div>
+
+
+    <table>
+      <thead><tr><th>Leistung</th><th class="r">Preis</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="pos"><b>Premium-Website (reduzierter Freundschaftspreis)</b><small>Mehrseitige, mobil-optimierte Premium-Website für BP&nbsp;Gartengestaltung: Garten &amp; Trockenbau aus einer Hand. Startseite mit Hero, beide Leistungswelten (Garten &amp; Trockenbau), Projekt-/Galerie-Bereich, Über uns, Bewertungen und Kontakt. Mit schwebendem WhatsApp-Button &amp; Anfrage-Funktion, Verknüpfung mit den Instagram-Profilen, Hosting-Einrichtung und Übergabe.</small></td>
+          <td class="r">1.200 €</td>
+        </tr>
+        <tr class="disc"><td class="pos">Regulärer Premium-Preis 2.400 € · Freundschaftsrabatt&nbsp;50&nbsp;%</td><td class="r">−1.200 €</td></tr>
+        <tr class="sum-row"><td>Einmalig gesamt</td><td class="r">1.200 €</td></tr>
+      </tbody>
+    </table>
+
+
+  <div class="cols">
+    <div class="c">
+      <h3>Zahlungsplan</h3>
+      <ul>
+        <li>Anzahlung 50&nbsp;%: <b>600 €</b> vor Baubeginn</li>
+        <li>Restzahlung 50&nbsp;%: <b>600 €</b> bei Live-Schaltung</li>
+        <li>Zahlung per Überweisung</li>
+        <li>IBAN: DE56 4416 0014 6650 4957 01</li>
+        <li>BIC: GENODEM1DOR</li>
+      </ul>
+    </div>
+    <div class="c">
+      <h3>Umsetzung</h3>
+      <ul>
+        <li>Start nach Eingang der Anzahlung</li>
+        <li>2 Korrekturschleifen inklusive</li>
+        <li>Fertigstellung i.&nbsp;d.&nbsp;R. in 1–2 Wochen</li>
+        <li>Inhalte/Fotos/Logo vom Kunden, sonst Platzhalter</li>
+      </ul>
+    </div>
+    <div class="c">
+      <h3>Rechte &amp; Übergabe</h3>
+      <ul>
+        <li>Domain &amp; Inhalte gehören dem Kunden</li>
+        <li>Übergabe aller Zugänge bei Launch</li>
+        <li>Keine laufenden Kosten bei mir ohne separates Abo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="accept">
+    <div class="t">Mit beiderseitiger Unterschrift kommt der Vertrag über die oben genannte Leistung
+      zustande. Es gelten die Konditionen dieser Auftragsbestätigung.</div>
+    <div class="sign-row">
+      <div class="sign">Ort, Datum · Unterschrift Boris Basic Palkovic · BP Gartengestaltung</div>
+      <div class="sign">Ort, Datum · Unterschrift ILIC ECOM HUB</div>
+    </div>
+  </div>
+
+
+<div class="foot">
+    <span>ILIC ECOM HUB · Aleksandar Ilic · Östingstraße 103, 59067 Hamm · Kleinunternehmer §19 UStG · St.-Nr. 322/5126/3805</span>
+    <span>ilic-ecomhub.de</span>
+  </div>
+</div>
+</body></html>
