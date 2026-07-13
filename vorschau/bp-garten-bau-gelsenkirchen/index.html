@@ -228,21 +228,10 @@ img{display:block;max-width:100%;height:auto}
 .wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:max(1.1rem,env(safe-area-inset-bottom));z-index:120;
   display:flex;align-items:center;gap:.55rem;background:var(--wa);color:#fff;font-family:var(--sans);font-weight:700;font-size:.95rem;
   padding:.8rem 1.25rem .8rem 1rem;border-radius:999px;box-shadow:0 12px 30px -8px oklch(0.6 0.15 150 / .7);
-  transition:transform .3s var(--ease),background .25s;min-height:56px;border:0;cursor:pointer}
+  transition:transform .3s var(--ease),background .25s;min-height:56px}
 .wa-float:hover{background:var(--wa-deep);transform:translateY(-3px) scale(1.02)}
 .wa-float svg{width:25px;height:25px;flex:0 0 auto}
 @media(max-width:560px){.wa-float .t{display:none}.wa-float{padding:0;width:60px;height:60px;justify-content:center}}
-
-/* WA Auswahl-Popover (Garten/Trockenbau) */
-.wa-pop{position:fixed;z-index:220;display:none;flex-direction:column;min-width:196px;background:var(--bg);
-  border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 44px -16px oklch(0.24 0.02 155 / .5);padding:.4rem;gap:.15rem}
-.wa-pop.open{display:flex}
-.wa-pop-lab{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:.5rem .7rem .3rem}
-.wa-pop-item{display:flex;align-items:center;gap:.65rem;padding:.7rem .8rem;border-radius:10px;font-weight:600;font-size:.92rem;
-  color:var(--ink);font-family:var(--sans)}
-.wa-pop-item:hover,.wa-pop-item:focus-visible{background:var(--surface)}
-.wa-pop-item .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
-.wa-pop-item.g .dot{background:var(--garten)} .wa-pop-item.b .dot{background:var(--bau)}
 
 /* Modal */
 .modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:clamp(.5rem,3vw,2.5rem);
@@ -295,7 +284,7 @@ img{display:block;max-width:100%;height:auto}
     <a href="#projekte">Projekte</a>
     <a href="#ablauf">Ablauf</a>
     <a href="#kontakt">Kontakt</a>
-    <a href="#leistungen" class="btn btn-wa sm">Anfragen</a>
+    <a class="btn btn-wa sm" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">Anfragen</a>
   </nav>
   <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -314,7 +303,7 @@ img{display:block;max-width:100%;height:auto}
         <span class="pill b"><span class="dot"></span>Trockenbau</span>
       </div>
       <div class="hero-cta reveal d2">
-        <a href="#leistungen" class="btn btn-wa lg">
+        <a class="btn btn-wa lg" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">
           <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>
           Kostenlose Beratung
         </a>
@@ -371,7 +360,7 @@ img{display:block;max-width:100%;height:auto}
             <li>Sichtschutz &amp; Zäune</li><li>Bepflanzung &amp; Hochbeete</li>
             <li>Grünschnitt &amp; Baumpflege</li><li>Rasen &amp; Rollrasen</li>
           </ul>
-          <a class="btn btn-wa" data-wa-welt="garten" data-wa="Hallo BP-Team, ich interessiere mich für meinen Garten und möchte gern eine kostenlose Beratung.">Garten anfragen</a>
+          <a class="btn btn-wa" data-wa="Hallo BP-Team, ich interessiere mich für meinen Garten und möchte gern eine kostenlose Beratung.">Garten anfragen</a>
         </div>
       </article>
       <!-- Trockenbau -->
@@ -384,11 +373,11 @@ img{display:block;max-width:100%;height:auto}
           <h3>Trockenbau</h3>
           <p class="kurz">Innen sauber gebaut, millimetergenau.</p>
           <ul class="leist">
-            <li>Trockenbau &amp; Ständerwände</li><li>Streichen &amp; CPL-Türen</li>
+            <li>Trockenbau &amp; Ständerwände</li><li>Decken &amp; Abhangdecken</li>
             <li>Spachtel- &amp; Glättarbeiten</li><li>Innenausbau &amp; Renovierung</li>
             <li>Dämmung &amp; Schallschutz</li><li>Putz &amp; Oberflächen</li>
           </ul>
-          <a class="btn btn-wa" data-wa-welt="trockenbau" data-wa="Hallo BP-Team, ich interessiere mich für Trockenbau bzw. Innenausbau und möchte gern eine kostenlose Beratung.">Trockenbau anfragen</a>
+          <a class="btn btn-wa" data-wa="Hallo BP-Team, ich interessiere mich für Trockenbau bzw. Innenausbau und möchte gern eine kostenlose Beratung.">Trockenbau anfragen</a>
         </div>
       </article>
     </div>
@@ -450,12 +439,12 @@ img{display:block;max-width:100%;height:auto}
       <h2 class="reveal d1">Lassen Sie uns über Ihr Projekt sprechen.</h2>
       <p class="reveal d1">Garten gestalten oder innen ausbauen? Schreiben Sie uns auf WhatsApp, kostenlos und unverbindlich. Wir melden uns schnell zurück.</p>
       <div class="kontakt-cta reveal d2">
-        <button type="button" class="btn btn-wa lg" data-wa-choice="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">
+        <a class="btn btn-wa lg" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">
           <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>
           Auf WhatsApp schreiben
-        </button>
+        </a>
       </div>
-      <p class="kontakt-num reveal d2">Garten: +49 1578 9293429 · Trockenbau: +49 1577 1042254</p>
+      <p class="kontakt-num reveal d2">+49 1578 9293429</p>
       <p class="kontakt-note reveal d2">📍 Gelsenkirchen &amp; Umgebung · Instagram: <a href="https://www.instagram.com/bp_gartengestaltung" target="_blank" rel="noopener" style="color:var(--garten);font-weight:600">@bp_gartengestaltung</a></p>
     </div>
   </div>
@@ -478,8 +467,7 @@ img{display:block;max-width:100%;height:auto}
       </div>
       <div>
         <h4>Kontakt</h4>
-        <a data-wa-welt="garten" data-wa="Hallo BP-Team, ich möchte gern eine kostenlose Beratung zum Garten.">Garten: +49 1578 9293429</a>
-        <a data-wa-welt="trockenbau" data-wa="Hallo BP-Team, ich möchte gern eine kostenlose Beratung zum Trockenbau.">Trockenbau: +49 1577 1042254</a>
+        <a data-wa="Hallo BP-Team, ich möchte gern eine kostenlose Beratung.">WhatsApp: +49 1578 9293429</a>
         <a href="https://www.instagram.com/bp_gartengestaltung" target="_blank" rel="noopener">@bp_gartengestaltung</a>
         <a href="https://www.instagram.com/bp_bau.nrw" target="_blank" rel="noopener">@bp_bau.nrw</a>
       </div>
@@ -493,17 +481,10 @@ img{display:block;max-width:100%;height:auto}
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<button type="button" class="wa-float" data-wa-choice="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung." aria-label="Auf WhatsApp anfragen" aria-haspopup="true" aria-expanded="false">
+<a class="wa-float" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung." aria-label="Auf WhatsApp anfragen">
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.3l-.4-.2-4.9 1 1-4.8-.3-.4c-.9-1.5-1.4-3.2-1.4-5 0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.4 9.7-8.6 9.7z"/></svg>
   <span class="t">Anfragen</span>
-</button>
-
-<!-- WA-AUSWAHL: Garten oder Trockenbau -->
-<div class="wa-pop" id="waPop" role="menu" aria-hidden="true" aria-label="Bereich wählen">
-  <span class="wa-pop-lab">Wofür schreiben Sie uns?</span>
-  <a class="wa-pop-item g" id="waPopGarten" role="menuitem" target="_blank" rel="noopener"><span class="dot"></span>Garten</a>
-  <a class="wa-pop-item b" id="waPopBau" role="menuitem" target="_blank" rel="noopener"><span class="dot"></span>Trockenbau</a>
-</div>
+</a>
 
 <!-- MODAL -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
@@ -518,8 +499,8 @@ img{display:block;max-width:100%;height:auto}
 <script>
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var WA={garten:'4915789293429',trockenbau:'4915771042254'};
-  function waLink(welt,t){return 'https://wa.me/'+(WA[welt]||WA.garten)+'?text='+encodeURIComponent(t);}
+  var WA='4915789293429';
+  function waLink(t){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t);}
 
   /* ---- Daten: neue Projekte = einfach Objekt ergänzen + Bilder in fotos/ ---- */
   var PROJEKTE=[
@@ -570,46 +551,11 @@ img{display:block;max-width:100%;height:auto}
     }
   ];
 
-  /* ---- WhatsApp-Links setzen (direkt, je nach data-wa-welt) ---- */
+  /* ---- WhatsApp-Links setzen ---- */
   [].forEach.call(document.querySelectorAll('[data-wa]'),function(a){
-    var welt=a.getAttribute('data-wa-welt')||'garten';
-    a.setAttribute('href',waLink(welt,a.getAttribute('data-wa')));
+    a.setAttribute('href',waLink(a.getAttribute('data-wa')));
     if(a.tagName==='A'){a.setAttribute('target','_blank');a.setAttribute('rel','noopener');}
   });
-
-  /* ---- WhatsApp-Auswahl-Popover (Garten/Trockenbau) für ambige CTAs ---- */
-  var waPop=document.getElementById('waPop'),waPopTrigger=null;
-  var waPopGarten=document.getElementById('waPopGarten'),waPopBau=document.getElementById('waPopBau');
-  function closeWaPop(){
-    waPop.classList.remove('open');waPop.setAttribute('aria-hidden','true');
-    if(waPopTrigger)waPopTrigger.setAttribute('aria-expanded','false');
-    waPopTrigger=null;
-  }
-  function openWaPop(trigger,msg){
-    waPopGarten.href=waLink('garten',msg);
-    waPopBau.href=waLink('trockenbau',msg);
-    waPop.classList.add('open');waPop.setAttribute('aria-hidden','false');
-    trigger.setAttribute('aria-expanded','true');
-    var r=trigger.getBoundingClientRect(),popW=210;
-    var left=Math.min(r.left,window.innerWidth-popW-14);left=Math.max(14,left);
-    if(r.bottom+180<=window.innerHeight){waPop.style.top=(r.bottom+8)+'px';waPop.style.bottom='auto';}
-    else{waPop.style.bottom=(window.innerHeight-r.top+8)+'px';waPop.style.top='auto';}
-    waPop.style.left=left+'px';waPop.style.right='auto';
-  }
-  [].forEach.call(document.querySelectorAll('[data-wa-choice]'),function(el){
-    el.setAttribute('aria-haspopup','true');el.setAttribute('aria-expanded','false');
-    el.addEventListener('click',function(e){
-      e.preventDefault();
-      if(waPop.classList.contains('open')&&waPopTrigger===el){closeWaPop();return;}
-      waPopTrigger=el;openWaPop(el,el.getAttribute('data-wa-choice'));
-    });
-  });
-  document.addEventListener('click',function(e){
-    if(waPop.classList.contains('open')&&!waPop.contains(e.target)&&!e.target.closest('[data-wa-choice]'))closeWaPop();
-  });
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeWaPop();});
-  addEventListener('scroll',closeWaPop,{passive:true});
-  addEventListener('resize',closeWaPop);
 
   /* ---- Nav ---- */
   var nav=document.getElementById('nav');
@@ -673,7 +619,7 @@ img{display:block;max-width:100%;height:auto}
       html+='</div>';
     }
     html+='<div class="modal-cta"><a class="btn btn-wa" target="_blank" rel="noopener" href="'+
-      waLink(p.welt,'Hallo, ich interessiere mich für ein Projekt wie \''+p.titel+'\' und möchte gern eine kostenlose Beratung.')+
+      waLink('Hallo BP-Team, ich interessiere mich für ein Projekt wie \''+p.titel+'\' und möchte gern eine kostenlose Beratung.')+
       '">Ähnliches Projekt anfragen</a><a class="btn btn-ghost" href="#kontakt" data-close="1">Kontakt</a></div></div>';
     mContent.innerHTML=html;
     if(p.vorher&&p.nachher){document.getElementById('modalBA').appendChild(beforeAfter(p.vorher,p.nachher));}
