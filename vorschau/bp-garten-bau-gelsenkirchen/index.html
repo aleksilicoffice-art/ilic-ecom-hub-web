@@ -5,15 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>BP Garten & Bau · Garten & Trockenbau in Gelsenkirchen</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Cdefs%3E%3CclipPath id='r'%3E%3Crect x='1' y='1' width='48' height='48' rx='13'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url(%23r)'%3E%3Crect width='50' height='50' fill='%232e8a52'/%3E%3Cpath d='M50 0 V50 H0 Z' fill='%238a6a3e'/%3E%3C/g%3E%3Ctext x='25' y='34' text-anchor='middle' font-family='Arial,sans-serif' font-weight='800' font-size='24' fill='white'%3EBP%3C/text%3E%3C/svg%3E">
-<meta name="description" content="BP Garten & Bau aus Gelsenkirchen: Gartengestaltung und Trockenbau aus einer Hand. Sauber, termintreu, kostenlose Beratung. Jetzt per WhatsApp anfragen.">
-<meta name="robots" content="noindex, nofollow">
-<meta property="og:type" content="website">
+<meta name="description" content="BP Garten & Bau aus Gelsenkirchen: Gartengestaltung und Trockenbau aus einer Hand. Sauber, termintreu, kostenlose Beratung. Jetzt per WhatsApp anfragen."><meta property="og:type" content="website">
 <meta property="og:title" content="BP Garten & Bau · Garten & Trockenbau in Gelsenkirchen">
 <meta property="og:description" content="Garten gestalten und innen ausbauen, sauber und aus einer Hand. Familienbetrieb aus Gelsenkirchen.">
 <meta property="og:image" content="fotos/tb-fassade-1.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="schriften/fonts.css">
 <script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
 <style>
 :root{
@@ -206,7 +202,7 @@ img{display:block;max-width:100%;height:auto}
 .kontakt h2{font-size:clamp(2.1rem,1.6rem + 3vw,3.4rem);margin:.5rem 0 .9rem}
 .kontakt p{margin-inline:auto;color:var(--muted)}
 .kontakt-cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
-.kontakt-num{margin-top:1.2rem;font-weight:700;font-size:1.05rem}
+.kontakt-num{margin-top:1.2rem;font-weight:700;font-size:1.05rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem 1.5rem}
 .kontakt-note{margin-top:.4rem;font-size:.86rem;color:var(--muted)}
 
 /* Footer */
@@ -228,10 +224,21 @@ img{display:block;max-width:100%;height:auto}
 .wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:max(1.1rem,env(safe-area-inset-bottom));z-index:120;
   display:flex;align-items:center;gap:.55rem;background:var(--wa);color:#fff;font-family:var(--sans);font-weight:700;font-size:.95rem;
   padding:.8rem 1.25rem .8rem 1rem;border-radius:999px;box-shadow:0 12px 30px -8px oklch(0.6 0.15 150 / .7);
-  transition:transform .3s var(--ease),background .25s;min-height:56px}
+  transition:transform .3s var(--ease),background .25s;min-height:56px;border:0;cursor:pointer}
 .wa-float:hover{background:var(--wa-deep);transform:translateY(-3px) scale(1.02)}
 .wa-float svg{width:25px;height:25px;flex:0 0 auto}
 @media(max-width:560px){.wa-float .t{display:none}.wa-float{padding:0;width:60px;height:60px;justify-content:center}}
+
+/* WA Auswahl-Popover (Garten/Trockenbau) */
+.wa-pop{position:fixed;z-index:220;display:none;flex-direction:column;min-width:196px;background:var(--bg);
+  border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 44px -16px oklch(0.24 0.02 155 / .5);padding:.4rem;gap:.15rem}
+.wa-pop.open{display:flex}
+.wa-pop-lab{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:.5rem .7rem .3rem}
+.wa-pop-item{display:flex;align-items:center;gap:.65rem;padding:.7rem .8rem;border-radius:10px;font-weight:600;font-size:.92rem;
+  color:var(--ink);font-family:var(--sans)}
+.wa-pop-item:hover,.wa-pop-item:focus-visible{background:var(--surface)}
+.wa-pop-item .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.wa-pop-item.g .dot{background:var(--garten)} .wa-pop-item.b .dot{background:var(--bau)}
 
 /* Modal */
 .modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:clamp(.5rem,3vw,2.5rem);
@@ -284,7 +291,7 @@ img{display:block;max-width:100%;height:auto}
     <a href="#projekte">Projekte</a>
     <a href="#ablauf">Ablauf</a>
     <a href="#kontakt">Kontakt</a>
-    <a class="btn btn-wa sm" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">Anfragen</a>
+    <a href="#leistungen" class="btn btn-wa sm">Anfragen</a>
   </nav>
   <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -303,7 +310,7 @@ img{display:block;max-width:100%;height:auto}
         <span class="pill b"><span class="dot"></span>Trockenbau</span>
       </div>
       <div class="hero-cta reveal d2">
-        <a class="btn btn-wa lg" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">
+        <a href="#leistungen" class="btn btn-wa lg">
           <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>
           Kostenlose Beratung
         </a>
@@ -316,11 +323,11 @@ img{display:block;max-width:100%;height:auto}
     </div>
     <div class="hero-duo reveal d1">
       <figure class="hd-main">
-        <img src="fotos/garten-hero.jpg" width="1044" height="1600" fetchpriority="high" decoding="async" alt="Gepflasterter Hauszugang mit Stufen, Gartengestaltung von BP">
+        <img src="fotos/garten-team-action-1.jpg" width="1179" height="1537" fetchpriority="high" decoding="async" alt="BP-Gartengestaltung-Team im Einsatz">
         <span class="hd-lab g">Garten</span>
       </figure>
       <figure class="hd-inset">
-        <img src="fotos/tb-spachteln-1.jpg" width="1000" height="1600" loading="lazy" decoding="async" alt="Saubere Spachtel- und Trockenbauarbeit von BP">
+        <img src="fotos/tb-action-dachschraege-1.jpg" width="1200" height="1600" loading="lazy" decoding="async" alt="Handwerker von BP beim Verspachteln einer Dachschräge">
         <span class="hd-lab b">Trockenbau</span>
       </figure>
     </div>
@@ -350,7 +357,7 @@ img{display:block;max-width:100%;height:auto}
       <article class="world g reveal d1">
         <div class="world-media">
           <span class="world-tag">Garten</span>
-          <img loading="lazy" decoding="async" src="fotos/garten-komplett-3.jpg" width="1600" height="1200" alt="Fertig gestalteter Garten mit gepflegtem Rasen, Hecke und Beeten">
+          <img loading="lazy" decoding="async" src="fotos/garten-team-action-1.jpg" width="1179" height="1537" alt="BP-Gartengestaltung-Team im Einsatz">
         </div>
         <div class="world-body">
           <h3>Garten</h3>
@@ -360,24 +367,24 @@ img{display:block;max-width:100%;height:auto}
             <li>Sichtschutz &amp; Zäune</li><li>Bepflanzung &amp; Hochbeete</li>
             <li>Grünschnitt &amp; Baumpflege</li><li>Rasen &amp; Rollrasen</li>
           </ul>
-          <a class="btn btn-wa" data-wa="Hallo BP-Team, ich interessiere mich für meinen Garten und möchte gern eine kostenlose Beratung.">Garten anfragen</a>
+          <a class="btn btn-wa" data-wa-welt="garten" data-wa="Hallo BP-Team, ich interessiere mich für meinen Garten und möchte gern eine kostenlose Beratung.">Garten anfragen</a>
         </div>
       </article>
       <!-- Trockenbau -->
       <article class="world b reveal d2">
         <div class="world-media">
           <span class="world-tag">Trockenbau</span>
-          <img loading="lazy" decoding="async" src="fotos/tb-spachteln-1.jpg" width="1000" height="1600" alt="Handwerker beim sauberen Verspachteln einer Wand">
+          <img loading="lazy" decoding="async" src="fotos/tb-action-dachschraege-1.jpg" width="1000" height="1600" alt="Handwerker von BP Garten &amp; Bau beim Verspachteln einer Dachschräge">
         </div>
         <div class="world-body">
           <h3>Trockenbau</h3>
           <p class="kurz">Innen sauber gebaut, millimetergenau.</p>
           <ul class="leist">
-            <li>Trockenbau &amp; Ständerwände</li><li>Decken &amp; Abhangdecken</li>
+            <li>Trockenbau &amp; Ständerwände</li><li>Streichen &amp; CPL-Türen</li>
             <li>Spachtel- &amp; Glättarbeiten</li><li>Innenausbau &amp; Renovierung</li>
             <li>Dämmung &amp; Schallschutz</li><li>Putz &amp; Oberflächen</li>
           </ul>
-          <a class="btn btn-wa" data-wa="Hallo BP-Team, ich interessiere mich für Trockenbau bzw. Innenausbau und möchte gern eine kostenlose Beratung.">Trockenbau anfragen</a>
+          <a class="btn btn-wa" data-wa-welt="trockenbau" data-wa="Hallo BP-Team, ich interessiere mich für Trockenbau bzw. Innenausbau und möchte gern eine kostenlose Beratung.">Trockenbau anfragen</a>
         </div>
       </article>
     </div>
@@ -439,12 +446,12 @@ img{display:block;max-width:100%;height:auto}
       <h2 class="reveal d1">Lassen Sie uns über Ihr Projekt sprechen.</h2>
       <p class="reveal d1">Garten gestalten oder innen ausbauen? Schreiben Sie uns auf WhatsApp, kostenlos und unverbindlich. Wir melden uns schnell zurück.</p>
       <div class="kontakt-cta reveal d2">
-        <a class="btn btn-wa lg" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">
+        <button type="button" class="btn btn-wa lg" data-wa-choice="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung.">
           <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>
           Auf WhatsApp schreiben
-        </a>
+        </button>
       </div>
-      <p class="kontakt-num reveal d2">+49 1578 9293429</p>
+      <p class="kontakt-num reveal d2"><span>Garten: +49 1578 9293429</span><span>Trockenbau: +49 1577 1042254</span></p>
       <p class="kontakt-note reveal d2">📍 Gelsenkirchen &amp; Umgebung · Instagram: <a href="https://www.instagram.com/bp_gartengestaltung" target="_blank" rel="noopener" style="color:var(--garten);font-weight:600">@bp_gartengestaltung</a></p>
     </div>
   </div>
@@ -467,7 +474,8 @@ img{display:block;max-width:100%;height:auto}
       </div>
       <div>
         <h4>Kontakt</h4>
-        <a data-wa="Hallo BP-Team, ich möchte gern eine kostenlose Beratung.">WhatsApp: +49 1578 9293429</a>
+        <a data-wa-welt="garten" data-wa="Hallo BP-Team, ich möchte gern eine kostenlose Beratung zum Garten.">Garten: +49 1578 9293429</a>
+        <a data-wa-welt="trockenbau" data-wa="Hallo BP-Team, ich möchte gern eine kostenlose Beratung zum Trockenbau.">Trockenbau: +49 1577 1042254</a>
         <a href="https://www.instagram.com/bp_gartengestaltung" target="_blank" rel="noopener">@bp_gartengestaltung</a>
         <a href="https://www.instagram.com/bp_bau.nrw" target="_blank" rel="noopener">@bp_bau.nrw</a>
       </div>
@@ -476,15 +484,22 @@ img{display:block;max-width:100%;height:auto}
       <span>© 2026 BP Garten &amp; Bau · Gelsenkirchen</span>
       <span>Gestaltet von <a href="https://ilic-ecomhub.de" target="_blank" rel="noopener">ILIC ECOM HUB</a></span>
     </div>
-    <p class="disclaimer">Vorschau-Demo. Leistungen &amp; Projektbeschreibungen exemplarisch; Kontaktdaten, genaue Adresse &amp; Impressum vor Veröffentlichung ergänzen. Fotos © BP Garten &amp; Bau.</p>
+    <p class="disclaimer"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutzerklärung</a> · Fotos © BP Garten &amp; Bau</p>
   </div>
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<a class="wa-float" data-wa="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung." aria-label="Auf WhatsApp anfragen">
+<button type="button" class="wa-float" data-wa-choice="Hallo BP-Team, ich habe Ihre Webseite gesehen und möchte gern eine kostenlose Beratung." aria-label="Auf WhatsApp anfragen" aria-haspopup="true" aria-expanded="false">
   <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.3l-.4-.2-4.9 1 1-4.8-.3-.4c-.9-1.5-1.4-3.2-1.4-5 0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.4 9.7-8.6 9.7z"/></svg>
   <span class="t">Anfragen</span>
-</a>
+</button>
+
+<!-- WA-AUSWAHL: Garten oder Trockenbau -->
+<div class="wa-pop" id="waPop" role="menu" aria-hidden="true" aria-label="Bereich wählen">
+  <span class="wa-pop-lab">Wofür schreiben Sie uns?</span>
+  <a class="wa-pop-item g" id="waPopGarten" role="menuitem" target="_blank" rel="noopener"><span class="dot"></span>Garten</a>
+  <a class="wa-pop-item b" id="waPopBau" role="menuitem" target="_blank" rel="noopener"><span class="dot"></span>Trockenbau</a>
+</div>
 
 <!-- MODAL -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
@@ -499,63 +514,134 @@ img{display:block;max-width:100%;height:auto}
 <script>
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var WA='4915789293429';
-  function waLink(t){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t);}
+  var WA={garten:'4915789293429',trockenbau:'4915771042254'};
+  function waLink(welt,t){return 'https://wa.me/'+(WA[welt]||WA.garten)+'?text='+encodeURIComponent(t);}
 
   /* ---- Daten: neue Projekte = einfach Objekt ergänzen + Bilder in fotos/ ---- */
   var PROJEKTE=[
     {
-      id:'garten-rasen', welt:'garten', titel:'Gartengestaltung & Rasen', ort:'Privatgarten · Gelsenkirchen', tag:'Garten',
-      kurz:'Vom modellierten Untergrund bis zum frischen Rollrasen, mit Beeten, Trittsteinen und sauberer Einfassung.',
-      cover:'fotos/garten-komplett-2.jpg',
-      bilder:['fotos/garten-komplett-2.jpg','fotos/garten-komplett-3.jpg','fotos/garten-terrasse-3.jpg'],
-      video:null,
-      gemacht:['Fläche modelliert und vorbereitet','Rollrasen verlegt','Beete, Trittsteine und Einfassung gesetzt'],
-      stimme:'', vorher:null, nachher:null
-    },
-    {
-      id:'garten-terrasse', welt:'garten', titel:'Terrasse & Naturstein', ort:'Garten · Gelsenkirchen', tag:'Garten',
-      kurz:'Großzügige Terrassen aus Naturstein und modernen Platten, mit sauberen Stufen, Kanten und Wegen.',
+      id:'garten-terrassiert', welt:'garten', titel:'Terrassierter Garten — komplett erneuert', ort:'Garten · Gelsenkirchen', tag:'Garten',
+      kurz:'Alte Waschbeton-Terrasse und Stützmauern raus, neue Terrassenanlage mit Ziersteinmauern, Treppe und hellen Platten. Ziehen Sie den Regler und sehen Sie den Unterschied.',
       cover:'fotos/garten-zugang-2.jpg',
-      bilder:['fotos/garten-zugang-2.jpg','fotos/garten-terrasse-4.jpg','fotos/garten-weg-1.jpg'],
+      bilder:['fotos/garten-zugang-2.jpg'],
       video:null,
-      gemacht:['Unterbau und Gefälle hergestellt','Platten und Naturstein verlegt','Stufen, Kanten und Wege sauber gesetzt'],
+      gemacht:['Alte Terrasse und Stützmauern zurückgebaut','Neue Stützmauern mit Ziersteinen aufgebaut','Treppe, Beete und Plattenbelag neu angelegt'],
+      stimme:'', vorher:'fotos/garten-terrasse-4.jpg', nachher:'fotos/garten-zugang-2.jpg'
+    },
+    {
+      id:'garten-gartenhaus-neu', welt:'garten', titel:'Neues Gartenhaus & Terrasse', ort:'Garten · Gelsenkirchen', tag:'Garten',
+      kurz:'Terrassenplatten frisch verlegt, dazu ein neues Gartenhaus als gemütlicher Rückzugsort.',
+      cover:'fotos/garten-gartenhaus-neu-1.jpg',
+      bilder:['fotos/garten-gartenhaus-neu-1.jpg'],
+      video:null,
+      gemacht:['Terrassenplatten verlegt','Gartenhaus aufgebaut','Fläche sauber eingefasst'],
       stimme:'', vorher:null, nachher:null
     },
     {
-      id:'garten-pflaster', welt:'garten', titel:'Pflaster & Hauszugang', ort:'Vorgarten · Gelsenkirchen', tag:'Garten',
-      kurz:'Einladende Zugänge und Wege aus hochwertigem Pflaster, mit sauberen Stufen und klaren Linien.',
+      id:'garten-zugang', welt:'garten', titel:'Hauszugang & Wege gepflastert', ort:'Vorgarten · Gelsenkirchen', tag:'Garten',
+      kurz:'Vom Unterbau bis zur letzten Fuge: neuer Zugang mit Blockstufen und sauber verlegtem Pflaster rund ums Haus.',
       cover:'fotos/garten-zugang-1.jpg',
-      bilder:['fotos/garten-zugang-1.jpg','fotos/garten-hero.jpg','fotos/garten-sichtschutz-2.jpg'],
+      bilder:['fotos/garten-zugang-1.jpg','fotos/garten-hero.jpg'],
       video:null,
-      gemacht:['Untergrund tragfähig aufgebaut','Pflaster und Stufen verlegt','Randsteine und Entwässerung gesetzt'],
+      gemacht:['Unterbau und Blockstufen gesetzt','Pflaster in klarem Muster verlegt','Randsteine und Übergänge sauber eingefasst'],
       stimme:'', vorher:null, nachher:null
     },
     {
-      id:'garten-sichtschutz', welt:'garten', titel:'Sichtschutz & Vorgarten', ort:'Vorgarten · Gelsenkirchen', tag:'Garten',
-      kurz:'Moderner Sichtschutz mit passendem Pflaster, der den Vorgarten ruhig und gepflegt wirken lässt.',
-      cover:'fotos/garten-sichtschutz-1.jpg',
-      bilder:['fotos/garten-sichtschutz-1.jpg','fotos/garten-lounge-1.jpg'],
+      id:'garten-rasen-gross', welt:'garten', titel:'Große Rasenfläche mit Gartenhaus', ort:'Garten · Gelsenkirchen', tag:'Garten',
+      kurz:'Großzügiger Rasen mit Hochbeeten, jungen Bäumen und Gartenhaus als Blickfang.',
+      cover:'fotos/garten-komplett-3.jpg',
+      bilder:['fotos/garten-komplett-3.jpg'],
       video:null,
-      gemacht:['Sichtschutz-Elemente montiert','Pflaster mit Muster verlegt','Flächen sauber abgeschlossen'],
+      gemacht:['Rasenfläche angelegt','Hochbeete gebaut','Einfassung und Beleuchtung gesetzt'],
       stimme:'', vorher:null, nachher:null
     },
     {
-      id:'tb-efh', welt:'trockenbau', titel:'Trockenbau & Spachtelarbeiten', ort:'Wohnhaus · Gelsenkirchen', tag:'Trockenbau',
+      id:'tb-spachtel', welt:'trockenbau', titel:'Spachtel- & Wandarbeiten', ort:'Wohnhaus · Gelsenkirchen', tag:'Trockenbau',
       kurz:'Wände und Laibungen vorbereitet, gespachtelt und sauber auf die Endbeschichtung gebracht. Millimetergenaue Oberflächen für ein perfektes Finish.',
       cover:'fotos/tb-spachteln-1.jpg',
-      bilder:['fotos/tb-spachteln-1.jpg','fotos/tb-spachteln-3.jpg','fotos/tb-spachteln-2.jpg','fotos/tb-fassade-1.jpg'],
+      bilder:['fotos/tb-spachteln-1.jpg','fotos/tb-spachteln-3.jpg','fotos/tb-spachteln-2.jpg'],
       video:'video/reel-1.mp4',
       gemacht:['Untergrund geprüft und vorbereitet','Wände, Ecken und Laibungen sauber gespachtelt','Oberflächen für Anstrich und Beschichtung fertiggestellt'],
+      stimme:'', vorher:null, nachher:null
+    },
+    {
+      id:'tb-fassade', welt:'trockenbau', titel:'Fassaden- & Putzarbeiten', ort:'Wohnhaus · Gelsenkirchen', tag:'Trockenbau',
+      kurz:'Außenfassade ausgebessert und neu verputzt — sauberer Abschluss bis in den Abend.',
+      cover:'fotos/tb-fassade-1.jpg',
+      bilder:['fotos/tb-fassade-1.jpg','fotos/tb-fassade-2.jpg'],
+      video:null,
+      gemacht:['Fassade vorbereitet und ausgebessert','Neu verputzt und geglättet','Sauberer, gleichmäßiger Abschluss'],
+      stimme:'', vorher:null, nachher:null
+    },
+    {
+      id:'tb-sanierung-mfh', welt:'trockenbau', titel:'Komplettsanierung Mehrfamilienhaus', ort:'Mehrfamilienhaus · Gelsenkirchen', tag:'Trockenbau',
+      kurz:'Mehrere Wohnungen komplett saniert — Bäder, Küche, Böden und Wände, alles aus einer Hand.',
+      cover:'fotos/tb-sanierung-mfh-bad-1.jpg',
+      bilder:['fotos/tb-sanierung-mfh-bad-1.jpg','fotos/tb-sanierung-mfh-bad-2.jpg','fotos/tb-sanierung-mfh-kueche-1.jpg','fotos/tb-sanierung-mfh-zimmer-1.jpg','fotos/tb-sanierung-mfh-boden-1.jpg','fotos/tb-sanierung-mfh-daemmung-1.jpg'],
+      video:null,
+      gemacht:['Einbauküchen montiert','Böden und Wände durchgängig erneuert'],
+      stimme:'', vorher:null, nachher:null
+    },
+    {
+      id:'tb-neubau', welt:'trockenbau', titel:'Innenausbau Neubau', ort:'Neubau · Gelsenkirchen und Umgebung', tag:'Trockenbau',
+      kurz:'Trockenbau und Malerarbeiten in einem modernen Neubau, großzügige Räume mit viel Licht.',
+      cover:'fotos/tb-neubau-1.jpg',
+      bilder:['fotos/tb-neubau-1.jpg','fotos/tb-neubau-2.jpg','fotos/tb-neubau-3.jpg'],
+      video:null,
+      gemacht:['Wände verspachtelt und grundiert','Oberflächen malerfertig übergeben','Saubere, staubfreie Übergabe'],
+      stimme:'', vorher:null, nachher:null
+    },
+    {
+      id:'tb-villa-marmor', welt:'trockenbau', titel:'Altbau-Sanierung mit Naturstein', ort:'Altbau · Gelsenkirchen', tag:'Trockenbau',
+      kurz:'Hochwertige Kernsanierung mit Ständerwänden, Dämmung und Erhalt des historischen Marmorbodens.',
+      cover:'fotos/tb-villa-marmor-1.jpg',
+      bilder:['fotos/tb-villa-marmor-1.jpg','fotos/tb-villa-marmor-2.jpg','fotos/tb-villa-marmor-action-2.jpg'],
+      video:null,
+      gemacht:['Ständerwerk und Dämmung fachgerecht eingebaut','Wertvoller Marmorboden erhalten','Räume hochwertig fertiggestellt'],
       stimme:'', vorher:null, nachher:null
     }
   ];
 
-  /* ---- WhatsApp-Links setzen ---- */
+  /* ---- WhatsApp-Links setzen (direkt, je nach data-wa-welt) ---- */
   [].forEach.call(document.querySelectorAll('[data-wa]'),function(a){
-    a.setAttribute('href',waLink(a.getAttribute('data-wa')));
+    var welt=a.getAttribute('data-wa-welt')||'garten';
+    a.setAttribute('href',waLink(welt,a.getAttribute('data-wa')));
     if(a.tagName==='A'){a.setAttribute('target','_blank');a.setAttribute('rel','noopener');}
   });
+
+  /* ---- WhatsApp-Auswahl-Popover (Garten/Trockenbau) für ambige CTAs ---- */
+  var waPop=document.getElementById('waPop'),waPopTrigger=null;
+  var waPopGarten=document.getElementById('waPopGarten'),waPopBau=document.getElementById('waPopBau');
+  function closeWaPop(){
+    waPop.classList.remove('open');waPop.setAttribute('aria-hidden','true');
+    if(waPopTrigger)waPopTrigger.setAttribute('aria-expanded','false');
+    waPopTrigger=null;
+  }
+  function openWaPop(trigger,msg){
+    waPopGarten.href=waLink('garten',msg);
+    waPopBau.href=waLink('trockenbau',msg);
+    waPop.classList.add('open');waPop.setAttribute('aria-hidden','false');
+    trigger.setAttribute('aria-expanded','true');
+    var r=trigger.getBoundingClientRect(),popW=210;
+    var left=Math.min(r.left,window.innerWidth-popW-14);left=Math.max(14,left);
+    if(r.bottom+180<=window.innerHeight){waPop.style.top=(r.bottom+8)+'px';waPop.style.bottom='auto';}
+    else{waPop.style.bottom=(window.innerHeight-r.top+8)+'px';waPop.style.top='auto';}
+    waPop.style.left=left+'px';waPop.style.right='auto';
+  }
+  [].forEach.call(document.querySelectorAll('[data-wa-choice]'),function(el){
+    el.setAttribute('aria-haspopup','true');el.setAttribute('aria-expanded','false');
+    el.addEventListener('click',function(e){
+      e.preventDefault();
+      if(waPop.classList.contains('open')&&waPopTrigger===el){closeWaPop();return;}
+      waPopTrigger=el;openWaPop(el,el.getAttribute('data-wa-choice'));
+    });
+  });
+  document.addEventListener('click',function(e){
+    if(waPop.classList.contains('open')&&!waPop.contains(e.target)&&!e.target.closest('[data-wa-choice]'))closeWaPop();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeWaPop();});
+  addEventListener('scroll',closeWaPop,{passive:true});
+  addEventListener('resize',closeWaPop);
 
   /* ---- Nav ---- */
   var nav=document.getElementById('nav');
@@ -619,7 +705,7 @@ img{display:block;max-width:100%;height:auto}
       html+='</div>';
     }
     html+='<div class="modal-cta"><a class="btn btn-wa" target="_blank" rel="noopener" href="'+
-      waLink('Hallo BP-Team, ich interessiere mich für ein Projekt wie \''+p.titel+'\' und möchte gern eine kostenlose Beratung.')+
+      waLink(p.welt,'Hallo, ich interessiere mich für ein Projekt wie \''+p.titel+'\' und möchte gern eine kostenlose Beratung.')+
       '">Ähnliches Projekt anfragen</a><a class="btn btn-ghost" href="#kontakt" data-close="1">Kontakt</a></div></div>';
     mContent.innerHTML=html;
     if(p.vorher&&p.nachher){document.getElementById('modalBA').appendChild(beforeAfter(p.vorher,p.nachher));}
