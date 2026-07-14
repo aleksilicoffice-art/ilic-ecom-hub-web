@@ -1,2 +1,8 @@
 # macOS
 .DS_Store
+
+# Interne Arbeits-Artefakte nie deployen
+.impeccable/
+_salvage/
+briefing.json
+auftragsbestaetigung.html
