@@ -572,6 +572,8 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
   gsap.defaults({ ease: 'none' });
 
   var q = function(s){ return document.querySelector(s); };
+  var kompakt = function(){ return window.innerWidth < 960; };
+  var strecke = function(mobil, desktop){ return function(){ return '+=' + (kompakt() ? mobil : desktop) + '%'; }; };
 
   /* ---------- Loader ---------- */
   function loaderFertig(){
@@ -602,7 +604,7 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
 
   /* ---------- Akt 1: Tor ---------- */
   var torTl = gsap.timeline({
-    scrollTrigger: { trigger: '#tor', start: 'top top', end: '+=170%', scrub: .8, pin: true, anticipatePin: 1 }
+    scrollTrigger: { trigger: '#tor', start: 'top top', end: strecke(110, 150), scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
   });
   torTl.to('.tor-ui', { autoAlpha: 0, y: -50, duration: .16, ease: 'power1.in' }, 0)
        .to('.fl-l', { rotateY: -102, duration: .5 }, .06)
@@ -642,7 +644,7 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
 
   /* ---------- Akt 2a: Weg entsteht ---------- */
   var wegTl = gsap.timeline({
-    scrollTrigger: { trigger: '#weg', start: 'top top', end: '+=170%', scrub: .7, pin: '#weg .szene-pin', anticipatePin: 1 }
+    scrollTrigger: { trigger: '#weg', start: 'top top', end: strecke(75, 130), scrub: 1, pin: '#weg .szene-pin', anticipatePin: 1, invalidateOnRefresh: true }
   });
   wegTl.from('.weg-steine i', { y: 70, autoAlpha: 0, rotation: 9, stagger: .05, duration: .09, ease: 'power2.out' }, 0)
        .to('.weg-fertig', { autoAlpha: 1, duration: .45 }, .85)
@@ -652,7 +654,7 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
   /* ---------- Akt 2b: Vorher/Nachher ---------- */
   var baLinie = q('.ba-linie');
   var baTl = gsap.timeline({
-    scrollTrigger: { trigger: '#wandel', start: 'top top', end: '+=150%', scrub: .6, pin: '#wandel .szene-pin', anticipatePin: 1, invalidateOnRefresh: true }
+    scrollTrigger: { trigger: '#wandel', start: 'top top', end: strecke(80, 120), scrub: 1, pin: '#wandel .szene-pin', anticipatePin: 1, invalidateOnRefresh: true }
   });
   baTl.to('.ba-nachher-wrap', { clipPath: 'inset(0 0% 0 0)', duration: 1 }, 0)
       .to(baLinie, { x: function(){ return q('.ba').offsetWidth - 3; }, duration: 1 }, 0);
@@ -663,7 +665,7 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
     return Math.max(window.innerWidth / tuer.offsetWidth, window.innerHeight / tuer.offsetHeight) * 1.04;
   }
   var schwelleTl = gsap.timeline({
-    scrollTrigger: { trigger: '#schwelle', start: 'top top', end: '+=190%', scrub: .7, pin: '.schwelle-pin', anticipatePin: 1, invalidateOnRefresh: true }
+    scrollTrigger: { trigger: '#schwelle', start: 'top top', end: strecke(120, 170), scrub: 1, pin: '.schwelle-pin', anticipatePin: 1, invalidateOnRefresh: true }
   });
   gsap.set('.tuer', { scale: .24, yPercent: -50, xPercent: -50, borderRadius: 90 });
   gsap.set('.tuer img', { scale: 1.45 });
@@ -677,7 +679,7 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
   var wandFotos = document.querySelectorAll('.wand-foto figure');
   var wandTl = gsap.timeline({
     scrollTrigger: {
-      trigger: '#wand', start: 'top top', end: '+=320%', scrub: .7, pin: '#wand .szene-pin', anticipatePin: 1,
+      trigger: '#wand', start: 'top top', end: strecke(200, 280), scrub: 1, pin: '#wand .szene-pin', anticipatePin: 1, invalidateOnRefresh: true,
       onUpdate: function(st){
         var idx = Math.min(4, Math.floor(st.progress * 5));
         schritte.forEach(function(li, i){ li.classList.toggle('aktiv', i === idx); });
