@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js laden">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NM Marketing · Der Moment — Erlebnis-Vorschau</title>
+<meta name="description" content="Konzept-Vorschau: ein Scroll-Erlebnis von NM Marketing — vom Moment, in dem ein Kunde sucht, bis zum Erstgespräch.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NM Marketing · Der Moment">
+<meta property="og:description" content="Gerade sucht jemand genau das, was Sie anbieten. Ein Scroll-Erlebnis von NM Marketing.">
+<meta property="og:image" content="../fotos/nikolina-hero.jpg">
+<meta name="theme-color" content="#003a56">
+<link rel="icon" type="image/png" href="../fotos/favicon.png">
+<link rel="stylesheet" href="../schriften/fonts.css">
+<script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
+<style>
+:root{
+  --bg:oklch(0.985 0.004 230);
+  --surface:oklch(0.962 0.008 230);
+  --ink:oklch(0.26 0.03 240);
+  --muted:oklch(0.505 0.028 240);
+  --petrol:oklch(0.6305 0.1123 227.4);
+  --petrol-hell:oklch(0.793 0.081 220.6);
+  --petrol-soft:oklch(0.93 0.03 227);
+  --deep:oklch(0.40 0.09 232);
+  --deep-2:oklch(0.33 0.075 235);
+  --line:oklch(0.905 0.012 230);
+  --wa:oklch(0.60 0.15 150);
+  --wa-deep:oklch(0.52 0.15 150);
+  --disp:"Bodoni Moda",Didot,"Bodoni MT",Georgia,serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-kopf:40; --z-fortschritt:60; --z-loader:100;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
+html.laden.js{overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:clamp(1rem,0.97rem + 0.16vw,1.08rem);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.1;letter-spacing:-0.025em;text-wrap:balance}
+p{text-wrap:pretty;max-width:62ch}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--petrol-soft);color:var(--ink)}
+:focus-visible{outline:2.5px solid var(--petrol);outline-offset:3px;border-radius:4px}
+.dunkel :focus-visible{outline-color:#fff}
+.wrap{width:min(100% - 2.5rem,var(--maxw));margin-inline:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);
+  font-weight:600;font-size:1rem;padding:1rem 1.9rem;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+  min-height:52px;transition:transform .3s var(--ease),background .25s,color .25s,border-color .25s,box-shadow .3s var(--ease)}
+.btn svg{width:20px;height:20px;flex:0 0 auto}
+.btn-wa{background:var(--wa);color:#06231a}
+.btn-wa:hover{background:var(--wa-deep);color:#fff;transform:translateY(-2px);box-shadow:0 12px 26px -12px oklch(0.6 0.15 150/.7)}
+.btn-rand{background:transparent;color:#fff;border-color:oklch(1 0 0/.5)}
+.btn-rand:hover{border-color:#fff;background:oklch(1 0 0/.1);transform:translateY(-2px)}
+
+/* ---------- Fortschritt + Kopf ---------- */
+#fortschritt{position:fixed;inset:0 0 auto 0;height:3px;z-index:var(--z-fortschritt);
+  background:linear-gradient(90deg,var(--petrol),var(--petrol-hell));transform:scaleX(0);transform-origin:left center;pointer-events:none}
+.kopf{position:fixed;inset:0 0 auto 0;z-index:var(--z-kopf);display:flex;align-items:center;justify-content:space-between;
+  gap:.6rem;padding:.9rem clamp(1rem,4vw,2.4rem);pointer-events:none}
+.kopf>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:.55rem;background:oklch(0.985 0.004 230/.94);border:1px solid var(--line);
+  border-radius:999px;padding:.4rem 1rem .4rem .5rem;box-shadow:0 8px 22px -16px oklch(0 0 0/.5);min-height:44px}
+.brand img{width:30px;height:30px;object-fit:contain}
+.brand b{font-family:var(--sans);font-weight:700;font-size:.82rem;letter-spacing:.08em;line-height:1.15;text-transform:uppercase}
+.brand small{display:block;font-weight:600;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.2}
+.kopf-rechts{display:flex;align-items:center;gap:.6rem}
+.lang{position:relative;display:flex;align-items:center;padding:3px;border-radius:999px;
+  border:1px solid var(--line);background:oklch(0.985 0.004 230/.94);box-shadow:0 8px 22px -16px oklch(0 0 0/.5)}
+.lang-ind{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;
+  background:var(--deep);transition:transform .45s var(--ease);z-index:0}
+.lang[data-active="sr"] .lang-ind{transform:translateX(100%)}
+.lang button{position:relative;z-index:1;background:none;border:0;cursor:pointer;font-family:var(--sans);
+  font-weight:700;font-size:.74rem;letter-spacing:.1em;padding:.45rem .8rem;min-height:38px;min-width:44px;
+  color:var(--muted);transition:color .35s var(--ease);border-radius:999px}
+.lang[data-active="de"] button[data-lang="de"],
+.lang[data-active="sr"] button[data-lang="sr"]{color:#fff}
+.kopf-link{font-weight:600;font-size:.85rem;background:oklch(0.985 0.004 230/.94);border:1px solid var(--line);
+  border-radius:999px;padding:.55rem 1.05rem;min-height:44px;display:inline-flex;align-items:center;
+  box-shadow:0 8px 22px -16px oklch(0 0 0/.5);transition:transform .25s var(--ease)}
+.kopf-link:hover{transform:translateY(-2px)}
+@media(max-width:640px){.kopf-link{display:none}.brand small{display:none}}
+
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;z-index:var(--z-loader);background:var(--deep-2);color:#fff;
+  display:grid;place-content:center;justify-items:center;gap:1.2rem;text-align:center}
+.no-js #loader,html.statisch #loader{display:none}
+#loader img{width:96px;height:96px;object-fit:contain;filter:brightness(0) invert(1)}
+.lade-zeile{display:flex;gap:.55rem;flex-wrap:wrap;justify-content:center;font-family:var(--disp);
+  font-weight:600;font-size:clamp(1.1rem,1rem + 1vw,1.5rem);overflow:hidden}
+.lade-zeile .w2{font-style:italic}
+.lade-ort{font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:oklch(1 0 0/.65)}
+
+/* ---------- Akt 1 · Der Moment ---------- */
+#moment{background:var(--deep-2);color:#fff;position:relative;overflow:clip;
+  background-image:radial-gradient(90% 70% at 50% 0%,oklch(0.38 0.085 233) 0%,transparent 65%)}
+.moment-pin{min-height:100svh;display:grid;align-content:center;justify-items:center;
+  gap:clamp(2rem,1.5rem + 3vw,3.2rem);padding:clamp(5.5rem,5rem + 2vw,7rem) 1.25rem 3rem}
+.suche{width:min(100%,540px);position:relative;z-index:2}
+.such-pill{display:flex;align-items:center;gap:.8rem;background:#fff;color:var(--ink);border-radius:999px;
+  padding:1rem 1.4rem;box-shadow:0 24px 60px -24px oklch(0 0 0/.6);font-size:1.05rem;min-height:56px}
+.such-pill svg{width:21px;height:21px;color:var(--muted);flex:0 0 auto}
+.such-text{font-weight:500;white-space:nowrap;overflow:hidden}
+.caret{width:2px;height:1.25em;background:var(--petrol);flex:0 0 auto;margin-left:-4px}
+.js .caret{animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* Overlay-Dropdown wie ein echtes Such-Suggest: reserviert keinen Layoutplatz */
+.ergebnisse{position:absolute;top:calc(100% + .7rem);left:0;right:0;background:#fff;color:var(--ink);
+  border-radius:18px;overflow:hidden;box-shadow:0 30px 70px -28px oklch(0 0 0/.65)}
+html.statisch .ergebnisse,.no-js .ergebnisse{position:static;margin-top:.7rem}
+.erg{display:flex;align-items:center;gap:.85rem;padding:.95rem 1.25rem;border-bottom:1px solid var(--line)}
+.erg:last-child{border-bottom:0}
+.erg-ico{width:34px;height:34px;border-radius:9px;flex:0 0 auto;display:grid;place-items:center}
+.erg.top .erg-ico{background:var(--petrol-soft);color:var(--deep)}
+.erg-ico svg{width:18px;height:18px}
+.erg b{font-size:.95rem;display:block;line-height:1.3}
+.erg small{font-size:.8rem;color:var(--muted);display:block}
+.erg .balken{flex:1;display:grid;gap:.45rem}
+.erg .balken i{height:9px;border-radius:99px;background:var(--surface)}
+.erg .balken i:last-child{width:62%}
+.erg.leer{border-top:1.5px dashed var(--line)}
+.erg.leer .erg-ico{background:var(--surface);color:var(--muted)}
+.erg.leer b{color:var(--muted);font-weight:500}
+.beats{display:grid;place-items:center;text-align:center;gap:3.5rem;width:100%}
+html.anim .beats{gap:0}
+html.anim .beat{grid-area:1/1}
+.beat{max-width:56rem;padding:0 .5rem}
+.beat-kicker{font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--petrol-hell)}
+.beat h2,.beat .bh{font-family:var(--disp);font-weight:600;line-height:1.12;letter-spacing:-0.025em;text-wrap:balance;
+  font-size:clamp(1.9rem,1.2rem + 3.6vw,3.6rem);margin-top:.9rem;color:#fff}
+.beat .bh em{font-style:italic}
+.beat-sub{margin:1.1rem auto 0;font-size:clamp(1rem,.95rem + .4vw,1.25rem);color:oklch(1 0 0/.82);max-width:40ch;font-weight:500}
+.moment-hinweis{position:absolute;left:50%;bottom:max(1.2rem,env(safe-area-inset-bottom));transform:translateX(-50%);
+  font-size:.82rem;font-weight:500;color:oklch(1 0 0/.6);display:flex;align-items:center;gap:.5rem}
+.moment-hinweis svg{width:15px;height:15px}
+.js .moment-hinweis svg{animation:nicken 1.8s var(--ease) infinite}
+@keyframes nicken{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+html.statisch .moment-hinweis,.no-js .moment-hinweis{display:none}
+
+/* ---------- Akt 2 · Die Wende ---------- */
+#wende{background:linear-gradient(180deg,var(--deep-2) 0,var(--bg) 240px)}
+.wende-pin{min-height:100svh;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  align-items:center;gap:clamp(2rem,1.5rem + 4vw,4.5rem)}
+.wende-foto{position:relative;justify-self:center;width:min(100%,440px);border-radius:20px;overflow:hidden;
+  box-shadow:0 40px 80px -36px oklch(0.26 0.03 240/.55);will-change:transform}
+.wende-foto img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 18%;will-change:transform}
+.wende-text .kicker{font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--petrol)}
+.wende-text h2{font-size:clamp(2.1rem,1.4rem + 3.2vw,3.6rem);margin-top:1rem}
+.wende-text p{margin-top:1.3rem;color:var(--muted);font-size:clamp(1.02rem,.97rem + .35vw,1.2rem);max-width:46ch}
+.wende-badge{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.7rem;border:1px solid var(--line);
+  background:var(--surface);border-radius:999px;padding:.6rem 1.15rem;font-size:.88rem;font-weight:600}
+.wende-badge svg{width:17px;height:17px;color:var(--deep);flex:0 0 auto}
+@media(max-width:960px){
+  .wende-pin{grid-template-columns:1fr;gap:1.8rem;align-content:center;justify-items:start}
+  .wende-foto{width:min(62vw,300px);justify-self:start}
+}
+
+/* ---------- Akt 3 · Das Profil ---------- */
+#profil{background:var(--bg)}
+.profil-pin{min-height:100svh;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  align-items:center;gap:clamp(2rem,1.5rem + 4vw,4.5rem)}
+.phone-buehne{position:relative;justify-self:center}
+.phone{position:relative;width:clamp(240px,23vw,300px);aspect-ratio:9/18.6;border-radius:44px;
+  background:oklch(0.2 0.02 240);padding:11px;
+  box-shadow:0 50px 100px -40px oklch(0.26 0.03 240/.6),inset 0 0 0 2px oklch(0.35 0.02 240)}
+.screen{position:absolute;inset:11px;border-radius:34px;background:#fff;overflow:hidden;display:flex;flex-direction:column}
+.kerbe{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:36%;height:22px;
+  border-radius:0 0 13px 13px;background:oklch(0.2 0.02 240);z-index:5}
+.app-kopf{padding:2.4rem .95rem .8rem;display:flex;align-items:center;gap:.7rem}
+.app-kopf img{width:46px;height:46px;border-radius:50%;object-fit:cover;object-position:50% 20%;
+  border:2px solid var(--petrol)}
+.app-id{min-width:0;flex:1}
+.app-id b{display:block;font-size:.86rem;line-height:1.25;overflow-wrap:anywhere}
+.app-id small{display:block;font-size:.72rem;color:var(--muted)}
+.app-stats{display:flex;gap:1rem;padding:0 .95rem .75rem;align-items:center}
+.stat b{display:block;font-size:.92rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat small{font-size:.68rem;color:var(--muted)}
+.folgen{margin-left:auto;background:var(--deep);color:#fff;font-weight:600;font-size:.74rem;
+  border-radius:8px;padding:.42rem .9rem}
+/* 4 feste Reihen, Kacheln stretchen — leicht hochformatig wie echte IG-Vorschauen (3:4).
+   Keine aspect-ratio: die würde die 1fr-Spalten über die Screen-Breite hinaus aufblähen. */
+.raster{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);
+  gap:2.5px;flex:1;background:#fff}
+.kachel{position:relative;display:grid;place-items:center;color:#fff}
+.kachel svg{width:26%;height:26%}
+.kachel:nth-child(3n+1){background:linear-gradient(135deg,oklch(0.55 0.1 228),oklch(0.45 0.095 232))}
+.kachel:nth-child(3n+2){background:linear-gradient(135deg,oklch(0.7 0.09 221),oklch(0.58 0.1 226))}
+.kachel:nth-child(3n){background:linear-gradient(135deg,oklch(0.42 0.09 233),oklch(0.34 0.075 235))}
+.herzen{position:absolute;right:-10px;bottom:22%;pointer-events:none}
+.herz{position:absolute;right:0;bottom:0;width:26px;height:26px;color:oklch(0.66 0.19 20);opacity:0}
+.herz svg{width:100%;height:100%;filter:drop-shadow(0 4px 10px oklch(0 0 0/.25))}
+html.statisch .herzen,.no-js .herzen{display:none}
+.profil-info h3{font-size:clamp(1.7rem,1.2rem + 2.4vw,2.9rem)}
+.schritte{list-style:none;display:grid;gap:.9rem;counter-reset:s;margin-top:1.6rem}
+.schritte li{display:grid;grid-template-columns:40px 1fr;gap:.1rem .9rem;align-items:start;counter-increment:s}
+html.anim .schritte li{opacity:.4;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.schritte li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;
+  font-family:var(--disp);font-weight:600;font-size:1.05rem;background:var(--bg);border:1.5px solid var(--line);
+  font-variant-numeric:lining-nums;transition:background .35s,color .35s,border-color .35s}
+.schritte li b{display:block;grid-column:2;font-weight:700;font-size:1.08rem;line-height:1.3}
+.schritte li span{display:block;grid-column:2;font-size:.93rem;color:var(--muted)}
+html.anim .schritte li.aktiv{opacity:1;transform:translateX(4px)}
+html.anim .schritte li.aktiv::before{background:var(--deep);border-color:var(--deep);color:#fff}
+.fazit{margin-top:1.8rem;font-family:var(--disp);font-weight:600;font-style:italic;
+  font-size:clamp(1.2rem,1.05rem + .8vw,1.6rem);color:var(--deep);max-width:30ch}
+@media(max-width:960px){
+  .profil-pin{grid-template-columns:1fr;gap:1.4rem;align-content:center}
+  .phone{width:min(40vw,175px)}
+  .phone-buehne{justify-self:start;margin-left:.5rem}
+  /* Screen-Innereien proportional zum kleineren Phone */
+  .kerbe{height:15px;border-radius:0 0 10px 10px}
+  .app-kopf{padding:1.6rem .6rem .45rem;gap:.45rem}
+  .app-kopf img{width:30px;height:30px;border-width:1.5px}
+  .app-id b{font-size:.64rem}
+  .app-id small{font-size:.55rem}
+  .app-stats{padding:0 .6rem .5rem;gap:.55rem}
+  .stat b{font-size:.7rem}
+  .stat small{font-size:.53rem}
+  .folgen{font-size:.56rem;padding:.28rem .55rem;border-radius:6px}
+  .schritte{gap:.55rem;margin-top:1.1rem}
+  .schritte li{grid-template-columns:32px 1fr;gap:.7rem}
+  .schritte li::before{width:32px;height:32px;font-size:.9rem}
+  .schritte li span{font-size:.84rem}
+  .fazit{margin-top:1rem;font-size:1.15rem}
+  .profil-info h3{font-size:1.5rem}
+}
+/* Kleine Handys: Beschreibungen weglassen, damit die gepinnte Szene komplett in den Viewport passt */
+@media(max-width:960px) and (max-height:780px){
+  .phone{width:min(36vw,160px)}
+  .schritte li span{display:none}
+  .schritte{gap:.4rem}
+}
+
+/* ---------- Akt 4 · Leistungen ---------- */
+#leistungen{background:var(--surface);border-block:1px solid var(--line);
+  padding:clamp(4rem,3rem + 5vw,7rem) 0}
+#leistungen h3{font-size:clamp(1.8rem,1.3rem + 2.4vw,3rem);max-width:22ch}
+#leistungen .intro{margin-top:1rem;color:var(--muted);font-weight:500}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem;max-width:860px}
+.chips li{font-weight:600;font-size:.94rem;padding:.6rem 1.15rem;border-radius:999px;
+  border:1px solid var(--line);background:var(--bg)}
+.chips li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+  margin-right:.55rem;vertical-align:1px;background:var(--petrol)}
+.mehr-link{display:inline-block;margin-top:2rem;font-weight:600;color:var(--deep);
+  border-bottom:1.5px solid var(--petrol);padding-bottom:2px;transition:color .25s,border-color .25s}
+.mehr-link:hover{color:var(--petrol)}
+
+/* ---------- Akt 5 · Ablauf ---------- */
+#ablauf{padding:clamp(4rem,3rem + 5vw,7.5rem) 0}
+#ablauf h3{font-size:clamp(1.8rem,1.3rem + 2.4vw,3rem)}
+.bahn{position:relative;height:2px;background:var(--line);margin:clamp(2.2rem,2rem + 1.5vw,3.2rem) 0 0;overflow:hidden}
+.bahn i{position:absolute;inset:0;background:linear-gradient(90deg,var(--petrol),var(--deep));
+  transform:scaleX(0);transform-origin:left center}
+html.statisch .bahn i,.no-js .bahn i{transform:none}
+.etappen{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,1rem + 1.5vw,2rem);margin-top:1.6rem}
+.etappe{padding-top:1rem;position:relative}
+.etappe::before{content:"";position:absolute;top:-8px;left:2px;width:14px;height:14px;border-radius:50%;
+  background:var(--bg);border:2.5px solid var(--petrol)}
+.etappe .nr{font-family:var(--disp);font-weight:400;font-size:1.5rem;color:var(--petrol);font-variant-numeric:lining-nums}
+.etappe b{display:block;font-size:1.06rem;margin-top:.3rem}
+.etappe p{font-size:.92rem;color:var(--muted);margin-top:.3rem}
+@media(max-width:760px){
+  .bahn{display:none}
+  .etappen{grid-template-columns:1fr;gap:1.2rem;margin-top:2rem}
+  .etappe{padding-top:0;padding-left:1.4rem}
+  .etappe::before{top:8px;left:0}
+}
+
+/* ---------- Finale ---------- */
+#finale{position:relative;color:#fff;background:var(--deep);
+  background-image:radial-gradient(100% 90% at 50% 110%,oklch(0.46 0.095 228) 0%,transparent 60%);
+  padding:clamp(5rem,4rem + 6vw,9rem) 0 0;text-align:center}
+.finale-inhalt{display:grid;justify-items:center}
+.final-mark{width:88px;height:88px;border-radius:22px;display:grid;place-items:center;background:#fff;
+  box-shadow:0 24px 50px -20px oklch(0 0 0/.5)}
+.final-mark img{width:64px;height:64px;object-fit:contain}
+#finale h2{font-size:clamp(2.4rem,1.6rem + 4.2vw,4.6rem);margin-top:1.6rem;letter-spacing:-0.03em}
+#finale h2 em{font-style:italic}
+#finale .finale-inhalt>p{margin:1.3rem auto 0;font-size:clamp(1.02rem,.97rem + .4vw,1.25rem);font-weight:500;
+  color:oklch(1 0 0/.9);max-width:44ch}
+.final-cta{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin-top:2.4rem}
+.final-site{display:inline-block;margin-top:2.2rem;font-weight:600;font-size:.95rem;color:oklch(1 0 0/.9);
+  border-bottom:1.5px solid oklch(1 0 0/.45);padding-bottom:2px;transition:border-color .25s}
+.final-site:hover{border-color:#fff}
+#finale footer{margin-top:clamp(3.5rem,3rem + 3vw,6rem);border-top:1px solid oklch(1 0 0/.22);
+  padding:1.4rem 0 max(1.4rem,env(safe-area-inset-bottom));font-size:.82rem;color:oklch(1 0 0/.8)}
+#finale footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:540px){
+  .final-cta{flex-direction:column;width:100%}
+  .final-cta .btn{width:100%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html.js{scroll-behavior:auto}
+  .js .caret,.js .moment-hinweis svg{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="fortschritt" aria-hidden="true"></div>
+
+<header class="kopf">
+  <a class="brand" href="../" data-de-label="NM Marketing – zur Landingpage" data-sr-label="NM Marketing – na landing stranu" aria-label="NM Marketing – zur Landingpage">
+    <img src="../fotos/logo-monogramm.png" alt="" width="30" height="30">
+    <span><b>NM Marketing</b><small data-de="Erlebnis-Vorschau" data-sr="Doživljaj — koncept">Erlebnis-Vorschau</small></span>
+  </a>
+  <div class="kopf-rechts">
+    <div class="lang" id="lang" data-active="de" role="group" data-de-label="Sprache wählen" data-sr-label="Izbor jezika" aria-label="Sprache wählen">
+      <span class="lang-ind" aria-hidden="true"></span>
+      <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-lang="sr" aria-pressed="false">SR</button>
+    </div>
+    <a class="kopf-link" href="../" data-de="Zur Landingpage →" data-sr="Na landing stranu →">Zur Landingpage →</a>
+  </div>
+</header>
+
+<div id="loader" aria-hidden="true">
+  <img src="../fotos/logo-monogramm.png" alt="" width="96" height="96">
+  <p class="lade-zeile">
+    <span class="w1" data-de="Authentisch." data-sr="Autentično.">Authentisch.</span>
+    <span class="w2" data-de="Kreativ." data-sr="Kreativno.">Kreativ.</span>
+    <span class="w3" data-de="Wirksam." data-sr="Delotvorno.">Wirksam.</span>
+  </p>
+  <p class="lade-ort">NM Marketing · Haltern am See</p>
+</div>
+
+<main>
+
+  <!-- ============ AKT 1 · DER MOMENT ============ -->
+  <section id="moment" class="dunkel" aria-label="Der Moment, in dem ein Kunde sucht">
+    <div class="moment-pin">
+
+      <div class="suche" aria-hidden="true">
+        <div class="such-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="such-text" id="suchtext">malerbetrieb in der nähe</span>
+          <span class="caret" aria-hidden="true"></span>
+        </div>
+        <div class="ergebnisse" id="ergebnisse">
+          <div class="erg top">
+            <span class="erg-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.26 6.6.56-5 4.44 1.5 6.49L12 16.3l-6 3.45 1.5-6.49-5-4.44 6.6-.56z"/></svg></span>
+            <span><b data-de="Mitbewerber GmbH · ★ 4,9" data-sr="Konkurencija d.o.o. · ★ 4,9">Mitbewerber GmbH · ★ 4,9</b>
+            <small data-de="Website · Instagram · 124 Bewertungen" data-sr="Sajt · Instagram · 124 recenzije">Website · Instagram · 124 Bewertungen</small></span>
+          </div>
+          <div class="erg"><span class="erg-ico" style="background:var(--surface)"></span><span class="balken" aria-hidden="true"><i></i><i></i></span></div>
+          <div class="erg"><span class="erg-ico" style="background:var(--surface)"></span><span class="balken" aria-hidden="true"><i></i><i></i></span></div>
+          <div class="erg leer">
+            <span class="erg-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span>
+            <span><b data-de="Ihr Betrieb: nicht zu finden" data-sr="Tvoja firma: ne može da se nađe">Ihr Betrieb: nicht zu finden</b></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="beats">
+        <div class="beat beat-1">
+          <p class="beat-kicker" data-de="23:47 Uhr · irgendwo in NRW" data-sr="23:47 · negde u NRW-u">23:47 Uhr · irgendwo in NRW</p>
+          <p class="bh" data-de="Gerade sucht jemand genau das, was Sie anbieten." data-sr="Upravo sada neko traži baš to što ti nudiš.">Gerade sucht jemand genau das, was Sie anbieten.</p>
+        </div>
+        <div class="beat beat-2">
+          <p class="bh"><span data-de="Gefunden wird: " data-sr="A pronalazi: ">Gefunden wird: </span><em data-de="die Konkurrenz." data-sr="konkurenciju.">die Konkurrenz.</em></p>
+          <p class="beat-sub" data-de="Nicht, weil sie besser wäre. Sondern weil man sie sieht." data-sr="Ne zato što je bolja. Nego zato što se vidi.">Nicht, weil sie besser wäre. Sondern weil man sie sieht.</p>
+        </div>
+        <div class="beat beat-3">
+          <p class="bh"><span data-de="Sichtbarkeit ist " data-sr="Vidljivost nije ">Sichtbarkeit ist </span><em data-de="kein Zufall." data-sr="slučajnost.">kein Zufall.</em></p>
+          <p class="beat-sub" data-de="Sie ist Arbeit. Und genau diese Arbeit nehme ich Ihnen ab." data-sr="Ona je posao. I baš taj posao ja preuzimam.">Sie ist Arbeit. Und genau diese Arbeit nehme ich Ihnen ab.</p>
+        </div>
+      </div>
+
+    </div>
+    <p class="moment-hinweis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v14m0 0 5-5m-5 5-5-5"/></svg><span data-de="Einfach scrollen" data-sr="Samo skroluj">Einfach scrollen</span></p>
+  </section>
+
+  <!-- ============ AKT 2 · DIE WENDE ============ -->
+  <section id="wende" aria-label="Nikolina Mutić stellt sich vor">
+    <div class="wende-pin wrap">
+      <figure class="wende-foto">
+        <img src="../fotos/nikolina-portraet.jpg" width="900" height="1200" decoding="async"
+             alt="Nikolina Mutić, Gründerin von NM Marketing"
+             data-de-alt="Nikolina Mutić, Gründerin von NM Marketing"
+             data-sr-alt="Nikolina Mutić, osnivačica NM Marketinga">
+      </figure>
+      <div class="wende-text">
+        <p class="kicker">NM Marketing · Nikolina Mutić</p>
+        <h2 data-de="Zeit, dass man Sie findet." data-sr="Vreme je da te pronađu.">Zeit, dass man Sie findet.</h2>
+        <p data-de="Ich bin Nikolina, ausgebildete Kauffrau für Marketingkommunikation. Ich mache Marketing für Unternehmen, die Besseres zu tun haben, als selbst Beiträge zu posten." data-sr="Ja sam Nikolina, školovana za marketinšku komunikaciju (IHK). Vodim marketing za firme koje imaju pametnija posla nego da same objavljuju.">Ich bin Nikolina, ausgebildete Kauffrau für Marketingkommunikation. Ich mache Marketing für Unternehmen, die Besseres zu tun haben, als selbst Beiträge zu posten.</p>
+        <p class="wende-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a5 5 0 100-10 5 5 0 000 10z"/><path d="M8.2 13.9L7 22l5-3 5 3-1.2-8.1"/></svg>
+          <span data-de="IHK Nord Westfalen · persönlich statt Hotline" data-sr="IHK Nord Westfalen · lično, bez centrale">IHK Nord Westfalen · persönlich statt Hotline</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AKT 3 · DAS PROFIL ============ -->
+  <section id="profil" aria-label="So entsteht Ihr Auftritt">
+    <div class="profil-pin wrap">
+      <div class="phone-buehne">
+        <div class="phone" aria-hidden="true">
+          <span class="kerbe"></span>
+          <div class="screen">
+            <div class="app-kopf">
+              <img src="../fotos/nikolina-portraet.jpg" alt="" width="46" height="46">
+              <span class="app-id">
+                <b data-de="@ihr.unternehmen" data-sr="@tvoja.firma">@ihr.unternehmen</b>
+                <small data-de="betreut von NM Marketing" data-sr="vodi NM Marketing">betreut von NM Marketing</small>
+              </span>
+            </div>
+            <div class="app-stats">
+              <span class="stat"><b id="zahlPosts">9</b><small data-de="Beiträge" data-sr="Objave">Beiträge</small></span>
+              <span class="stat"><b id="zahlAufrufe">1.240</b><small data-de="Aufrufe" data-sr="Pregledi">Aufrufe</small></span>
+              <span class="folgen" data-de="Folgen" data-sr="Zaprati">Folgen</span>
+            </div>
+            <div class="raster">
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l8.8 8.9 8.8-8.9a5.5 5.5 0 000-7.8z"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+              <span class="kachel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg></span>
+            </div>
+          </div>
+          <div class="herzen" aria-hidden="true">
+            <span class="herz h1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l8.8 8.9 8.8-8.9a5.5 5.5 0 000-7.8z"/></svg></span>
+            <span class="herz h2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l8.8 8.9 8.8-8.9a5.5 5.5 0 000-7.8z"/></svg></span>
+            <span class="herz h3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l8.8 8.9 8.8-8.9a5.5 5.5 0 000-7.8z"/></svg></span>
+          </div>
+        </div>
+      </div>
+      <div class="profil-info">
+        <h3 data-de="So entsteht Ihr Auftritt." data-sr="Ovako nastaje tvoj profil.">So entsteht Ihr Auftritt.</h3>
+        <ol class="schritte">
+          <li class="aktiv">
+            <b data-de="Strategie" data-sr="Strategija">Strategie</b>
+            <span data-de="Wer Sie sind, wen Sie erreichen wollen, was Sie besonders macht." data-sr="Ko si, koga želiš da dosegneš, šta te izdvaja.">Wer Sie sind, wen Sie erreichen wollen, was Sie besonders macht.</span>
+          </li>
+          <li>
+            <b data-de="Content" data-sr="Sadržaj">Content</b>
+            <span data-de="Reels, Fotos, Grafiken, Texte. Aus Ihrem echten Alltag." data-sr="Rilsovi, fotke, grafike, tekstovi. Iz tvog stvarnog posla.">Reels, Fotos, Grafiken, Texte. Aus Ihrem echten Alltag.</span>
+          </li>
+          <li>
+            <b data-de="Posting &amp; Community" data-sr="Objave i publika">Posting &amp; Community</b>
+            <span data-de="Veröffentlichen, antworten, dranbleiben. Woche für Woche." data-sr="Objavljivanje, odgovaranje, doslednost. Iz nedelje u nedelju.">Veröffentlichen, antworten, dranbleiben. Woche für Woche.</span>
+          </li>
+          <li>
+            <b data-de="Wachstum" data-sr="Rast">Wachstum</b>
+            <span data-de="Mehr Aufrufe, mehr Anfragen, mehr Aufträge." data-sr="Više pregleda, više upita, više posla.">Mehr Aufrufe, mehr Anfragen, mehr Aufträge.</span>
+          </li>
+        </ol>
+        <p class="fazit" data-de="Das ist mein Job. Sie machen einfach weiter Ihren." data-sr="To je moj posao. Ti samo nastavi svoj.">Das ist mein Job. Sie machen einfach weiter Ihren.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AKT 4 · LEISTUNGEN ============ -->
+  <section id="leistungen" aria-label="Leistungen">
+    <div class="wrap">
+      <h3 data-de="Instagram ist der Anfang — nicht das Ende." data-sr="Instagram je početak — ne kraj.">Instagram ist der Anfang — nicht das Ende.</h3>
+      <p class="intro" data-de="Je nachdem, was Ihr Unternehmen wirklich braucht:" data-sr="Zavisno od toga šta tvojoj firmi stvarno treba:">Je nachdem, was Ihr Unternehmen wirklich braucht:</p>
+      <ul class="chips">
+        <li data-de="Social Media Management" data-sr="Vođenje društvenih mreža">Social Media Management</li>
+        <li data-de="Content Creation" data-sr="Izrada sadržaja">Content Creation</li>
+        <li data-de="Grafikdesign" data-sr="Grafički dizajn">Grafikdesign</li>
+        <li data-de="Marketingberatung" data-sr="Marketing savetovanje">Marketingberatung</li>
+        <li data-de="Kampagnenplanung" data-sr="Planiranje kampanja">Kampagnenplanung</li>
+        <li data-de="Branding" data-sr="Brendiranje">Branding</li>
+      </ul>
+      <a class="mehr-link" href="../" data-de="Alle Details auf der Landingpage →" data-sr="Svi detalji na landing strani →">Alle Details auf der Landingpage →</a>
+    </div>
+  </section>
+
+  <!-- ============ AKT 5 · ABLAUF ============ -->
+  <section id="ablauf" aria-label="So starten wir">
+    <div class="wrap">
+      <h3 data-de="So starten wir." data-sr="Ovako krećemo.">So starten wir.</h3>
+      <div class="bahn" aria-hidden="true"><i></i></div>
+      <div class="etappen">
+        <div class="etappe">
+          <span class="nr">01</span>
+          <b data-de="Kennenlernen" data-sr="Upoznavanje">Kennenlernen</b>
+          <p data-de="Unverbindliches Erstgespräch. Kostenlos." data-sr="Neobavezan prvi razgovor. Besplatno.">Unverbindliches Erstgespräch. Kostenlos.</p>
+        </div>
+        <div class="etappe">
+          <span class="nr">02</span>
+          <b data-de="Strategie" data-sr="Strategija">Strategie</b>
+          <p data-de="Ein Plan, der zu Branche und Budget passt." data-sr="Plan po meri tvoje branše i budžeta.">Ein Plan, der zu Branche und Budget passt.</p>
+        </div>
+        <div class="etappe">
+          <span class="nr">03</span>
+          <b data-de="Umsetzung" data-sr="Realizacija">Umsetzung</b>
+          <p data-de="Ich mache. Sie sehen zu." data-sr="Ja radim. Ti gledaš.">Ich mache. Sie sehen zu.</p>
+        </div>
+        <div class="etappe">
+          <span class="nr">04</span>
+          <b data-de="Optimierung" data-sr="Optimizacija">Optimierung</b>
+          <p data-de="Was funktioniert, machen wir mehr." data-sr="Što radi — toga još više.">Was funktioniert, machen wir mehr.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINALE ============ -->
+  <section id="finale" class="dunkel" aria-label="Kontakt">
+    <div class="wrap finale-inhalt">
+      <div class="final-mark" aria-hidden="true"><img src="../fotos/logo-monogramm.png" alt="" width="64" height="64"></div>
+      <h2><span data-de="Lassen Sie uns " data-sr="Hajde da ">Lassen Sie uns </span><em data-de="reden." data-sr="popričamo.">reden.</em></h2>
+      <p data-de="Ein ehrlicher Blick auf Ihr Marketing: kostenlos, unverbindlich, ohne Fachchinesisch. Schreiben Sie mir einfach." data-sr="Iskren pogled na tvoj marketing: besplatno, bez obaveze, bez stručnog naklapanja. Samo mi piši.">Ein ehrlicher Blick auf Ihr Marketing: kostenlos, unverbindlich, ohne Fachchinesisch. Schreiben Sie mir einfach.</p>
+      <div class="final-cta">
+        <a class="btn btn-wa" data-wa href="https://wa.me/4917630167419?text=Hallo%20Nikolina%2C%20ich%20interessiere%20mich%20f%C3%BCr%20ein%20unverbindliches%20Erstgespr%C3%A4ch." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.896 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.945c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652a11.94 11.94 0 005.71 1.454h.005c6.585 0 11.946-5.359 11.949-11.945a11.87 11.87 0 00-3.479-8.408"/></svg>
+          <span data-de="Jetzt auf WhatsApp schreiben" data-sr="Piši na WhatsApp">Jetzt auf WhatsApp schreiben</span>
+        </a>
+        <a class="btn btn-rand" href="tel:+4917630167419">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+          0176 30167419
+        </a>
+      </div>
+      <a class="final-site" href="../" data-de="Zur vollständigen Landingpage" data-sr="Na kompletnu landing stranu">Zur vollständigen Landingpage</a>
+    </div>
+    <footer>
+      <div class="wrap">
+        <span data-de="Erlebnis-Vorschau (Konzept) · NM Marketing · Nikolina Mutić" data-sr="Doživljaj — koncept · NM Marketing · Nikolina Mutić">Erlebnis-Vorschau (Konzept) · NM Marketing · Nikolina Mutić</span> ·
+        <a href="../impressum.html" data-de="Impressum" data-sr="Impresum">Impressum</a> ·
+        <a href="../datenschutz.html" data-de="Datenschutz" data-sr="Zaštita podataka">Datenschutz</a>
+      </div>
+    </footer>
+  </section>
+
+</main>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var docEl = document.documentElement;
+  var reduziert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ================= Sprache (identische Mechanik wie Landingpage) ================= */
+  var META = {
+    de: {
+      title: 'NM Marketing · Der Moment — Erlebnis-Vorschau',
+      desc:  'Konzept-Vorschau: ein Scroll-Erlebnis von NM Marketing — vom Moment, in dem ein Kunde sucht, bis zum Erstgespräch.',
+      wa:    'Hallo Nikolina, ich interessiere mich für ein unverbindliches Erstgespräch.',
+      suche: 'malerbetrieb in der nähe'
+    },
+    sr: {
+      title: 'NM Marketing · Trenutak — doživljaj',
+      desc:  'Koncept: scroll-doživljaj NM Marketinga — od trenutka kada mušterija traži, do prvog razgovora.',
+      wa:    'Zdravo Nikolina, zanima me besplatan prvi razgovor.',
+      suche: 'moler u blizini'
+    }
+  };
+  var langBox = document.getElementById('lang');
+  var aktuelleLang = 'de';
+
+  function apply(l){
+    aktuelleLang = l;
+    document.querySelectorAll('[data-' + l + ']').forEach(function(el){ el.textContent = el.dataset[l]; });
+    document.querySelectorAll('[data-' + l + '-alt]').forEach(function(el){ el.alt = el.dataset[l + 'Alt']; });
+    document.querySelectorAll('[data-' + l + '-label]').forEach(function(el){ el.setAttribute('aria-label', el.dataset[l + 'Label']); });
+    document.querySelectorAll('a[data-wa]').forEach(function(a){
+      a.href = 'https://wa.me/4917630167419?text=' + encodeURIComponent(META[l].wa);
+    });
+    docEl.lang = (l === 'sr') ? 'sr-Latn' : 'de';
+    document.title = META[l].title;
+    var d = document.querySelector('meta[name="description"]');
+    if (d) d.content = META[l].desc;
+    langBox.dataset.active = l;
+    langBox.querySelectorAll('button').forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.dataset.lang === l));
+    });
+    /* Ohne Animations-Modus zeigt #suchtext den vollen Text der jeweiligen Sprache */
+    if (!docEl.classList.contains('anim')) {
+      var st = document.getElementById('suchtext');
+      if (st) st.textContent = META[l].suche;
+    }
+    if (window.ScrollTrigger && docEl.classList.contains('anim')) ScrollTrigger.refresh();
+  }
+  function setLang(l, push){
+    if (push) {
+      try {
+        localStorage.setItem('nm-lang', l);
+        var u = new URL(location.href);
+        u.searchParams.set('lang', l);
+        history.replaceState(null, '', u);
+      } catch(e){}
+    }
+    apply(l);
+  }
+  var start = 'de';
+  try {
+    var qp = new URL(location.href).searchParams.get('lang');
+    var saved = localStorage.getItem('nm-lang');
+    if (qp === 'de' || qp === 'sr') start = qp;
+    else if (saved === 'de' || saved === 'sr') start = saved;
+    else if (/^(sr|hr|bs|sh|me)\b/i.test(navigator.language || '')) start = 'sr';
+  } catch(e){}
+  langBox.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-lang]');
+    if (b && b.dataset.lang !== langBox.dataset.active) setLang(b.dataset.lang, true);
+  });
+
+  /* ================= Animations-Weiche ================= */
+  if (reduziert || !window.gsap || !window.ScrollTrigger) {
+    docEl.classList.add('statisch');
+    docEl.classList.remove('laden');
+    if (start !== 'de') apply(start);
+    return;
+  }
+  docEl.classList.add('anim');
+  if (start !== 'de') apply(start); else apply('de');
+
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  gsap.defaults({ ease: 'none' });
+
+  var q = function(s){ return document.querySelector(s); };
+  var kompakt = function(){ return window.innerWidth < 960; };
+  var strecke = function(mobil, desktop){ return function(){ return '+=' + (kompakt() ? mobil : desktop) + '%'; }; };
+
+  /* ---------- Anfangszustände (nur im Animations-Modus — statisch bleibt alles sichtbar) ---------- */
+  gsap.set('.beat-2, .beat-3', { autoAlpha: 0 });
+  gsap.set('#ergebnisse', { autoAlpha: 0, y: -10 });
+  gsap.set('#ergebnisse .erg', { autoAlpha: 0, y: 18 });
+  gsap.set('.wende-foto', { clipPath: 'inset(16% 20% 16% 20% round 34px)', scale: .85 });
+  gsap.set('.wende-foto img', { scale: 1.32, filter: 'grayscale(1)' });
+  gsap.set('.wende-text > *', { autoAlpha: 0, y: 26 });
+  gsap.set('.kachel', { scale: 0 });
+  gsap.set('.fazit', { autoAlpha: 0, y: 16 });
+  var suchtext = q('#suchtext');
+  suchtext.textContent = '';
+
+  /* ---------- Loader ---------- */
+  function loaderFertig(){
+    docEl.classList.remove('laden');
+    var l = q('#loader');
+    if (l) l.style.display = 'none';
+    ScrollTrigger.refresh();
+  }
+  if (window.scrollY > 60) {
+    loaderFertig();
+  } else {
+    var lt = gsap.timeline({ onComplete: loaderFertig });
+    lt.from('#loader img', { autoAlpha: 0, scale: .7, duration: .55, ease: 'power3.out' })
+      .from('.lade-zeile span', { yPercent: 130, stagger: .09, duration: .5, ease: 'power4.out' }, .3)
+      .from('.lade-ort', { autoAlpha: 0, duration: .35 }, .7)
+      .to('#loader', { yPercent: -100, duration: .7, ease: 'power4.inOut' }, '+=0.4');
+    q('#loader').addEventListener('click', function(){ lt.progress(1); });
+    setTimeout(function(){ if (docEl.classList.contains('laden')) lt.progress(1); }, 4200);
+  }
+
+  /* ---------- Fortschritt ---------- */
+  gsap.to('#fortschritt', { scaleX: 1, scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
+
+  /* ---------- Akt 1: Der Moment ---------- */
+  var tippen = { p: 0 };
+  var momentTl = gsap.timeline({
+    scrollTrigger: { trigger: '#moment', start: 'top top', end: strecke(240, 280), scrub: 1,
+      pin: '.moment-pin', anticipatePin: 1, invalidateOnRefresh: true }
+  });
+  momentTl
+    .to(tippen, { p: 1, duration: .7, onUpdate: function(){
+        var ziel = META[aktuelleLang].suche;
+        suchtext.textContent = ziel.slice(0, Math.round(tippen.p * ziel.length));
+      } }, 0)
+    .to('.beat-1', { autoAlpha: 0, y: -34, duration: .3, ease: 'power1.in' }, .95)
+    .to('#ergebnisse', { autoAlpha: 1, y: 0, duration: .2, ease: 'power2.out' }, 1.2)
+    .to('#ergebnisse .erg', { autoAlpha: 1, y: 0, stagger: .14, duration: .35, ease: 'power2.out' }, 1.3)
+    .to('#ergebnisse', { autoAlpha: 0, y: -20, duration: .3, ease: 'power1.in' }, 2.35)
+    .to('.beat-2', { autoAlpha: 1, duration: .35, ease: 'power1.out' }, 2.6)
+    .to('.beat-2', { autoAlpha: 0, y: -34, duration: .3, ease: 'power1.in' }, 3.5)
+    .to('.suche', { autoAlpha: 0, y: -26, scale: .96, duration: .32, ease: 'power1.in' }, 3.5)
+    .to('.beat-3', { autoAlpha: 1, duration: .35, ease: 'power1.out' }, 3.8)
+    .to('.moment-hinweis', { autoAlpha: 0, duration: .2 }, .4)
+    .to({}, { duration: .5 });
+
+  /* ---------- Akt 2: Die Wende ---------- */
+  var wendeTl = gsap.timeline({
+    scrollTrigger: { trigger: '#wende', start: 'top top', end: strecke(110, 140), scrub: 1,
+      pin: '.wende-pin', anticipatePin: 1, invalidateOnRefresh: true }
+  });
+  wendeTl
+    .to('.wende-foto', { clipPath: 'inset(0% 0% 0% 0% round 20px)', scale: 1, duration: .85, ease: 'power1.inOut' }, 0)
+    .to('.wende-foto img', { scale: 1.02, filter: 'grayscale(0)', duration: .85, ease: 'power1.inOut' }, 0)
+    .to('.wende-text > *', { autoAlpha: 1, y: 0, stagger: .14, duration: .4, ease: 'power2.out' }, .35)
+    .to({}, { duration: .3 });
+
+  /* ---------- Akt 3: Das Profil ---------- */
+  var zahlen = { posts: 0, aufrufe: 47 };
+  var zahlPosts = q('#zahlPosts'), zahlAufrufe = q('#zahlAufrufe');
+  zahlPosts.textContent = '0';
+  zahlAufrufe.textContent = '47';
+  var schritte = document.querySelectorAll('.schritte li');
+  var profilTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#profil', start: 'top top', end: strecke(220, 260), scrub: 1,
+      pin: '.profil-pin', anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: function(st){
+        var idx = Math.min(3, Math.floor(st.progress * 4.4));
+        schritte.forEach(function(li, i){ li.classList.toggle('aktiv', i === idx); });
+      }
+    }
+  });
+  profilTl
+    .from('.phone', { y: 70, autoAlpha: 0, duration: .4, ease: 'power2.out' }, 0)
+    .to('.kachel', { scale: 1, stagger: { each: .13, ease: 'none' }, duration: .3, ease: 'back.out(1.6)' }, .45)
+    .to(zahlen, { posts: 9, aufrufe: 1240, duration: 2.1, onUpdate: function(){
+        zahlPosts.textContent = String(Math.round(zahlen.posts));
+        zahlAufrufe.textContent = Math.round(zahlen.aufrufe).toLocaleString('de-DE');
+      } }, .5)
+    .fromTo('.herz.h1', { y: 0, autoAlpha: 0 }, { keyframes: [{ autoAlpha: 1, y: -40, duration: .25 }, { autoAlpha: 0, y: -130, duration: .45 }] }, 2.0)
+    .fromTo('.herz.h2', { y: 0, x: 14, autoAlpha: 0 }, { keyframes: [{ autoAlpha: 1, y: -55, duration: .25 }, { autoAlpha: 0, y: -150, duration: .45 }] }, 2.25)
+    .fromTo('.herz.h3', { y: 0, x: -10, autoAlpha: 0 }, { keyframes: [{ autoAlpha: 1, y: -45, duration: .25 }, { autoAlpha: 0, y: -140, duration: .45 }] }, 2.5)
+    .to('.fazit', { autoAlpha: 1, y: 0, duration: .4, ease: 'power2.out' }, 2.9)
+    .to({}, { duration: .3 });
+
+  /* ---------- Akt 4/5: sanfte Reveals ---------- */
+  gsap.from('#leistungen .chips li', {
+    y: 22, autoAlpha: 0, stagger: .07, duration: .55, ease: 'power3.out',
+    scrollTrigger: { trigger: '#leistungen', start: 'top 72%', once: true }
+  });
+  gsap.to('.bahn i', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { trigger: '#ablauf', start: 'top 70%', end: 'top 20%', scrub: .5 }
+  });
+  gsap.from('.etappe', {
+    y: 26, autoAlpha: 0, stagger: .12, duration: .55, ease: 'power3.out',
+    scrollTrigger: { trigger: '.etappen', start: 'top 80%', once: true }
+  });
+  gsap.from('.finale-inhalt > *', {
+    y: 30, autoAlpha: 0, stagger: .12, duration: .7, ease: 'power3.out',
+    scrollTrigger: { trigger: '#finale', start: 'top 68%', once: true }
+  });
+
+  /* ---------- Failsafe ---------- */
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+<noscript><style>#loader{display:none}</style></noscript>
+</body>
+</html>

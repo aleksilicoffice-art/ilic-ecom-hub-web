@@ -1,0 +1,53 @@
+/* Gemeinsames Stylesheet für Impressum & Datenschutz — schlanke Textseiten im NM-Look */
+:root{
+  --bg:oklch(0.985 0.004 230);
+  --ink:oklch(0.26 0.03 240);
+  --muted:oklch(0.505 0.028 240);
+  --petrol:oklch(0.6305 0.1123 227.4);
+  --deep:oklch(0.40 0.09 232);
+  --deep-2:oklch(0.33 0.075 235);
+  --line:oklch(0.905 0.012 230);
+  --disp:"Bodoni Moda",Didot,"Bodoni MT",Georgia,serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:1.02rem;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:var(--deep);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--petrol)}
+:focus-visible{outline:2.5px solid var(--petrol);outline-offset:3px;border-radius:3px}
+img{display:block;max-width:100%;height:auto}
+
+.top{background:var(--deep);color:#fff;padding:1rem clamp(1.25rem,4vw,2.5rem)}
+.top-in{max-width:52rem;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.top a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:.6rem;min-height:44px}
+.top img{width:34px;height:34px;object-fit:contain;filter:brightness(0) invert(1)}
+.top .bt{font-weight:600;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase}
+.top .back{font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
+
+main{max-width:52rem;margin-inline:auto;padding:clamp(2.5rem,2rem + 3vw,4.5rem) clamp(1.25rem,4vw,2.5rem) 4rem}
+h1{font-family:var(--disp);font-weight:600;font-size:clamp(2rem,1.5rem + 2.2vw,3rem);
+  letter-spacing:-0.03em;line-height:1.1;margin-bottom:2rem}
+h2{font-family:var(--disp);font-weight:600;font-size:clamp(1.25rem,1.1rem + .7vw,1.6rem);
+  letter-spacing:-0.02em;line-height:1.2;margin:2.5rem 0 .8rem;color:var(--deep)}
+h3{font-family:var(--sans);font-weight:600;font-size:1.02rem;margin:1.5rem 0 .4rem}
+p{margin-bottom:.9rem;max-width:68ch;text-wrap:pretty}
+ul{margin:0 0 1rem 1.2rem}
+li{margin-bottom:.35rem;max-width:66ch}
+.muted{color:var(--muted);font-size:.94rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;
+  padding:clamp(1.1rem,1rem + .5vw,1.5rem);margin-bottom:1.2rem}
+.card p:last-child{margin-bottom:0}
+.stand{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem}
+
+.foot{background:var(--deep-2);color:oklch(1 0 0 / .7);padding:2rem 0;font-size:.88rem}
+.foot-in{max-width:52rem;margin-inline:auto;padding-inline:clamp(1.25rem,4vw,2.5rem);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.foot a{color:oklch(1 0 0 / .85)}
+.foot a:hover{color:#fff}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
