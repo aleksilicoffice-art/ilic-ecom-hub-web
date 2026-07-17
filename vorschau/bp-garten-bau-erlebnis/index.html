@@ -355,7 +355,10 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
   <section id="tor" aria-label="Eingang: das Gartentor">
     <div class="tor-buehne">
       <div class="tor-bg">
-        <img src="fotos/garten-zugang-2.jpg" width="1600" height="1200" fetchpriority="high"
+        <!-- Eigene Tor-Fassung: rechts beschnitten, damit die Treppe die Bildmitte ist
+             und bei object-fit:cover auf jeder Breite mittig im Torbogen steht.
+             Nicht durch garten-zugang-2.jpg ersetzen — das braucht der Vorher/Nachher-Scrub ungeschnitten. -->
+        <img src="fotos/garten-zugang-2-tor.jpg" width="1484" height="1200" fetchpriority="high"
              alt="Neu terrassierter Garten mit Ziersteinen, Treppe und Beeten in Gelsenkirchen">
       </div>
       <div class="tor-dunkel" aria-hidden="true"></div>
@@ -455,8 +458,11 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
         <p>Die zweite Welt von BP: Trockenbau und Innenausbau, dieselbe Sorgfalt, nur unterm Dach.</p>
       </div>
       <div class="tuer">
-        <img src="fotos/tb-neubau-1.jpg" width="1200" height="1600" decoding="async"
-             alt="Heller, frisch ausgebauter Innenraum mit großen Fenstern">
+        <!-- Hochformat-Motiv mit mittigem Subjekt ist Pflicht: die Kamerafahrt endet
+             formatfüllend, am Handy bleiben nur ~60% der Bildbreite stehen.
+             Breite Szenen mit Personen am Rand verlieren hier genau die Personen. -->
+        <img src="fotos/tb-action-dachschraege-1.jpg" width="1200" height="1600" decoding="async"
+             alt="Handwerker von BP Bau beim Verspachteln einer Dachschräge">
       </div>
     </div>
   </section>
@@ -520,6 +526,13 @@ html.statisch #ergebnisse .wisch,.no-js #ergebnisse .wisch{display:none}
           <li>Innenausbau &amp; Renovierung</li><li>Dämmung &amp; Schallschutz</li><li>Putz &amp; Oberflächen</li>
           <li>Boden &amp; Untergrund</li><li>Komplettsanierung</li>
         </ul>
+        <!-- Reihenfolge nicht tauschen: die LETZTE Kachel wird mobil auf 16/10 quer gezogen
+             (siehe .fotoreihe figure:last-child) — dort darf nur ein Querformat stehen. -->
+        <div class="fotoreihe">
+          <figure><img src="fotos/tb-team-wandarbeiten-1.jpg" width="1179" height="1457" loading="lazy" decoding="async" alt="Zwei Handwerker von BP Bau bringen zu zweit eine Wandbeschichtung an"><figcaption>Das Team im Einsatz</figcaption></figure>
+          <figure><img src="fotos/tb-spachteln-3.jpg" width="1500" height="1600" loading="lazy" decoding="async" alt="Handwerker zieht eine Wandkante mit dem Spachtel glatt"><figcaption>Spachteln &amp; Glätten</figcaption></figure>
+          <figure><img src="fotos/tb-sanierung-mfh-boden-1.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Fertig verlegter Designboden in Steinoptik in einem sanierten Zimmer"><figcaption>Boden &amp; Untergrund</figcaption></figure>
+        </div>
       </div>
     </div>
   </section>
