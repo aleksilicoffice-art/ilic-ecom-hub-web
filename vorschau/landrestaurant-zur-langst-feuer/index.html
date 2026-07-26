@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Landrestaurant Zur Langst · Ahlen — auf den Punkt gegrillt</title>
+<meta name="description" content="Landrestaurant &amp; Café Zur Langst in Ahlen: Fleisch vom Grill, Balkan-Platten, Salatbuffet — und eine Terrasse direkt am Teich. Reservierung unter 02382 8551018.">
+<meta name="theme-color" content="#0a0705">
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Landrestaurant Zur Langst · Ahlen">
+<meta property="og:description" content="Auf den Punkt. Fleisch vom Grill, Terrasse am Teich.">
+<meta property="og:image" content="bilder/steak.jpg">
+<meta property="og:locale" content="de_DE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0705'/%3E%3Cpath d='M50 20c9 14 18 20 18 33a18 18 0 0 1-36 0c0-6 4-11 8-16 2 6 6 8 6 8s-4-14 4-25z' fill='%23e2571a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="schriften/fonts.css">
+<link rel="preload" as="image" href="bilder/steak.jpg">
+<style>
+/* ============================================================
+   Landrestaurant Zur Langst — Variante „Feuer"
+   Der Grill als gescrubte Szene: Glut → Rost → Fleisch → fertig.
+   ============================================================ */
+
+:root{
+  --nacht:#0a0705;
+  --kohle:#171010;
+  --rauch:#2a1f1a;
+  --glut:#e2571a;
+  --glut-hell:#ffb347;
+  --funke:#ffd89b;
+  --asche:#a2938a;
+  --creme:#f7efe3;
+  --wasser:#16383b;
+
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --text:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  --rand:clamp(1.25rem,5vw,5rem);
+  --mass:min(70ch,100%);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--nacht);color:var(--creme);
+  font-family:var(--text);
+  font-size:clamp(1.0625rem,.5vw + .95rem,1.1875rem);
+  line-height:1.65;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{
+  font-family:var(--display);font-weight:800;
+  line-height:.98;letter-spacing:-.03em;margin:0;
+  text-transform:uppercase;text-wrap:balance;
+}
+p{text-wrap:pretty}
+:focus-visible{outline:2.5px solid var(--glut-hell);outline-offset:3px;border-radius:2px}
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--creme);color:var(--nacht);padding:.75rem 1.25rem;
+  border-radius:0 0 .5rem 0;font-weight:600;text-decoration:none;
+}
+.skip:focus{left:0}
+section[id]{scroll-margin-top:4.5rem}
+
+/* ---------- Vorspann: ein Funke ---------------------------- */
+#vorspann{
+  position:fixed;inset:0;z-index:130;background:var(--nacht);
+  display:grid;place-items:center;overflow:hidden;
+}
+#vorspann .glut-kreis{
+  position:absolute;width:min(90vw,34rem);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,var(--glut) 0%,transparent 62%);
+  filter:blur(38px);opacity:0;
+}
+#vorspann .wort{
+  position:relative;text-align:center;font-family:var(--display);
+  font-weight:800;text-transform:uppercase;letter-spacing:-.02em;
+  font-size:clamp(2rem,8vw,4.5rem);line-height:1;opacity:0;
+}
+#vorspann .wort small{
+  display:block;font-family:var(--text);font-weight:600;
+  font-size:.22em;letter-spacing:.4em;color:var(--glut-hell);
+  margin-bottom:1.2em;text-transform:uppercase;
+}
+
+/* ---------- Kopfzeile -------------------------------------- */
+.kopf{
+  position:fixed;top:0;left:0;right:0;z-index:90;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:clamp(.8rem,2vw,1.3rem) var(--rand);
+  padding-top:max(clamp(.8rem,2vw,1.3rem),env(safe-area-inset-top));
+  transition:background-color .4s ease,backdrop-filter .4s ease;
+}
+.kopf.fest{
+  background:color-mix(in oklab,var(--nacht) 84%,transparent);
+  backdrop-filter:blur(14px);
+}
+.kopf .wort{
+  font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:1.0625rem;letter-spacing:-.02em;text-decoration:none;white-space:nowrap;
+}
+.tel-knopf{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.55rem 1.1rem;border-radius:999px;
+  border:1px solid color-mix(in oklab,var(--creme) 38%,transparent);
+  font-size:.9375rem;font-weight:600;text-decoration:none;white-space:nowrap;
+  transition:background-color .3s,color .3s,border-color .3s;
+}
+.tel-knopf:hover,.tel-knopf:focus-visible{background:var(--glut);border-color:var(--glut);color:#fff}
+.tel-knopf svg{width:1em;height:1em;flex:none}
+.tel-knopf .lang{display:none}
+@media (min-width:30rem){.tel-knopf .lang{display:inline}.tel-knopf .kurz{display:none}}
+
+/* ---------- Auftakt ---------------------------------------- */
+.auftakt{
+  position:relative;min-height:100svh;
+  display:grid;align-items:end;overflow:hidden;
+  padding:clamp(6rem,14vh,9rem) var(--rand) clamp(3.5rem,10vh,6rem);
+}
+.auftakt .schein{
+  position:absolute;left:50%;bottom:-38%;translate:-50% 0;
+  width:min(150vw,68rem);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in oklab,var(--glut) 62%,transparent) 0%,transparent 60%);
+  filter:blur(46px);opacity:.55;pointer-events:none;
+}
+.auftakt h1{
+  position:relative;
+  font-size:clamp(3rem,12vw,8.5rem);
+  margin-bottom:1.25rem;
+}
+.auftakt h1 .brennt{
+  background:linear-gradient(180deg,var(--funke),var(--glut) 62%,#a33a10);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.auftakt p{
+  position:relative;max-width:40ch;margin:0 0 2rem;
+  font-size:clamp(1.0625rem,.5vw + 1rem,1.3125rem);
+  color:color-mix(in oklab,var(--creme) 86%,transparent);
+}
+.auftakt-fakten{
+  position:relative;display:flex;flex-wrap:wrap;gap:.5rem;
+  list-style:none;margin:0;padding:0;
+}
+.auftakt-fakten li{
+  font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  padding:.45rem .9rem;border-radius:999px;
+  border:1px solid color-mix(in oklab,var(--creme) 24%,transparent);
+}
+.runter{
+  position:absolute;left:50%;bottom:1.1rem;translate:-50% 0;
+  font-size:.6875rem;letter-spacing:.3em;text-transform:uppercase;
+  color:color-mix(in oklab,var(--creme) 55%,transparent);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+}
+.runter .strich{width:1px;height:2.25rem;background:linear-gradient(180deg,var(--glut),transparent)}
+@media (max-height:34rem),(max-width:30rem){.runter{display:none}}
+
+/* ---------- Die Grill-Szene -------------------------------- */
+.szene{position:relative;background:var(--nacht)}
+.szene-buehne{
+  position:relative;min-height:100svh;
+  display:grid;grid-template-rows:1fr auto;
+  align-items:center;overflow:hidden;
+}
+.grill-bild{
+  position:relative;width:100%;
+  display:grid;place-items:center;
+  padding:clamp(4rem,10vh,6rem) var(--rand) 0;
+}
+.grill-svg{width:min(100%,44rem);height:auto;display:block}
+
+/* Textspur unter der Szene */
+.szene-text{
+  position:relative;z-index:3;
+  padding:0 var(--rand) clamp(2.5rem,8vh,5rem);
+  width:100%;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.gargrad{
+  font-family:var(--display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.75rem,6vw,3.5rem);letter-spacing:-.02em;
+  min-height:1.1em;line-height:1;
+  color:var(--glut-hell);
+  margin-bottom:.65rem;
+}
+.szene-satz{
+  position:relative;min-height:3.4em;width:min(100%,36rem);
+}
+.szene-satz p{
+  position:absolute;inset:0;margin:0;opacity:0;
+  transition:opacity .4s ease;
+  color:color-mix(in oklab,var(--creme) 84%,transparent);
+}
+.szene-satz p.an{opacity:1}
+.hitze{
+  display:flex;align-items:center;gap:.6rem;
+  margin-top:1.5rem;font-size:.8125rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--asche);
+}
+.hitze-balken{
+  width:min(58vw,14rem);height:3px;border-radius:2px;
+  background:color-mix(in oklab,var(--creme) 16%,transparent);
+  overflow:hidden;
+}
+.hitze-balken i{
+  display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(0);
+  background:linear-gradient(90deg,#7a2f10,var(--glut) 55%,var(--funke));
+}
+
+/* ---------- Auf den Tisch (echtes Foto) -------------------- */
+.tisch{position:relative;min-height:100svh;overflow:hidden;display:grid;align-items:end}
+.tisch img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.tisch::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,var(--nacht) 3%,color-mix(in oklab,var(--nacht) 72%,transparent) 34%,transparent 68%);
+}
+.tisch-text{position:relative;z-index:2;padding:0 var(--rand) clamp(3.5rem,10vh,6rem);width:100%}
+.tisch-text h2{font-size:clamp(2rem,7vw,4.5rem);max-width:14ch;margin-bottom:1rem}
+.tisch-text p{max-width:40ch;margin:0;color:color-mix(in oklab,var(--creme) 86%,transparent)}
+
+/* ---------- Blöcke ----------------------------------------- */
+.abschnitt{padding:clamp(4.5rem,12vh,8rem) var(--rand);position:relative}
+.mitte{width:var(--mass);margin-inline:auto}
+.augbraue{
+  font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;
+  color:var(--glut);margin:0 0 1.1rem;
+}
+.gross{font-size:clamp(1.875rem,5.5vw,3.75rem)}
+.lead{font-size:clamp(1.125rem,.6vw + 1rem,1.375rem);line-height:1.55}
+
+/* Die Karte: drei Zeilen, typografisch */
+.karte-liste{list-style:none;margin:clamp(2rem,5vh,3rem) 0 0;padding:0}
+.karte-liste li{
+  display:grid;gap:.35rem 1.5rem;
+  padding:1.5rem 0;border-top:1px solid color-mix(in oklab,var(--creme) 14%,transparent);
+}
+@media (min-width:44rem){
+  .karte-liste li{grid-template-columns:14rem 1fr;align-items:baseline}
+}
+.karte-liste h3{
+  font-size:clamp(1.25rem,2.6vw,1.75rem);
+  color:var(--creme);
+}
+.karte-liste p{margin:0;color:color-mix(in oklab,var(--creme) 70%,transparent)}
+.karte-fuss{
+  margin-top:2rem;padding:1.15rem 1.4rem;
+  border:1px solid color-mix(in oklab,var(--glut) 45%,transparent);
+  border-radius:.35rem;font-size:.9375rem;
+  color:color-mix(in oklab,var(--creme) 80%,transparent);
+}
+
+/* Der Ort: kühler Gegenpol */
+.ort{background:var(--wasser);position:relative;overflow:hidden}
+.ort-raster{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:54rem){.ort-raster{grid-template-columns:1fr 1fr}}
+.ort img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.35rem}
+.ort h2{font-size:clamp(1.875rem,5vw,3.25rem);margin-bottom:1rem}
+.ort .augbraue{color:#8fc1b4}
+.ort ul{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:.8rem}
+.ort li{display:flex;gap:.8rem;align-items:baseline}
+.ort li::before{content:'';width:.4rem;height:.4rem;border-radius:50%;background:#8fc1b4;flex:none;translate:0 -.15em}
+
+/* Stimmen */
+.stimmen-raster{display:grid;gap:clamp(1.25rem,3vw,2rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr))}
+.stimme{
+  margin:0;padding:clamp(1.4rem,3vw,2rem);
+  background:var(--kohle);border-radius:.35rem;
+  display:flex;flex-direction:column;gap:1rem;
+}
+.stimme blockquote{margin:0;font-size:1.0625rem;line-height:1.5}
+.stimme figcaption{
+  font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--asche);margin-top:auto;
+}
+.sterne{display:flex;gap:.15rem;color:var(--glut-hell)}
+.sterne svg{width:1rem;height:1rem}
+
+/* Praktisches */
+.praktisch-raster{
+  display:grid;gap:1px;background:color-mix(in oklab,var(--creme) 12%,transparent);
+  border:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+  border-radius:.35rem;overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));
+  list-style:none;margin:0;padding:0;
+}
+.praktisch-raster li{background:var(--nacht);padding:1.35rem 1.25rem;font-size:.9375rem}
+.praktisch-raster b{display:block;font-weight:600;margin-bottom:.15rem}
+.praktisch-raster span{color:var(--asche)}
+
+/* Zeiten + Reservierung */
+.besuch{display:grid;gap:clamp(2.5rem,6vw,4.5rem)}
+@media (min-width:54rem){.besuch{grid-template-columns:1fr 1fr;align-items:start}}
+.zeiten{width:100%;border-collapse:collapse}
+.zeiten caption{
+  text-align:left;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+  font-weight:700;color:var(--glut);padding-bottom:1.1rem;
+}
+.zeiten th,.zeiten td{
+  text-align:left;font-weight:400;padding:.7rem 0;
+  border-bottom:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+}
+.zeiten td{text-align:right;font-variant-numeric:tabular-nums;color:var(--asche)}
+.zeiten tr.heute th,.zeiten tr.heute td{color:var(--glut-hell);font-weight:700}
+.jetzt{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font-size:.9375rem}
+.jetzt .punkt{width:.55rem;height:.55rem;border-radius:50%;background:var(--glut);flex:none}
+.jetzt.geschlossen .punkt{background:#6b5d55}
+.gross-tel{
+  display:inline-flex;align-items:center;gap:.8rem;margin-top:1.6rem;
+  padding:1.1rem 1.8rem;border-radius:999px;
+  background:var(--glut);color:#fff;font-weight:700;
+  font-size:clamp(1.0625rem,.5vw + 1rem,1.25rem);
+  text-decoration:none;font-variant-numeric:tabular-nums;
+  transition:transform .25s,background-color .25s;
+}
+.gross-tel:hover{background:var(--glut-hell);color:var(--nacht);transform:translateY(-2px)}
+.gross-tel svg{width:1.1em;height:1.1em;flex:none}
+
+/* Fuß */
+.fuss{
+  border-top:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+  padding:clamp(2.5rem,6vh,4rem) var(--rand);
+  font-size:.875rem;color:var(--asche);
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;
+}
+.fuss p{margin:0}
+.fuss a{text-decoration:none;border-bottom:1px solid transparent}
+.fuss a:hover{border-color:currentColor}
+.entwurf-hinweis{
+  width:100%;padding-top:1.4rem;
+  border-top:1px solid color-mix(in oklab,var(--creme) 10%,transparent);
+  font-size:.8125rem;color:#7d716a;
+}
+
+/* ---------- Ruhemodus -------------------------------------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  #vorspann{display:none}
+  .szene-buehne{min-height:0}
+  .szene-satz{position:static;min-height:0;display:grid;gap:.75rem}
+  .szene-satz p{position:static;opacity:1}
+  .gargrad::after{content:'Auf den Punkt'}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<div id="vorspann" aria-hidden="true">
+  <span class="glut-kreis"></span>
+  <p class="wort"><small>Landrestaurant · Café</small>Zur Langst</p>
+</div>
+
+<header class="kopf">
+  <a class="wort" href="#top">Zur Langst</a>
+  <a class="tel-knopf" href="tel:+4923828551018">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+    <span class="lang">02382 8551018</span><span class="kurz">Anrufen</span>
+  </a>
+</header>
+
+<main id="inhalt">
+
+<!-- ===================== AUFTAKT ===================== -->
+<section class="auftakt" id="top">
+  <span class="schein" aria-hidden="true"></span>
+  <div>
+    <h1>Auf den<br><span class="brennt">Punkt.</span></h1>
+    <p>Im Landrestaurant Zur Langst kommt alles vom Grill. Dazu eine Terrasse direkt am Teich im Ahlener Stadtwald.</p>
+    <ul class="auftakt-fakten">
+      <li>Ahlen · Am Stadtwald</li>
+      <li>4,6 ★ · 705 Bewertungen</li>
+      <li>Dienstag Ruhetag</li>
+    </ul>
+  </div>
+  <p class="runter" aria-hidden="true"><span class="strich"></span>Scrollen</p>
+</section>
+
+<!-- ===================== DIE GRILL-SZENE ===================== -->
+<section class="szene" id="grill" aria-label="Wie bei uns gegrillt wird">
+  <div class="szene-buehne">
+    <div class="grill-bild">
+      <svg class="grill-svg" viewBox="0 0 600 420" role="img"
+           aria-label="Darstellung eines Grills: Die Kohlen glühen auf, der Rost senkt sich, Fleisch brät und wird auf den Punkt gegart.">
+        <defs>
+          <radialGradient id="glutSchein" cx="50%" cy="72%" r="52%">
+            <stop offset="0%" stop-color="#ff8c2e" stop-opacity=".95"/>
+            <stop offset="55%" stop-color="#e2571a" stop-opacity=".38"/>
+            <stop offset="100%" stop-color="#e2571a" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="stab" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8d8d92"/>
+            <stop offset="42%" stop-color="#4a4a50"/>
+            <stop offset="100%" stop-color="#26262a"/>
+          </linearGradient>
+          <!-- Volumen liegt als eigene Ebene über der Grundfarbe: die Grundfarbe wird
+               animiert (roh → gebraten), und Farbe lässt sich nicht aus einem Verlauf
+               heraus interpolieren. -->
+          <linearGradient id="tiefe" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".18"/>
+            <stop offset="45%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#2a1006" stop-opacity=".5"/>
+          </linearGradient>
+          <linearGradient id="fettrand" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#f2ded0" stop-opacity=".85"/>
+            <stop offset="100%" stop-color="#e6c8b4" stop-opacity=".5"/>
+          </linearGradient>
+          <clipPath id="steakForm">
+            <path d="M228 300c-16-11-13-31 7-43 22-13 58-18 90-14 30 4 49 19 47 35-2 18-25 31-59 34-36 3-70-3-85-12z"/>
+          </clipPath>
+          <radialGradient id="kohleGlut" cx="50%" cy="42%" r="60%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Glutschein hinter allem -->
+        <ellipse class="ju-schein" cx="300" cy="316" rx="258" ry="96" fill="url(#glutSchein)" opacity="0"/>
+
+        <!-- Kohlebett, von schräg oben gesehen -->
+        <g class="ju-kohlen">
+          <ellipse cx="300" cy="318" rx="232" ry="80" fill="#120b09"/>
+          <ellipse cx="300" cy="318" rx="214" ry="68" fill="#1c110c"/>
+          <g class="kohle-stuecke">
+            <ellipse class="kohle kohle-hell" cx="188" cy="300" rx="26" ry="13" fill="#31201a"/>
+            <ellipse class="kohle kohle-mittel" cx="246" cy="290" rx="22" ry="11" fill="#2a1c17"/>
+            <ellipse class="kohle kohle-asche" cx="302" cy="296" rx="27" ry="13" fill="#221a16"/>
+            <ellipse class="kohle kohle-mittel" cx="358" cy="288" rx="23" ry="11" fill="#2a1c17"/>
+            <ellipse class="kohle kohle-hell" cx="414" cy="300" rx="25" ry="12" fill="#31201a"/>
+            <ellipse class="kohle kohle-asche" cx="158" cy="322" rx="24" ry="12" fill="#221a16"/>
+            <ellipse class="kohle kohle-hell" cx="216" cy="326" rx="28" ry="14" fill="#31201a"/>
+            <ellipse class="kohle kohle-mittel" cx="276" cy="332" rx="24" ry="12" fill="#2a1c17"/>
+            <ellipse class="kohle kohle-hell" cx="332" cy="326" rx="27" ry="13" fill="#31201a"/>
+            <ellipse class="kohle kohle-mittel" cx="390" cy="330" rx="25" ry="12" fill="#2a1c17"/>
+            <ellipse class="kohle kohle-asche" cx="444" cy="322" rx="22" ry="11" fill="#221a16"/>
+            <ellipse class="kohle kohle-mittel" cx="190" cy="352" rx="26" ry="12" fill="#2a1c17"/>
+            <ellipse class="kohle kohle-hell" cx="250" cy="358" rx="23" ry="11" fill="#31201a"/>
+            <ellipse class="kohle kohle-asche" cx="308" cy="360" rx="26" ry="12" fill="#221a16"/>
+            <ellipse class="kohle kohle-mittel" cx="366" cy="356" rx="24" ry="11" fill="#2a1c17"/>
+            <ellipse class="kohle kohle-hell" cx="418" cy="350" rx="22" ry="10" fill="#31201a"/>
+          </g>
+          <ellipse cx="300" cy="312" rx="150" ry="44" fill="url(#kohleGlut)" opacity=".5"/>
+        </g>
+
+        <!-- Rost: Stäbe folgen der Rundung des Kessels -->
+        <g class="ju-rost">
+          <ellipse cx="300" cy="296" rx="236" ry="80" fill="none" stroke="#2f2c2e" stroke-width="9"/>
+          <ellipse cx="300" cy="296" rx="236" ry="80" fill="none" stroke="url(#stab)" stroke-width="5"/>
+          <g stroke="url(#stab)" stroke-width="5" stroke-linecap="round" fill="none">
+            <path d="M163 240q137 -14 274 0"/>
+            <path d="M108 262q192 -16 384 0"/>
+            <path d="M82 284q218 -16 436 0"/>
+            <path d="M82 308q218 16 436 0"/>
+            <path d="M104 330q196 16 392 0"/>
+            <path d="M156 352q144 14 288 0"/>
+          </g>
+        </g>
+
+        <!-- Ćevapčići, links und rechts auf dem Rost -->
+        <g class="ju-cevap" opacity="0">
+          <g class="cevap" transform="rotate(-7 168 286)">
+            <rect x="118" y="274" width="96" height="24" rx="12" fill="#c98d78"/>
+            <rect class="cevap-braun" x="118" y="274" width="96" height="24" rx="12" fill="#7b4222" opacity="0"/>
+          </g>
+          <g class="cevap" transform="rotate(6 434 278)">
+            <rect x="386" y="266" width="96" height="24" rx="12" fill="#c98d78"/>
+            <rect class="cevap-braun" x="386" y="266" width="96" height="24" rx="12" fill="#7b4222" opacity="0"/>
+          </g>
+        </g>
+
+        <!-- Das Steak, mittig auf dem Rost -->
+        <g class="ju-steak" opacity="0">
+          <ellipse cx="304" cy="322" rx="86" ry="20" fill="#0d0806" opacity=".55"/>
+          <g class="steak-koerper">
+            <path class="steak-flaeche"
+                  d="M228 300c-16-11-13-31 7-43 22-13 58-18 90-14 30 4 49 19 47 35-2 18-25 31-59 34-36 3-70-3-85-12z"
+                  fill="#c98d78"/>
+            <path class="steak-tiefe"
+                  d="M228 300c-16-11-13-31 7-43 22-13 58-18 90-14 30 4 49 19 47 35-2 18-25 31-59 34-36 3-70-3-85-12z"
+                  fill="url(#tiefe)"/>
+            <path class="steak-fett"
+                  d="M235 257c22-13 58-18 90-14 30 4 49 19 47 35l-8 .4c0-13-17-25-41-28-30-4-62 0-82 11z"
+                  fill="url(#fettrand)"/>
+            <!-- eingebrannte Röststreifen -->
+            <g clip-path="url(#steakForm)">
+              <rect class="rost-streifen" x="238" y="215" width="13" height="130" rx="5" fill="#43200e" opacity="0" transform="rotate(20 244 280)"/>
+              <rect class="rost-streifen" x="278" y="213" width="13" height="130" rx="5" fill="#43200e" opacity="0" transform="rotate(20 284 280)"/>
+              <rect class="rost-streifen" x="318" y="211" width="13" height="130" rx="5" fill="#43200e" opacity="0" transform="rotate(20 324 280)"/>
+              <rect class="rost-streifen" x="358" y="209" width="13" height="130" rx="5" fill="#43200e" opacity="0" transform="rotate(20 364 280)"/>
+            </g>
+            <!-- Glanz, wenn es fertig ist -->
+            <path class="steak-glanz"
+                  d="M254 268c14-9 40-14 68-12 22 1 38 7 45 15-14-6-31-9-50-9-25-1-48 2-63 6z"
+                  fill="#ffe6c4" opacity="0"/>
+          </g>
+        </g>
+
+        <!-- Rauch, steigt vom Fleisch auf -->
+        <g class="ju-rauch" fill="none" stroke="#cbbdb2" stroke-width="2.6" stroke-linecap="round" opacity="0">
+          <path class="rauch" d="M254 250c-10-20 10-30 0-50s8-26 2-40"/>
+          <path class="rauch" d="M304 242c-11-22 11-32 0-54s9-28 2-42"/>
+          <path class="rauch" d="M354 250c-10-20 10-30 0-50s8-26 2-40"/>
+        </g>
+
+        <!-- Funken über der Glut -->
+        <g class="ju-funken" fill="#ffd89b" opacity="0">
+          <circle class="funke" cx="196" cy="318" r="2.4"/>
+          <circle class="funke" cx="248" cy="330" r="2"/>
+          <circle class="funke" cx="392" cy="326" r="2.6"/>
+          <circle class="funke" cx="440" cy="316" r="2.1"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="szene-text">
+      <p class="gargrad" aria-live="off"></p>
+      <div class="szene-satz">
+        <p class="an">Erst kommt die Glut. Ohne die geht hier gar nichts.</p>
+        <p>Der Rost kommt runter, das Fleisch drauf. Ab jetzt zählt nur noch Zeit und Gefühl.</p>
+        <p>Es zieht Farbe, das Fett tropft, der Rauch steigt. Jetzt einmal wenden.</p>
+        <p>Und dann der Moment, an dem es fertig ist. Keine Sekunde später.</p>
+      </div>
+      <p class="hitze"><span class="hitze-balken"><i></i></span> Hitze</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AUF DEN TISCH ===================== -->
+<section class="tisch">
+  <img src="bilder/steak.jpg" width="1600" height="900" loading="lazy"
+       alt="Gegrilltes Steak in Pfeffersoße mit Pommes frites, wie es im Landrestaurant serviert wird">
+  <div class="tisch-text">
+    <p class="augbraue">Und so kommt es an den Tisch</p>
+    <h2>Kein Filter.<br>Nur Feuer.</h2>
+    <p>„Sehr gute Steaks gegessen. Auf den Punkt gegart.“ — der Satz, der in den Bewertungen am häufigsten steht.</p>
+  </div>
+</section>
+
+<!-- ===================== DIE KARTE ===================== -->
+<section class="abschnitt" id="karte">
+  <div class="mitte">
+    <p class="augbraue">Vom Rost</p>
+    <h2 class="gross">Was hier gegrillt wird.</h2>
+    <ul class="karte-liste">
+      <li>
+        <h3>Die Platten für zwei</h3>
+        <p>So reichlich, dass ein Kind mitisst — und meistens noch ein zweites. Medaillons, Kräuterbutter, Gemüse, Kroketten, Pommes.</p>
+      </li>
+      <li>
+        <h3>Balkan vom Rost</h3>
+        <p>Ćevapčići, Bauchspeck, Schnitzel, dazu Djuvec-Reis und Ajvar. Die Küche, für die viele extra herfahren.</p>
+      </li>
+      <li>
+        <h3>Steaks</h3>
+        <p>Auf den Punkt gegart, mit hausgemachten Soßen.</p>
+      </li>
+      <li>
+        <h3>Salatbuffet</h3>
+        <p>Gehört zum Hauptgang: rund zehn Zutaten, drei Dressings, so oft Sie möchten.</p>
+      </li>
+    </ul>
+    <p class="karte-fuss">Die aktuelle Karte mit allen Gerichten und Preisen gibt es vor Ort oder am Telefon: <a href="tel:+4923828551018">02382 8551018</a></p>
+  </div>
+</section>
+
+<!-- ===================== DER ORT ===================== -->
+<section class="abschnitt ort" id="ort">
+  <div class="ort-raster">
+    <div>
+      <p class="augbraue">Wo das alles steht</p>
+      <h2>Vom Feuer<br>ans Wasser.</h2>
+      <p>Der Grill ist die eine Hälfte. Die andere ist die Terrasse: überdacht, windgeschützt, direkt am Langst-Teich im Ahlener Stadtwald.</p>
+      <ul>
+        <li>Blick auf den Teich von jedem Platz</li>
+        <li>Schattenplätze auch an heißen Tagen</li>
+        <li>Kostenlose Parkplätze direkt am Haus</li>
+        <li>Hunde willkommen, Kinder sowieso</li>
+      </ul>
+    </div>
+    <img src="bilder/see-panorama.jpg" width="1206" height="658" loading="lazy"
+         alt="Blick über den Langst-Teich auf die überdachte Terrasse des Restaurants">
+  </div>
+</section>
+
+<!-- ===================== STIMMEN ===================== -->
+<section class="abschnitt" id="stimmen">
+  <div class="mitte" style="width:min(90rem,100%)">
+    <p class="augbraue">705 Bewertungen</p>
+    <h2 class="gross" style="margin-bottom:clamp(2rem,5vh,3rem)">4,6 von 5.</h2>
+    <div class="stimmen-raster">
+      <figure class="stimme">
+        <span class="sterne" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+        </span>
+        <blockquote>„Die Terrasse bietet auch an sonnigen Tagen genügend Schattenplätze mit tollem Ausblick. Das Essen schmeckt wirklich super, besonders die Grillgerichte.“</blockquote>
+        <figcaption>Dominic S. · Google</figcaption>
+      </figure>
+      <figure class="stimme">
+        <span class="sterne" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+        </span>
+        <blockquote>„Die Platten für 2 Personen sind sehr vielfältig und reichlich. Stets aufmerksam, freundlich und zügig.“</blockquote>
+        <figcaption>Dominic S. · Google</figcaption>
+      </figure>
+      <figure class="stimme">
+        <span class="sterne" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+        </span>
+        <blockquote>„Nach unserem ersten Besuch waren wir bereits ein zweites Mal dort, und auch dieses Mal war alles perfekt.“</blockquote>
+        <figcaption>Pascal K. · Google</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRAKTISCHES + BESUCH ===================== -->
+<section class="abschnitt" id="besuch">
+  <div class="mitte" style="width:min(90rem,100%)">
+    <p class="augbraue">Gut zu wissen</p>
+    <h2 class="gross" style="margin-bottom:clamp(1.75rem,4vh,2.5rem)">Damit der Besuch passt.</h2>
+    <ul class="praktisch-raster">
+      <li><b>Terrasse am Wasser</b><span>überdacht und windgeschützt</span></li>
+      <li><b>Kostenlos parken</b><span>eigener Parkplatz am Haus</span></li>
+      <li><b>Barrierefrei</b><span>Parkplatz, Eingang, WC, Sitzplätze</span></li>
+      <li><b>Hunde willkommen</b><span>drinnen wie draußen</span></li>
+      <li><b>Karte &amp; kontaktlos</b><span>EC, Kreditkarte, NFC</span></li>
+      <li><b>Für Familien &amp; Feiern</b><span>Platz für große Runden</span></li>
+    </ul>
+
+    <div class="besuch" style="margin-top:clamp(3rem,8vh,5rem)">
+      <div>
+        <table class="zeiten">
+          <caption>Öffnungszeiten</caption>
+          <tbody>
+            <tr data-tag="1"><th scope="row">Montag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="2"><th scope="row">Dienstag</th><td>Ruhetag</td></tr>
+            <tr data-tag="3"><th scope="row">Mittwoch</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="4"><th scope="row">Donnerstag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="5"><th scope="row">Freitag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="6"><th scope="row">Samstag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="0"><th scope="row">Sonntag</th><td>11:30 – 21:00</td></tr>
+          </tbody>
+        </table>
+        <p class="jetzt" id="jetzt" hidden><span class="punkt"></span><span class="wortlaut"></span></p>
+      </div>
+      <div>
+        <p class="augbraue">Tisch sichern</p>
+        <h2 style="font-size:clamp(1.75rem,4.4vw,2.75rem);margin-bottom:1rem">Am Wochenende<br>besser reservieren.</h2>
+        <p style="color:var(--asche);max-width:34ch">Tische werden direkt am Telefon vergeben. Ein Anruf genügt.</p>
+        <a class="gross-tel" href="tel:+4923828551018">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+          02382 8551018
+        </a>
+        <p style="margin-top:1.5rem;font-size:.9375rem;color:var(--asche)">
+          Am Stadtwald 6 · 59227 Ahlen ·
+          <a href="https://maps.google.com/?cid=8114312814330984560" target="_blank" rel="noopener" style="text-decoration:underline">Route öffnen</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="fuss">
+  <p>© <span id="jahr">2026</span> Landrestaurant · Café Zur Langst, Ahlen</p>
+  <p><a href="tel:+4923828551018">02382 8551018</a></p>
+  <p class="entwurf-hinweis">Entwurf einer neuen Website, erstellt von ILIC ECOM HUB. Fotos stammen aus dem öffentlichen Google-Unternehmensprofil und werden vor der Veröffentlichung durch eigene Aufnahmen ersetzt. Impressum und Datenschutzerklärung folgen mit der finalen Seite.</p>
+</footer>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var schmal = window.matchMedia('(max-width: 48rem)').matches;
+
+  document.getElementById('jahr').textContent = new Date().getFullYear();
+
+  /* ---- Öffnungsstatus ------------------------------------ */
+  (function(){
+    var zeiten = {0:[11.5,21],1:[11.5,22],2:null,3:[11.5,22],4:[11.5,22],5:[11.5,22],6:[11.5,22]};
+    var namen  = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+    var jetzt = new Date(), tag = jetzt.getDay();
+    var stunde = jetzt.getHours() + jetzt.getMinutes()/60;
+    var heute = zeiten[tag];
+    function uhr(z){ return Math.floor(z) + ':' + (z % 1 ? '30' : '00'); }
+    var zeile = document.querySelector('.zeiten tr[data-tag="'+tag+'"]');
+    if (zeile) zeile.classList.add('heute');
+    var box = document.getElementById('jetzt'), text = box.querySelector('.wortlaut');
+    if (heute && stunde >= heute[0] && stunde < heute[1]) {
+      text.textContent = 'Jetzt geöffnet, bis ' + uhr(heute[1]) + ' Uhr';
+    } else {
+      box.classList.add('geschlossen');
+      if (heute && stunde < heute[0]) {
+        text.textContent = 'Heute ab ' + uhr(heute[0]) + ' Uhr geöffnet';
+      } else {
+        var i = 1, n = tag;
+        while (i <= 7) { n = (tag + i) % 7; if (zeiten[n]) break; i++; }
+        text.textContent = 'Gerade geschlossen. Wieder ' + (i === 1 ? 'morgen' : 'am ' + namen[n]) + ' ab ' + uhr(zeiten[n][0]) + ' Uhr';
+      }
+    }
+    box.hidden = false;
+  })();
+
+  /* ---- Kopfzeile ----------------------------------------- */
+  var kopf = document.querySelector('.kopf');
+  var auftakt = document.querySelector('.auftakt');
+  if ('IntersectionObserver' in window && auftakt) {
+    new IntersectionObserver(function(e){
+      kopf.classList.toggle('fest', !e[0].isIntersecting);
+    }, {rootMargin:'-88% 0px 0px 0px'}).observe(auftakt);
+  }
+
+  /* ---- Vorspann ------------------------------------------ */
+  var vorspann = document.getElementById('vorspann');
+  var fertig = false;
+
+  function auftrittHero(){
+    if (ruhig) return;
+    gsap.from('.auftakt h1', {opacity:0, y:40, duration:1, ease:'power3.out'});
+    gsap.from('.auftakt p, .auftakt-fakten li', {opacity:0, y:20, duration:.8, stagger:.06, delay:.3, ease:'power2.out'});
+    gsap.to('.auftakt .schein', {opacity:.75, scale:1.06, duration:2.6, repeat:-1, yoyo:true, ease:'sine.inOut'});
+    gsap.from('.runter', {opacity:0, duration:.8, delay:1});
+  }
+
+  function vorspannWeg(){
+    if (fertig) return;
+    fertig = true;
+    if (ruhig || document.hidden) { vorspann.style.display = 'none'; if (!document.hidden) auftrittHero(); return; }
+    gsap.timeline({onComplete:function(){ vorspann.style.display = 'none'; auftrittHero(); }})
+      .to('#vorspann .glut-kreis', {opacity:.85, scale:1.15, duration:1, ease:'power2.out'}, 0)
+      .fromTo('#vorspann .wort', {opacity:0, scale:.96}, {opacity:1, scale:1, duration:.8, ease:'power2.out'}, .25)
+      .to('#vorspann .wort', {opacity:0, y:-16, duration:.45, ease:'power2.in'}, '+=.3')
+      .to('#vorspann .glut-kreis', {opacity:0, duration:.5}, '-=.4')
+      .to('#vorspann', {yPercent:-100, duration:.7, ease:'power3.inOut'}, '-=.25');
+  }
+  window.addEventListener('load', vorspannWeg);
+  setTimeout(vorspannWeg, 2600);
+  setTimeout(function(){ vorspann.style.display = 'none'; }, 6000);
+
+  if (ruhig) {
+    /* Ruhemodus: Endzustand zeigen, nichts bewegen */
+    document.querySelectorAll('.rost-streifen, .steak-glanz').forEach(function(el){ el.setAttribute('opacity','1'); });
+    document.querySelector('.steak-flaeche')?.setAttribute('fill','#6b3418');
+    document.querySelectorAll('.ju-steak, .ju-cevap, .ju-schein').forEach(function(g){ g.setAttribute('opacity','1'); });
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ignoreMobileResize:true});
+  /* Bilder laden verzögert nach und verschieben die Seitenhöhe — danach müssen
+     alle Auslösepunkte neu vermessen werden, sonst zündet die Szene zu früh. */
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+
+  /* ---- Der Grill: eine durchgescrubte Szene -------------- */
+  (function grillSzene(){
+    var svg = document.querySelector('.grill-svg');
+    if (!svg) return;
+
+    var saetze  = gsap.utils.toArray('.szene-satz p');
+    var grade   = ['Kalt', 'Roh', 'Wird was', 'Auf den Punkt'];
+    var gradFeld = document.querySelector('.gargrad');
+
+    /* Ausgangslage */
+    gsap.set('.ju-rost', {y:-190, opacity:0});
+    gsap.set('.ju-steak, .ju-cevap', {opacity:0, y:-60});
+    gsap.set('.ju-rauch, .ju-funken', {opacity:0});
+    gsap.set('.kohle', {fill:'#2a1c17'});
+
+    var tl = gsap.timeline({
+      scrollTrigger:{
+        trigger:'.szene',
+        start:'top top',
+        end:'+=420%',
+        pin:'.szene-buehne',
+        scrub:.65,
+        anticipatePin:1,
+        onUpdate:function(self){
+          var stufe = Math.min(3, Math.floor(self.progress * 4));
+          saetze.forEach(function(p,i){ p.classList.toggle('an', i === stufe); });
+          if (gradFeld.textContent !== grade[stufe]) gradFeld.textContent = grade[stufe];
+        }
+      }
+    });
+
+    /* 1 — die Glut zündet */
+    tl.to('.kohle', {fill:'#8f2f0b', duration:.6, stagger:{each:.07, from:'center'}}, 0)
+      .to('.kohle-hell',   {fill:'#ff9436', duration:.5, stagger:{each:.06, from:'center'}}, .5)
+      .to('.kohle-mittel', {fill:'#e2571a', duration:.5, stagger:{each:.06, from:'center'}}, .52)
+      .to('.kohle-asche',  {fill:'#7d3a1c', duration:.5, stagger:{each:.06, from:'center'}}, .54)
+      .to('.ju-schein', {opacity:1, duration:.8}, .2)
+      .to('.hitze-balken i', {scaleX:.55, duration:1, ease:'none'}, 0)
+
+    /* 2 — der Rost senkt sich, das Fleisch kommt drauf */
+      .to('.ju-rost', {y:0, opacity:1, duration:.7, ease:'power2.out'}, 1)
+      .to('.ju-cevap', {opacity:1, y:0, duration:.5, ease:'power2.out'}, 1.5)
+      .to('.ju-steak', {opacity:1, y:0, duration:.5, ease:'power2.out'}, 1.7)
+      .to('.hitze-balken i', {scaleX:.8, duration:1, ease:'none'}, 1)
+
+    /* 3 — es brät: Farbe zieht durch, Streifen brennen ein */
+      .to('.steak-flaeche', {fill:'#a55c33', duration:.8, ease:'none'}, 2.1)
+      .to('.cevap rect:first-child', {fill:'#a55c33', duration:.8, ease:'none'}, 2.1)
+      .to('.rost-streifen', {opacity:.55, duration:.3, stagger:.12}, 2.3)
+      .to('.ju-rauch', {opacity:.5, duration:.6}, 2.4)
+      .to('.ju-funken', {opacity:1, duration:.3}, 2.5)
+      .to('.hitze-balken i', {scaleX:1, duration:1, ease:'none'}, 2)
+
+    /* 4 — wenden und fertig */
+      .to('.steak-koerper', {scaleY:.08, transformOrigin:'center center', duration:.28, ease:'power2.in'}, 3.0)
+      .to('.steak-flaeche', {fill:'#6b3418', duration:.01}, 3.28)
+      .to('.rost-streifen', {opacity:.85, duration:.01}, 3.28)
+      .to('.steak-koerper', {scaleY:1, duration:.32, ease:'power2.out'}, 3.29)
+      .to('.cevap-braun', {opacity:.9, duration:.5, stagger:.1}, 3.3)
+      .to('.steak-glanz', {opacity:.62, duration:.5}, 3.5)
+      .to('.ju-rauch', {opacity:.75, duration:.5}, 3.4);
+
+    /* Dauerbewegung: Glut atmet, Rauch zieht, Funken steigen */
+    gsap.to('.ju-schein', {opacity:.82, scale:1.04, transformOrigin:'300px 330px',
+      duration:1.9, repeat:-1, yoyo:true, ease:'sine.inOut'});
+    gsap.utils.toArray('.kohle').forEach(function(k, i){
+      gsap.to(k, {opacity:.72, duration:1.1 + i * .17, repeat:-1, yoyo:true, ease:'sine.inOut', delay:i * .21});
+    });
+    gsap.utils.toArray('.rauch').forEach(function(p, i){
+      var laenge = p.getTotalLength();
+      gsap.set(p, {strokeDasharray:laenge, strokeDashoffset:laenge * .55, opacity:.5});
+      gsap.to(p, {strokeDashoffset:-laenge * .5, opacity:.05, duration:3.4 + i * .5,
+        repeat:-1, ease:'none', delay:i * .8});
+    });
+    if (!schmal) {
+      gsap.utils.toArray('.funke').forEach(function(f, i){
+        gsap.to(f, {y:-90 - i * 14, opacity:0, duration:1.5 + i * .3, repeat:-1,
+          ease:'power1.out', delay:i * .55});
+      });
+    }
+  })();
+
+  /* ---- Der ruhige Teil danach ---------------------------- */
+  gsap.from('.tisch-text > *', {opacity:0, y:26, duration:.9, stagger:.1, ease:'power2.out',
+    scrollTrigger:{trigger:'.tisch', start:'top 55%'}});
+  gsap.to('.tisch img', {scale:1.1, ease:'none',
+    scrollTrigger:{trigger:'.tisch', start:'top bottom', end:'bottom top', scrub:true}});
+  gsap.from('.karte-liste li', {opacity:0, y:24, duration:.7, stagger:.09, ease:'power2.out',
+    scrollTrigger:{trigger:'.karte-liste', start:'top 82%'}});
+  gsap.from('.ort-raster > *', {opacity:0, y:28, duration:.8, stagger:.12, ease:'power2.out',
+    scrollTrigger:{trigger:'.ort', start:'top 78%'}});
+  gsap.from('.stimme', {opacity:0, y:28, duration:.7, stagger:.1, ease:'power2.out',
+    scrollTrigger:{trigger:'.stimmen-raster', start:'top 84%'}});
+  gsap.from('.praktisch-raster li', {opacity:0, y:18, duration:.55, stagger:.05, ease:'power2.out',
+    scrollTrigger:{trigger:'.praktisch-raster', start:'top 86%'}});
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Landrestaurant · Café Zur Langst",
+  "servesCuisine":["Deutsch","Balkan","Grill"],
+  "address":{"@type":"PostalAddress","streetAddress":"Am Stadtwald 6","postalCode":"59227","addressLocality":"Ahlen","addressCountry":"DE"},
+  "geo":{"@type":"GeoCoordinates","latitude":51.7756614,"longitude":7.9158716},
+  "telephone":"+49 2382 8551018",
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"705"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:30","closes":"22:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"11:30","closes":"21:00"}
+  ]
+}
+</script>
+</body>
+</html>
