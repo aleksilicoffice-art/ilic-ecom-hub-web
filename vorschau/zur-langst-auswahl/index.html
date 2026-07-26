@@ -53,7 +53,8 @@ a{color:inherit}
   display:grid;gap:clamp(1.25rem,3vw,2rem);
   padding-bottom:clamp(3rem,8vh,5rem);
 }
-@media (min-width:52rem){.karten{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:40rem){.karten{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:68rem){.karten{grid-template-columns:repeat(4,1fr)}}
 
 .karte{
   display:flex;flex-direction:column;
@@ -113,8 +114,8 @@ a{color:inherit}
 <header class="kopf">
   <div class="bahn">
     <p class="klein">Landrestaurant · Café Zur Langst · Ahlen</p>
-    <h1>Drei Entwürfe. Eine Entscheidung.</h1>
-    <p class="lead">Dieselben Inhalte, drei verschiedene Handschriften. Schau dir in Ruhe alle drei an — am besten auf dem Handy, so kommen die meisten Gäste auf die Seite.</p>
+    <h1>Vier Entwürfe. Eine Entscheidung.</h1>
+    <p class="lead">Dieselben Inhalte, vier verschiedene Handschriften. Schau sie dir in Ruhe an — am besten auf dem Handy, so kommen die meisten Gäste auf die Seite.</p>
   </div>
 </header>
 
@@ -158,8 +159,23 @@ a{color:inherit}
       </div>
       <div class="karte-text">
         <span class="art">Dunkel · mit Grill-Animation</span>
-        <h2>Auf den Punkt</h2>
-        <p>Beim Scrollen zündet die Glut, der Rost kommt runter, das Fleisch brät und wird gewendet. Wer sie einmal gesehen hat, erinnert sich dran.</p>
+        <h2>Vom Feuer an den Tisch</h2>
+        <p>Kurz am Grill: Die Glut zündet, das Fleisch brät. Dann kommt der Teller auf den Tisch — und im Rücken zieht der Teich scharf. Der Moment, für den man herkommt.</p>
+        <span class="oeffnen">Ansehen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <a class="karte" href="../landrestaurant-zur-langst-tag/">
+      <div class="karte-bild">
+        <span class="nummer">4</span>
+        <img src="bilder/haus-abend.jpg" width="1500" height="1125" alt="Vorschau: das Haus am Abend">
+      </div>
+      <div class="karte-text">
+        <span class="art">Lebendig · richtet sich nach der Uhrzeit</span>
+        <h2>Der Tag am Teich</h2>
+        <p>Vormittags Kaffee, mittags Grill, abends Reservierung: Bild, Farbe und Text wechseln mit der Tageszeit. Dazu eine Spiegelung im Wasser, Reservierungs-Anfrage und eine gezeichnete Anfahrtskarte.</p>
         <span class="oeffnen">Ansehen
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
