@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="de" data-zeit="mittag">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Landrestaurant Zur Langst · Ahlen — der Tag am Teich</title>
+<meta name="description" content="Landrestaurant &amp; Café Zur Langst in Ahlen: morgens Kaffee, mittags vom Grill, abends am Wasser. Terrasse direkt am Langst-Teich. Reservierung unter 02382 8551018.">
+<meta name="theme-color" content="#1b3a3d">
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Landrestaurant Zur Langst · Ahlen">
+<meta property="og:description" content="Der Tag am Teich — Kaffee, Grill, Terrasse am Wasser.">
+<meta property="og:image" content="bilder/see-panorama.jpg">
+<meta property="og:locale" content="de_DE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231b3a3d'/%3E%3Cpath d='M14 62c8-7 14 7 22 0s14 7 22 0 14 7 22 0' stroke='%23f4ead9' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ctext x='50' y='46' font-size='38' text-anchor='middle' fill='%23f4ead9' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="schriften/fonts.css">
+<link rel="preload" as="image" href="bilder/see-panorama.jpg">
+<style>
+/* ============================================================
+   Landrestaurant Zur Langst — Variante „Der Tag am Teich"
+   Die Seite richtet sich nach der Uhrzeit des Besuchers.
+   ============================================================ */
+
+:root{
+  --creme:#f4ead9;
+  --tinte:#17262a;
+  --tinte-weich:#4a5f62;
+  --linie:#ddd0ba;
+
+  /* wird je Tageszeit überschrieben */
+  --stimmung:#1b3a3d;
+  --stimmung-tief:#0e2325;
+  --akzent:#c1652c;
+  --akzent-hell:#e59a5c;
+
+  --display:'Fraunces',Georgia,serif;
+  --text:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --rand:clamp(1.25rem,4.5vw,4.5rem);
+  --breite:76rem;
+  --buehne:min(78svh,46rem);
+}
+
+html[data-zeit="morgen"]{ --stimmung:#3f5a63; --stimmung-tief:#20343a; --akzent:#b8763a; --akzent-hell:#e0a86e; }
+html[data-zeit="mittag"]{ --stimmung:#1b3a3d; --stimmung-tief:#0e2325; --akzent:#c1652c; --akzent-hell:#e59a5c; }
+html[data-zeit="nachmittag"]{ --stimmung:#33463a; --stimmung-tief:#1a2820; --akzent:#b5762c; --akzent-hell:#dfa85a; }
+html[data-zeit="abend"]{ --stimmung:#231d2c; --stimmung-tief:#130f18; --akzent:#c95a35; --akzent-hell:#e89a63; }
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--creme);color:var(--tinte);
+  font-family:var(--text);line-height:1.65;
+  font-size:clamp(1rem,.42vw + .94rem,1.125rem);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{
+  font-family:var(--display);font-weight:400;
+  font-variation-settings:'opsz' 144;
+  line-height:1.04;letter-spacing:-.015em;margin:0;text-wrap:balance;
+}
+p{text-wrap:pretty}
+:focus-visible{outline:2.5px solid var(--akzent);outline-offset:3px;border-radius:2px}
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--tinte);color:var(--creme);padding:.75rem 1.25rem;
+  border-radius:0 0 .5rem 0;font-weight:600;text-decoration:none;
+}
+.skip:focus{left:0}
+.bahn{width:min(var(--breite),100%);margin-inline:auto;padding-inline:var(--rand)}
+section[id]{scroll-margin-top:5rem}
+.augbraue{
+  font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;
+  font-weight:600;margin:0 0 1rem;color:var(--akzent);
+}
+
+/* ---------- Kopfzeile -------------------------------------- */
+.kopf{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;align-items:center;gap:1rem;
+  padding:clamp(.8rem,2vw,1.2rem) var(--rand);
+  padding-top:max(clamp(.8rem,2vw,1.2rem),env(safe-area-inset-top));
+  color:var(--creme);
+  transition:background-color .45s ease,backdrop-filter .45s ease,color .45s ease;
+}
+.kopf.fest{
+  background:color-mix(in oklab,var(--creme) 92%,transparent);
+  backdrop-filter:blur(12px);color:var(--tinte);
+  border-bottom:1px solid var(--linie);
+}
+.kopf .marke{font-family:var(--display);font-size:1.25rem;text-decoration:none;white-space:nowrap;line-height:1}
+.kopf-sterne{
+  display:none;align-items:center;gap:.4rem;margin-left:auto;margin-right:1rem;
+  font-size:.8125rem;white-space:nowrap;opacity:.9;
+}
+.kopf-sterne .sterne{display:flex;gap:.1rem;color:var(--akzent-hell)}
+.kopf.fest .kopf-sterne .sterne{color:var(--akzent)}
+.kopf-sterne svg{width:.9rem;height:.9rem}
+@media (min-width:46rem){.kopf-sterne{display:flex}}
+.kopf .knopf{margin-left:auto}
+@media (min-width:46rem){.kopf .knopf{margin-left:0}}
+
+.knopf{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  padding:.7rem 1.3rem;border-radius:999px;
+  font:inherit;font-size:.9375rem;font-weight:600;
+  text-decoration:none;cursor:pointer;white-space:nowrap;
+  background:var(--akzent);color:#fff;border:1px solid var(--akzent);
+  transition:background-color .25s,transform .25s,color .25s;
+}
+.knopf:hover{background:var(--akzent-hell);border-color:var(--akzent-hell);color:var(--tinte);transform:translateY(-1px)}
+.knopf.klar{background:transparent;color:currentColor;border-color:currentColor}
+.knopf.klar:hover{background:color-mix(in oklab,currentColor 12%,transparent);color:currentColor}
+.knopf.gross{padding:1rem 1.8rem;font-size:1.0625rem}
+.knopf svg{width:1.05em;height:1.05em;flex:none}
+
+/* ---------- Auftakt mit Spiegelung ------------------------- */
+.auftakt{
+  position:relative;
+  background:var(--stimmung-tief);
+  color:var(--creme);
+  transition:background-color .8s ease;
+  overflow:hidden;
+}
+.buehne{
+  position:relative;height:var(--buehne);overflow:hidden;
+}
+.buehne img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease;
+}
+.buehne img.an{opacity:1}
+.buehne::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,color-mix(in oklab,var(--stimmung-tief) 70%,transparent),transparent 34%),
+    linear-gradient(0deg,var(--stimmung-tief) 1%,color-mix(in oklab,var(--stimmung-tief) 42%,transparent) 40%,transparent 72%);
+}
+/* die Spiegelung: gekippte Kopie, die sich sanft wellt */
+.spiegel{
+  position:relative;height:clamp(5rem,14vh,9rem);overflow:hidden;
+  background:var(--stimmung-tief);
+}
+/* gespiegelte Kopie: gleiche Höhe wie die Bühne, vertikal geklappt —
+   sichtbar bleibt dadurch genau der untere Bildrand, wie auf Wasser */
+.spiegel-innen{
+  position:absolute;left:0;right:0;top:0;height:var(--buehne);
+  transform:scaleY(-1);
+  filter:blur(1.2px) saturate(.9) brightness(.66);
+  -webkit-mask-image:linear-gradient(0deg,rgba(0,0,0,.85),transparent 88%);
+  mask-image:linear-gradient(0deg,rgba(0,0,0,.85),transparent 88%);
+}
+.spiegel-innen img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .9s ease;
+}
+.spiegel-innen img.an{opacity:1}
+.wellen{
+  position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    180deg,
+    rgba(255,255,255,.055) 0 1px,
+    transparent 1px 7px);
+  animation:ziehen 9s linear infinite;
+}
+@keyframes ziehen{from{transform:translateY(0)}to{transform:translateY(7px)}}
+
+.auftakt-inhalt{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:0 var(--rand) clamp(1.75rem,5vh,3rem);
+  width:min(var(--breite),100%);margin-inline:auto;
+}
+.tageszeit{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.4rem .95rem;border-radius:999px;
+  background:color-mix(in oklab,var(--creme) 16%,transparent);
+  backdrop-filter:blur(6px);
+  font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  margin-bottom:1.1rem;
+}
+.tageszeit .punkt{width:.5rem;height:.5rem;border-radius:50%;background:var(--akzent-hell)}
+.auftakt h1{font-size:clamp(2.25rem,7vw,5rem);margin-bottom:.9rem;max-width:15ch}
+.auftakt .satz{
+  margin:0 0 1.75rem;max-width:42ch;
+  font-size:clamp(1.0625rem,.5vw + 1rem,1.25rem);
+  color:color-mix(in oklab,var(--creme) 88%,transparent);
+}
+.auftakt-knoepfe{display:flex;flex-wrap:wrap;gap:.7rem}
+
+/* ---------- Jetzt-Band ------------------------------------- */
+.jetzt-band{
+  background:var(--stimmung);color:var(--creme);
+  transition:background-color .8s ease;
+}
+.jetzt-raster{
+  display:grid;gap:0;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));
+}
+.jetzt-feld{padding:1.4rem 0;display:flex;gap:.85rem;align-items:flex-start}
+.jetzt-feld + .jetzt-feld{border-top:1px solid color-mix(in oklab,var(--creme) 16%,transparent)}
+@media (min-width:52rem){
+  .jetzt-feld{padding:1.6rem 1.5rem}
+  .jetzt-feld + .jetzt-feld{border-top:0;border-left:1px solid color-mix(in oklab,var(--creme) 16%,transparent)}
+  .jetzt-feld:first-child{padding-left:0}
+  .jetzt-feld:last-child{padding-right:0}
+}
+.jetzt-feld svg{width:1.3rem;height:1.3rem;flex:none;color:var(--akzent-hell);translate:0 .15em}
+.jetzt-feld b{display:block;font-weight:600;line-height:1.3}
+.jetzt-feld span{font-size:.9375rem;color:color-mix(in oklab,var(--creme) 72%,transparent)}
+
+/* ---------- Abschnitte ------------------------------------- */
+.abschnitt{padding:clamp(3.5rem,9vh,6.5rem) 0}
+.kopfzeile{max-width:46rem;margin-bottom:clamp(2rem,5vh,3rem)}
+.kopfzeile h2{font-size:clamp(1.875rem,4.6vw,3.25rem);margin-bottom:.75rem}
+.kopfzeile p{margin:0;color:var(--tinte-weich)}
+
+.gerichte{display:grid;gap:clamp(1.25rem,3vw,2rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr))}
+.gericht{background:#fff;border:1px solid var(--linie);border-radius:.4rem;overflow:hidden;display:flex;flex-direction:column}
+.gericht img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.gericht-text{padding:1.3rem 1.4rem 1.6rem}
+.gericht h3{font-size:1.375rem;margin-bottom:.4rem}
+.gericht p{margin:0;font-size:.9375rem;color:var(--tinte-weich)}
+.karten-hinweis{
+  margin-top:2rem;padding:1.15rem 1.4rem;border:1px dashed var(--linie);border-radius:.4rem;
+  font-size:.9375rem;color:var(--tinte-weich);background:#fff;
+}
+
+/* Einzelstimme */
+.stimme{
+  margin:0;padding:clamp(2.5rem,7vh,4rem) var(--rand);
+  text-align:center;background:#fff;border-block:1px solid var(--linie);
+}
+.stimme blockquote{
+  margin:0 auto;max-width:34ch;font-family:var(--display);
+  font-size:clamp(1.25rem,3.2vw,1.875rem);line-height:1.3;
+}
+.stimme figcaption{
+  margin-top:.9rem;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tinte-weich);display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;
+}
+.stimme .sterne{display:flex;gap:.1rem;color:var(--akzent)}
+.stimme .sterne svg{width:.9rem;height:.9rem}
+
+/* Terrasse */
+.terrasse-raster{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:54rem){.terrasse-raster{grid-template-columns:1.05fr 1fr}}
+.terrasse-raster img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:.4rem}
+.terrasse-raster h2{font-size:clamp(1.875rem,4.4vw,3rem);margin-bottom:1rem}
+.haken{list-style:none;margin:1.4rem 0 0;padding:0;display:grid;gap:.8rem}
+.haken li{display:flex;gap:.75rem;align-items:baseline}
+.haken li::before{content:'';width:.45rem;height:.45rem;border-radius:50%;background:var(--akzent);flex:none;translate:0 -.15em}
+
+/* Beleg */
+.beleg{background:var(--stimmung);color:var(--creme);text-align:center;transition:background-color .8s ease}
+.beleg .zahl{
+  font-family:var(--display);font-size:clamp(3.5rem,15vw,9rem);line-height:.95;
+  margin:0;font-variant-numeric:tabular-nums;color:var(--akzent-hell);
+}
+.beleg .sterne-gross{display:flex;justify-content:center;gap:.3rem;color:var(--akzent-hell);margin:.75rem 0 .25rem}
+.beleg .sterne-gross svg{width:clamp(1.1rem,2.6vw,1.6rem);height:clamp(1.1rem,2.6vw,1.6rem)}
+.beleg p{margin:.5rem auto 0;max-width:38ch;color:color-mix(in oklab,var(--creme) 80%,transparent)}
+.woerter{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem .6rem;margin:2rem auto 0;max-width:42rem;list-style:none;padding:0}
+.woerter li{padding:.35rem .85rem;border-radius:999px;border:1px solid color-mix(in oklab,var(--creme) 24%,transparent);font-size:.875rem}
+.woerter li.stark{border-color:var(--akzent-hell);color:var(--akzent-hell);font-weight:600}
+
+/* Merkmale */
+.merkmale{
+  list-style:none;margin:0;padding:0;display:grid;gap:1px;
+  background:var(--linie);border:1px solid var(--linie);border-radius:.4rem;overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));
+}
+.merkmale li{background:#fff;padding:1.35rem 1.3rem;display:flex;gap:.8rem;align-items:flex-start;font-size:.9375rem}
+.merkmale svg{width:1.3rem;height:1.3rem;flex:none;color:var(--akzent);translate:0 .1em}
+.merkmale b{display:block;font-weight:600;margin-bottom:.1rem}
+.merkmale i{font-style:normal;color:var(--tinte-weich)}
+
+/* Reservierung */
+.res{background:#fff;border-block:1px solid var(--linie)}
+.res-raster{display:grid;gap:clamp(2.5rem,6vw,4rem)}
+@media (min-width:54rem){.res-raster{grid-template-columns:1fr 1fr;align-items:start}}
+.zeiten{width:100%;border-collapse:collapse}
+.zeiten caption{text-align:left;font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--akzent);padding-bottom:1rem}
+.zeiten th,.zeiten td{text-align:left;font-weight:400;padding:.7rem 0;border-bottom:1px solid var(--linie)}
+.zeiten td{text-align:right;color:var(--tinte-weich);font-variant-numeric:tabular-nums}
+.zeiten tr.heute th,.zeiten tr.heute td{color:var(--akzent);font-weight:600}
+.res-form{display:grid;gap:1rem}
+.res-form h2{font-size:clamp(1.75rem,4.2vw,2.5rem);margin-bottom:.3rem}
+.res-form > p{margin:0 0 .3rem;color:var(--tinte-weich);max-width:36ch}
+.feld-reihe{display:grid;gap:1rem;grid-template-columns:1fr}
+@media (min-width:26rem){.feld-reihe{grid-template-columns:1fr 1fr}}
+.feld{display:grid;gap:.3rem}
+.feld label{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tinte-weich);font-weight:600}
+.feld input,.feld select{
+  font:inherit;font-size:1rem;padding:.7rem .85rem;border-radius:.35rem;
+  background:var(--creme);color:var(--tinte);border:1px solid var(--linie);
+}
+.feld input:focus,.feld select:focus{border-color:var(--akzent);outline:none}
+.res-knoepfe{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.4rem}
+.res-hinweis{margin:.6rem 0 0;font-size:.875rem;color:var(--tinte-weich);min-height:1.4em}
+.res-hinweis.erfolg{color:var(--akzent);font-weight:600}
+.res-notiz{margin-top:1rem;padding:.85rem 1rem;border-left:2px solid var(--akzent);font-size:.8125rem;color:var(--tinte-weich)}
+
+/* Anfahrt mit gezeichneter Karte */
+.anfahrt-raster{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:54rem){.anfahrt-raster{grid-template-columns:1fr 1fr}}
+.karte-svg{width:100%;height:auto;border-radius:.4rem;background:#eadfc9;border:1px solid var(--linie)}
+.adresse{font-style:normal;font-size:1.125rem;line-height:1.75;margin-bottom:1.25rem}
+.weg{list-style:none;margin:1.25rem 0 0;padding:0;display:grid;gap:.7rem;font-size:.9375rem;color:var(--tinte-weich)}
+.weg li{display:flex;gap:.7rem}
+.weg svg{width:1.1rem;height:1.1rem;flex:none;color:var(--akzent);translate:0 .2em}
+
+/* Fuß */
+.fuss{background:var(--stimmung-tief);color:color-mix(in oklab,var(--creme) 72%,transparent);padding:clamp(2.5rem,6vh,4rem) 0;transition:background-color .8s ease}
+.fuss-raster{display:flex;flex-wrap:wrap;gap:1.25rem 3rem;justify-content:space-between}
+.fuss p{margin:0}
+.fuss a{color:var(--creme);text-decoration:none;border-bottom:1px solid transparent}
+.fuss a:hover{border-color:currentColor}
+.fuss .marke{font-family:var(--display);font-size:1.25rem;color:var(--creme)}
+.entwurf-hinweis{width:100%;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid color-mix(in oklab,var(--creme) 14%,transparent);font-size:.8125rem;opacity:.8}
+
+/* Aktionsleiste mobil */
+.aktionsleiste{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;gap:.6rem;
+  padding:.7rem var(--rand);padding-bottom:max(.7rem,env(safe-area-inset-bottom));
+  background:color-mix(in oklab,var(--creme) 94%,transparent);
+  backdrop-filter:blur(12px);border-top:1px solid var(--linie);
+}
+.aktionsleiste .knopf{flex:1}
+@media (min-width:60rem){.aktionsleiste{display:none}}
+@media (max-width:60rem){body{padding-bottom:4.75rem}}
+
+.zeigt{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.zeigt.da{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .zeigt{opacity:1;transform:none;transition:none}
+  .wellen{animation:none}
+  .buehne img,.spiegel-innen img{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kopf">
+  <a class="marke" href="#top">Zur Langst</a>
+  <p class="kopf-sterne">
+    <span class="sterne" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+    </span>
+    4,6 · 705 Bewertungen
+  </p>
+  <a class="knopf" href="tel:+4923828551018">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+    02382 8551018
+  </a>
+</header>
+
+<main id="inhalt">
+
+<!-- ============ AUFTAKT ============ -->
+<section class="auftakt" id="top">
+  <div class="buehne">
+    <img data-zeitbild="morgen"      src="bilder/see-panorama.jpg" width="1206" height="658" alt="Morgens am Langst-Teich: die Terrasse liegt still am Wasser" fetchpriority="high">
+    <img data-zeitbild="mittag"      src="bilder/see-haus.jpg"     width="967"  height="1206" alt="Das Fachwerkhaus des Restaurants am Teich" loading="lazy">
+    <img data-zeitbild="nachmittag"  src="bilder/teich-brunnen.jpg" width="1600" height="1200" alt="Nachmittags am Teich mit Springbrunnen" loading="lazy">
+    <img data-zeitbild="abend"       src="bilder/haus-abend.jpg"   width="1500" height="1125" alt="Das Landrestaurant am Abend mit beleuchtetem Schild" loading="lazy">
+
+    <div class="auftakt-inhalt">
+      <p class="tageszeit"><span class="punkt"></span><span id="zeitLabel">Mittags</span></p>
+      <h1 id="zeitTitel">Mittags kommt alles vom Grill.</h1>
+      <p class="satz" id="zeitSatz">Landrestaurant und Café direkt am Langst-Teich im Ahlener Stadtwald. Terrasse über dem Wasser, Küche vom Rost, Salatbuffet dazu.</p>
+      <div class="auftakt-knoepfe">
+        <a class="knopf gross" href="#reservieren" id="zeitKnopf">Tisch sichern</a>
+        <a class="knopf klar gross" href="#kueche">Was es gibt</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="spiegel" aria-hidden="true">
+    <div class="spiegel-innen">
+      <img data-zeitbild="morgen"     src="bilder/see-panorama.jpg" alt="">
+      <img data-zeitbild="mittag"     src="bilder/see-haus.jpg" alt="">
+      <img data-zeitbild="nachmittag" src="bilder/teich-brunnen.jpg" alt="">
+      <img data-zeitbild="abend"      src="bilder/haus-abend.jpg" alt="">
+    </div>
+    <span class="wellen"></span>
+  </div>
+</section>
+
+<!-- ============ JETZT-BAND ============ -->
+<section class="jetzt-band" aria-label="Aktuelle Informationen">
+  <div class="bahn">
+    <div class="jetzt-raster">
+      <div class="jetzt-feld">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.3l3.4 2" stroke-linecap="round"/></svg>
+        <div><b id="statusTitel">Öffnungszeiten</b><span id="statusText">Dienstag Ruhetag, sonst ab 11:30 Uhr</span></div>
+      </div>
+      <div class="jetzt-feld">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <div><b>Am Stadtwald 6, Ahlen</b><span>kostenlose Parkplätze am Haus</span></div>
+      </div>
+      <div class="jetzt-feld">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 11 12 5l8 6" stroke-linejoin="round"/><path d="M6 11v8h12v-8"/><path d="M3 19h18" stroke-linecap="round"/></svg>
+        <div><b>Terrasse am Wasser</b><span>überdacht und windgeschützt</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KÜCHE ============ -->
+<section class="abschnitt" id="kueche">
+  <div class="bahn">
+    <div class="kopfzeile zeigt">
+      <p class="augbraue">Aus der Küche</p>
+      <h2>Was hier auf den Tisch kommt.</h2>
+      <p>Der Grill ist das Herz des Hauses: große Platten für zwei, Balkan-Spezialitäten und Steaks. Zum Hauptgang gehört das Salatbuffet.</p>
+    </div>
+    <div class="gerichte">
+      <article class="gericht zeigt">
+        <img src="bilder/platte-medaillons.jpg" width="1206" height="728" loading="lazy" alt="Servierplatte mit Rindermedaillons, Kräuterbutter, Gemüse und Pommes">
+        <div class="gericht-text"><h3>Die Platten für zwei</h3><p>So reichlich, dass ein Kind mitisst. Medaillons mit Kräuterbutter, dazu Gemüse, Kroketten und Pommes.</p></div>
+      </article>
+      <article class="gericht zeigt">
+        <img src="bilder/platte-balkan.jpg" width="1088" height="1206" loading="lazy" alt="Gemischte Grillplatte mit Ćevapčići, Schnitzel, Bauchspeck und Djuvec-Reis">
+        <div class="gericht-text"><h3>Balkan vom Rost</h3><p>Ćevapčići, Bauchspeck, Schnitzel, dazu Djuvec-Reis und Ajvar. Die Küche, für die viele herkommen.</p></div>
+      </article>
+      <article class="gericht zeigt">
+        <img src="bilder/steak.jpg" width="1600" height="900" loading="lazy" alt="Gegrilltes Steak in Pfeffersoße mit Pommes frites">
+        <div class="gericht-text"><h3>Steaks</h3><p>Auf den Punkt gegart, mit hausgemachten Soßen.</p></div>
+      </article>
+    </div>
+    <p class="karten-hinweis zeigt"><strong>Salatbuffet inklusive:</strong> rund zehn Zutaten, drei Dressings, so oft Sie möchten. Die vollständige Karte mit Preisen gibt es vor Ort oder am Telefon.</p>
+  </div>
+</section>
+
+<figure class="stimme">
+  <blockquote>„Sehr gute Steaks gegessen. Auf den Punkt gegart. Sehr leckere Soßen.“</blockquote>
+  <figcaption>
+    <span class="sterne" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+    </span>
+    Thomas E. · Google-Rezension
+  </figcaption>
+</figure>
+
+<!-- ============ TERRASSE ============ -->
+<section class="abschnitt" id="terrasse">
+  <div class="bahn">
+    <div class="terrasse-raster">
+      <img class="zeigt" src="bilder/see-haus.jpg" width="967" height="1206" loading="lazy" alt="Das Fachwerkhaus spiegelt sich im Langst-Teich">
+      <div class="zeigt">
+        <p class="augbraue">Draußen sitzen</p>
+        <h2>Die Terrasse am Teich.</h2>
+        <p>Überdacht und windgeschützt, mit Blick über das Wasser. An sonnigen Tagen gibt es genug Schattenplätze — und wenn das Wetter kippt, sitzen Sie trotzdem trocken.</p>
+        <ul class="haken">
+          <li>Blick auf den Teich von jedem Platz</li>
+          <li>Hunde sind willkommen, Kinder sowieso</li>
+          <li>Platz für große Runden und Feiern</li>
+          <li>Mitten im Stadtwald, direkt am Spazierweg</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<figure class="stimme">
+  <blockquote>„Die Terrasse bietet auch an sonnigen Tagen genügend Schattenplätze mit tollem Ausblick.“</blockquote>
+  <figcaption>
+    <span class="sterne" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+    </span>
+    Dominic S. · Google-Rezension
+  </figcaption>
+</figure>
+
+<!-- ============ BELEG ============ -->
+<section class="abschnitt beleg" id="beleg">
+  <div class="bahn">
+    <p class="augbraue" style="color:var(--akzent-hell)">Nicht behauptet, nachgezählt</p>
+    <p class="zahl" id="zaehler">0</p>
+    <p class="sterne-gross" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+    </p>
+    <p>Bewertungen bei Google, im Schnitt 4,6 von 5. Das schreiben Gäste am häufigsten:</p>
+    <ul class="woerter">
+      <li class="stark">Grillgerichte</li><li class="stark">Terrasse</li><li>Aussicht</li>
+      <li class="stark">reichlich</li><li>freundlich</li><li>Salatbuffet</li>
+      <li>Balkan-Platte</li><li>auf den Punkt</li><li>Preis-Leistung</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ GUT ZU WISSEN ============ -->
+<section class="abschnitt" id="wissen">
+  <div class="bahn">
+    <div class="kopfzeile zeigt">
+      <p class="augbraue">Gut zu wissen</p>
+      <h2>Damit der Besuch passt.</h2>
+    </div>
+    <ul class="merkmale zeigt">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 11 12 5l8 6" stroke-linejoin="round"/><path d="M6 11v8h12v-8"/><path d="M3 19h18" stroke-linecap="round"/></svg>
+        <span><b>Terrasse am Wasser</b><i>überdacht und windgeschützt</i></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M9 16V8h3.2a2.4 2.4 0 0 1 0 4.8H9" stroke-linejoin="round"/></svg>
+        <span><b>Kostenlos parken</b><i>eigener Parkplatz am Haus</i></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="14" cy="4.3" r="1.9"/><path d="M12.6 8.2v4.4h4.1l2.4 5.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11.4" cy="16.2" r="4.6"/><path d="M18.4 19.6h2.3" stroke-linecap="round"/></svg>
+        <span><b>Barrierefrei</b><i>Parkplatz, Eingang, WC, Sitzplätze</i></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6.8 7.2 5.4 3.9l3.4 1.7h6.4l3.4-1.7-1.4 3.3" stroke-linejoin="round"/><path d="M6.8 7.2v5.4c0 3.2 2.3 5.6 5.2 5.6s5.2-2.4 5.2-5.6V7.2" stroke-linejoin="round"/><path d="M10.4 11.6h.01M13.6 11.6h.01" stroke-linecap="round" stroke-width="2.1"/></svg>
+        <span><b>Hunde willkommen</b><i>drinnen wie draußen</i></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19"/></svg>
+        <span><b>Karte &amp; kontaktlos</b><i>EC, Kreditkarte, NFC</i></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="9" cy="8" r="2.8"/><circle cx="16.6" cy="10" r="2"/><path d="M3.6 19c0-2.9 2.4-4.8 5.4-4.8s5.4 1.9 5.4 4.8M15 19c0-1.9 1-3.4 2.6-3.4S20.4 17.1 20.4 19" stroke-linecap="round"/></svg>
+        <span><b>Für Familien &amp; Feiern</b><i>Platz für große Runden</i></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ RESERVIERUNG ============ -->
+<section class="abschnitt res" id="reservieren">
+  <div class="bahn">
+    <div class="res-raster">
+      <div class="zeigt">
+        <table class="zeiten">
+          <caption>Öffnungszeiten</caption>
+          <tbody>
+            <tr data-tag="1"><th scope="row">Montag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="2"><th scope="row">Dienstag</th><td>Ruhetag</td></tr>
+            <tr data-tag="3"><th scope="row">Mittwoch</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="4"><th scope="row">Donnerstag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="5"><th scope="row">Freitag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="6"><th scope="row">Samstag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="0"><th scope="row">Sonntag</th><td>11:30 – 21:00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <form class="res-form zeigt" id="resForm" novalidate>
+        <div>
+          <p class="augbraue">Tisch sichern</p>
+          <h2>Reservieren.</h2>
+          <p>Anrufen geht immer. Oder Anfrage hier vorbereiten und in einem Rutsch abschicken.</p>
+        </div>
+        <div class="feld-reihe">
+          <div class="feld"><label for="resDatum">Datum</label><input type="date" id="resDatum"></div>
+          <div class="feld"><label for="resZeit">Uhrzeit</label><input type="time" id="resZeit" value="18:30" step="900"></div>
+        </div>
+        <div class="feld-reihe">
+          <div class="feld"><label for="resPersonen">Personen</label>
+            <select id="resPersonen"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>mehr als 8</option></select>
+          </div>
+          <div class="feld"><label for="resName">Name</label><input type="text" id="resName" autocomplete="name" placeholder="Ihr Name"></div>
+        </div>
+        <div class="res-knoepfe">
+          <a class="knopf" href="tel:+4923828551018">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+            Jetzt anrufen
+          </a>
+          <button class="knopf klar" type="button" id="resKopieren" style="color:var(--tinte)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke-linecap="round"/></svg>
+            Anfrage kopieren
+          </button>
+        </div>
+        <p class="res-hinweis" id="resHinweis" role="status"></p>
+        <p class="res-notiz">Im Entwurf landet die Anfrage in der Zwischenablage. Auf der fertigen Seite geht sie direkt an den Betrieb — per WhatsApp oder E-Mail, ganz wie gewünscht.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANFAHRT ============ -->
+<section class="abschnitt" id="anfahrt">
+  <div class="bahn">
+    <div class="anfahrt-raster">
+      <svg class="karte-svg zeigt" viewBox="0 0 520 400" role="img"
+           aria-label="Schematische Karte: Vom Ortskern Ahlen über die Straße Am Stadtwald zum Landrestaurant am Langst-Teich, mit Parkplatz.">
+        <rect width="520" height="400" fill="#eadfc9"/>
+        <!-- Wald -->
+        <path d="M0 0h520v210c-90 26-180 10-270 30S70 268 0 250z" fill="#cfdcc2" opacity=".75"/>
+        <g fill="#9fb894" opacity=".8">
+          <circle cx="60" cy="60" r="20"/><circle cx="105" cy="42" r="14"/><circle cx="150" cy="70" r="18"/>
+          <circle cx="420" cy="52" r="17"/><circle cx="465" cy="80" r="13"/><circle cx="380" cy="88" r="12"/>
+          <circle cx="250" cy="40" r="15"/>
+        </g>
+        <!-- Teich -->
+        <ellipse cx="258" cy="250" rx="132" ry="62" fill="#8fbcc4"/>
+        <ellipse cx="258" cy="250" rx="132" ry="62" fill="none" stroke="#6f9ea8" stroke-width="3"/>
+        <text x="252" y="258" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#3d6670">Langst-Teich</text>
+        <!-- Straße -->
+        <path d="M0 350h130c40 0 60-24 96-30 26-4 50-2 74 2" stroke="#e6d5b4" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <path d="M0 350h130c40 0 60-24 96-30 26-4 50-2 74 2" stroke="#c9b48c" stroke-width="26" fill="none" stroke-linecap="round" stroke-dasharray="2 16" opacity=".6"/>
+        <text x="60" y="382" font-family="system-ui" font-size="13" fill="#6b5b3e" font-weight="600">Am Stadtwald</text>
+        <text x="8" y="336" font-family="system-ui" font-size="12" fill="#6b5b3e">← Ahlen Zentrum</text>
+        <!-- Parkplatz -->
+        <rect x="330" y="322" width="58" height="40" rx="6" fill="#dcd0b4" stroke="#b8a67f" stroke-width="2"/>
+        <text x="359" y="348" text-anchor="middle" font-family="system-ui" font-size="19" font-weight="700" fill="#5f6f8a">P</text>
+        <text x="359" y="376" text-anchor="middle" font-family="system-ui" font-size="11" fill="#6b5b3e">kostenlos</text>
+        <!-- Haus -->
+        <g>
+          <path d="M392 196l34-26 34 26v52h-68z" fill="#f7f2e6" stroke="#a89a7c" stroke-width="2"/>
+          <path d="M386 198l40-30 40 30" fill="none" stroke="#b4573a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="404" y="216" width="14" height="16" fill="#c8d8dc" stroke="#a89a7c"/>
+          <rect x="432" y="216" width="14" height="16" fill="#c8d8dc" stroke="#a89a7c"/>
+          <rect x="416" y="236" width="16" height="12" fill="#8c7a5c"/>
+        </g>
+        <!-- Terrasse zum Wasser -->
+        <path d="M392 250h68v14h-68z" fill="#d8c39c" stroke="#b09a72" stroke-width="1.5"/>
+        <text x="426" y="156" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#2f4a4e" font-weight="700">Zur Langst</text>
+        <!-- Weg vom Parkplatz zum Haus -->
+        <path d="M370 322c8-22 24-40 46-56" stroke="#b8a67f" stroke-width="4" fill="none" stroke-dasharray="6 7" stroke-linecap="round"/>
+      </svg>
+      <div class="zeigt">
+        <p class="augbraue">Herkommen</p>
+        <h2>Am Stadtwald 6.</h2>
+        <address class="adresse">
+          Landrestaurant · Café Zur Langst<br>
+          Am Stadtwald 6<br>
+          59227 Ahlen
+        </address>
+        <a class="knopf" href="https://maps.google.com/?cid=8114312814330984560" target="_blank" rel="noopener">
+          Route öffnen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul class="weg">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M9 16V8h3.2a2.4 2.4 0 0 1 0 4.8H9" stroke-linejoin="round"/></svg>
+            Kostenlose Parkplätze direkt am Haus, dazu Platz an der Straße
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 19V7l7-3 7 3v12" stroke-linejoin="round"/><path d="M3 19h18" stroke-linecap="round"/></svg>
+            Wenige Minuten aus der Ahlener Innenstadt, am Stadtwald
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.3l3.4 2" stroke-linecap="round"/></svg>
+            Beliebter Halt für Motorrad- und Radtouren
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="fuss">
+  <div class="bahn">
+    <div class="fuss-raster">
+      <div>
+        <p class="marke">Zur Langst</p>
+        <p style="margin-top:.3rem">Am Stadtwald 6 · 59227 Ahlen</p>
+      </div>
+      <div>
+        <p><a href="tel:+4923828551018">02382 8551018</a></p>
+        <p>Dienstag Ruhetag</p>
+      </div>
+      <p class="entwurf-hinweis">Entwurf einer neuen Website, erstellt von ILIC ECOM HUB. Fotos stammen aus dem öffentlichen Google-Unternehmensprofil und werden vor der Veröffentlichung durch eigene Aufnahmen ersetzt. Impressum und Datenschutzerklärung folgen mit der finalen Seite.</p>
+    </div>
+  </div>
+</footer>
+
+<nav class="aktionsleiste" aria-label="Schnellzugriff">
+  <a class="knopf" href="tel:+4923828551018">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+    Anrufen
+  </a>
+  <a class="knopf klar" href="#reservieren" style="color:var(--tinte)">Reservieren</a>
+</nav>
+
+<script>
+(function(){
+  'use strict';
+  var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Die Seite richtet sich nach der Uhrzeit ----------- */
+  var zeiten = {0:[11.5,21],1:[11.5,22],2:null,3:[11.5,22],4:[11.5,22],5:[11.5,22],6:[11.5,22]};
+  var namen  = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  var jetzt  = new Date();
+  var tag    = jetzt.getDay();
+  var stunde = jetzt.getHours() + jetzt.getMinutes()/60;
+
+  var abschnitte = [
+    {bis:11.5, name:'morgen', label:'Vormittags',
+     titel:'Erst ein Kaffee. Dann sehen wir weiter.',
+     satz:'Landrestaurant und Café am Langst-Teich. Vormittags ist es hier am ruhigsten — Kaffee auf der Terrasse, der Teich vor der Nase.',
+     knopf:'Tisch sichern'},
+    {bis:15, name:'mittag', label:'Mittags',
+     titel:'Mittags kommt alles vom Grill.',
+     satz:'Große Platten für zwei, Balkan-Spezialitäten und Steaks, dazu das Salatbuffet. Serviert auf der Terrasse über dem Wasser.',
+     knopf:'Tisch sichern'},
+    {bis:18, name:'nachmittag', label:'Nachmittags',
+     titel:'Kaffeezeit am Wasser.',
+     satz:'Nachmittags sitzt man hier im Schatten, schaut auf den Teich und lässt den Spaziergang ausklingen. Küche und Grill laufen durchgehend.',
+     knopf:'Tisch sichern'},
+    {bis:24, name:'abend', label:'Abends',
+     titel:'Abends wird es warm am Teich.',
+     satz:'Wenn das Licht angeht, wird es hier gemütlich. Vom Grill kommt, was den Abend trägt — am Wochenende besser vorher reservieren.',
+     knopf:'Jetzt reservieren'}
+  ];
+
+  var aktuell = abschnitte.find(function(a){ return stunde < a.bis; }) || abschnitte[3];
+  document.documentElement.setAttribute('data-zeit', aktuell.name);
+  document.getElementById('zeitLabel').textContent = aktuell.label;
+  document.getElementById('zeitTitel').textContent = aktuell.titel;
+  document.getElementById('zeitSatz').textContent  = aktuell.satz;
+  document.getElementById('zeitKnopf').textContent = aktuell.knopf;
+  document.querySelectorAll('[data-zeitbild]').forEach(function(el){
+    el.classList.toggle('an', el.dataset.zeitbild === aktuell.name);
+  });
+
+  /* ---- Öffnungsstatus ------------------------------------ */
+  (function(){
+    function uhr(z){ return Math.floor(z) + ':' + (z % 1 ? '30' : '00'); }
+    var heute = zeiten[tag];
+    var zeile = document.querySelector('.zeiten tr[data-tag="'+tag+'"]');
+    if (zeile) zeile.classList.add('heute');
+    var titel = document.getElementById('statusTitel');
+    var text  = document.getElementById('statusText');
+    if (heute && stunde >= heute[0] && stunde < heute[1]) {
+      titel.textContent = 'Jetzt geöffnet';
+      text.textContent  = 'noch bis ' + uhr(heute[1]) + ' Uhr';
+    } else if (heute && stunde < heute[0]) {
+      titel.textContent = 'Heute ab ' + uhr(heute[0]) + ' Uhr';
+      text.textContent  = 'Küche und Terrasse öffnen gleich';
+    } else {
+      var i = 1, n = tag;
+      while (i <= 7) { n = (tag + i) % 7; if (zeiten[n]) break; i++; }
+      titel.textContent = 'Gerade geschlossen';
+      text.textContent  = (i === 1 ? 'morgen' : namen[n]) + ' ab ' + uhr(zeiten[n][0]) + ' Uhr';
+    }
+  })();
+
+  /* ---- Reservierungs-Anfrage ----------------------------- */
+  (function(){
+    var datum = document.getElementById('resDatum');
+    if (!datum) return;
+    var d = new Date();
+    if (d.getDay() === 2) d.setDate(d.getDate() + 1);
+    datum.value = d.toISOString().slice(0,10);
+    datum.min = new Date().toISOString().slice(0,10);
+
+    document.getElementById('resKopieren').addEventListener('click', function(){
+      var dv = datum.value ? datum.value.split('-').reverse().join('.') : '(Datum offen)';
+      var t = 'Reservierungsanfrage für ' + (document.getElementById('resName').value.trim() || '(Name)') +
+              ': ' + dv + ' um ' + (document.getElementById('resZeit').value || '(Uhrzeit)') +
+              ' Uhr, ' + document.getElementById('resPersonen').value + ' Personen. Geht das bei Ihnen? Vielen Dank!';
+      var hinweis = document.getElementById('resHinweis');
+      function fertig(){
+        hinweis.textContent = 'Anfrage kopiert — jetzt nur noch einfügen und abschicken.';
+        hinweis.classList.add('erfolg');
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(t).then(fertig, function(){ hinweis.textContent = t; });
+      } else {
+        hinweis.textContent = t;
+      }
+    });
+  })();
+
+  /* ---- Zähler auf 705 ------------------------------------ */
+  (function(){
+    var feld = document.getElementById('zaehler');
+    if (!feld) return;
+    if (ruhig || !('IntersectionObserver' in window)) { feld.textContent = '705'; return; }
+    var lief = false;
+    new IntersectionObserver(function(e, beob){
+      if (!e[0].isIntersecting || lief) return;
+      lief = true; beob.disconnect();
+      var start = null;
+      function schritt(t){
+        if (!start) start = t;
+        var p = Math.min(1, (t - start) / 1600);
+        feld.textContent = Math.round((1 - Math.pow(1 - p, 3)) * 705);
+        if (p < 1) requestAnimationFrame(schritt);
+      }
+      requestAnimationFrame(schritt);
+    }, {threshold:.6}).observe(feld);
+  })();
+
+  /* ---- Kopfzeile + sanftes Erscheinen -------------------- */
+  var kopf = document.querySelector('.kopf');
+  var auftakt = document.querySelector('.auftakt');
+  if ('IntersectionObserver' in window && auftakt) {
+    new IntersectionObserver(function(e){
+      kopf.classList.toggle('fest', !e[0].isIntersecting);
+    }, {rootMargin:'-85% 0px 0px 0px'}).observe(auftakt);
+  }
+
+  var elemente = document.querySelectorAll('.zeigt');
+  if (!('IntersectionObserver' in window) || ruhig) {
+    elemente.forEach(function(el){ el.classList.add('da'); });
+  } else {
+    var beob = new IntersectionObserver(function(eintraege){
+      eintraege.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add('da');
+        beob.unobserve(e.target);
+      });
+    }, {rootMargin:'0px 0px -10% 0px'});
+    elemente.forEach(function(el, i){
+      el.style.transitionDelay = (i % 3) * 70 + 'ms';
+      beob.observe(el);
+    });
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Landrestaurant · Café Zur Langst",
+  "servesCuisine":["Deutsch","Balkan","Grill"],
+  "address":{"@type":"PostalAddress","streetAddress":"Am Stadtwald 6","postalCode":"59227","addressLocality":"Ahlen","addressCountry":"DE"},
+  "geo":{"@type":"GeoCoordinates","latitude":51.7756614,"longitude":7.9158716},
+  "telephone":"+49 2382 8551018",
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"705"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:30","closes":"22:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"11:30","closes":"21:00"}
+  ]
+}
+</script>
+</body>
+</html>
