@@ -10,12 +10,12 @@
 <meta property="og:type" content="restaurant">
 <meta property="og:title" content="Landrestaurant Zur Langst · Ahlen">
 <meta property="og:description" content="Am Wasser gebaut. Am Feuer gekocht. Terrasse direkt am Teich im Ahlener Stadtwald.">
-<meta property="og:image" content="bilder/see-panorama.jpg">
+<meta property="og:image" content="bilder/sonnenuntergang.jpg">
 <meta property="og:locale" content="de_DE">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b2124'/%3E%3Cpath d='M18 66c8-6 14 6 22 0s14 6 22 0 14 6 20 0' stroke='%238fb5b0' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Ctext x='50' y='52' font-size='42' text-anchor='middle' fill='%23f8f2e7' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="schriften/fonts.css">
-<link rel="preload" as="image" href="bilder/see-haus.jpg" media="(max-width: 800px)">
-<link rel="preload" as="image" href="bilder/see-panorama.jpg" media="(min-width: 801px)">
+<link rel="preload" as="image" href="bilder/sonnenuntergang.jpg" media="(max-width: 800px)">
+<link rel="preload" as="image" href="bilder/luftbild-teich.jpg" media="(min-width: 801px)">
 <style>
 /* ============================================================
    Landrestaurant Zur Langst, Ahlen — Website-Entwurf
@@ -126,6 +126,14 @@ p{text-wrap:pretty}
   font-size:1.0625rem;letter-spacing:.02em;
   text-decoration:none;white-space:nowrap;
 }
+.haupt-nav{display:none;gap:1.6rem;margin-inline:auto;font-size:.9375rem}
+.haupt-nav a{
+  text-decoration:none;
+  color:color-mix(in oklab,var(--creme) 80%,transparent);
+  transition:color .2s ease;
+}
+.haupt-nav a:hover{color:var(--glut-hell)}
+@media (min-width:62rem){.haupt-nav{display:flex}}
 .tel-knopf{
   display:inline-flex;align-items:center;gap:.5rem;
   padding:.6rem 1.1rem;
@@ -217,6 +225,32 @@ section[id]{scroll-margin-top:5rem}
   font-size:clamp(1.125rem,.7vw + 1rem,1.4375rem);
   line-height:1.55;
   color:color-mix(in oklab,var(--creme) 90%,transparent);
+}
+
+/* ---------- Was es gerade gibt ---------------------------- */
+.jetzt-band{
+  border-bottom:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+  padding:clamp(1rem,3vh,1.5rem) var(--rand);
+}
+.jetzt-innen{
+  width:min(72rem,100%);margin-inline:auto;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;
+}
+.jetzt-status{
+  display:inline-flex;align-items:baseline;gap:.6rem;margin:0;
+  font-weight:600;white-space:nowrap;
+}
+.jetzt-status .punkt{
+  width:.5rem;height:.5rem;border-radius:50%;flex:none;
+  background:var(--schilf);translate:0 -.1em;
+}
+.jetzt-status .punkt.zu{background:color-mix(in oklab,var(--creme) 34%,transparent)}
+.jetzt-angebot{
+  margin:0;color:color-mix(in oklab,var(--creme) 72%,transparent);
+}
+@media (min-width:44rem){
+  .jetzt-innen{justify-content:space-between;flex-wrap:nowrap}
+  .jetzt-angebot{text-align:right}
 }
 
 /* ---------- Ankommen -------------------------------------- */
@@ -337,8 +371,10 @@ section[id]{scroll-margin-top:5rem}
   background:var(--glut-tief);
   display:grid;gap:clamp(2rem,6vw,4rem);align-items:center;
 }
-@media (min-width:56rem){.buffet{grid-template-columns:1fr 1fr}}
+@media (min-width:56rem){.buffet{grid-template-columns:1fr 1.05fr;align-items:center}}
+.buffet-bild img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.25rem}
 .buffet-text h2{font-size:clamp(1.75rem,4.4vw,3rem);margin-bottom:1rem}
+.buffet-text em{font-style:normal;color:var(--glut-hell)}
 .buffet-text .augbraue{color:var(--glut-hell)}
 .buffet-zahlen{
   margin:0;padding:0;
@@ -361,22 +397,53 @@ section[id]{scroll-margin-top:5rem}
   color:color-mix(in oklab,var(--creme) 76%,transparent);
 }
 
-/* ---------- Galerie --------------------------------------- */
-.galerie{background:var(--glut-tief);padding-block:clamp(3rem,9vh,6rem);overflow:hidden}
-.galerie .kopfzeile{padding-inline:var(--rand);margin-bottom:2.5rem}
-.galerie .kopfzeile .augbraue{color:var(--glut-hell);margin-bottom:0}
-.galerie-spur{
-  display:flex;gap:clamp(.75rem,2vw,1.5rem);
-  padding-inline:var(--rand);will-change:transform;
+/* ---------- Die Karte ------------------------------------- */
+.speisekarte{background:var(--glut-tief)}
+.speisekarte .augbraue{color:var(--glut-hell)}
+.karte-gruppe{margin-top:clamp(2.25rem,5vh,3.25rem)}
+.karte-gruppe h3{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.125rem,2.4vw,1.5rem);
+  color:var(--glut-hell);
+  margin:0 0 .35rem;
 }
-.galerie-spur figure{margin:0;flex:none;width:clamp(15rem,62vw,26rem)}
-.galerie-spur img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:.25rem}
-.galerie-spur figcaption{
-  margin-top:.75rem;font-size:.875rem;
-  color:color-mix(in oklab,var(--creme) 62%,transparent);
+.gerichte{list-style:none;margin:0;padding:0}
+.gerichte li{
+  display:grid;grid-template-columns:1fr auto;gap:.15rem 1.5rem;
+  padding:1.05rem 0;
+  border-top:1px solid color-mix(in oklab,var(--creme) 14%,transparent);
 }
-.galerie-spur figure.quer{width:clamp(18rem,80vw,34rem)}
-.galerie-spur figure.quer img{aspect-ratio:16/10}
+.gerichte .name{grid-column:1;font-weight:600;font-size:1.0625rem}
+/* Preisspalte ist vorbereitet — erscheint, sobald die echten Preise eingetragen sind */
+.gerichte .preis{
+  grid-column:2;grid-row:1;align-self:baseline;
+  font-variant-numeric:tabular-nums;color:var(--glut-hell);font-weight:600;
+}
+.gerichte .dazu{
+  grid-column:1/-1;font-size:.9375rem;
+  color:color-mix(in oklab,var(--creme) 66%,transparent);
+}
+.karte-vorwort{
+  margin:0;max-width:46ch;
+  color:color-mix(in oklab,var(--creme) 76%,transparent);
+}
+.karte-knopf{
+  display:inline-flex;align-items:center;gap:.7rem;
+  margin-top:clamp(2rem,5vh,2.75rem);
+  padding:.95rem 1.7rem;border-radius:999px;
+  background:var(--glut);color:#fff;
+  font-weight:600;text-decoration:none;
+  transition:background-color .25s ease,transform .25s ease;
+}
+.karte-knopf:hover,.karte-knopf:focus-visible{background:var(--glut-hell);color:var(--wasser-nacht);transform:translateY(-2px)}
+.karte-knopf svg{width:1.05em;height:1.05em;flex:none}
+.karte-hinweis{
+  margin-top:1.5rem;
+  font-size:.9375rem;
+  color:color-mix(in oklab,var(--creme) 68%,transparent);
+  max-width:52ch;
+}
+.karte-hinweis a{color:var(--glut-hell);text-decoration:underline}
 
 /* ---------- Stimmen --------------------------------------- */
 .stimmen{background:var(--creme);color:var(--tinte)}
@@ -408,6 +475,15 @@ section[id]{scroll-margin-top:5rem}
   font-size:.8125rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--tinte-weich);margin-top:auto;
 }
+
+/* ---------- Feiern ---------------------------------------- */
+.feiern{background:var(--wasser-nacht)}
+.feiern-raster{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:54rem){.feiern-raster{grid-template-columns:1fr 1fr}}
+.feiern-raster img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.25rem}
+.feiern h2{font-size:clamp(1.75rem,4.4vw,3rem);margin-bottom:1rem}
+.feiern p{max-width:44ch}
+.feiern-hinweis{color:color-mix(in oklab,var(--creme) 68%,transparent);font-size:.9375rem;margin-top:1rem}
 
 /* ---------- Gut zu wissen --------------------------------- */
 .wissen{background:var(--creme);color:var(--tinte);padding-top:0}
@@ -466,7 +542,11 @@ section[id]{scroll-margin-top:5rem}
 .anfahrt{background:var(--wasser-nacht);display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
 @media (min-width:54rem){.anfahrt{grid-template-columns:1.1fr 1fr}}
 .anfahrt img{border-radius:.25rem;aspect-ratio:4/3;object-fit:cover;width:100%}
+.lageplan{width:100%;height:auto;border-radius:.25rem;display:block}
 .anfahrt h2{font-size:clamp(1.75rem,4.4vw,3rem);margin-bottom:1.25rem}
+.weg{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:.7rem;font-size:.9375rem}
+.weg li{display:flex;gap:.75rem;align-items:baseline;color:color-mix(in oklab,var(--creme) 76%,transparent)}
+.weg li::before{content:'';width:.4rem;height:.4rem;border-radius:50%;background:var(--glut);flex:none;translate:0 -.15em}
 .adresse{font-style:normal;font-size:1.125rem;line-height:1.7}
 .karten-link{
   display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;
@@ -528,6 +608,12 @@ section[id]{scroll-margin-top:5rem}
 
 <header class="kopf">
   <a class="wort" href="#top">Zur Langst</a>
+  <nav class="haupt-nav" aria-label="Bereiche der Seite">
+    <a href="speisekarte.html">Speisekarte</a>
+    <a href="#terrasse">Terrasse</a>
+    <a href="#besuch">Öffnungszeiten</a>
+    <a href="#anfahrt">Anfahrt</a>
+  </nav>
   <a class="tel-knopf" href="tel:+4923828551018">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
       <path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/>
@@ -542,9 +628,9 @@ section[id]{scroll-margin-top:5rem}
 <section class="hero" id="top">
   <div class="hero-bild">
     <picture>
-      <source media="(min-width:801px)" srcset="bilder/see-panorama.jpg">
-      <img src="bilder/see-haus.jpg" width="967" height="1206"
-           alt="Das Landrestaurant Zur Langst mit langer Glasterrasse, gespiegelt im Langst-Teich"
+      <source media="(min-width:801px)" srcset="bilder/luftbild-teich.jpg">
+      <img src="bilder/sonnenuntergang.jpg" width="739" height="1168"
+           alt="Das beleuchtete Landrestaurant spiegelt sich bei Sonnenuntergang im Langst-Teich"
            fetchpriority="high">
     </picture>
   </div>
@@ -568,6 +654,20 @@ section[id]{scroll-margin-top:5rem}
   </p>
 </section>
 
+<!-- ===================== WAS ES GERADE GIBT =====================
+     Richtet sich nach Wochentag und Uhrzeit. Die Fenster stehen unten im
+     Skript in EINER Tabelle (TAGESZEITEN) und sind dort leicht änderbar.
+     ============================================================= -->
+<section class="jetzt-band" id="jetzt-band" aria-label="Was es gerade gibt">
+  <div class="jetzt-innen">
+    <p class="jetzt-status">
+      <span class="punkt" id="statusPunkt"></span>
+      <span id="statusWort">Täglich ab 11:30 Uhr</span>
+    </p>
+    <p class="jetzt-angebot" id="angebotText">Dienstag ist Ruhetag</p>
+  </div>
+</section>
+
 <!-- ===================== ANKOMMEN ===================== -->
 <section class="abschnitt ankommen">
   <div class="mitte">
@@ -583,8 +683,8 @@ section[id]{scroll-margin-top:5rem}
 <section class="aussicht" id="terrasse">
   <div class="aussicht-buehne">
     <div class="aussicht-bild">
-      <img src="bilder/see-panorama.jpg" width="1206" height="658" loading="lazy"
-           alt="Blick über den Langst-Teich auf die überdachte Terrasse des Restaurants am Ufer">
+      <img src="bilder/terrasse-abend.jpg" width="1296" height="1200" loading="lazy"
+           alt="Die überdachte Terrasse am Abend, warm beleuchtet, mit eingedeckten Tischen">
     </div>
     <div class="aussicht-text">
       <p class="augbraue">Die Terrasse</p>
@@ -611,12 +711,13 @@ section[id]{scroll-margin-top:5rem}
 <section class="grill" id="grill">
   <div class="grill-buehne">
     <div class="grill-stapel">
-      <figure><img src="bilder/platte-medaillons.jpg" width="1206" height="728" loading="lazy"
-                   alt="Große Servierplatte mit sechs Rindermedaillons, Kräuterbutter, Gemüse, Kroketten und Pommes"></figure>
-      <figure><img src="bilder/platte-balkan.jpg" width="1088" height="1206" loading="lazy"
-                   alt="Gemischte Grillplatte mit Ćevapčići, Schnitzel, Bauchspeck, Djuvec-Reis und Ajvar"></figure>
-      <figure><img src="bilder/steak.jpg" width="1600" height="900" loading="lazy"
-                   alt="Gegrilltes Steak in Pfeffersoße mit Pommes frites"></figure>
+      <figure><img src="bilder/steak-nah.jpg" width="1200" height="1600" loading="lazy"
+                   alt="Filetsteak mit Kräuterbutter, angerichtet auf hellem Teller"></figure>
+      <figure><img src="bilder/balkanplatte.jpg" width="1200" height="1600" loading="lazy"
+                   alt="Große Grillplatte mit Ćevapčići, Bauchspeck, Gemüse und Pommes frites"></figure>
+      <figure><img src="bilder/grillplatte.jpg" width="1178" height="1561" loading="lazy"
+                   alt="Gemischter Grillteller mit Schnitzel, Bauchspeck, Steak und Pommes frites"></figure>
+      <!-- Platz für ein drittes eigenes Foto (Steak o. Ä.), sobald es vom Betrieb kommt -->
     </div>
     <div class="grill-worte">
       <div class="grill-karte">
@@ -624,13 +725,13 @@ section[id]{scroll-margin-top:5rem}
         <h2>Die Spezialität<br>des Hauses.</h2>
         <div class="grill-schritte">
           <div class="grill-schritt an">
-            <p>Die Platten für zwei: so viel Fleisch, dass ein Kind mitisst — und meistens noch ein zweites.</p>
+            <p>Steaks kommen auf den Punkt: englisch, medium oder durch — Sie sagen, wie.</p>
           </div>
           <div class="grill-schritt">
             <p>Balkan-Küche, wie sie sein soll: Ćevapčići, Bauchspeck, Djuvec-Reis, Ajvar. Alles vom Rost.</p>
           </div>
           <div class="grill-schritt">
-            <p>Und die Steaks: auf den Punkt gegart. Dieser eine Satz steht in den Bewertungen am häufigsten.</p>
+            <p>Und die Platten für zwei: so viel, dass ein Kind mitisst — und meistens noch ein zweites.</p>
           </div>
         </div>
         <ul class="grill-punkte" aria-hidden="true">
@@ -643,10 +744,14 @@ section[id]{scroll-margin-top:5rem}
 
 <!-- ===================== SALATBUFFET ===================== -->
 <section class="abschnitt buffet">
+  <div class="buffet-bild">
+    <img src="bilder/salatbuffet.jpg" width="1200" height="1600" loading="lazy"
+         alt="Das Salatbuffet mit Schüsseln voller Zutaten und Dressings">
+  </div>
   <div class="buffet-text">
     <p class="augbraue">Immer dabei</p>
     <h2>Das Salatbuffet.</h2>
-    <p>Zu den Platten gehört das Buffet. Vor dem Essen, während des Essens, so oft Sie möchten.</p>
+    <p>Zu <em>jedem</em> Hauptgericht gehört der Salat vom Buffet. Vor dem Essen, während des Essens, so oft Sie möchten.</p>
   </div>
   <dl class="buffet-zahlen">
     <div><dt>10</dt><dd>Zutaten zur Auswahl</dd></div>
@@ -655,32 +760,73 @@ section[id]{scroll-margin-top:5rem}
   </dl>
 </section>
 
-<!-- ===================== GALERIE ===================== -->
-<section class="galerie" id="galerie" aria-label="Bilder aus dem Haus">
-  <div class="kopfzeile">
-    <p class="augbraue">Ein Blick ins Haus</p>
-  </div>
-  <div class="galerie-spur">
-    <figure class="quer">
-      <img src="bilder/teich-brunnen.jpg" width="1600" height="1200" loading="lazy"
-           alt="Der Langst-Teich mit Springbrunnen und altem Baumbestand">
-      <figcaption>Der Teich, direkt vor der Tür</figcaption>
-    </figure>
-    <figure>
-      <img src="bilder/abend-schnitzel.jpg" width="825" height="1100" loading="lazy"
-           alt="Schnitzel mit Rahmsoße und Pommes am eingedeckten Tisch">
-      <figcaption>Abends drinnen</figcaption>
-    </figure>
-    <figure>
-      <img src="bilder/balkanteller.jpg" width="825" height="1100" loading="lazy"
-           alt="Balkan-Teller mit gegrilltem Fleisch, Djuvec-Reis und Beilagen">
-      <figcaption>Balkan-Teller</figcaption>
-    </figure>
-    <figure class="quer">
-      <img src="bilder/haus-abend.jpg" width="1500" height="1125" loading="lazy"
-           alt="Das Landrestaurant Zur Langst von der Straßenseite mit beleuchtetem Schild in der Dämmerung">
-      <figcaption>Ankommen am Abend</figcaption>
-    </figure>
+<!-- ===================== DIE KARTE =====================
+     Gerichte stehen bereits, Preise werden eingesetzt, sobald die Karte
+     vom Betrieb da ist: <span class="preis">12,50 €</span> hinter den Namen.
+     ==================================================== -->
+<section class="abschnitt speisekarte" id="karte">
+  <div class="mitte">
+    <p class="augbraue">Die Karte</p>
+    <h2 class="gross">Was auf den Tisch kommt.</h2>
+
+    <div class="karte-gruppe">
+      <h3>Vom Grill</h3>
+      <ul class="gerichte">
+        <li>
+          <span class="name">Filetsteak</span><span class="preis">ab 29,00 €</span>
+          <span class="dazu">200 oder 300 Gramm — englisch, medium oder durch</span>
+        </li>
+        <li>
+          <span class="name">Rumpsteak</span><span class="preis">ab 24,50 €</span>
+          <span class="dazu">auch mit Zwiebeln und Bratkartoffeln, Knoblauch- oder Paprikasauce</span>
+        </li>
+        <li>
+          <span class="name">Argentinischer Teller</span><span class="preis">27,50 €</span>
+          <span class="dazu">3 Rindersteaks mit Kräuterbutter, gegrillten Zwiebeln, Paprika und Bratkartoffeln</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="karte-gruppe">
+      <h3>Vom Balkan</h3>
+      <ul class="gerichte">
+        <li>
+          <span class="name">Cevapcici</span><span class="preis">16,00 €</span>
+          <span class="dazu">mit Ajvar, Zwiebeln, Pommes frites und Djuvecreis</span>
+        </li>
+        <li>
+          <span class="name">Pljeskavica „Balkan Art“</span><span class="preis">20,00 €</span>
+          <span class="dazu">Hacksteak, gefüllt mit Schafskäse</span>
+        </li>
+        <li>
+          <span class="name">Grillteller</span><span class="preis">20,50 €</span>
+          <span class="dazu">Spieß, Cevapcici, Schnitzel, Pljeskavica und Speck</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="karte-gruppe">
+      <h3>Für zwei</h3>
+      <ul class="gerichte">
+        <li>
+          <span class="name">Steak-Platte</span><span class="preis">58,00 €</span>
+          <span class="dazu">verschiedene Steaks mit Champignons, Grillgemüse, Pommes und Kroketten</span>
+        </li>
+        <li>
+          <span class="name">Balkan-Platte</span><span class="preis">48,00 €</span>
+          <span class="dazu">gemischtes Fleisch vom Grill — so reichlich, dass ein Kind mitisst</span>
+        </li>
+      </ul>
+    </div>
+
+    <a class="karte-knopf" href="speisekarte.html">
+      Die ganze Speisekarte ansehen
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="karte-hinweis">
+      Auch Schnitzel, Fisch, Nudelgerichte und Vegetarisches stehen auf der Karte.
+      Fragen zu Zutaten oder Allergien? <a href="tel:+4923828551018">Rufen Sie einfach an.</a>
+    </p>
   </div>
 </section>
 
@@ -715,6 +861,24 @@ section[id]{scroll-margin-top:5rem}
       <blockquote>„Nach unserem ersten Besuch waren wir bereits ein zweites Mal dort, und auch dieses Mal war alles perfekt.“</blockquote>
       <figcaption>Pascal K. · Google-Rezension</figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- ===================== FEIERN ===================== -->
+<section class="abschnitt feiern" id="feiern">
+  <div class="feiern-raster">
+    <div>
+      <p class="augbraue">Für größere Runden</p>
+      <h2>Wenn es mehr als ein Tisch wird.</h2>
+      <p>Geburtstag, Familienfeier, Betriebsessen: Neben Terrasse und Gastraum gibt es einen eigenen Saal — eingedeckt, ruhig, mit Platz für große Gesellschaften.</p>
+      <p class="feiern-hinweis">Sagen Sie einfach, wie viele Sie sind und wann — den Rest klären wir am Telefon.</p>
+      <a class="karte-knopf" href="tel:+4923828551018">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+        02382 8551018
+      </a>
+    </div>
+    <img src="bilder/saal.jpg" width="1170" height="1560" loading="lazy"
+         alt="Der Saal mit weiß eingedeckten Tischen für Feiern und größere Gesellschaften">
   </div>
 </section>
 
@@ -782,8 +946,36 @@ section[id]{scroll-margin-top:5rem}
 
 <!-- ===================== ANFAHRT ===================== -->
 <section class="abschnitt anfahrt" id="anfahrt">
-  <img src="bilder/haus-abend.jpg" width="1500" height="1125" loading="lazy"
-       alt="Eingangsseite des Landrestaurants Zur Langst mit beleuchtetem Schild und Terrasse">
+  <svg class="lageplan" viewBox="0 0 520 400" role="img"
+       aria-label="Lageplan: Von Ahlen kommend über die Straße Am Stadtwald zum Landrestaurant am Langst-Teich, mit kostenlosem Parkplatz am Haus.">
+    <rect width="520" height="400" fill="#eadfc9"/>
+    <path d="M0 0h520v210c-90 26-180 10-270 30S70 268 0 250z" fill="#cfdcc2" opacity=".75"/>
+    <g fill="#9fb894" opacity=".8">
+      <circle cx="60" cy="60" r="20"/><circle cx="105" cy="42" r="14"/><circle cx="150" cy="70" r="18"/>
+      <circle cx="420" cy="52" r="17"/><circle cx="465" cy="80" r="13"/><circle cx="380" cy="88" r="12"/>
+      <circle cx="250" cy="40" r="15"/>
+    </g>
+    <ellipse cx="258" cy="250" rx="132" ry="62" fill="#8fbcc4"/>
+    <ellipse cx="258" cy="250" rx="132" ry="62" fill="none" stroke="#6f9ea8" stroke-width="3"/>
+    <text x="252" y="258" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#3d6670">Langst-Teich</text>
+    <path d="M0 350h130c40 0 60-24 96-30 26-4 50-2 74 2" stroke="#e6d5b4" stroke-width="26" fill="none" stroke-linecap="round"/>
+    <path d="M0 350h130c40 0 60-24 96-30 26-4 50-2 74 2" stroke="#c9b48c" stroke-width="26" fill="none" stroke-linecap="round" stroke-dasharray="2 16" opacity=".6"/>
+    <text x="60" y="382" font-family="system-ui" font-size="13" fill="#6b5b3e" font-weight="600">Am Stadtwald</text>
+    <text x="8" y="336" font-family="system-ui" font-size="12" fill="#6b5b3e">← Ahlen Zentrum</text>
+    <rect x="330" y="322" width="58" height="40" rx="6" fill="#dcd0b4" stroke="#b8a67f" stroke-width="2"/>
+    <text x="359" y="348" text-anchor="middle" font-family="system-ui" font-size="19" font-weight="700" fill="#5f6f8a">P</text>
+    <text x="359" y="376" text-anchor="middle" font-family="system-ui" font-size="11" fill="#6b5b3e">kostenlos</text>
+    <g>
+      <path d="M392 196l34-26 34 26v52h-68z" fill="#f7f2e6" stroke="#a89a7c" stroke-width="2"/>
+      <path d="M386 198l40-30 40 30" fill="none" stroke="#b4573a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="404" y="216" width="14" height="16" fill="#c8d8dc" stroke="#a89a7c"/>
+      <rect x="432" y="216" width="14" height="16" fill="#c8d8dc" stroke="#a89a7c"/>
+      <rect x="416" y="236" width="16" height="12" fill="#8c7a5c"/>
+    </g>
+    <path d="M392 250h68v14h-68z" fill="#d8c39c" stroke="#b09a72" stroke-width="1.5"/>
+    <text x="426" y="156" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#2f4a4e" font-weight="700">Zur Langst</text>
+    <path d="M370 322c8-22 24-40 46-56" stroke="#b8a67f" stroke-width="4" fill="none" stroke-dasharray="6 7" stroke-linecap="round"/>
+  </svg>
   <div>
     <p class="augbraue">Herkommen</p>
     <h2>Am Stadtwald 6.</h2>
@@ -792,6 +984,11 @@ section[id]{scroll-margin-top:5rem}
       Am Stadtwald 6<br>
       59227 Ahlen
     </address>
+    <ul class="weg">
+      <li>Kostenlose Parkplätze direkt am Haus</li>
+      <li>Wenige Minuten aus der Ahlener Innenstadt</li>
+      <li>Beliebter Halt für Motorrad- und Radtouren</li>
+    </ul>
     <a class="karten-link" href="https://maps.google.com/?cid=8114312814330984560" target="_blank" rel="noopener">
       Route in Google Maps öffnen
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -804,6 +1001,7 @@ section[id]{scroll-margin-top:5rem}
 <footer class="fuss">
   <p>© <span id="jahr">2026</span> Landrestaurant · Café Zur Langst, Ahlen</p>
   <p><a href="tel:+4923828551018">02382 8551018</a></p>
+  <p><a href="speisekarte.html">Speisekarte</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
   <p class="entwurf-hinweis">Entwurf einer neuen Website, erstellt von ILIC ECOM HUB. Fotos stammen aus dem öffentlichen Google-Unternehmensprofil und werden vor der Veröffentlichung durch eigene Aufnahmen ersetzt. Impressum und Datenschutzerklärung folgen mit der finalen Seite.</p>
 </footer>
 
@@ -816,9 +1014,24 @@ section[id]{scroll-margin-top:5rem}
 
   document.getElementById('jahr').textContent = new Date().getFullYear();
 
+  /* ============================================================
+     ÖFFNUNGSZEITEN — hier ändern, wenn sich etwas ändert.
+     Zahlen sind Dezimalstunden: 11.5 = 11:30 Uhr. null = Ruhetag.
+     Reihenfolge: 0 = Sonntag … 6 = Samstag
+     ============================================================ */
+  var OEFFNUNG = {0:[11.5,21], 1:[11.5,22], 2:null, 3:[11.5,22], 4:[11.5,22], 5:[11.5,22], 6:[11.5,22]};
+
+  /* Was zu welcher Tageszeit angeboten wird. „bis" ist die Uhrzeit,
+     bis zu der das Fenster gilt — geprüft wird von oben nach unten. */
+  var TAGESZEITEN = [
+    {bis:14.5, wort:'Jetzt geöffnet',  angebot:'Mittags: frisch vom Grill, dazu das Salatbuffet'},
+    {bis:17.5, wort:'Jetzt geöffnet',  angebot:'Kaffeezeit: Kaffee und Kuchen auf der Terrasse'},
+    {bis:24,   wort:'Jetzt geöffnet',  angebot:'Abends: vom Grill, mit Blick über den Teich'}
+  ];
+
   /* ---- Öffnungsstatus „jetzt" ---------------------------- */
   (function status(){
-    var zeiten = {0:[11.5,21],1:[11.5,22],2:null,3:[11.5,22],4:[11.5,22],5:[11.5,22],6:[11.5,22]};
+    var zeiten = OEFFNUNG;
     var namen  = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
     var jetzt  = new Date();
     var tag    = jetzt.getDay();
@@ -833,25 +1046,61 @@ section[id]{scroll-margin-top:5rem}
 
     function uhr(z){ return Math.floor(z) + ':' + (z % 1 ? '30' : '00'); }
 
-    if (heute && stunde >= heute[0] && stunde < heute[1]) {
+    /* nächster Tag, an dem wieder geöffnet ist (überspringt den Ruhetag) */
+    function naechsterOffen(){
+      for (var i = 1; i <= 7; i++) {
+        var t = (tag + i) % 7;
+        if (zeiten[t]) return {tag:t, abstand:i};
+      }
+      return null;
+    }
+
+    var offen = !!heute && stunde >= heute[0] && stunde < heute[1];
+
+    /* --- Zeile unter den Öffnungszeiten --- */
+    if (offen) {
       text.textContent = 'Jetzt geöffnet — bis ' + uhr(heute[1]) + ' Uhr';
     } else {
       box.classList.add('geschlossen');
       if (heute && stunde < heute[0]) {
         text.textContent = 'Heute ab ' + uhr(heute[0]) + ' Uhr geöffnet';
       } else {
-        var i = 1, naechster = tag;
-        while (i <= 7) {
-          naechster = (tag + i) % 7;
-          if (zeiten[naechster]) break;
-          i++;
-        }
+        var n = naechsterOffen();
         text.textContent = 'Gerade geschlossen — wieder ' +
-          (i === 1 ? 'morgen' : 'am ' + namen[naechster]) +
-          ' ab ' + uhr(zeiten[naechster][0]) + ' Uhr';
+          (n.abstand === 1 ? 'morgen' : 'am ' + namen[n.tag]) +
+          ' ab ' + uhr(zeiten[n.tag][0]) + ' Uhr';
       }
     }
     box.hidden = false;
+
+    /* --- Band unter dem Auftakt: was es gerade gibt --- */
+    var punkt   = document.getElementById('statusPunkt');
+    var wort    = document.getElementById('statusWort');
+    var angebot = document.getElementById('angebotText');
+
+    if (offen) {
+      var fenster = TAGESZEITEN.find(function(f){ return stunde < f.bis; }) ||
+                    TAGESZEITEN[TAGESZEITEN.length - 1];
+      wort.textContent    = fenster.wort;
+      angebot.textContent = fenster.angebot + ' · noch bis ' + uhr(heute[1]) + ' Uhr';
+    } else {
+      punkt.classList.add('zu');
+      if (!heute) {
+        /* Ruhetag — hier darf kein Tagesangebot stehen */
+        var nr = naechsterOffen();
+        wort.textContent    = 'Heute Ruhetag';
+        angebot.textContent = 'Wir sind ' + (nr.abstand === 1 ? 'morgen' : 'am ' + namen[nr.tag]) +
+                              ' ab ' + uhr(zeiten[nr.tag][0]) + ' Uhr wieder für Sie da';
+      } else if (stunde < heute[0]) {
+        wort.textContent    = 'Wir öffnen um ' + uhr(heute[0]) + ' Uhr';
+        angebot.textContent = 'Danach: ' + TAGESZEITEN[0].angebot;
+      } else {
+        var na = naechsterOffen();
+        wort.textContent    = 'Für heute geschlossen';
+        angebot.textContent = 'Wieder ' + (na.abstand === 1 ? 'morgen' : 'am ' + namen[na.tag]) +
+                              ' ab ' + uhr(zeiten[na.tag][0]) + ' Uhr';
+      }
+    }
   })();
 
   /* ---- Kopfzeile bekommt Hintergrund --------------------- */
@@ -898,6 +1147,9 @@ section[id]{scroll-margin-top:5rem}
   gsap.registerPlugin(ScrollTrigger);
   /* verhindert Sprünge, wenn auf dem Handy die Adressleiste ein- und ausfährt */
   ScrollTrigger.config({ignoreMobileResize:true});
+  /* Bilder laden verzögert nach und verschieben die Seitenhöhe — danach müssen
+     alle Auslösepunkte neu vermessen werden. */
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 
   /* ---- Auftakt: Kamera fährt heran ----------------------- */
   gsap.to('.hero-bild img', {
@@ -979,21 +1231,13 @@ section[id]{scroll-margin-top:5rem}
   gsap.from('.buffet-zahlen > div', {opacity:0, y:20, duration:.7, stagger:.12, ease:'power2.out',
     scrollTrigger:{trigger:'.buffet', start:'top 74%'}});
 
-  /* ---- Galerie fährt seitwärts --------------------------- */
-  (function galerie(){
-    var spur = document.querySelector('.galerie-spur');
-    if (!spur) return;
-    function weite(){ return Math.max(0, spur.scrollWidth - window.innerWidth + 24); }
-    if (weite() <= 0) return;
-    gsap.to(spur, {
-      x:function(){ return -weite(); }, ease:'none',
-      scrollTrigger:{
-        trigger:'.galerie', start:'top top',
-        end:function(){ return '+=' + weite(); },
-        pin:true, scrub:.4, invalidateOnRefresh:true, anticipatePin:1
-      }
+  /* ---- Die Karte ----------------------------------------- */
+  gsap.utils.toArray('.karte-gruppe').forEach(function(gruppe){
+    gsap.from(gruppe.querySelectorAll('h3, li'), {
+      opacity:0, y:18, duration:.55, stagger:.07, ease:'power2.out',
+      scrollTrigger:{trigger:gruppe, start:'top 86%'}
     });
-  })();
+  });
 
   /* ---- Der ruhige Teil ----------------------------------- */
   gsap.from('.zitat', {opacity:0, y:30, duration:.8, stagger:.12, ease:'power2.out',
