@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Speisekarte — Landrestaurant Zur Langst, Ahlen</title>
+<meta name="description" content="Die Speisekarte des Landrestaurants Zur Langst in Ahlen: Steaks vom Grill, Balkan-Spezialitäten, Schnitzel, Fisch und Platten für zwei. Salatbuffet zu jedem Hauptgericht.">
+<meta name="theme-color" content="#0b2124">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b2124'/%3E%3Cpath d='M18 66c8-6 14 6 22 0s14 6 22 0 14 6 20 0' stroke='%238fb5b0' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Ctext x='50' y='52' font-size='42' text-anchor='middle' fill='%23f8f2e7' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="schriften/fonts.css">
+<style>
+:root{
+  --wasser-nacht:#0b2124;
+  --wasser-tief:#12333a;
+  --wasser-hell:#8fb5b0;
+  --glut:#bf5622;
+  --glut-hell:#e58b4e;
+  --creme:#f8f2e7;
+  --display:'Fraunces',Georgia,serif;
+  --text:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+  --rand:clamp(1.25rem,5vw,4rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--wasser-nacht);color:var(--creme);
+  font-family:var(--text);line-height:1.6;
+  font-size:clamp(1rem,.4vw + .94rem,1.0625rem);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--glut-hell);outline-offset:3px;border-radius:2px}
+h1,h2{font-family:var(--display);font-weight:400;font-variation-settings:'opsz' 144;margin:0;letter-spacing:-.015em;line-height:1.05}
+.bahn{width:min(52rem,100%);margin-inline:auto;padding-inline:var(--rand)}
+
+/* Kopf */
+.kopf{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in oklab,var(--wasser-nacht) 92%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+}
+.kopf-innen{
+  width:min(52rem,100%);margin-inline:auto;padding:.85rem var(--rand);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.zurueck{
+  display:inline-flex;align-items:center;gap:.5rem;
+  text-decoration:none;font-size:.9375rem;
+  color:color-mix(in oklab,var(--creme) 78%,transparent);
+}
+.zurueck:hover{color:var(--creme)}
+.tel{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1rem;border-radius:999px;
+  border:1px solid color-mix(in oklab,var(--creme) 34%,transparent);
+  font-size:.875rem;font-weight:600;text-decoration:none;white-space:nowrap;
+}
+.tel:hover{background:var(--creme);color:var(--wasser-nacht);border-color:var(--creme)}
+.tel svg{width:1em;height:1em}
+
+/* Auftakt */
+.auftakt{padding:clamp(2.5rem,7vh,4rem) 0 clamp(1.5rem,4vh,2.5rem)}
+.auftakt p.klein{
+  font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--wasser-hell);font-weight:600;margin:0 0 1rem;
+}
+.auftakt h1{font-size:clamp(2.25rem,7vw,3.75rem);margin-bottom:1rem}
+.auftakt .lead{margin:0;max-width:44ch;color:color-mix(in oklab,var(--creme) 82%,transparent)}
+
+/* Sprungmarken */
+.sprung{
+  display:flex;flex-wrap:wrap;gap:.5rem;
+  padding-bottom:clamp(2rem,5vh,3rem);
+}
+.sprung a{
+  font-size:.8125rem;padding:.4rem .85rem;border-radius:999px;
+  border:1px solid color-mix(in oklab,var(--creme) 22%,transparent);
+  text-decoration:none;
+}
+.sprung a:hover{border-color:var(--glut-hell);color:var(--glut-hell)}
+
+/* Gruppen */
+.gruppe{padding-bottom:clamp(2.5rem,6vh,3.5rem);scroll-margin-top:5rem}
+.gruppe h2{
+  font-size:clamp(1.375rem,3.4vw,2rem);
+  color:var(--glut-hell);
+  padding-bottom:.75rem;
+  border-bottom:1px solid color-mix(in oklab,var(--glut) 45%,transparent);
+  margin-bottom:.5rem;
+}
+.gruppe .notiz{
+  margin:.75rem 0 0;font-size:.875rem;
+  color:color-mix(in oklab,var(--creme) 62%,transparent);
+}
+.gerichte{list-style:none;margin:0;padding:0}
+.gerichte li{
+  display:grid;grid-template-columns:1fr auto;gap:.15rem 1.25rem;
+  padding:.95rem 0;
+  border-bottom:1px solid color-mix(in oklab,var(--creme) 10%,transparent);
+}
+.gerichte li:last-child{border-bottom:0}
+.name{grid-column:1;font-weight:600}
+.preis{
+  grid-column:2;grid-row:1;align-self:baseline;
+  font-variant-numeric:tabular-nums;color:var(--glut-hell);font-weight:600;white-space:nowrap;
+}
+.dazu{
+  grid-column:1;font-size:.9375rem;
+  color:color-mix(in oklab,var(--creme) 66%,transparent);
+}
+
+/* Salat-Hinweis */
+.salat-hinweis{
+  margin:0 0 clamp(2.5rem,6vh,3.5rem);
+  padding:1.35rem 0;
+  border-block:1px solid color-mix(in oklab,var(--creme) 16%,transparent);
+  text-align:center;
+  font-size:.9375rem;
+  color:color-mix(in oklab,var(--creme) 76%,transparent);
+}
+.salat-hinweis strong{
+  display:block;
+  font-family:var(--display);
+  font-size:1.125rem;font-weight:400;
+  color:var(--creme);
+  margin-bottom:.25rem;
+}
+
+/* Fuß */
+.fuss{
+  border-top:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+  margin-top:clamp(2rem,5vh,3rem);
+  padding:clamp(2rem,5vh,3rem) 0 clamp(3rem,7vh,4rem);
+  font-size:.875rem;color:color-mix(in oklab,var(--creme) 62%,transparent);
+}
+.fuss p{margin:0 0 .6rem}
+.fuss a{color:var(--glut-hell)}
+.allergie{
+  margin-top:1.5rem;padding-top:1.25rem;
+  border-top:1px solid color-mix(in oklab,var(--creme) 10%,transparent);
+  font-size:.8125rem;
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="kopf-innen">
+    <a class="zurueck" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Zur Langst
+    </a>
+    <a class="tel" href="tel:+4923828551018">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
+      02382 8551018
+    </a>
+  </div>
+</header>
+
+<main class="bahn">
+
+  <div class="auftakt">
+    <p class="klein">Landrestaurant · Café Zur Langst</p>
+    <h1>Speisekarte</h1>
+    <p class="lead">Alles vom Grill, dazu Balkan-Spezialitäten, Schnitzel und Fisch. Zu jedem Hauptgericht gehört ein Salat vom Buffet.</p>
+  </div>
+
+  <nav class="sprung" aria-label="Zu den Bereichen der Karte">
+    <a href="#grill">Vom Grill</a>
+    <a href="#platten">Platten für zwei</a>
+    <a href="#balkan">Balkan</a>
+    <a href="#schnitzel">Schnitzel &amp; Medaillons</a>
+    <a href="#gefluegel">Geflügel &amp; Fisch</a>
+    <a href="#nudeln">Nudeln</a>
+    <a href="#vorspeisen">Vorspeisen &amp; Salate</a>
+    <a href="#vegetarisch">Vegetarisch</a>
+    <a href="#beilagen">Beilagen</a>
+  </nav>
+
+  <p class="salat-hinweis">
+    <strong>Zu allen Hauptgerichten gehört ein Salat vom Salatbuffet.</strong><br>
+    Rund zehn Zutaten, drei Dressings — so oft Sie möchten.
+  </p>
+
+  <section class="gruppe" id="grill">
+    <h2>Vom Grill</h2>
+    <ul class="gerichte">
+      <li><span class="name">Rumpsteak (200 g)</span><span class="preis">24,50 €</span></li>
+      <li><span class="name">Rumpsteak (300 g)</span><span class="preis">32,50 €</span></li>
+      <li><span class="name">Filetsteak (200 g)</span><span class="preis">29,00 €</span></li>
+      <li><span class="name">Filetsteak (300 g)</span><span class="preis">37,00 €</span></li>
+      <li>
+        <span class="name">Rumpsteak</span><span class="preis">28,50 €</span>
+        <span class="dazu">mit Zwiebeln und Bratkartoffeln</span>
+      </li>
+      <li>
+        <span class="name">Knoblauchsteak</span><span class="preis">28,50 €</span>
+        <span class="dazu">Rumpsteak mit frischer Knoblauch-Sauce und Pommes frites</span>
+      </li>
+      <li>
+        <span class="name">Rumpsteak „Teufelchen"</span><span class="preis">28,50 €</span>
+        <span class="dazu">mit scharfer Paprika-Sauce und Pommes frites</span>
+      </li>
+      <li>
+        <span class="name">Lustiger Koch</span><span class="preis">28,50 €</span>
+        <span class="dazu">gefülltes Rumpsteak mit Schinken und Käse, dazu Pommes frites</span>
+      </li>
+      <li>
+        <span class="name">Filetsteak „Champignon"</span><span class="preis">37,00 €</span>
+        <span class="dazu">mit frischen gebratenen Champignons und Pommes frites</span>
+      </li>
+      <li>
+        <span class="name">Filetsteak „Pfeffer"</span><span class="preis">37,00 €</span>
+        <span class="dazu">mit Sauce von grob gemahlenem Pfeffer, dazu Kroketten</span>
+      </li>
+      <li>
+        <span class="name">Rumpsteak „Gentleman"</span><span class="preis">22,00 €</span>
+        <span class="dazu">150 g mit Champignon-Béarnaise-Sauce, dazu Rösti</span>
+      </li>
+      <li>
+        <span class="name">Holzfällersteak</span><span class="preis">20,00 €</span>
+        <span class="dazu">Schweinesteak mit geschmorten Zwiebeln und Bratkartoffeln</span>
+      </li>
+    </ul>
+    <p class="notiz">Wie hätten Sie Ihr Steak gern? Englisch (blutig), Medium (rosa) oder Well Done (durch).</p>
+  </section>
+
+  <section class="gruppe" id="platten">
+    <h2>Grill-Spezialitäten &amp; Platten für zwei</h2>
+    <ul class="gerichte">
+      <li>
+        <span class="name">Balkanteller</span><span class="preis">25,00 €</span>
+        <span class="dazu">Schweinefilet, Rinderfilet, Schweinelachse mit pikanter Paprikasauce und Pommes frites</span>
+      </li>
+      <li>
+        <span class="name">Piratenteller</span><span class="preis">25,00 €</span>
+        <span class="dazu">Schweinefilet, Rinderfilet, Schweinelachse mit Sauce von grob gemahlenem Pfeffer, dazu Kroketten</span>
+      </li>
+      <li>
+        <span class="name">Argentinischer Teller</span><span class="preis">27,50 €</span>
+        <span class="dazu">3 Rindersteaks mit Kräuterbutter, gegrillten Zwiebeln, Paprika und Bratkartoffeln</span>
+      </li>
+      <li>
+        <span class="name">„Casanova"-Teller</span><span class="preis">27,50 €</span>
+        <span class="dazu">3 Rindersteaks mit Sauce Béarnaise, Brokkoli und Kroketten</span>
+      </li>
+      <li>
+        <span class="name">Steak-Platte <em>für 2 Personen</em></span><span class="preis">58,00 €</span>
+        <span class="dazu">verschiedene Steaks mit Champignons, Grillgemüse, Pommes frites und Kroketten, dazu Sauce Béarnaise</span>
+      </li>
+      <li>
+        <span class="name">Balkan-Platte <em>für 2 Personen</em></span><span class="preis">48,00 €</span>
+        <span class="dazu">gemischtes Fleisch vom Grill mit 2 panierten Schnitzeln, 2 Spießen, 2 Stücken Speck, 4 Cevapcici, 2 Pljeskavica, 2 Rindersteaks, Ajvar, Zwiebeln, Pommes frites und Gemüse</span>
+      </li>
+      <li>
+        <span class="name">Diplomaten-Platte <em>für 2 Personen</em></span><span class="preis">57,00 €</span>
+        <span class="dazu">2 gefüllte Rumpsteaks, 2 Cordon bleus, 2 Rindersteaks, 2 Schweinefilets, dazu Gemüse, Djuvecreis und Pommes frites</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="balkan">
+    <h2>Balkan-Spezialitäten</h2>
+    <ul class="gerichte">
+      <li>
+        <span class="name">Cevapcici</span><span class="preis">16,00 €</span>
+        <span class="dazu">mit Ajvar, Zwiebeln, Pommes frites und Djuvecreis</span>
+      </li>
+      <li>
+        <span class="name">Pljeskavica „Balkan Art"</span><span class="preis">20,00 €</span>
+        <span class="dazu">Hacksteak, gefüllt mit Schafskäse, dazu Ajvar, Zwiebeln, Pommes frites und Djuvecreis</span>
+      </li>
+      <li>
+        <span class="name">Grillteller</span><span class="preis">20,50 €</span>
+        <span class="dazu">1 Spieß, 2 Cevapcici, 1 kleines paniertes Schnitzel, 1 Pljeskavica und Speck, mit Ajvar, Zwiebeln, Pommes frites und Djuvecreis</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="schnitzel">
+    <h2>Schnitzel &amp; Schweinemedaillons</h2>
+    <ul class="gerichte">
+      <li><span class="name">Schnitzel „Wiener Art"</span><span class="preis">17,00 €</span><span class="dazu">mit Pommes frites</span></li>
+      <li><span class="name">Pfeffer-Schnitzel</span><span class="preis">18,50 €</span><span class="dazu">mit Pommes frites</span></li>
+      <li><span class="name">Champignon-Schnitzel</span><span class="preis">18,50 €</span><span class="dazu">mit frischer Champignonsauce und Pommes frites</span></li>
+      <li><span class="name">Paprika-Schnitzel</span><span class="preis">18,50 €</span><span class="dazu">mit Pommes frites</span></li>
+      <li><span class="name">Zwiebel-Schnitzel</span><span class="preis">19,50 €</span><span class="dazu">mit Pommes frites</span></li>
+      <li><span class="name">Cordon Bleu</span><span class="preis">20,50 €</span><span class="dazu">vom Schwein, paniert, gefüllt mit Schinken und Käse, dazu Pommes frites</span></li>
+      <li><span class="name">Schweinefilet „Pfeffer"</span><span class="preis">24,50 €</span><span class="dazu">3 kleine Medaillons mit Pfeffersauce und Kroketten</span></li>
+      <li><span class="name">Schweinefilet „Schlemmer Art"</span><span class="preis">24,50 €</span><span class="dazu">3 kleine Medaillons mit Champignon-Rahmsauce und Kroketten</span></li>
+      <li><span class="name">Schweinefilet „Béarnaise"</span><span class="preis">24,50 €</span><span class="dazu">3 kleine Medaillons mit Sauce Béarnaise und Butterreis</span></li>
+      <li><span class="name">Schweinefilet „Lady"</span><span class="preis">18,50 €</span><span class="dazu">mit Brokkoli und Sauce Hollandaise überbacken, dazu Rösti</span></li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="gefluegel">
+    <h2>Geflügel &amp; Fisch</h2>
+    <ul class="gerichte">
+      <li><span class="name">Putensteak „Hawaii"</span><span class="preis">20,50 €</span><span class="dazu">Curry-Sauce mit Obststücken und Kroketten</span></li>
+      <li><span class="name">Putensteak „Natur"</span><span class="preis">20,50 €</span><span class="dazu">mit Grillgemüse</span></li>
+      <li><span class="name">Lachsfilet „Zur Langst"</span><span class="preis">26,00 €</span><span class="dazu">mit Salzkartoffeln und Senf-Dill-Sauce, dazu gebratenes Gemüse</span></li>
+      <li><span class="name">Rotbarschfilet</span><span class="preis">24,00 €</span><span class="dazu">mit Senfsauce und Salzkartoffeln, dazu Gemüse</span></li>
+      <li><span class="name">Calamari</span><span class="preis">24,00 €</span><span class="dazu">Baby-Calamari mit Krabben-Dillsauce und Salzkartoffeln</span></li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="nudeln">
+    <h2>Nudel-Gerichte</h2>
+    <ul class="gerichte">
+      <li><span class="name">Nudeln mit Lachs</span><span class="preis">19,50 €</span><span class="dazu">in Sahnesauce</span></li>
+      <li><span class="name">Nudeln mit Garnelen</span><span class="preis">19,50 €</span><span class="dazu">in Sahnesauce mit Blattspinat und Parmesankäse</span></li>
+      <li><span class="name">Nudeln mit Hähnchen</span><span class="preis">19,50 €</span><span class="dazu">mit Brokkoli, Tomaten und Champignons in Sahnesauce</span></li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="vorspeisen">
+    <h2>Vorspeisen &amp; Salate</h2>
+    <ul class="gerichte">
+      <li><span class="name">Tomatensuppe</span><span class="preis">6,50 €</span></li>
+      <li><span class="name">Rindfleischsuppe</span><span class="preis">6,50 €</span><span class="dazu">mit Einlage</span></li>
+      <li><span class="name">Zwiebelsuppe</span><span class="preis">6,50 €</span></li>
+      <li><span class="name">Schnecken nach „Art des Hauses"</span><span class="preis">11,00 €</span><span class="dazu">in Kräuter-Knoblauchsauce, dazu Toast</span></li>
+      <li><span class="name">Bruschetta</span><span class="preis">12,00 €</span><span class="dazu">mit Kirschtomaten und Olivenöl</span></li>
+      <li><span class="name">Schafskäse</span><span class="preis">13,00 €</span><span class="dazu">überbacken, dazu Brot</span></li>
+      <li><span class="name">Carpaccio vom Rind</span><span class="preis">14,50 €</span><span class="dazu">mit Olivenöl, Balsamico und Parmesan, dazu Brot</span></li>
+      <li><span class="name">Gambas „Pil-Pil"</span><span class="preis">15,50 €</span><span class="dazu">Garnelen in Knoblauchöl, im Tontopf serviert, dazu Brot</span></li>
+      <li><span class="name">Salat „Chef Art"</span><span class="preis">18,00 €</span><span class="dazu">mit Putenstreifen</span></li>
+      <li><span class="name">Salat mit Lachs</span><span class="preis">18,50 €</span></li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="vegetarisch">
+    <h2>Vegetarisch</h2>
+    <ul class="gerichte">
+      <li><span class="name">Gemüseteller</span><span class="preis">16,50 €</span><span class="dazu">gebratenes Gemüse mit Rösti</span></li>
+    </ul>
+  </section>
+
+  <section class="gruppe" id="beilagen">
+    <h2>Beilagen &amp; Saucen</h2>
+    <ul class="gerichte">
+      <li><span class="name">Ofenkartoffel</span><span class="preis">6,00 €</span></li>
+      <li><span class="name">Bratkartoffeln</span><span class="preis">6,00 €</span></li>
+      <li><span class="name">Mediterranes Gemüse</span><span class="preis">6,00 €</span></li>
+      <li><span class="name">Geröstete Champignons</span><span class="preis">6,00 €</span></li>
+      <li><span class="name">Geröstete Zwiebeln</span><span class="preis">5,00 €</span></li>
+      <li><span class="name">Prinzessbohnen</span><span class="preis">5,00 €</span></li>
+      <li><span class="name">Kroketten</span><span class="preis">4,50 €</span></li>
+      <li><span class="name">Pommes frites</span><span class="preis">4,50 €</span></li>
+      <li><span class="name">Knoblauchsauce</span><span class="preis">4,00 €</span></li>
+      <li><span class="name">Pfeffersauce</span><span class="preis">4,00 €</span></li>
+      <li><span class="name">Sauce Hollandaise</span><span class="preis">4,00 €</span></li>
+      <li><span class="name">Sauce Béarnaise</span><span class="preis">4,00 €</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="fuss">
+  <div class="bahn">
+    <p><strong>Tisch reservieren:</strong> <a href="tel:+4923828551018">02382 8551018</a> · Dienstag ist Ruhetag</p>
+    <p>Landrestaurant · Café Zur Langst · Am Stadtwald 6 · 59227 Ahlen</p>
+    <p style="margin-top:1rem"><a href="index.html">Zurück zur Startseite</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+    <p class="allergie">
+      Sollten Sie von Allergien betroffen sein, sprechen Sie uns bitte an — unsere separate
+      Allergikerkarte gibt Auskunft über die enthaltenen Zutaten. Unsere Kräuterbutter enthält
+      etwas Margarine. Alle Preise in Euro, inklusive Mehrwertsteuer. Änderungen vorbehalten.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
