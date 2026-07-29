@@ -227,7 +227,7 @@ section[id]{scroll-margin-top:5rem}
   color:color-mix(in oklab,var(--creme) 90%,transparent);
 }
 
-/* ---------- Was es gerade gibt ---------------------------- */
+/* ---------- Öffnungsstatus --------------------------------- */
 .jetzt-band{
   border-bottom:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
   padding:clamp(1rem,3vh,1.5rem) var(--rand);
@@ -245,13 +245,6 @@ section[id]{scroll-margin-top:5rem}
   background:var(--schilf);translate:0 -.1em;
 }
 .jetzt-status .punkt.zu{background:color-mix(in oklab,var(--creme) 34%,transparent)}
-.jetzt-angebot{
-  margin:0;color:color-mix(in oklab,var(--creme) 72%,transparent);
-}
-@media (min-width:44rem){
-  .jetzt-innen{justify-content:space-between;flex-wrap:nowrap}
-  .jetzt-angebot{text-align:right}
-}
 
 /* ---------- Ankommen -------------------------------------- */
 .ankommen .mitte{max-width:60ch}
@@ -396,6 +389,17 @@ section[id]{scroll-margin-top:5rem}
   font-size:1rem;
   color:color-mix(in oklab,var(--creme) 76%,transparent);
 }
+
+/* ---------- Kaffee & Kuchen -------------------------------- */
+.kaffee{
+  display:grid;gap:clamp(2rem,6vw,4rem);align-items:center;
+}
+@media (min-width:56rem){.kaffee{grid-template-columns:1.05fr 1fr}}
+.kaffee-bild img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.25rem}
+.kaffee-bild{grid-row:1}
+@media (min-width:56rem){.kaffee-bild{order:2}}
+.kaffee-text h2{font-size:clamp(1.75rem,4.4vw,3rem);margin-bottom:1rem}
+.kaffee-text .augbraue{color:var(--glut-hell)}
 
 /* ---------- Die Karte ------------------------------------- */
 .speisekarte{background:var(--glut-tief)}
@@ -654,17 +658,16 @@ section[id]{scroll-margin-top:5rem}
   </p>
 </section>
 
-<!-- ===================== WAS ES GERADE GIBT =====================
-     Richtet sich nach Wochentag und Uhrzeit. Die Fenster stehen unten im
-     Skript in EINER Tabelle (TAGESZEITEN) und sind dort leicht änderbar.
+<!-- ===================== ÖFFNUNGSSTATUS =====================
+     Zeigt nur, ob gerade geöffnet ist (echte Öffnungszeiten) — kein
+     Text, der sich mit der Tageszeit ändert.
      ============================================================= -->
-<section class="jetzt-band" id="jetzt-band" aria-label="Was es gerade gibt">
+<section class="jetzt-band" id="jetzt-band" aria-label="Öffnungsstatus">
   <div class="jetzt-innen">
     <p class="jetzt-status">
       <span class="punkt" id="statusPunkt"></span>
       <span id="statusWort">Täglich ab 11:30 Uhr</span>
     </p>
-    <p class="jetzt-angebot" id="angebotText">Dienstag ist Ruhetag</p>
   </div>
 </section>
 
@@ -758,6 +761,19 @@ section[id]{scroll-margin-top:5rem}
     <div><dt>3</dt><dd>Dressings</dd></div>
     <div><dt>∞</dt><dd>mal nachlegen</dd></div>
   </dl>
+</section>
+
+<!-- ===================== KAFFEE & KUCHEN ===================== -->
+<section class="abschnitt kaffee" id="kaffee">
+  <div class="kaffee-bild">
+    <img src="bilder/kaffee-am-teich.jpg" width="1200" height="1600" loading="lazy"
+         alt="Eine Tasse Kaffee auf der Terrassenbrüstung mit Blick auf den Teich und die Fontäne">
+  </div>
+  <div class="kaffee-text">
+    <p class="augbraue">Auch das gibt es</p>
+    <h2>Kaffee und Kuchen auf der Terrasse.</h2>
+    <p>Nicht nur zu bestimmten Stunden: Kaffee und hausgemachter Kuchen stehen bei uns immer auf der Karte, mit Blick auf den Teich.</p>
+  </div>
 </section>
 
 <!-- ===================== DIE KARTE =====================
@@ -1021,14 +1037,6 @@ section[id]{scroll-margin-top:5rem}
      ============================================================ */
   var OEFFNUNG = {0:[11.5,21], 1:[11.5,22], 2:null, 3:[11.5,22], 4:[11.5,22], 5:[11.5,22], 6:[11.5,22]};
 
-  /* Was zu welcher Tageszeit angeboten wird. „bis" ist die Uhrzeit,
-     bis zu der das Fenster gilt — geprüft wird von oben nach unten. */
-  var TAGESZEITEN = [
-    {bis:14.5, wort:'Jetzt geöffnet',  angebot:'Mittags: frisch vom Grill, dazu das Salatbuffet'},
-    {bis:17.5, wort:'Jetzt geöffnet',  angebot:'Kaffeezeit: Kaffee und Kuchen auf der Terrasse'},
-    {bis:24,   wort:'Jetzt geöffnet',  angebot:'Abends: vom Grill, mit Blick über den Teich'}
-  ];
-
   /* ---- Öffnungsstatus „jetzt" ---------------------------- */
   (function status(){
     var zeiten = OEFFNUNG;
@@ -1056,51 +1064,36 @@ section[id]{scroll-margin-top:5rem}
     }
 
     var offen = !!heute && stunde >= heute[0] && stunde < heute[1];
+    var meldung;
 
     /* --- Zeile unter den Öffnungszeiten --- */
     if (offen) {
-      text.textContent = 'Jetzt geöffnet — bis ' + uhr(heute[1]) + ' Uhr';
+      meldung = 'Jetzt geöffnet, bis ' + uhr(heute[1]) + ' Uhr';
     } else {
       box.classList.add('geschlossen');
       if (heute && stunde < heute[0]) {
-        text.textContent = 'Heute ab ' + uhr(heute[0]) + ' Uhr geöffnet';
+        meldung = 'Heute ab ' + uhr(heute[0]) + ' Uhr geöffnet';
+      } else if (!heute) {
+        var nr = naechsterOffen();
+        meldung = 'Heute Ruhetag, wieder ' +
+          (nr.abstand === 1 ? 'morgen' : 'am ' + namen[nr.tag]) +
+          ' ab ' + uhr(zeiten[nr.tag][0]) + ' Uhr';
       } else {
         var n = naechsterOffen();
-        text.textContent = 'Gerade geschlossen — wieder ' +
+        meldung = 'Gerade geschlossen, wieder ' +
           (n.abstand === 1 ? 'morgen' : 'am ' + namen[n.tag]) +
           ' ab ' + uhr(zeiten[n.tag][0]) + ' Uhr';
       }
     }
+    text.textContent = meldung;
     box.hidden = false;
 
-    /* --- Band unter dem Auftakt: was es gerade gibt --- */
-    var punkt   = document.getElementById('statusPunkt');
-    var wort    = document.getElementById('statusWort');
-    var angebot = document.getElementById('angebotText');
-
-    if (offen) {
-      var fenster = TAGESZEITEN.find(function(f){ return stunde < f.bis; }) ||
-                    TAGESZEITEN[TAGESZEITEN.length - 1];
-      wort.textContent    = fenster.wort;
-      angebot.textContent = fenster.angebot + ' · noch bis ' + uhr(heute[1]) + ' Uhr';
-    } else {
-      punkt.classList.add('zu');
-      if (!heute) {
-        /* Ruhetag — hier darf kein Tagesangebot stehen */
-        var nr = naechsterOffen();
-        wort.textContent    = 'Heute Ruhetag';
-        angebot.textContent = 'Wir sind ' + (nr.abstand === 1 ? 'morgen' : 'am ' + namen[nr.tag]) +
-                              ' ab ' + uhr(zeiten[nr.tag][0]) + ' Uhr wieder für Sie da';
-      } else if (stunde < heute[0]) {
-        wort.textContent    = 'Wir öffnen um ' + uhr(heute[0]) + ' Uhr';
-        angebot.textContent = 'Danach: ' + TAGESZEITEN[0].angebot;
-      } else {
-        var na = naechsterOffen();
-        wort.textContent    = 'Für heute geschlossen';
-        angebot.textContent = 'Wieder ' + (na.abstand === 1 ? 'morgen' : 'am ' + namen[na.tag]) +
-                              ' ab ' + uhr(zeiten[na.tag][0]) + ' Uhr';
-      }
-    }
+    /* --- Band unter dem Auftakt: derselbe Öffnungsstatus,
+           kein Angebotstext, der sich mit der Uhrzeit ändert --- */
+    var punkt = document.getElementById('statusPunkt');
+    var wort  = document.getElementById('statusWort');
+    if (!offen) punkt.classList.add('zu');
+    wort.textContent = meldung;
   })();
 
   /* ---- Kopfzeile bekommt Hintergrund --------------------- */
@@ -1230,6 +1223,12 @@ section[id]{scroll-margin-top:5rem}
     scrollTrigger:{trigger:'.buffet', start:'top 78%'}});
   gsap.from('.buffet-zahlen > div', {opacity:0, y:20, duration:.7, stagger:.12, ease:'power2.out',
     scrollTrigger:{trigger:'.buffet', start:'top 74%'}});
+
+  /* ---- Kaffee & Kuchen ------------------------------------ */
+  gsap.from('.kaffee-text > *', {opacity:0, y:24, duration:.8, stagger:.1, ease:'power2.out',
+    scrollTrigger:{trigger:'.kaffee', start:'top 78%'}});
+  gsap.from('.kaffee-bild img', {opacity:0, scale:1.05, duration:.9, ease:'power2.out',
+    scrollTrigger:{trigger:'.kaffee', start:'top 78%'}});
 
   /* ---- Die Karte ----------------------------------------- */
   gsap.utils.toArray('.karte-gruppe').forEach(function(gruppe){
