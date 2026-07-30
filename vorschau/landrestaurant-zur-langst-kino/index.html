@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Landrestaurant Zur Langst · Ahlen — am Teich, vom Grill</title>
+<meta name="description" content="Landrestaurant &amp; Café Zur Langst in Ahlen: Terrasse direkt am Langst-Teich, Steaks und Balkan-Spezialitäten vom Grill, Salatbuffet inklusive. Reservierung unter 02382 8551018.">
+<meta name="theme-color" content="#0c0c0d">
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Landrestaurant Zur Langst · Ahlen">
+<meta property="og:description" content="Am Teich. Vom Grill. Seit über einem Jahrzehnt in Familienhand.">
+<meta property="og:image" content="bilder/sonnenuntergang.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230c0c0d'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='%23e8c893' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="schriften/fonts.css">
+<link rel="preload" as="image" href="bilder/sonnenuntergang.jpg">
+<style>
+/* ============================================================
+   Zur Langst — Variante „Kino"
+   Vollbild-Kapitel: das Bild bleibt stehen, der Text wandert darüber.
+   Kein Farbdrama, keine gescrubte Choreografie — nur Bild und Wort.
+   ============================================================ */
+:root{
+  --nacht:#0c0c0d;
+  --nacht-weich:#16161a;
+  --creme:#f2ede4;
+  --gold:#e8c893;
+  --gold-tief:#b98d4c;
+  --grau:#9a958d;
+
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --text:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --rand:clamp(1.25rem,5vw,5rem);
+  --breite:70rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--nacht);color:var(--creme);
+  font-family:var(--text);line-height:1.7;
+  font-size:clamp(1rem,.42vw + .94rem,1.125rem);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{
+  font-family:var(--display);font-weight:800;
+  line-height:1;letter-spacing:-.035em;margin:0;text-wrap:balance;
+}
+p{text-wrap:pretty}
+:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--creme);color:var(--nacht);padding:.75rem 1.25rem;font-weight:600;text-decoration:none}
+.skip:focus{left:0}
+.bahn{width:min(var(--breite),100%);margin-inline:auto;padding-inline:var(--rand)}
+section[id]{scroll-margin-top:4.5rem}
+.augbraue{font-size:.6875rem;letter-spacing:.36em;text-transform:uppercase;font-weight:600;color:var(--gold);margin:0 0 1.25rem}
+
+/* Kopf */
+.kopf{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;align-items:center;gap:1rem;
+  padding:clamp(.8rem,2vw,1.2rem) var(--rand);
+  padding-top:max(clamp(.8rem,2vw,1.2rem),env(safe-area-inset-top));
+  transition:background-color .4s ease,backdrop-filter .4s ease;
+}
+.kopf.fest{background:color-mix(in oklab,var(--nacht) 86%,transparent);backdrop-filter:blur(14px)}
+.kopf .marke{font-family:var(--display);font-weight:800;font-size:1.0625rem;letter-spacing:-.03em;text-decoration:none;white-space:nowrap}
+.nav{display:none;gap:1.6rem;margin-inline:auto;font-size:.875rem;letter-spacing:.02em}
+.nav a{text-decoration:none;color:color-mix(in oklab,var(--creme) 76%,transparent)}
+.nav a:hover{color:var(--gold)}
+@media (min-width:62rem){.nav{display:flex}}
+.tel-knopf{
+  margin-left:auto;
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.55rem 1.15rem;border:1px solid color-mix(in oklab,var(--creme) 34%,transparent);
+  font-size:.875rem;font-weight:600;text-decoration:none;white-space:nowrap;
+  transition:background-color .3s,color .3s,border-color .3s;
+}
+@media (min-width:62rem){.tel-knopf{margin-left:0}}
+.tel-knopf:hover{background:var(--gold);border-color:var(--gold);color:var(--nacht)}
+
+/* ---------- Kapitel: Bild bleibt, Text wandert ---------- */
+.kapitel{position:relative}
+.kapitel-bild{
+  position:sticky;top:0;height:100svh;overflow:hidden;
+}
+.kapitel-bild img{width:100%;height:100%;object-fit:cover}
+.kapitel-bild::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in oklab,var(--nacht) 62%,transparent) 0%,
+    color-mix(in oklab,var(--nacht) 26%,transparent) 34%,
+    color-mix(in oklab,var(--nacht) 74%,transparent) 100%);
+}
+.kapitel-text{
+  position:relative;z-index:2;
+  margin-top:-100svh;                 /* über das feststehende Bild legen */
+  padding:0 var(--rand);
+  display:grid;gap:70svh;             /* Abstand = die Strecke, die das Bild steht */
+  padding-block:38svh 42svh;
+}
+.tafel{
+  width:min(34rem,100%);
+  margin-inline:auto;
+  text-align:center;
+}
+.tafel h2{font-size:clamp(2rem,7vw,4.25rem);margin-bottom:1rem}
+.tafel p{margin:0;color:color-mix(in oklab,var(--creme) 88%,transparent);font-size:clamp(1.0625rem,.5vw + 1rem,1.25rem)}
+.tafel .klein{font-size:.9375rem;color:var(--grau);margin-top:.75rem}
+.tafel.links{margin-inline:0;text-align:left}
+.tafel.rechts{margin-inline:auto 0;text-align:right}
+
+/* Auftakt */
+.auftakt{position:relative;height:100svh;overflow:hidden;display:grid;align-items:end}
+.auftakt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.auftakt::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,var(--nacht) 2%,color-mix(in oklab,var(--nacht) 55%,transparent) 40%,color-mix(in oklab,var(--nacht) 40%,transparent) 100%);
+}
+.auftakt-text{position:relative;z-index:2;padding:0 var(--rand) clamp(3rem,10vh,6rem);width:min(var(--breite),100%);margin-inline:auto}
+.auftakt h1{font-size:clamp(3rem,13vw,9rem);text-transform:uppercase;margin-bottom:1.25rem}
+.auftakt h1 span{display:block;color:var(--gold)}
+.auftakt .lead{max-width:38ch;margin:0 0 1.75rem;color:color-mix(in oklab,var(--creme) 84%,transparent)}
+.auftakt-fakten{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;margin:0;padding:0}
+.auftakt-fakten li{font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:.4rem .85rem;border:1px solid color-mix(in oklab,var(--creme) 26%,transparent)}
+
+/* Jetzt-Leiste */
+.jetzt{border-block:1px solid color-mix(in oklab,var(--creme) 12%,transparent);padding:1.1rem var(--rand)}
+.jetzt-innen{width:min(var(--breite),100%);margin-inline:auto;display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;align-items:baseline}
+.jetzt-titel{margin:0;font-weight:600;display:inline-flex;align-items:baseline;gap:.6rem}
+.jetzt-punkt{width:.5rem;height:.5rem;border-radius:50%;background:var(--gold);flex:none;translate:0 -.1em}
+.jetzt-punkt.zu{background:#5f5a52}
+.jetzt-text{margin:0;color:var(--grau)}
+@media (min-width:44rem){.jetzt-innen{justify-content:space-between;flex-wrap:nowrap}}
+
+/* Ruhige Blöcke zwischen den Kapiteln */
+.block{padding:clamp(4rem,12vh,8rem) 0;background:var(--nacht)}
+.block.weich{background:var(--nacht-weich)}
+.block-kopf{max-width:44rem;margin-bottom:clamp(2rem,5vh,3rem)}
+.block-kopf h2{font-size:clamp(1.875rem,5vw,3.25rem);margin-bottom:.85rem}
+.block-kopf p{margin:0;color:var(--grau)}
+
+/* Karte */
+.karte-gruppe{margin-top:clamp(2rem,4vh,2.75rem)}
+.karte-gruppe h3{font-size:1.25rem;color:var(--gold);margin-bottom:.35rem;letter-spacing:-.02em}
+.gerichte{list-style:none;margin:0;padding:0}
+.gerichte li{display:grid;grid-template-columns:1fr auto;gap:.1rem 1.25rem;padding:.9rem 0;border-bottom:1px solid color-mix(in oklab,var(--creme) 10%,transparent)}
+.gerichte li:last-child{border-bottom:0}
+.name{grid-column:1;font-weight:600}
+.preis{grid-column:2;grid-row:1;font-variant-numeric:tabular-nums;color:var(--gold);font-weight:600;white-space:nowrap}
+.dazu{grid-column:1;font-size:.9375rem;color:var(--grau)}
+.knopf{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.9rem 1.7rem;font:inherit;font-size:.9375rem;font-weight:700;
+  text-decoration:none;white-space:nowrap;
+  background:var(--gold);color:var(--nacht);border:1px solid var(--gold);
+  transition:background-color .25s,color .25s;
+}
+.knopf:hover{background:transparent;color:var(--gold)}
+.knopf.klar{background:transparent;color:var(--creme);border-color:color-mix(in oklab,var(--creme) 30%,transparent)}
+.knopf.klar:hover{border-color:var(--gold);color:var(--gold)}
+.karte-fuss{margin-top:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.karte-fuss p{margin:0;font-size:.9375rem;color:var(--grau)}
+
+/* Stimmen */
+.zaehler{font-family:var(--display);font-weight:800;font-size:clamp(3.5rem,14vw,8rem);line-height:.9;color:var(--gold);margin:0}
+.zitate{display:grid;gap:clamp(1.5rem,4vw,3rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));margin-top:clamp(2rem,5vh,3rem)}
+.zitat{margin:0;display:flex;flex-direction:column;gap:.9rem}
+.zitat blockquote{margin:0;font-size:1.0625rem;line-height:1.55}
+.zitat figcaption{font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--grau);margin-top:auto}
+.sterne{display:flex;gap:.15rem;color:var(--gold)}
+.sterne svg{width:.95rem;height:.95rem}
+
+/* Merkmale */
+.merkmale{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:color-mix(in oklab,var(--creme) 12%,transparent);border:1px solid color-mix(in oklab,var(--creme) 12%,transparent);grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr))}
+.merkmale li{background:var(--nacht);padding:1.35rem 1.25rem;font-size:.9375rem}
+.merkmale b{display:block;font-weight:600;margin-bottom:.15rem}
+.merkmale span{color:var(--grau)}
+
+/* Besuch */
+.besuch-raster{display:grid;gap:clamp(2.5rem,6vw,4.5rem)}
+@media (min-width:54rem){.besuch-raster{grid-template-columns:1fr 1fr;align-items:start}}
+.zeiten{width:100%;border-collapse:collapse}
+.zeiten caption{text-align:left;font-size:.6875rem;letter-spacing:.36em;text-transform:uppercase;font-weight:600;color:var(--gold);padding-bottom:1rem}
+.zeiten th,.zeiten td{text-align:left;font-weight:400;padding:.7rem 0;border-bottom:1px solid color-mix(in oklab,var(--creme) 10%,transparent)}
+.zeiten td{text-align:right;color:var(--grau);font-variant-numeric:tabular-nums}
+.zeiten tr.heute th,.zeiten tr.heute td{color:var(--gold);font-weight:700}
+.tel-gross{display:block;font-family:var(--display);font-weight:800;font-size:clamp(1.875rem,5.5vw,3rem);text-decoration:none;margin:1.25rem 0 1rem;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.tel-gross:hover{color:var(--gold)}
+
+/* Anfahrt */
+.anfahrt-raster{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:54rem){.anfahrt-raster{grid-template-columns:1fr 1fr}}
+.lageplan{width:100%;height:auto}
+.adresse{font-style:normal;font-size:1.125rem;line-height:1.75;margin-bottom:1.25rem}
+.weg{list-style:none;margin:1.25rem 0 0;padding:0;display:grid;gap:.7rem;font-size:.9375rem;color:var(--grau)}
+.weg li{display:flex;gap:.7rem;align-items:baseline}
+.weg li::before{content:'';width:.35rem;height:.35rem;border-radius:50%;background:var(--gold);flex:none;translate:0 -.15em}
+
+/* Fuß */
+.fuss{border-top:1px solid color-mix(in oklab,var(--creme) 12%,transparent);padding:clamp(2.5rem,6vh,4rem) var(--rand);font-size:.875rem;color:var(--grau)}
+.fuss-innen{width:min(var(--breite),100%);margin-inline:auto;display:flex;flex-wrap:wrap;gap:1.25rem 3rem;justify-content:space-between}
+.fuss p{margin:0}
+.fuss a{color:var(--creme);text-decoration:none;border-bottom:1px solid transparent}
+.fuss a:hover{border-color:currentColor}
+.entwurf{width:100%;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid color-mix(in oklab,var(--creme) 10%,transparent);font-size:.8125rem;opacity:.75}
+
+/* mobile Leiste */
+.leiste{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;gap:.6rem;
+  padding:.7rem var(--rand);padding-bottom:max(.7rem,env(safe-area-inset-bottom));
+  background:color-mix(in oklab,var(--nacht) 92%,transparent);
+  backdrop-filter:blur(12px);border-top:1px solid color-mix(in oklab,var(--creme) 12%,transparent);
+}
+.leiste .knopf{flex:1}
+@media (min-width:62rem){.leiste{display:none}}
+@media (max-width:62rem){body{padding-bottom:4.75rem}}
+
+.zeigt{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.zeigt.da{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .zeigt{opacity:1;transform:none;transition:none}
+  /* Kapitel werden zu normalen Blöcken, nichts bleibt stehen */
+  .kapitel-bild{position:relative;height:60svh}
+  .kapitel-text{margin-top:0;gap:2.5rem;padding-block:3rem}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kopf">
+  <a class="marke" href="#top">Zur Langst</a>
+  <nav class="nav" aria-label="Bereiche">
+    <a href="speisekarte.html">Speisekarte</a>
+    <a href="#karte">Küche</a>
+    <a href="#besuch">Öffnungszeiten</a>
+    <a href="#anfahrt">Anfahrt</a>
+  </nav>
+  <a class="tel-knopf" href="tel:+4923828551018">02382 8551018</a>
+</header>
+
+<main id="inhalt">
+
+<!-- Auftakt -->
+<section class="auftakt" id="top">
+  <img src="bilder/sonnenuntergang.jpg" width="739" height="1168" fetchpriority="high"
+       alt="Das beleuchtete Landrestaurant spiegelt sich bei Sonnenuntergang im Langst-Teich">
+  <div class="auftakt-text">
+    <h1>Am Teich.<span>Vom Grill.</span></h1>
+    <p class="lead">Landrestaurant und Café im Ahlener Stadtwald. Terrasse über dem Wasser, Küche vom Rost, Salatbuffet zu jedem Hauptgericht.</p>
+    <ul class="auftakt-fakten">
+      <li>Ahlen · Am Stadtwald</li>
+      <li>4,6 ★ · 705 Bewertungen</li>
+      <li>Dienstag Ruhetag</li>
+    </ul>
+  </div>
+</section>
+
+<div class="jetzt">
+  <div class="jetzt-innen">
+    <p class="jetzt-titel"><span class="jetzt-punkt" id="statusPunkt"></span><span id="statusWort">Täglich ab 11:30 Uhr</span></p>
+    <p class="jetzt-text" id="angebotText">Dienstag ist Ruhetag</p>
+  </div>
+</div>
+
+<!-- Kapitel 1: der Ort -->
+<section class="kapitel" id="ort">
+  <div class="kapitel-bild">
+    <img src="bilder/luftbild-teich.jpg" width="1024" height="576" loading="lazy"
+         alt="Der Langst-Teich mit Springbrunnen von oben, das Restaurant am Ufer">
+  </div>
+  <div class="kapitel-text">
+    <div class="tafel">
+      <p class="augbraue">Der Ort</p>
+      <h2>Ein Haus am Wasser.</h2>
+      <p>Erst der Wald, dann der Damm. Dann liegt der Teich vor Ihnen und an seinem Ufer ein Fachwerkhaus mit einer Terrasse, die bis ans Wasser reicht.</p>
+    </div>
+    <div class="tafel">
+      <h2>Seit über zehn Jahren.</h2>
+      <p>Ein Familienbetrieb: derselbe Wirt, dieselbe Küche. Wer aus Ahlen kommt, ist in ein paar Minuten hier.</p>
+      <p class="klein">Kostenlose Parkplätze direkt am Haus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Kapitel 2: die Terrasse -->
+<section class="kapitel" id="terrasse">
+  <div class="kapitel-bild">
+    <img src="bilder/terrasse-abend.jpg" width="1296" height="1200" loading="lazy"
+         alt="Die überdachte Terrasse am Abend, warm beleuchtet, mit eingedeckten Tischen">
+  </div>
+  <div class="kapitel-text">
+    <div class="tafel">
+      <p class="augbraue">Draußen sitzen</p>
+      <h2>Überdacht. Windgeschützt. Am Wasser.</h2>
+      <p>An sonnigen Tagen gibt es genug Schatten. Und wenn das Wetter kippt, sitzen Sie trotzdem trocken.</p>
+    </div>
+    <div class="tafel">
+      <blockquote style="margin:0;font-family:var(--display);font-weight:800;font-size:clamp(1.375rem,4vw,2.25rem);line-height:1.2;letter-spacing:-.03em">
+        „Schattenplätze mit tollem Ausblick. Das Essen schmeckt wirklich super.“
+      </blockquote>
+      <p class="klein">Dominic S. · Google-Rezension</p>
+    </div>
+  </div>
+</section>
+
+<!-- Kapitel 3: die Küche -->
+<section class="kapitel" id="kueche">
+  <div class="kapitel-bild">
+    <img src="bilder/steak-nah.jpg" width="1200" height="1600" loading="lazy"
+         alt="Filetsteak mit Kräuterbutter, angerichtet auf hellem Teller">
+  </div>
+  <div class="kapitel-text">
+    <div class="tafel">
+      <p class="augbraue">Aus der Küche</p>
+      <h2>Alles kommt vom Grill.</h2>
+      <p>Steaks englisch, medium oder durch. Sie sagen, wie.</p>
+    </div>
+    <div class="tafel">
+      <h2>Und dazu das Buffet.</h2>
+      <p>Rund zehn Zutaten, drei Dressings. Zu jedem Hauptgericht, so oft Sie möchten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Die Karte -->
+<section class="block weich" id="karte">
+  <div class="bahn">
+    <div class="block-kopf zeigt">
+      <p class="augbraue">Die Karte</p>
+      <h2>Ein Auszug.</h2>
+      <p>Steaks, Balkan-Spezialitäten, Platten für zwei. Dazu Schnitzel, Fisch, Nudeln und Vegetarisches.</p>
+    </div>
+    <div class="karte-gruppe zeigt">
+      <h3>Vom Grill</h3>
+      <ul class="gerichte">
+        <li><span class="name">Filetsteak</span><span class="preis">ab 29,00 €</span><span class="dazu">200 oder 300 Gramm</span></li>
+        <li><span class="name">Rumpsteak</span><span class="preis">ab 24,50 €</span><span class="dazu">auch mit Zwiebeln und Bratkartoffeln</span></li>
+        <li><span class="name">Argentinischer Teller</span><span class="preis">27,50 €</span><span class="dazu">3 Rindersteaks mit Kräuterbutter und Bratkartoffeln</span></li>
+      </ul>
+    </div>
+    <div class="karte-gruppe zeigt">
+      <h3>Vom Balkan</h3>
+      <ul class="gerichte">
+        <li><span class="name">Cevapcici</span><span class="preis">16,00 €</span><span class="dazu">mit Ajvar, Zwiebeln, Pommes und Djuvecreis</span></li>
+        <li><span class="name">Grillteller</span><span class="preis">20,50 €</span><span class="dazu">Spieß, Cevapcici, Schnitzel, Pljeskavica und Speck</span></li>
+      </ul>
+    </div>
+    <div class="karte-gruppe zeigt">
+      <h3>Für zwei</h3>
+      <ul class="gerichte">
+        <li><span class="name">Steak-Platte</span><span class="preis">58,00 €</span><span class="dazu">verschiedene Steaks mit Grillgemüse und Beilagen</span></li>
+        <li><span class="name">Balkan-Platte</span><span class="preis">48,00 €</span><span class="dazu">so reichlich, dass ein Kind mitisst</span></li>
+      </ul>
+    </div>
+    <div class="karte-fuss zeigt">
+      <a class="knopf" href="speisekarte.html">Ganze Speisekarte</a>
+      <p>Alle Gerichte mit Preisen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Kapitel 4: Feiern -->
+<section class="kapitel" id="feiern">
+  <div class="kapitel-bild">
+    <img src="bilder/saal.jpg" width="1170" height="1560" loading="lazy"
+         alt="Der Saal mit weiß eingedeckten Tischen für Feiern und größere Gesellschaften">
+  </div>
+  <div class="kapitel-text">
+    <div class="tafel">
+      <p class="augbraue">Für größere Runden</p>
+      <h2>Wenn es mehr als ein Tisch wird.</h2>
+      <p>Geburtstag, Familienfeier, Betriebsessen: Neben Terrasse und Gastraum gibt es einen eigenen Saal.</p>
+      <p class="klein">Sagen Sie einfach, wie viele Sie sind und wann. Den Rest klären wir am Telefon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Stimmen -->
+<section class="block" id="stimmen">
+  <div class="bahn">
+    <p class="augbraue">Was Gäste sagen</p>
+    <p class="zaehler" id="zaehler">0</p>
+    <h2 style="font-size:clamp(1.25rem,3vw,1.875rem);margin-bottom:.5rem">Bewertungen bei Google, im Schnitt 4,6.</h2>
+    <div class="zitate">
+      <figure class="zitat zeigt">
+        <span class="sterne" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></span>
+        <blockquote>„Sehr gute Steaks gegessen. Auf den Punkt gegart. Sehr leckere Soßen. Preis-Leistung top.“</blockquote>
+        <figcaption>Thomas E. · Google</figcaption>
+      </figure>
+      <figure class="zitat zeigt">
+        <span class="sterne" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></span>
+        <blockquote>„Die Platten für 2 Personen sind sehr vielfältig und reichlich. Stets aufmerksam, freundlich und zügig.“</blockquote>
+        <figcaption>Dominic S. · Google</figcaption>
+      </figure>
+      <figure class="zitat zeigt">
+        <span class="sterne" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg></span>
+        <blockquote>„Nach unserem ersten Besuch waren wir bereits ein zweites Mal dort, und auch dieses Mal war alles perfekt.“</blockquote>
+        <figcaption>Pascal K. · Google</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Gut zu wissen -->
+<section class="block weich" id="wissen">
+  <div class="bahn">
+    <div class="block-kopf zeigt">
+      <p class="augbraue">Gut zu wissen</p>
+      <h2>Damit der Besuch passt.</h2>
+    </div>
+    <ul class="merkmale zeigt">
+      <li><b>Terrasse am Wasser</b><span>überdacht und windgeschützt</span></li>
+      <li><b>Kostenlos parken</b><span>eigener Parkplatz am Haus</span></li>
+      <li><b>Barrierefrei</b><span>Parkplatz, Eingang, WC, Sitzplätze</span></li>
+      <li><b>Hunde willkommen</b><span>drinnen wie draußen</span></li>
+      <li><b>Karte &amp; kontaktlos</b><span>EC, Kreditkarte, NFC</span></li>
+      <li><b>Für Familien &amp; Feiern</b><span>Platz für große Runden</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Besuch -->
+<section class="block" id="besuch">
+  <div class="bahn">
+    <div class="besuch-raster">
+      <div class="zeigt">
+        <table class="zeiten">
+          <caption>Öffnungszeiten</caption>
+          <tbody>
+            <tr data-tag="1"><th scope="row">Montag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="2"><th scope="row">Dienstag</th><td>Ruhetag</td></tr>
+            <tr data-tag="3"><th scope="row">Mittwoch</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="4"><th scope="row">Donnerstag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="5"><th scope="row">Freitag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="6"><th scope="row">Samstag</th><td>11:30 – 22:00</td></tr>
+            <tr data-tag="0"><th scope="row">Sonntag</th><td>11:30 – 21:00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="zeigt">
+        <p class="augbraue">Tisch sichern</p>
+        <h2 style="font-size:clamp(1.75rem,4.2vw,2.75rem)">Am Wochenende besser reservieren.</h2>
+        <p style="color:var(--grau);max-width:34ch">Tische werden direkt am Telefon vergeben, ein Anruf genügt.</p>
+        <a class="tel-gross" href="tel:+4923828551018">02382 8551018</a>
+        <a class="knopf" href="tel:+4923828551018">Jetzt anrufen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Anfahrt -->
+<section class="block weich" id="anfahrt">
+  <div class="bahn">
+    <div class="anfahrt-raster">
+      <div class="zeigt">
+        <p class="augbraue">Herkommen</p>
+        <h2 style="font-size:clamp(1.875rem,4.6vw,3rem);margin-bottom:1.25rem">Am Stadtwald 6.</h2>
+        <address class="adresse">
+          Landrestaurant · Café Zur Langst<br>
+          Am Stadtwald 6<br>
+          59227 Ahlen
+        </address>
+        <a class="knopf klar" href="https://maps.google.com/?cid=8114312814330984560" target="_blank" rel="noopener">Route öffnen</a>
+        <ul class="weg">
+          <li>Kostenlose Parkplätze direkt am Haus</li>
+          <li>Wenige Minuten aus der Ahlener Innenstadt</li>
+          <li>Beliebter Halt für Motorrad- und Radtouren</li>
+        </ul>
+      </div>
+      <svg class="lageplan zeigt" viewBox="0 0 520 400" role="img"
+           aria-label="Lageplan: Von Ahlen über die Straße Am Stadtwald zum Landrestaurant am Langst-Teich, mit kostenlosem Parkplatz.">
+        <rect width="520" height="400" fill="#eadfc9"/>
+        <path d="M0 0h520v210c-90 26-180 10-270 30S70 268 0 250z" fill="#cfdcc2" opacity=".75"/>
+        <g fill="#9fb894" opacity=".8">
+          <circle cx="60" cy="60" r="20"/><circle cx="105" cy="42" r="14"/><circle cx="150" cy="70" r="18"/>
+          <circle cx="420" cy="52" r="17"/><circle cx="465" cy="80" r="13"/><circle cx="380" cy="88" r="12"/>
+          <circle cx="250" cy="40" r="15"/>
+        </g>
+        <ellipse cx="258" cy="250" rx="132" ry="62" fill="#8fbcc4"/>
+        <ellipse cx="258" cy="250" rx="132" ry="62" fill="none" stroke="#6f9ea8" stroke-width="3"/>
+        <text x="252" y="258" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#3d6670">Langst-Teich</text>
+        <path d="M0 350h130c40 0 60-24 96-30 26-4 50-2 74 2" stroke="#e6d5b4" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <text x="60" y="382" font-family="system-ui" font-size="13" fill="#6b5b3e" font-weight="600">Am Stadtwald</text>
+        <text x="8" y="336" font-family="system-ui" font-size="12" fill="#6b5b3e">← Ahlen Zentrum</text>
+        <rect x="330" y="322" width="58" height="40" rx="6" fill="#dcd0b4" stroke="#b8a67f" stroke-width="2"/>
+        <text x="359" y="348" text-anchor="middle" font-family="system-ui" font-size="19" font-weight="700" fill="#5f6f8a">P</text>
+        <text x="359" y="376" text-anchor="middle" font-family="system-ui" font-size="11" fill="#6b5b3e">kostenlos</text>
+        <path d="M392 196l34-26 34 26v52h-68z" fill="#f7f2e6" stroke="#a89a7c" stroke-width="2"/>
+        <path d="M386 198l40-30 40 30" fill="none" stroke="#b4573a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="404" y="216" width="14" height="16" fill="#c8d8dc" stroke="#a89a7c"/>
+        <rect x="432" y="216" width="14" height="16" fill="#c8d8dc" stroke="#a89a7c"/>
+        <path d="M392 250h68v14h-68z" fill="#d8c39c" stroke="#b09a72" stroke-width="1.5"/>
+        <text x="426" y="156" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#2f4a4e" font-weight="700">Zur Langst</text>
+        <path d="M370 322c8-22 24-40 46-56" stroke="#b8a67f" stroke-width="4" fill="none" stroke-dasharray="6 7" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="fuss">
+  <div class="fuss-innen">
+    <div>
+      <p style="font-family:var(--display);font-weight:800;font-size:1.125rem;color:var(--creme)">Zur Langst</p>
+      <p style="margin-top:.35rem">Am Stadtwald 6 · 59227 Ahlen</p>
+    </div>
+    <div>
+      <p><a href="tel:+4923828551018">02382 8551018</a></p>
+      <p>Dienstag Ruhetag</p>
+    </div>
+    <div>
+      <p><a href="speisekarte.html">Speisekarte</a></p>
+      <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+    </div>
+    <p class="entwurf">Entwurf einer neuen Website, erstellt von ILIC ECOM HUB.</p>
+  </div>
+</footer>
+
+<nav class="leiste" aria-label="Schnellzugriff">
+  <a class="knopf" href="tel:+4923828551018">Anrufen</a>
+  <a class="knopf klar" href="speisekarte.html">Speisekarte</a>
+</nav>
+
+<script>
+(function(){
+  'use strict';
+  var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Öffnungszeiten — hier ändern. 11.5 = 11:30, null = Ruhetag */
+  var OEFFNUNG = {0:[11.5,21], 1:[11.5,22], 2:null, 3:[11.5,22], 4:[11.5,22], 5:[11.5,22], 6:[11.5,22]};
+  var TAGESZEITEN = [
+    {bis:14.5, wort:'Jetzt geöffnet', angebot:'Mittags: frisch vom Grill, dazu das Salatbuffet'},
+    {bis:17.5, wort:'Jetzt geöffnet', angebot:'Kaffeezeit: Kaffee und Kuchen auf der Terrasse'},
+    {bis:24,   wort:'Jetzt geöffnet', angebot:'Abends: vom Grill, mit Blick über den Teich'}
+  ];
+  var namen = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  var jetzt = new Date(), tag = jetzt.getDay(), stunde = jetzt.getHours() + jetzt.getMinutes()/60;
+  var heute = OEFFNUNG[tag];
+  function uhr(z){ return Math.floor(z) + ':' + (z % 1 ? '30' : '00'); }
+  function naechsterOffen(){
+    for (var i = 1; i <= 7; i++){ var t = (tag + i) % 7; if (OEFFNUNG[t]) return {tag:t, abstand:i}; }
+    return null;
+  }
+  var offen = !!heute && stunde >= heute[0] && stunde < heute[1];
+  var zeile = document.querySelector('.zeiten tr[data-tag="'+tag+'"]');
+  if (zeile) zeile.classList.add('heute');
+
+  var punkt = document.getElementById('statusPunkt');
+  var wort = document.getElementById('statusWort');
+  var angebot = document.getElementById('angebotText');
+
+  if (offen) {
+    var f = TAGESZEITEN.find(function(x){ return stunde < x.bis; }) || TAGESZEITEN[TAGESZEITEN.length-1];
+    wort.textContent = f.wort;
+    angebot.textContent = f.angebot + ' · noch bis ' + uhr(heute[1]) + ' Uhr';
+  } else {
+    punkt.classList.add('zu');
+    if (!heute) {
+      var nr = naechsterOffen();
+      wort.textContent = 'Heute Ruhetag';
+      angebot.textContent = 'Wir sind ' + (nr.abstand === 1 ? 'morgen' : 'am ' + namen[nr.tag]) + ' ab ' + uhr(OEFFNUNG[nr.tag][0]) + ' Uhr wieder da';
+    } else if (stunde < heute[0]) {
+      wort.textContent = 'Wir öffnen um ' + uhr(heute[0]) + ' Uhr';
+      angebot.textContent = 'Danach: ' + TAGESZEITEN[0].angebot;
+    } else {
+      var na = naechsterOffen();
+      wort.textContent = 'Für heute geschlossen';
+      angebot.textContent = 'Wieder ' + (na.abstand === 1 ? 'morgen' : 'am ' + namen[na.tag]) + ' ab ' + uhr(OEFFNUNG[na.tag][0]) + ' Uhr';
+    }
+  }
+
+  /* Kopfzeile bekommt Hintergrund, sobald der Auftakt weg ist */
+  var kopf = document.querySelector('.kopf');
+  var auftakt = document.querySelector('.auftakt');
+  if ('IntersectionObserver' in window && auftakt) {
+    new IntersectionObserver(function(e){
+      kopf.classList.toggle('fest', !e[0].isIntersecting);
+    }, {rootMargin:'-88% 0px 0px 0px'}).observe(auftakt);
+  }
+
+  /* Zähler */
+  var feld = document.getElementById('zaehler');
+  if (feld) {
+    if (ruhig || !('IntersectionObserver' in window)) { feld.textContent = '705'; }
+    else {
+      var lief = false;
+      new IntersectionObserver(function(e, b){
+        if (!e[0].isIntersecting || lief) return;
+        lief = true; b.disconnect();
+        var start = null;
+        function schritt(t){
+          if (!start) start = t;
+          var p = Math.min(1, (t - start) / 1600);
+          feld.textContent = Math.round((1 - Math.pow(1 - p, 3)) * 705);
+          if (p < 1) requestAnimationFrame(schritt);
+        }
+        requestAnimationFrame(schritt);
+      }, {threshold:.6}).observe(feld);
+    }
+  }
+
+  /* Tafeln blenden auf, während sie über das stehende Bild wandern */
+  var tafeln = document.querySelectorAll('.tafel, .zeigt');
+  if (!('IntersectionObserver' in window) || ruhig) {
+    tafeln.forEach(function(el){ el.classList.add('da'); el.style.opacity = 1; });
+  } else {
+    document.querySelectorAll('.tafel').forEach(function(t){
+      t.style.opacity = 0;
+      t.style.transform = 'translateY(20px)';
+      t.style.transition = 'opacity .8s ease, transform .8s ease';
+    });
+    var beob = new IntersectionObserver(function(eintraege){
+      eintraege.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.classList.add('da');
+          e.target.style.opacity = 1;
+          e.target.style.transform = 'none';
+        } else if (e.target.classList.contains('tafel')) {
+          /* beim Weiterscrollen wieder ausblenden — jede Tafel bekommt ihren eigenen Moment */
+          e.target.style.opacity = 0;
+          e.target.style.transform = 'translateY(-16px)';
+        }
+      });
+    }, {rootMargin:'-25% 0px -25% 0px'});
+    tafeln.forEach(function(el){ beob.observe(el); });
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Restaurant",
+  "name":"Landrestaurant · Café Zur Langst",
+  "servesCuisine":["Deutsch","Balkan","Grill"],
+  "address":{"@type":"PostalAddress","streetAddress":"Am Stadtwald 6","postalCode":"59227","addressLocality":"Ahlen","addressCountry":"DE"},
+  "geo":{"@type":"GeoCoordinates","latitude":51.7756614,"longitude":7.9158716},
+  "telephone":"+49 2382 8551018",
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","reviewCount":"705"},
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:30","closes":"22:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"11:30","closes":"21:00"}
+  ]
+}
+</script>
+</body>
+</html>
