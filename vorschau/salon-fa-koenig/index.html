@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js laden">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Salon FA König · Der Salon-Besuch · Erlebnis-Konzept</title>
+<meta name="description" content="Konzept-Vorschau: ein Scroll-Besuch im Salon FA König in Hamm, Damen- &amp; Herren-Friseur an der Bahnhofstraße 23.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Salon FA König · Der Salon-Besuch">
+<meta property="og:description" content="Hier sind Sie König: ein Scroll-Erlebnis durch den Damen- &amp; Herren-Salon in Hamm (Konzept-Vorschau).">
+<meta property="og:image" content="fotos/4.jpg">
+<meta name="theme-color" content="#f4f5f8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect width='50' height='50' rx='13' fill='%23f4f5f8'/%3E%3Cpath d='M12 33 L12 20 L19 27 L25 15 L31 27 L38 20 L38 33 Z' fill='none' stroke='%232b3a8f' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="schriften/fonts.css">
+<script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
+<style>
+:root{
+  --grund:oklch(0.972 0.004 260);
+  --grund-tief:oklch(0.94 0.006 260);
+  --perl:oklch(0.955 0.008 85);
+  --ink:oklch(0.22 0.015 265);
+  --royal:oklch(0.44 0.14 265);
+  --royal-hell:oklch(0.56 0.12 265);
+  --royal-tief:oklch(0.3 0.09 265);
+  --royal-nacht:oklch(0.24 0.06 265);
+  --silber:oklch(0.62 0.015 255);
+  --linie:oklch(0.88 0.008 260);
+  --linie-dunkel:oklch(0.42 0.05 265);
+  --wa:oklch(0.6 0.15 150);
+  --wa-deep:oklch(0.52 0.15 150);
+  --disp:"Bebas Neue",system-ui,sans-serif;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --maxw:1180px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-kopf:40; --z-fortschritt:60; --z-loader:100;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
+html.laden.js{overflow:hidden}
+body{background:var(--grund);color:var(--ink);font-family:var(--sans);
+  font-size:clamp(1rem,0.97rem + 0.16vw,1.08rem);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:.96;letter-spacing:.015em;text-wrap:balance}
+p{text-wrap:pretty;max-width:62ch}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--royal);color:#fff}
+:focus-visible{outline:2.5px solid var(--royal);outline-offset:3px;border-radius:4px}
+.wrap{width:min(100% - 2.5rem,var(--maxw));margin-inline:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);
+  font-weight:600;font-size:1rem;padding:1rem 1.9rem;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+  min-height:52px;transition:transform .3s var(--ease),background .25s,color .25s,border-color .25s,box-shadow .3s var(--ease)}
+.btn svg{width:20px;height:20px;flex:0 0 auto}
+.btn-royal{background:var(--royal);color:#fff}
+.btn-royal:hover{background:var(--royal-hell);transform:translateY(-2px);box-shadow:0 14px 30px -14px oklch(0.44 0.14 265/.55)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{background:var(--wa-deep);transform:translateY(-2px);box-shadow:0 12px 26px -12px oklch(0.6 0.15 150/.7)}
+.btn-rand{background:transparent;color:#fff;border-color:oklch(1 0 0/.5)}
+.btn-rand:hover{border-color:#fff;transform:translateY(-2px)}
+
+/* ---------- Fortschritt + Kopf ---------- */
+#fortschritt{position:fixed;inset:0 0 auto 0;height:3px;z-index:var(--z-fortschritt);
+  background:linear-gradient(90deg,var(--royal-tief),var(--royal) 55%,var(--royal-hell));transform:scaleX(0);transform-origin:left center;pointer-events:none}
+.kopf{position:fixed;inset:0 0 auto 0;z-index:var(--z-kopf);display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem clamp(1rem,4vw,2.4rem);pointer-events:none}
+.kopf>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:.6rem;background:oklch(0.99 0.002 260/.9);border:1px solid var(--linie);
+  backdrop-filter:blur(8px);border-radius:999px;padding:.4rem .95rem .4rem .45rem;box-shadow:0 8px 22px -16px oklch(0.2 0.02 265/.6)}
+.brand .mk{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--royal);
+  border:1.5px solid oklch(0.44 0.14 265/.4);background:#fff}
+.brand .mk svg{width:18px;height:18px}
+.brand b{font-family:var(--disp);font-weight:400;font-size:1.06rem;letter-spacing:.05em;line-height:1.05}
+.brand small{display:block;font-weight:600;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--silber);line-height:1.2}
+.kopf-link{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.85rem;color:var(--ink);
+  background:oklch(0.99 0.002 260/.9);border:1px solid var(--linie);backdrop-filter:blur(8px);
+  border-radius:999px;padding:.55rem 1.05rem;box-shadow:0 8px 22px -16px oklch(0.2 0.02 265/.6);transition:transform .25s var(--ease),border-color .25s}
+.kopf-link svg{width:15px;height:15px;color:var(--royal)}
+.kopf-link:hover{transform:translateY(-2px);border-color:var(--royal)}
+
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;z-index:var(--z-loader);background:var(--grund);display:grid;place-content:center;
+  justify-items:center;gap:1.2rem;text-align:center;color:var(--ink)}
+.no-js #loader,html.statisch #loader{display:none}
+.lader-krone{width:120px;height:96px}
+.lader-krone path,.lader-krone circle{stroke:var(--royal);stroke-width:3.5;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.lade-zeile{display:flex;gap:.45rem;font-family:var(--disp);font-size:1.7rem;letter-spacing:.09em;overflow:hidden}
+.lade-zeile em{font-style:normal;color:var(--royal)}
+.lade-ort{font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--silber)}
+
+/* ---------- Entree (Iris-Blende) ---------- */
+#entree{position:relative;overflow:clip}
+.entree-buehne{position:relative;height:100svh;overflow:hidden;background:var(--grund)}
+.blick{position:absolute;inset:0;z-index:2}
+.js .blick{clip-path:circle(0% at 50% 46%)}
+html.statisch .blick,.no-js .blick{clip-path:none}
+.blick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.js .blick img{transform:scale(1.15)}
+.blick-dunkel{position:absolute;inset:0;background:oklch(0.24 0.03 265/.38)}
+.entree-ui{position:absolute;inset:0;z-index:3;display:grid;place-content:center;justify-items:center;text-align:center;
+  padding:1.5rem;color:var(--ink)}
+html.statisch .entree-ui,.no-js .entree-ui{color:#fff}
+.entree-krone{width:clamp(72px,9vw,104px);height:auto;margin-bottom:1rem}
+.entree-krone path,.entree-krone circle{stroke:var(--royal);stroke-width:3.5;fill:none;stroke-linejoin:round;stroke-linecap:round}
+html.statisch .entree-krone path,html.statisch .entree-krone circle,.no-js .entree-krone path,.no-js .entree-krone circle{stroke:#fff}
+.entree-kicker{font-weight:600;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--royal)}
+html.statisch .entree-kicker,.no-js .entree-kicker{color:#fff}
+.entree-ui h1{font-size:clamp(3.4rem,2.2rem + 7vw,7rem);margin:.7rem 0 0}
+.entree-sub{margin:1.2rem auto 0;font-size:clamp(1.02rem,.97rem + .4vw,1.28rem);font-weight:500;color:oklch(0.35 0.02 265);max-width:38ch}
+html.statisch .entree-sub,.no-js .entree-sub{color:oklch(1 0 0/.92)}
+.entree-ui .btn{margin-top:2.1rem}
+.entree-hinweis{margin-top:1.05rem;font-size:.86rem;font-weight:500;color:var(--silber);display:flex;align-items:center;gap:.5rem}
+.entree-hinweis svg{width:16px;height:16px}
+.js .entree-hinweis svg{animation:nicken 1.8s var(--ease) infinite}
+@keyframes nicken{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ---------- Kapitel-Gerüst ---------- */
+.kapitel{position:relative}
+.badge{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--royal);background:oklch(0.44 0.14 265/.08);border:1px solid oklch(0.44 0.14 265/.25);border-radius:999px;padding:.38rem 1rem}
+.kap-kopf{padding:clamp(5rem,4rem + 6vw,9rem) 0 clamp(2rem,1.5rem + 2vw,3.5rem)}
+.kap-kopf h2,.schwelle-text h2{font-size:clamp(2.7rem,1.8rem + 4.4vw,5rem);margin-top:1.1rem}
+.kap-intro{margin-top:1.1rem;font-size:clamp(1.02rem,.97rem + .35vw,1.25rem);color:oklch(0.45 0.02 262);font-weight:500}
+.szene-pin{min-height:100svh;display:grid;align-content:center;gap:clamp(1.4rem,3vw,3rem)}
+h3{font-size:clamp(1.9rem,1.5rem + 2vw,3rem)}
+.szene-note{font-size:.88rem;color:var(--silber);border-top:1px solid var(--linie);padding-top:.8rem;margin-top:1.3rem;max-width:44ch}
+
+/* ---------- Szene: Anatomie (Fade von hinten) ---------- */
+#fade .szene-pin{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);align-items:center}
+.anatomie{position:relative;justify-self:center;width:min(100%,420px)}
+.anatomie-rahmen{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1600/2133;max-height:74svh;
+  border:1px solid var(--linie);box-shadow:0 34px 70px -30px oklch(0.24 0.06 265/.45);background:#fff}
+.anatomie-rahmen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.anatomie-rahmen svg{position:absolute;inset:0;width:100%;height:100%}
+.mark circle{fill:oklch(0.99 0.002 260/.9);stroke:var(--royal);stroke-width:5}
+.mark text{font-family:var(--sans);font-weight:700;font-size:46px;fill:var(--royal)}
+.mark .mlinie{stroke:var(--royal);stroke-width:5;fill:none;opacity:.9}
+.js .mark{opacity:0}
+html.statisch .mark,.no-js .mark{opacity:1}
+.anatomie figcaption{margin-top:.9rem;font-size:.85rem;font-weight:600;color:var(--silber);text-align:center}
+.fade-info h3{margin-bottom:1.4rem}
+.schritte{list-style:none;display:grid;gap:.9rem;counter-reset:s}
+.schritte li{display:grid;grid-template-columns:42px 1fr;gap:.1rem .95rem;align-items:start;counter-increment:s;
+  opacity:.38;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.schritte li::before{content:counter(s);display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
+  font-family:var(--disp);font-size:1.15rem;color:var(--ink);background:#fff;border:1.5px solid var(--linie);
+  transition:background .35s,color .35s,border-color .35s}
+.schritte li b{display:block;grid-column:2;font-family:var(--disp);font-weight:400;font-size:1.42rem;letter-spacing:.04em;line-height:1.15}
+.schritte li span{display:block;grid-column:2;font-size:.93rem;color:oklch(0.45 0.02 262)}
+.schritte li.aktiv{opacity:1;transform:translateX(4px)}
+.schritte li.aktiv::before{background:var(--royal);border-color:var(--royal);color:#fff}
+html.statisch .schritte li,.no-js .schritte li{opacity:1;transform:none}
+
+/* ---------- Signatur (Parallax) ---------- */
+#signatur{position:relative;height:min(78svh,720px);overflow:hidden;margin-top:clamp(3rem,2rem + 4vw,6rem)}
+#signatur img{position:absolute;inset:-12% 0;width:100%;height:124%;object-fit:cover;will-change:transform}
+#signatur figcaption{position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);white-space:nowrap;
+  font-size:.82rem;font-weight:600;color:#fff;background:oklch(0.24 0.06 265/.75);backdrop-filter:blur(6px);
+  padding:.45rem 1.1rem;border-radius:999px;border:1px solid oklch(1 0 0/.2)}
+
+/* ---------- Preiskarten ---------- */
+.preise{padding:clamp(3rem,2rem + 4vw,6rem) 0 clamp(4rem,3rem + 5vw,7rem)}
+.preise .lead{margin-top:.9rem;color:oklch(0.45 0.02 262);font-weight:500}
+.menu{list-style:none;margin-top:2rem;max-width:760px;display:grid;gap:.2rem}
+.menu li{display:flex;align-items:baseline;gap:.9rem;padding:.85rem 0;border-bottom:1px solid var(--linie)}
+.menu .m-name{font-weight:600;font-size:1.04rem}
+.menu .m-info{font-size:.85rem;color:var(--silber)}
+.menu .m-dots{flex:1;border-bottom:2px dotted var(--linie);transform:translateY(-4px)}
+.menu .m-preis{font-family:var(--disp);font-size:1.75rem;color:var(--royal);white-space:nowrap;letter-spacing:.03em}
+.preis-note{margin-top:1.2rem;font-size:.83rem;color:var(--silber);max-width:56ch}
+.preise-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,4vw,4rem);align-items:center}
+.preise-deko{display:grid;gap:.8rem}
+.preise-deko img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:16px;border:1px solid var(--linie);
+  box-shadow:0 26px 52px -28px oklch(0.24 0.06 265/.5)}
+.preise-deko figcaption{font-size:.84rem;font-weight:600;color:var(--silber);text-align:center}
+
+/* ---------- Schwelle ---------- */
+#schwelle{position:relative}
+.schwelle-pin{position:relative;height:100svh;overflow:hidden;display:grid;place-items:center}
+.schwelle-farbe{position:absolute;inset:0;background:var(--grund-tief)}
+.schwelle-text{position:relative;z-index:2;text-align:center;padding:1.5rem;display:grid;justify-items:center}
+.schwelle-text p:not(.badge){margin:1.1rem auto 0;color:oklch(0.45 0.02 262);font-weight:500;font-size:clamp(1rem,.95rem + .4vw,1.25rem);max-width:44ch}
+.tuer{position:relative;z-index:1;width:min(64vw,380px);aspect-ratio:1/1;border-radius:22px;overflow:hidden;
+  box-shadow:0 40px 80px -36px oklch(0.24 0.06 265/.55);will-change:transform}
+.js .schwelle-pin .tuer{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%)}
+html.statisch .schwelle-pin,.no-js .schwelle-pin{height:auto;padding:4rem 1.25rem;gap:2rem}
+.tuer img{width:100%;height:100%;object-fit:cover;will-change:transform}
+
+/* ---------- Damen (perl) ---------- */
+.kap-damen{background:linear-gradient(180deg,var(--grund-tief),var(--perl) 40%,var(--grund))}
+.damen-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.6rem,3vw,3rem);align-items:start;
+  padding-bottom:clamp(3.5rem,2.5rem + 4vw,6rem)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem}
+.chips li{font-weight:600;font-size:.95rem;padding:.6rem 1.15rem;border-radius:999px;border:1px solid var(--linie);background:#fff}
+.chips li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.55rem;vertical-align:1px;background:var(--royal)}
+.damen-note{margin-top:1.4rem;font-size:.88rem;color:oklch(0.45 0.02 262);max-width:46ch}
+.beleg{position:relative;background:#fff;border:1px solid var(--linie);border-radius:18px;
+  padding:1.9rem 1.7rem 1.8rem;display:grid;gap:1rem;align-content:start;box-shadow:0 24px 48px -30px oklch(0.24 0.06 265/.4)}
+.beleg::before{content:"\201E\201E";position:absolute;top:-2.1rem;right:1.3rem;font-family:var(--disp);
+  font-size:4rem;line-height:1;color:var(--royal);letter-spacing:-.08em;pointer-events:none}
+.beleg .z-sterne{display:flex;gap:.25rem}
+.beleg .z-sterne svg{width:16px;height:16px;color:var(--royal)}
+.beleg p{font-size:1.02rem;line-height:1.65}
+.beleg footer{font-size:.85rem;font-weight:600;color:var(--silber)}
+
+/* ---------- Stimmen (royal) ---------- */
+#stimmen{background:linear-gradient(180deg,var(--royal-nacht),var(--royal-tief));color:#fff}
+#stimmen .wrap{padding:clamp(4.5rem,3.5rem + 5vw,8rem) 0}
+.stimmen-kopf{text-align:center;display:grid;justify-items:center}
+#stimmen .badge{color:#fff;background:oklch(1 0 0/.1);border-color:oklch(1 0 0/.3)}
+.rating{display:flex;align-items:baseline;gap:1rem;margin-top:1.2rem}
+.rating .zahl{font-family:var(--disp);font-size:clamp(4.4rem,3.4rem + 5vw,7rem);color:#fff;line-height:1}
+.sterne{display:flex;gap:.35rem}
+.sterne svg{width:clamp(22px,2.6vw,30px);height:clamp(22px,2.6vw,30px);color:oklch(0.85 0.07 265)}
+.rating-sub{margin-top:.6rem;font-size:.9rem;font-weight:600;color:oklch(1 0 0/.75);letter-spacing:.06em;text-transform:uppercase}
+.zitate{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin-top:3rem}
+.zitat{background:oklch(1 0 0/.07);border:1px solid oklch(1 0 0/.16);border-radius:18px;padding:1.6rem 1.5rem;
+  display:grid;gap:1rem;align-content:start}
+.zitat p{font-size:.97rem;line-height:1.6;color:oklch(1 0 0/.94)}
+.zitat footer{display:flex;align-items:center;gap:.75rem;font-size:.85rem;font-weight:600;color:oklch(1 0 0/.7)}
+.zitat .ava{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  font-weight:700;color:var(--royal-tief);background:#fff}
+.zitat .z-sterne{display:flex;gap:.2rem}
+.zitat .z-sterne svg{width:15px;height:15px;color:oklch(0.85 0.07 265)}
+
+/* ---------- Marquee ---------- */
+.band{overflow:hidden;border-block:1px solid var(--linie);background:var(--grund-tief);padding:1.05rem 0}
+.band-spur{display:flex;gap:3rem;width:max-content;will-change:transform;animation:band 26s linear infinite}
+.band span{font-family:var(--disp);font-size:1.5rem;letter-spacing:.12em;color:var(--silber);display:inline-flex;align-items:center;gap:3rem;white-space:nowrap}
+.band i{font-style:normal;color:var(--royal)}
+@keyframes band{to{transform:translateX(-50%)}}
+html.statisch .band-spur,.no-js .band-spur{animation:none}
+
+/* ---------- Finale ---------- */
+#finale{position:relative;color:#fff;background:
+  radial-gradient(120% 90% at 50% 0%,oklch(0.4 0.11 265/.5) 0%,transparent 55%),var(--royal-nacht);
+  padding:clamp(5rem,4rem + 6vw,9rem) 0 0}
+.finale-inhalt{display:grid;justify-items:center;text-align:center}
+.final-mark{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  border:1.5px solid oklch(1 0 0/.4);background:oklch(1 0 0/.08);box-shadow:0 24px 50px -20px oklch(0 0 0/.5)}
+.final-mark svg{width:42px;height:42px}
+#finale h2{font-size:clamp(3rem,2rem + 5vw,5.6rem);margin-top:1.6rem}
+#finale .finale-inhalt>p{margin:1.2rem auto 0;font-size:clamp(1.02rem,.97rem + .4vw,1.25rem);font-weight:500;
+  color:oklch(1 0 0/.85);max-width:46ch}
+.final-cta{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin-top:2.3rem}
+.info-karten{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:clamp(3rem,2.5rem + 2vw,4.5rem);width:100%;text-align:left}
+.info{background:oklch(1 0 0/.07);border:1px solid oklch(1 0 0/.16);border-radius:18px;padding:1.5rem;display:grid;gap:.4rem;align-content:start}
+.info h4{font-family:var(--sans);font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:oklch(0.85 0.07 265);margin-bottom:.5rem}
+.info p,.info a{font-size:.95rem;color:#fff}
+.info a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:oklch(1 0 0/.4)}
+.info a:hover{text-decoration-color:#fff}
+.zeiten{display:grid;gap:.3rem;font-size:.93rem}
+.zeiten div{display:flex;justify-content:space-between;gap:1rem;color:oklch(1 0 0/.75)}
+.zeiten div.heute{color:#fff;font-weight:600}
+.zeiten div.heute::after{content:"· heute";font-size:.78rem;font-weight:700;color:oklch(0.85 0.07 265)}
+#finale footer{margin-top:clamp(3.5rem,3rem + 3vw,6rem);border-top:1px solid oklch(1 0 0/.2);
+  padding:1.4rem 0 max(1.4rem,env(safe-area-inset-bottom));font-size:.82rem;color:oklch(1 0 0/.7);text-align:center}
+
+/* ---------- Responsive ---------- */
+@media(max-width:960px){
+  #fade .szene-pin{grid-template-columns:1fr;gap:1.5rem;align-content:center}
+  .anatomie{width:min(62vw,290px)}
+  .anatomie-rahmen{max-height:46svh}
+  .anatomie figcaption{display:none}
+  .schritte{gap:.55rem}
+  .schritte li{grid-template-columns:34px 1fr;gap:.05rem .75rem}
+  .schritte li::before{width:34px;height:34px;font-size:.95rem}
+  .schritte li b{font-size:1.18rem}
+  .schritte li span{font-size:.84rem}
+  .preise-grid{grid-template-columns:1fr}
+  .damen-grid{grid-template-columns:1fr}
+  .zitate{grid-template-columns:1fr}
+  .info-karten{grid-template-columns:1fr}
+}
+@media(max-width:540px){
+  .brand small{display:none}
+  .kopf-link span{display:none}
+  .kopf-link{padding:.55rem .7rem}
+  .final-cta{flex-direction:column;width:100%}
+  .final-cta .btn{width:100%}
+  .menu .m-info{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  html.js{scroll-behavior:auto}
+  .js .entree-hinweis svg{animation:none}
+  .band-spur{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="fortschritt" aria-hidden="true"></div>
+
+<header class="kopf">
+  <a class="brand" href="#entree" aria-label="Salon FA König — zum Anfang">
+    <span class="mk" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 17 L4 9 L8.5 13 L12 6.5 L15.5 13 L20 9 L20 17 Z"/></svg>
+    </span>
+    <span><b>Salon FA König</b><small>Damen &amp; Herren · Hamm</small></span>
+  </a>
+  <a class="kopf-link" href="tel:+4923812798652">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>02381&nbsp;2798652</span>
+  </a>
+</header>
+
+<div id="loader" aria-hidden="true">
+  <svg class="lader-krone" viewBox="0 0 120 96" aria-hidden="true">
+    <path class="k-form" d="M18 78 L18 34 L42 56 L60 18 L78 56 L102 34 L102 78 Z"/>
+    <circle class="k-p1" cx="18" cy="26" r="5"/>
+    <circle class="k-p2" cx="60" cy="10" r="5"/>
+    <circle class="k-p3" cx="102" cy="26" r="5"/>
+  </svg>
+  <p class="lade-zeile"><span>Salon</span><em>FA</em><span>König</span></p>
+  <p class="lade-ort">Damen &amp; Herren · Hamm</p>
+</div>
+
+<main>
+
+  <!-- ============ AKT 1 · DAS ENTREE ============ -->
+  <section id="entree" aria-label="Eingang: der Blick in den Salon">
+    <div class="entree-buehne">
+      <div class="blick">
+        <img src="fotos/6.jpg" width="1600" height="2133" fetchpriority="high"
+             alt="Frisch aufgehelltes, glatt geföhntes Haar einer Kundin im Salon FA König">
+        <div class="blick-dunkel" aria-hidden="true"></div>
+      </div>
+      <div class="entree-ui">
+        <svg class="entree-krone" viewBox="0 0 120 96" aria-hidden="true">
+          <path d="M18 78 L18 34 L42 56 L60 18 L78 56 L102 34 L102 78 Z"/>
+          <circle cx="18" cy="26" r="5"/><circle cx="60" cy="10" r="5"/><circle cx="102" cy="26" r="5"/>
+        </svg>
+        <p class="entree-kicker">Salon FA König · Bahnhofstraße 23, Hamm</p>
+        <h1>Hier sind Sie König.</h1>
+        <p class="entree-sub">Ein Rundgang durch den Salon an der Bahnhofstraße, für Damen und Herren.</p>
+        <button id="oeffnen" class="btn btn-royal" type="button">Salon betreten</button>
+        <p class="entree-hinweis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v14m0 0 5-5m-5 5-5-5"/></svg> oder einfach scrollen</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AKT 2 · DAS HANDWERK ============ -->
+  <section id="handwerk" class="kapitel" aria-label="Kapitel 1: Das Handwerk">
+    <div class="kap-kopf wrap">
+      <p class="badge">Der Besuch · Kapitel 1 — Das Handwerk</p>
+      <h2 class="split">Schnitte mit Anspruch.</h2>
+      <p class="kap-intro">Fade, Schere, Styling: 4,7 Sterne aus 74 Google-Bewertungen sprechen für die Arbeit am Stuhl.</p>
+    </div>
+
+    <div id="fade" class="szene" aria-label="Der Übergang, Schritt für Schritt">
+      <div class="szene-pin wrap">
+        <figure class="anatomie">
+          <div class="anatomie-rahmen">
+            <img src="fotos/3.jpg" width="1600" height="2133" decoding="async"
+                 alt="Frischer Skin Fade aus dem Salon FA König, von hinten fotografiert">
+            <svg viewBox="0 0 1600 2133" aria-hidden="true">
+              <g class="mark m1"><path class="mlinie" d="M630 1150 L400 1150"/><circle cx="700" cy="1150" r="58"/><text x="700" y="1170" text-anchor="middle">1</text></g>
+              <g class="mark m2"><path class="mlinie" d="M1030 660 L1290 660"/><circle cx="960" cy="660" r="58"/><text x="960" y="680" text-anchor="middle">2</text></g>
+              <g class="mark m3"><path class="mlinie" d="M960 1440 L1230 1440"/><circle cx="890" cy="1440" r="58"/><text x="890" y="1460" text-anchor="middle">3</text></g>
+              <g class="mark m4"><path class="mlinie" d="M1100 920 L1380 920"/><circle cx="1030" cy="920" r="58"/><text x="1030" y="940" text-anchor="middle">4</text></g>
+            </svg>
+          </div>
+          <figcaption>Echtes Foto aus dem Salon: ein Übergang, vier Entscheidungen.</figcaption>
+        </figure>
+        <div class="fade-info">
+          <h3>Der perfekte Übergang, von hinten gesehen.</h3>
+          <ol class="schritte">
+            <li class="aktiv"><b>Der Übergang</b><span>Von der Haut ins Deckhaar: der Fade wächst Millimeter für Millimeter.</span></li>
+            <li><b>Das Deckhaar</b><span>Mit der Schere strukturiert, fällt wie gekämmt.</span></li>
+            <li><b>Die Nackenlinie</b><span>Sauber gezogen, ohne harte Kante.</span></li>
+            <li><b>Das Finish</b><span>Gekämmt, gelegt, fertig: eine Rückansicht zum Herzeigen.</span></li>
+          </ol>
+          <p class="szene-note">Scrollen Sie die vier Schritte durch: Jeder zeigt, wo am Kopf er entschieden wird.</p>
+        </div>
+      </div>
+    </div>
+
+    <figure id="signatur">
+      <img src="fotos/5.jpg" width="1080" height="1080" loading="lazy" decoding="async"
+           alt="Slick-Back-Herrenschnitt mit tiefem Übergang aus dem Salon FA König">
+      <figcaption>Zweite Signatur: Slick Back mit tiefem Übergang</figcaption>
+    </figure>
+
+    <div class="wrap preise">
+      <div class="preise-grid">
+      <div>
+      <h3>Die Karte für Herren.</h3>
+      <p class="lead">Klassisch bezahlbar, vom Maschinenschnitt bis zur heißen Rasur.</p>
+      <ul class="menu">
+        <li><span class="m-name">Herrenschnitt</span><span class="m-info">Waschen, Schnitt, Styling</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">24&nbsp;€</span></li>
+        <li><span class="m-name">Schnitt &amp; Bart</span><span class="m-info">Haarschnitt mit Bartkontur</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">34&nbsp;€</span></li>
+        <li><span class="m-name">Maschinenschnitt</span><span class="m-info">Sauberer Cut in einer Länge</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">16&nbsp;€</span></li>
+        <li><span class="m-name">Rasur, klassisch</span><span class="m-info">Heiße Tücher, Messer</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">19&nbsp;€</span></li>
+        <li><span class="m-name">Bartstyling</span><span class="m-info">Trimmen, Kontur, Pflege</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">15&nbsp;€</span></li>
+        <li><span class="m-name">Kinderschnitt</span><span class="m-info">Bis 12 Jahre</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">14&nbsp;€</span></li>
+      </ul>
+      <p class="preis-note">Beispielpreise aus der Vorbereitung: Sie werden vor dem Livegang gemeinsam mit dem Salon final eingetragen.</p>
+      </div>
+      <figure class="preise-deko">
+        <img src="fotos/5.jpg" width="1080" height="1080" loading="lazy" decoding="async"
+             alt="Detailaufnahme eines präzisen Herrenschnitts im Salon FA König">
+        <figcaption>Präzision aus dem Salon an der Bahnhofstraße.</figcaption>
+      </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AKT 3 · DIE SCHWELLE ============ -->
+  <section id="schwelle" aria-label="Kapitel 2: die Damen-Welt öffnet sich">
+    <div class="schwelle-pin">
+      <div class="schwelle-farbe" aria-hidden="true"></div>
+      <div class="schwelle-text">
+        <p class="badge">Der Besuch · Kapitel 2 — Die Damen</p>
+        <h2>Und die Damen?</h2>
+        <p>Vom präzisen Bob bis zur Farbe: die zweite Hälfte des Salons, mit derselben Sorgfalt.</p>
+      </div>
+      <div class="tuer">
+        <img src="fotos/4.jpg" width="1200" height="1200" decoding="async"
+             alt="Präzise geschnittener, glänzender Bob aus dem Salon FA König">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AKT 4 · DIE DAMEN ============ -->
+  <section id="damen" class="kapitel kap-damen" aria-label="Kapitel 2: Die Damen">
+    <div class="kap-kopf wrap">
+      <p class="badge">Damen im Salon FA König</p>
+      <h2 class="split">Vom Bob bis zur Farbe.</h2>
+      <p class="kap-intro">Schneiden, Farbe, Hochstecken und Make-up zum Anlass, mit Beratung am Empfang.</p>
+    </div>
+
+    <div class="wrap damen-grid">
+      <div>
+        <h3>Was die Damen erwartet</h3>
+        <ul class="chips">
+          <li>Schneiden &amp; Föhnen</li>
+          <li>Farbe &amp; Strähnen</li>
+          <li>Dauerwelle &amp; Styling</li>
+          <li>Hochstecken zum Anlass</li>
+          <li>Make-up</li>
+        </ul>
+        <p class="damen-note">Die Damen-Preiskarte pflegen wir gemeinsam mit dem Salon ein, ehrlich statt geraten. Was es schon gibt: den Beleg der Kundschaft rechts.</p>
+      </div>
+      <blockquote class="beleg">
+        <span class="z-sterne" aria-label="5 Sterne"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg></span>
+        <p>„Direkt am Empfang wird man freundlich empfangen und auf ein heißes oder kaltes Getränk eingeladen. […] Sehr gute Herren- und Damen-Friseure. […] Meine Frau hat Haare gefärbt, geschnitten und hochgesteckt bekommen, mit Make-up. Wir beide sind sehr zufrieden und sind jetzt Stammkunden."</p>
+        <footer>Xalid X. · Google-Bewertung</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============ AKT 5 · STIMMEN ============ -->
+  <section id="stimmen" aria-label="Google-Bewertungen">
+    <div class="wrap">
+      <div class="stimmen-kopf">
+        <p class="badge">Was Hamm über den Salon sagt</p>
+        <div class="rating">
+          <span class="zahl">4,7</span>
+          <span class="sterne" aria-label="4,7 von 5 Sternen">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+          </span>
+        </div>
+        <p class="rating-sub">aus 74 Google-Bewertungen</p>
+      </div>
+      <div class="zitate">
+        <blockquote class="zitat">
+          <span class="z-sterne" aria-label="5 Sterne"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg></span>
+          <p>„Sehr schöner Salon, geile Haarschnitte, echt krass, was die drauf haben. Bin mega zufrieden und würde weiterhin hingehen und empfehlen."</p>
+          <footer><span class="ava" aria-hidden="true">L</span>Lawan Q. · Google</footer>
+        </blockquote>
+        <blockquote class="zitat">
+          <span class="z-sterne" aria-label="5 Sterne"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg></span>
+          <p>„War das erste Mal da. Super! Hat meine Haare so geschnitten, wie ich das haben wollte."</p>
+          <footer><span class="ava" aria-hidden="true">B</span>Bioletta H. · Google</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" aria-hidden="true">
+    <div class="band-spur">
+      <span>Damen &amp; Herren <i>·</i> Bahnhofstraße 23, Hamm <i>·</i> 4,7 ★ bei Google <i>·</i> Mo–Sa geöffnet <i>·</i></span>
+      <span>Damen &amp; Herren <i>·</i> Bahnhofstraße 23, Hamm <i>·</i> 4,7 ★ bei Google <i>·</i> Mo–Sa geöffnet <i>·</i></span>
+    </div>
+  </div>
+
+  <!-- ============ AKT 6 · FINALE ============ -->
+  <section id="finale" aria-label="Termin und Kontakt">
+    <div class="wrap finale-inhalt">
+      <div class="final-mark" aria-hidden="true">
+        <svg viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M18 78 L18 34 L42 56 L60 18 L78 56 L102 34 L102 78 Z"/><circle cx="18" cy="26" r="5"/><circle cx="60" cy="10" r="5"/><circle cx="102" cy="26" r="5"/></svg>
+      </div>
+      <h2 class="split">Der nächste Termin gehört Ihnen.</h2>
+      <p>Damen &amp; Herren an der Bahnhofstraße 23: anrufen oder per WhatsApp schreiben, der Salon meldet sich.</p>
+      <div class="final-cta">
+        <a class="btn btn-royal" href="tel:+4923812798652" style="background:#fff;color:var(--royal-tief)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          02381 2798652
+        </a>
+        <a class="btn btn-wa" href="https://wa.me/4923812798652?text=Hallo%20Salon%20FA%20K%C3%B6nig%2C%20ich%20h%C3%A4tte%20gern%20einen%20Termin.">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.7-.2 1.2Z"/></svg>
+          Termin per WhatsApp
+        </a>
+      </div>
+      <div class="info-karten">
+        <div class="info">
+          <h4>Adresse</h4>
+          <p>Bahnhofstraße 23<br>59065 Hamm</p>
+          <p><a href="https://maps.google.com/?cid=15066878428810773188" rel="noopener">Route in Google Maps →</a></p>
+        </div>
+        <div class="info">
+          <h4>Öffnungszeiten</h4>
+          <div class="zeiten">
+            <div data-tag="1"><span>Montag</span><span>09:30–19:00</span></div>
+            <div data-tag="2"><span>Dienstag</span><span>09:30–19:00</span></div>
+            <div data-tag="3"><span>Mittwoch</span><span>09:30–19:00</span></div>
+            <div data-tag="4"><span>Donnerstag</span><span>09:30–19:00</span></div>
+            <div data-tag="5"><span>Freitag</span><span>09:30–19:00</span></div>
+            <div data-tag="6"><span>Samstag</span><span>09:30–19:00</span></div>
+            <div data-tag="0"><span>Sonntag</span><span>geschlossen</span></div>
+          </div>
+        </div>
+        <div class="info">
+          <h4>Kontakt</h4>
+          <p><a href="tel:+4923812798652">02381 2798652</a></p>
+          <p>WhatsApp: gleiche Nummer</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="wrap">
+        Konzept-Vorschau, nicht die offizielle Website · gestaltet von ILIC ECOM HUB · Fotos: Google-Profil des Salons
+      </div>
+    </footer>
+  </section>
+
+</main>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/DrawSVGPlugin.min.js"></script>
+<script src="js/SplitText.min.js"></script>
+<script>
+(function(){
+  var docEl = document.documentElement;
+  var reduziert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var heute = new Date().getDay();
+  var zeile = document.querySelector('.zeiten div[data-tag="' + heute + '"]');
+  if (zeile) zeile.classList.add('heute');
+
+  if (reduziert || !window.gsap || !window.ScrollTrigger) {
+    docEl.classList.add('statisch');
+    docEl.classList.remove('laden');
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, SplitText);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  gsap.defaults({ ease: 'none' });
+
+  var q = function(s){ return document.querySelector(s); };
+  var kompakt = function(){ return window.innerWidth < 960; };
+  var strecke = function(mobil, desktop){ return function(){ return '+=' + (kompakt() ? mobil : desktop) + '%'; }; };
+
+  /* ---------- Loader ---------- */
+  function loaderFertig(){
+    docEl.classList.remove('laden');
+    var l = q('#loader');
+    if (l) l.style.display = 'none';
+    ScrollTrigger.refresh();
+  }
+  if (window.scrollY > 60) {
+    loaderFertig();
+  } else {
+    var lt = gsap.timeline({ onComplete: loaderFertig });
+    lt.from('.lader-krone .k-form', { drawSVG: 0, duration: .8, ease: 'power2.inOut' })
+      .from('.lader-krone circle', { scale: 0, transformOrigin: 'center', stagger: .1, duration: .25, ease: 'back.out(2.5)' }, .55)
+      .from('.lade-zeile span, .lade-zeile em', { yPercent: 130, stagger: .07, duration: .5, ease: 'power4.out' }, .55)
+      .from('.lade-ort', { autoAlpha: 0, duration: .35 }, .8)
+      .to('#loader', { yPercent: -100, duration: .7, ease: 'power4.inOut' }, '+=0.3');
+    q('#loader').addEventListener('click', function(){ lt.progress(1); });
+    setTimeout(function(){ if (docEl.classList.contains('laden')) lt.progress(1); }, 4200);
+  }
+
+  /* ---------- Fortschritt ---------- */
+  gsap.to('#fortschritt', {
+    scaleX: 1,
+    scrollTrigger: { start: 0, end: 'max', scrub: .3 }
+  });
+
+  /* ---------- Akt 1: Entree — die Iris öffnet den Blick ---------- */
+  var entreeTl = gsap.timeline({
+    scrollTrigger: { trigger: '#entree', start: 'top top', end: strecke(110, 150), scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
+  });
+  entreeTl
+    .to('.entree-ui', { autoAlpha: 0, y: -50, duration: .18, ease: 'power1.in' }, 0)
+    .to('.blick', { clipPath: 'circle(75% at 50% 46%)', duration: .55, ease: 'power1.inOut' }, .12)
+    .to('.blick', { clipPath: 'circle(142% at 50% 46%)', duration: .3, ease: 'power1.out' }, .67)
+    .to('.blick img', { scale: 1, duration: .8 }, .12)
+    .to('.blick-dunkel', { opacity: .18, duration: .5 }, .45);
+
+  q('#oeffnen').addEventListener('click', function(){
+    var ende = entreeTl.scrollTrigger ? entreeTl.scrollTrigger.end + 4 : window.innerHeight * 2;
+    window.scrollTo({ top: ende, behavior: 'smooth' });
+  });
+
+  /* ---------- Headline-Reveals ---------- */
+  document.fonts.ready.then(function(){
+    document.querySelectorAll('.split').forEach(function(el){
+      var s = SplitText.create(el, { type: 'words', mask: 'words' });
+      gsap.from(s.words, {
+        yPercent: 115, stagger: .06, duration: .85, ease: 'power4.out',
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+      });
+    });
+  });
+
+  /* ---------- Akt 2: Anatomie ---------- */
+  var schritte = document.querySelectorAll('.schritte li');
+  var marken = ['.m1', '.m2', '.m3', '.m4'].map(function(s){ return q(s); });
+  var fadeTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#fade', start: 'top top', end: strecke(160, 220), scrub: 1, pin: '#fade .szene-pin', anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: function(st){
+        var idx = Math.min(3, Math.floor(st.progress * 4));
+        schritte.forEach(function(li, i){ li.classList.toggle('aktiv', i === idx); });
+      }
+    }
+  });
+  marken.forEach(function(m, i){
+    var t = i * 1;
+    fadeTl.to(m, { opacity: 1, duration: .12 }, t + .12)
+          .from(m.querySelector('circle'), { scale: 0, transformOrigin: 'center', duration: .3, ease: 'back.out(2.5)' }, t + .12)
+          .from(m.querySelector('.mlinie'), { drawSVG: 0, duration: .3 }, t + .3);
+  });
+  fadeTl.to({}, { duration: .5 });
+
+  /* ---------- Signatur-Parallax ---------- */
+  gsap.fromTo('#signatur img', { yPercent: -9 }, {
+    yPercent: 9,
+    scrollTrigger: { trigger: '#signatur', start: 'top bottom', end: 'bottom top', scrub: .5 }
+  });
+
+  /* ---------- Preiszeilen ---------- */
+  document.querySelectorAll('.menu').forEach(function(menu){
+    gsap.from(menu.querySelectorAll('li'), {
+      y: 26, autoAlpha: 0, stagger: .07, duration: .6, ease: 'power3.out',
+      scrollTrigger: { trigger: menu, start: 'top 85%', once: true }
+    });
+  });
+
+  /* ---------- Akt 3: Schwelle ---------- */
+  var tuer = q('.tuer');
+  function tuerZiel(){
+    return Math.max(window.innerWidth / tuer.offsetWidth, window.innerHeight / tuer.offsetHeight) * 1.04;
+  }
+  var schwelleTl = gsap.timeline({
+    scrollTrigger: { trigger: '#schwelle', start: 'top top', end: strecke(120, 170), scrub: 1, pin: '.schwelle-pin', anticipatePin: 1, invalidateOnRefresh: true }
+  });
+  gsap.set('.tuer', { scale: .3, yPercent: -50, xPercent: -50, borderRadius: 90 });
+  gsap.set('.tuer img', { scale: 1.4 });
+  schwelleTl.to('.schwelle-text', { autoAlpha: 0, y: -60, duration: .28, ease: 'power1.in' }, .1)
+            .to('.schwelle-farbe', { backgroundColor: 'oklch(0.955 0.008 85)', duration: .8 }, 0)
+            .to('.tuer', { scale: tuerZiel, borderRadius: 0, duration: .75, ease: 'power1.inOut' }, .2)
+            .to('.tuer img', { scale: 1, duration: .75, ease: 'power1.inOut' }, .2);
+
+  /* ---------- Damen: Chips + Beleg ---------- */
+  gsap.from('.chips li', {
+    y: 26, autoAlpha: 0, stagger: .06, duration: .55, ease: 'power3.out',
+    scrollTrigger: { trigger: '.chips', start: 'top 85%', once: true }
+  });
+  gsap.from('.beleg', {
+    y: 46, autoAlpha: 0, duration: .7, ease: 'power3.out',
+    scrollTrigger: { trigger: '.beleg', start: 'top 85%', once: true }
+  });
+
+  /* ---------- Stimmen ---------- */
+  var zahlEl = q('.rating .zahl');
+  var zahlObj = { v: 0 };
+  gsap.to(zahlObj, {
+    v: 4.7, duration: 1.2, ease: 'power2.out',
+    scrollTrigger: { trigger: '#stimmen', start: 'top 70%', once: true },
+    onUpdate: function(){ zahlEl.textContent = zahlObj.v.toFixed(1).replace('.', ','); }
+  });
+  gsap.from('.sterne svg', {
+    scale: 0, transformOrigin: 'center', stagger: .09, duration: .45, ease: 'back.out(2.2)',
+    scrollTrigger: { trigger: '#stimmen', start: 'top 70%', once: true }
+  });
+  gsap.from('.zitat', {
+    y: 46, autoAlpha: 0, stagger: .14, duration: .7, ease: 'power3.out',
+    scrollTrigger: { trigger: '.zitate', start: 'top 82%', once: true }
+  });
+
+  /* ---------- Failsafe ---------- */
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+<noscript><style>#loader{display:none}</style></noscript>
+</body>
+</html>
