@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  OBJEKTSEITE · TEMPLATE IMMOBILIE (wird von akquise/objekt-seite.mjs befuellt)
+  ----------------------------------------------------------------------------
+  Exposé Boost — eine Premium-Landingpage pro Immobilie, im Auftrag des Maklers.
+  ACHTUNG: Platzhalter-Inhalte ({{...}}), Befuellung per String-Replace.
+  Alles (HTML + CSS + JS) liegt bewusst in EINER Datei — keine Build-Tools,
+  keine Webfonts, kein GSAP: nur CSS + wenig Vanilla-JS (IntersectionObserver,
+  Vorher/Nachher-Slider). Optionale Bloecke (Preis, 360°-Rundgang, Formular)
+  werden vom Generator per Regex komplett entfernt, wenn nicht konfiguriert.
+  Aufbau: Hero → Fakten → Vorher/Nachher → Galerie → [360°] → Lage →
+  Energieausweis → Kontakt/Lead → Footer.
+  ============================================================================
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Musterwohnung Parkblick — Beispielstadt (Musterobjekt)</title>
+  <meta name="description" content="Musterwohnung Parkblick in Beispielstadt (Musterobjekt). Fiktives Referenzobjekt — so präsentiert Exposé Boost Ihre Immobilie. Besichtigung anfragen bei ILIC ECOM HUB." />
+
+  <!-- Open Graph (schöne Vorschau beim Teilen, z. B. WhatsApp/Portale) -->
+  <meta property="og:title" content="Musterwohnung Parkblick — Beispielstadt (Musterobjekt)" />
+  <meta property="og:description" content="Fiktives Referenzobjekt — so präsentiert Exposé Boost Ihre Immobilie" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="fotos/leer-wohnzimmer-moebliert.jpg" />
+
+  <!-- Favicon als Inline-SVG (Haus-Silhouette) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2322201D'/%3E%3Cpath d='M50 24 22 50h9v26h38V50h9L50 24z' fill='%23A47B3C'/%3E%3C/svg%3E" />
+
+  <style>
+    /* =========================================================================
+       1) DESIGN-TOKENS — Makler-brandbar.
+       Der Generator injiziert DESIGN_VARS vor der schließenden root-Klammer:
+       so überschreibt ein Makler-Branding (z. B. --akzent) die Defaults.
+       ========================================================================= */
+    :root {
+      --grund:       #F7F5F1;                 /* warmes Off-White — Seitenhintergrund */
+      --grund-2:     #FFFFFF;                 /* Karten / Formulare */
+      --grund-3:     #EFEAE2;                 /* Fakten-Band, ruhige Flächen */
+      --tinte:       #22201D;                 /* Anthrazit — Haupttext */
+      --tinte-soft:  #6E6759;                 /* gedämpfter Text */
+      --akzent:      #A47B3C;                 /* Messing — Akzent */
+      --akzent-soft: #C09A5F;                 /* helleres Messing (Hover) */
+      --linie:       rgba(34, 32, 29, .14);
+
+      --maxw: 1140px;
+      --radius: 18px;
+      --radius-sm: 12px;
+      --schatten: 0 24px 60px -30px rgba(34, 32, 29, .28);
+
+      /* System-Stack — bewusst KEINE eingebetteten Webfonts (Seite bleibt leicht).
+         Fraunces greift nur, wenn lokal vorhanden; sonst Georgia. */
+      --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      
+    }
+
+    /* =========================================================================
+       2) RESET / GRUNDLAGEN (mobile-first ab 375px)
+       ========================================================================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--grund);
+      color: var(--tinte);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    .eyebrow {
+      font-size: 12px; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--akzent); font-weight: 600;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--akzent); opacity: .7; }
+
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.08; letter-spacing: .005em; }
+
+    .section { padding: clamp(60px, 9vw, 116px) 0; }
+    .section-head { max-width: 640px; margin-bottom: clamp(30px, 5vw, 52px); }
+    .section-head h2 { font-size: clamp(30px, 5.4vw, 52px); margin: 12px 0 14px; }
+    .section-head p { color: var(--tinte-soft); font-size: 17px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: var(--font-body); font-weight: 600; font-size: 15px;
+      padding: 15px 28px; border-radius: 100px; cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+      white-space: nowrap;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--akzent); color: #fff; }
+    .btn-primary:hover { background: var(--akzent-soft); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--tinte); border-color: var(--linie); }
+    .btn-ghost:hover { border-color: var(--akzent); color: var(--akzent); }
+    .btn-hell { background: rgba(255,255,255,.92); color: var(--tinte); }
+    .btn-hell:hover { background: #fff; transform: translateY(-2px); }
+    .btn-block { width: 100%; }
+
+    /* Scroll-Reveal (IntersectionObserver setzt .in) */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* =========================================================================
+       3) HEADER (schlank, wird beim Scrollen sichtbar hinterlegt)
+       ========================================================================= */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 12px 0; border-bottom: 1px solid transparent;
+      transition: background .3s ease, border-color .3s ease;
+    }
+    header.scrolled {
+      background: rgba(247, 245, 241, .92);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-color: var(--linie);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .header-marke {
+      font-family: var(--font-display); font-size: 17px; letter-spacing: .02em;
+      color: #fff; transition: color .3s ease; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    header.scrolled .header-marke { color: var(--tinte); }
+    .header-nav { display: none; gap: 26px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,.85); transition: color .3s ease; }
+    header.scrolled .header-nav { color: var(--tinte-soft); }
+    .header-nav a:hover { color: var(--akzent-soft); }
+    .header-cta { font-size: 14px; padding: 11px 20px; }
+    @media (min-width: 860px) { .header-nav { display: flex; } }
+
+    /* =========================================================================
+       4) HERO — großes Objektbild, Titel, Preis-Chip
+       ========================================================================= */
+    .hero { position: relative; min-height: 86svh; display: flex; align-items: flex-end; color: #fff; }
+    .hero-bild { position: absolute; inset: 0; overflow: hidden; }
+    .hero-bild img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bild::after {
+      content: ""; position: absolute; inset: 0;
+      /* Kräftig genug, dass weiße Schrift auch auf hellen Innenaufnahmen trägt —
+         Objektfotos sind fast immer hell ausgeleuchtet. */
+      background: linear-gradient(to top, rgba(20, 18, 15, .86) 0%, rgba(20, 18, 15, .66) 34%, rgba(20, 18, 15, .40) 58%, rgba(20, 18, 15, .30) 100%);
+    }
+    .hero-inhalt { position: relative; z-index: 2; width: 100%; padding: clamp(48px, 8vw, 90px) 0; }
+    /* Im Hero weiß statt Gold: Die Zeile liegt auf dem Foto, und Objektfotos
+       sind hell — Gold auf Hell ist nicht sicher lesbar. Strich bleibt Gold. */
+    .hero .eyebrow { color: rgba(255, 255, 255, .94); }
+    .hero .eyebrow::before { background: var(--akzent-soft); }
+    .hero h1 { font-size: clamp(34px, 7vw, 72px); margin: 14px 0 12px; max-width: 15ch; text-wrap: balance; }
+    .hero-unter { font-size: clamp(16px, 2.4vw, 20px); color: rgba(255,255,255,.88); max-width: 56ch; }
+    .hero-aktionen { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; align-items: center; }
+
+    /* Dezenter Preis-Chip — wird vom Generator komplett entfernt, wenn kein Preis
+       konfiguriert ist (Regex auf das div mit Klasse preis-chip). KEINE
+       verschachtelten div-Elemente hinein — sonst greift der Regex zu kurz. */
+    .preis-chip {
+      display: inline-flex; align-items: baseline; gap: 8px;
+      background: rgba(255, 255, 255, .14);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, .28); border-radius: 100px;
+      padding: 10px 20px; margin-bottom: 18px;
+      font-size: 15px; letter-spacing: .02em;
+    }
+    .preis-chip b { font-size: 18px; font-weight: 600; }
+
+    /* Links unten: rechts unten sitzt bereits das eingebrannte Wasserzeichen des
+       Hero-Bilds — zwei Kennzeichnungen uebereinander lesen sich beide schlecht. */
+    .hero-hinweis { position: absolute; left: 20px; bottom: 16px; z-index: 2; font-size: 11px; color: rgba(255,255,255,.72); letter-spacing: .06em; }
+
+    /* =========================================================================
+       5) FAKTEN-LEISTE
+       ========================================================================= */
+    .fakten { background: var(--grund-3); border-block: 1px solid var(--linie); }
+    .fakten-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 0; padding: clamp(10px, 2vw, 18px) 0;
+    }
+    .fakt { padding: 18px 14px; text-align: center; }
+    .fakt b { display: block; font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px); font-weight: 500; color: var(--tinte); }
+    .fakt span { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--tinte-soft); }
+    @media (min-width: 720px) {
+      .fakten-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+      .fakt + .fakt { border-left: 1px solid var(--linie); }
+    }
+
+    /* =========================================================================
+       6) VORHER/NACHHER — Kern der Seite (virtuelles Staging)
+       ========================================================================= */
+    .vergleich-liste { display: grid; gap: clamp(36px, 6vw, 64px); }
+    .vergleich-raum { font-family: var(--font-display); font-size: clamp(21px, 3vw, 28px); margin-bottom: 14px; }
+
+    .slider {
+      position: relative; overflow: hidden; border-radius: var(--radius);
+      aspect-ratio: 3 / 2; background: var(--grund-3); box-shadow: var(--schatten);
+      touch-action: pan-y; /* vertikales Scrollen bleibt möglich, Regler horizontal */
+    }
+    .slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    /* Oben liegt das "Nachher" (virtuell möbliert), links davon bleibt das Original
+       sichtbar — --pos steuert die Trennlinie (0–100 %). */
+    .slider .nachher { clip-path: inset(0 0 0 var(--pos, 50%)); }
+    .slider .griff {
+      position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px;
+      background: rgba(255,255,255,.95); transform: translateX(-1px);
+      box-shadow: 0 0 12px rgba(0,0,0,.35); pointer-events: none;
+    }
+    .slider .griff::after {
+      content: "◂ ▸"; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 46px; height: 46px; border-radius: 50%;
+      background: rgba(255,255,255,.95); color: var(--tinte);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; letter-spacing: 1px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+    /* unsichtbarer Range-Regler über der ganzen Fläche: Maus, Touch UND Tastatur */
+    .slider input[type="range"] {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      opacity: 0; margin: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none;
+    }
+    .slider input[type="range"]:focus-visible ~ .griff { background: var(--akzent-soft); }
+    .slider .label {
+      position: absolute; top: 14px; z-index: 2; pointer-events: none;
+      font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      background: rgba(20, 18, 15, .62); color: #fff;
+      padding: 6px 12px; border-radius: 100px;
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    .slider .label-vorher { left: 14px; }
+    .slider .label-nachher { right: 14px; color: var(--akzent-soft); }
+
+    /* Pflicht-Hinweis (Kennzeichnung virtuelles Staging). Liegt im Markup in der
+       Lage-Sektion, damit ihn keine der Sektions-Entfernungen treffen kann. */
+    .hinweis-virtuell {
+      margin-top: clamp(26px, 4vw, 40px);
+      border: 1px solid var(--linie);
+      background: var(--grund-2); border-radius: var(--radius-sm);
+      padding: 16px 20px; font-size: 14px; color: var(--tinte-soft);
+    }
+    .hinweis-virtuell b { color: var(--tinte); }
+
+    /* =========================================================================
+       7) GALERIE (Spaltensatz)
+       ========================================================================= */
+    .galerie { columns: 1; column-gap: 14px; }
+    .galerie img { width: 100%; border-radius: var(--radius-sm); margin-bottom: 14px; break-inside: avoid; }
+    @media (min-width: 620px) { .galerie { columns: 2; } }
+    @media (min-width: 980px) { .galerie { columns: 3; } }
+
+    /* =========================================================================
+       8) 360°-RUNDGANG (optional — Sektion wird ohne Panoramen entfernt)
+       ========================================================================= */
+    .tour-rahmen {
+      width: 100%; aspect-ratio: 16 / 9; max-height: 620px;
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--tinte); box-shadow: var(--schatten);
+    }
+    .tour-tipp { margin-top: 14px; font-size: 13px; color: var(--tinte-soft); }
+
+    /* =========================================================================
+       9) LAGE + ENERGIEAUSWEIS
+       ========================================================================= */
+    .lage-text { max-width: 70ch; font-size: 17px; color: var(--tinte); }
+    .lage-text p + p { margin-top: 14px; }
+
+    .energie-block {
+      background: var(--grund-2); border: 1px solid var(--linie);
+      border-radius: var(--radius); padding: clamp(22px, 4vw, 36px);
+      margin-top: clamp(30px, 5vw, 48px);
+    }
+    .energie-block h3 { font-size: clamp(20px, 3vw, 26px); margin-bottom: 16px; }
+    .energie-zeile {
+      display: flex; justify-content: space-between; gap: 16px;
+      padding: 10px 0; border-bottom: 1px solid var(--linie); font-size: 15px;
+    }
+    .energie-zeile:last-child { border-bottom: 0; }
+    .energie-zeile span { color: var(--tinte-soft); }
+    .energie-zeile b { font-weight: 600; text-align: right; }
+    .energie-fallback { color: var(--tinte-soft); font-size: 15px; }
+
+    /* =========================================================================
+       10) KONTAKT / LEAD
+       ========================================================================= */
+    .kontakt { background: var(--tinte); color: var(--grund); }
+    .kontakt .eyebrow { color: var(--akzent-soft); }
+    .kontakt .eyebrow::before { background: var(--akzent-soft); }
+    .kontakt .section-head p { color: rgba(247, 245, 241, .66); }
+    .kontakt-grid { display: grid; gap: 28px; grid-template-columns: 1fr; align-items: start; }
+    @media (min-width: 900px) { .kontakt-grid { grid-template-columns: minmax(280px, 5fr) minmax(300px, 6fr); gap: 48px; } }
+
+    .makler-karte h3 { font-size: clamp(22px, 3vw, 30px); margin-bottom: 6px; }
+    .makler-rolle { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--akzent-soft); margin-bottom: 22px; }
+    .makler-wege { display: grid; gap: 12px; max-width: 380px; }
+    .weg {
+      display: flex; align-items: center; gap: 14px;
+      border: 1px solid rgba(247, 245, 241, .18); border-radius: var(--radius-sm);
+      padding: 14px 16px; transition: border-color .2s ease, background .2s ease;
+    }
+    .weg:hover { border-color: var(--akzent-soft); background: rgba(247, 245, 241, .05); }
+    .weg .ico {
+      width: 40px; height: 40px; border-radius: 50%; flex: 0 0 auto;
+      background: rgba(164, 123, 60, .18); color: var(--akzent-soft);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .weg b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(247,245,241,.6); font-weight: 600; }
+    .weg span { font-size: 15px; overflow-wrap: anywhere; }
+
+    .lead-form {
+      background: var(--grund-2); color: var(--tinte);
+      border-radius: var(--radius); padding: clamp(22px, 4vw, 34px);
+      box-shadow: var(--schatten);
+    }
+    .lead-form h3 { font-size: clamp(20px, 3vw, 26px); margin-bottom: 6px; }
+    .lead-form > p { color: var(--tinte-soft); font-size: 14px; margin-bottom: 20px; }
+    .feld { margin-bottom: 14px; }
+    .feld label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .feld input, .feld textarea {
+      width: 100%; font: inherit; font-size: 15px; color: var(--tinte);
+      background: var(--grund); border: 1px solid var(--linie); border-radius: var(--radius-sm);
+      padding: 12px 14px; outline: none; transition: border-color .2s ease;
+    }
+    .feld input:focus, .feld textarea:focus { border-color: var(--akzent); }
+    .feld-reihe { display: grid; gap: 14px; grid-template-columns: 1fr; }
+    @media (min-width: 560px) { .feld-reihe { grid-template-columns: 1fr 1fr; } }
+    .datenschutz-zeile { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--tinte-soft); margin: 4px 0 18px; }
+    .datenschutz-zeile input { margin-top: 4px; accent-color: var(--akzent); }
+    .datenschutz-zeile a { color: var(--akzent); text-decoration: underline; }
+    .form-status { display: none; margin-top: 14px; font-size: 14px; font-weight: 600; }
+    .form-status.ok { display: block; color: #2e7d46; }
+    .form-status.fehler { display: block; color: #b0413e; }
+
+    /* =========================================================================
+       11) FOOTER
+       ========================================================================= */
+    footer { background: var(--tinte); color: rgba(247, 245, 241, .55); border-top: 1px solid rgba(247, 245, 241, .12); }
+    .foot-inner {
+      padding: 26px 0; font-size: 13px;
+      display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; justify-content: space-between;
+    }
+    .foot-inner a { color: rgba(247, 245, 241, .8); }
+    .foot-inner a:hover { color: var(--akzent-soft); }
+    .foot-credit { font-size: 12px; color: rgba(247, 245, 241, .4); }
+
+    /* =========================================================================
+       12) BEWEGUNG REDUZIEREN (Barrierefreiheit)
+       ========================================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn, .weg { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       HEADER
+       ===================================================================== -->
+  <header>
+    <div class="wrap header-inner">
+      <div class="header-marke">ILIC ECOM HUB</div>
+      <nav class="header-nav" aria-label="Seitennavigation">
+        <a href="#vergleich">Vorher / Nachher</a>
+        <a href="#lage">Lage</a>
+      </nav>
+      <a href="#kontakt" class="btn btn-primary header-cta">Besichtigung anfragen</a>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       HERO
+       ===================================================================== -->
+  <section class="hero">
+    <div class="hero-bild">
+      <img src="fotos/leer-wohnzimmer-moebliert.jpg" alt="Musterwohnung Parkblick — Wohnzimmer, virtuell möbliert" fetchpriority="high" />
+    </div>
+    <div class="wrap hero-inhalt">
+      <span class="eyebrow">Beispielstadt (Musterobjekt)</span>
+      <h1>Musterwohnung Parkblick</h1>
+      <p class="hero-unter">Fiktives Referenzobjekt — so präsentiert Exposé Boost Ihre Immobilie</p>
+      <div class="hero-aktionen">
+        <a href="#kontakt" class="btn btn-primary">Besichtigung anfragen</a>
+        <a href="#vergleich" class="btn btn-hell">Möbliert ansehen</a>
+      </div>
+    </div>
+    <span class="hero-hinweis">Visualisierungen teils virtuell möbliert</span>
+  </section>
+
+  <!-- =====================================================================
+       FAKTEN-LEISTE
+       ===================================================================== -->
+  <section class="fakten" aria-label="Eckdaten">
+    <div class="wrap">
+      <div class="fakten-grid">
+        
+        <div class="fakt"><b>ca. 84 m²</b><span>Wohnfläche</span></div>
+        <div class="fakt"><b>3</b><span>Zimmer</span></div>
+        <div class="fakt"><b>3. OG</b><span>Etage</span></div>
+        <div class="fakt"><b>Parkblick</b><span>Ausrichtung</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       VORHER / NACHHER — virtuelles Staging (Kern-Sektion)
+       ===================================================================== -->
+  <section class="section" id="vergleich">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Virtuell möbliert</span>
+        <h2>Sehen Sie das Potenzial</h2>
+        <p>Ziehen Sie den Regler: links das Original, rechts die virtuell eingerichtete Ansicht.</p>
+      </div>
+      <div class="vergleich-liste">
+        
+        <div class="vergleich reveal">
+          <h3 class="vergleich-raum">Wohnzimmer</h3>
+          <div class="slider" style="--pos:50%">
+            <img class="vorher" src="fotos/leer-wohnzimmer.jpg" alt="Wohnzimmer — Original" loading="lazy" />
+            <img class="nachher" src="fotos/leer-wohnzimmer-moebliert.jpg" alt="Wohnzimmer — virtuell möbliert" loading="lazy" />
+            <input type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Vergleich Wohnzimmer: Original / virtuell möbliert" />
+            <div class="griff" aria-hidden="true"></div>
+            <span class="label label-vorher">Original</span>
+            <span class="label label-nachher">Virtuell möbliert</span>
+          </div>
+        </div>
+        <div class="vergleich reveal">
+          <h3 class="vergleich-raum">Esszimmer</h3>
+          <div class="slider" style="--pos:50%">
+            <img class="vorher" src="fotos/leer-esszimmer.jpg" alt="Esszimmer — Original" loading="lazy" />
+            <img class="nachher" src="fotos/leer-esszimmer-moebliert.jpg" alt="Esszimmer — virtuell möbliert" loading="lazy" />
+            <input type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Vergleich Esszimmer: Original / virtuell möbliert" />
+            <div class="griff" aria-hidden="true"></div>
+            <span class="label label-vorher">Original</span>
+            <span class="label label-nachher">Virtuell möbliert</span>
+          </div>
+        </div>
+        <div class="vergleich reveal">
+          <h3 class="vergleich-raum">Küche</h3>
+          <div class="slider" style="--pos:50%">
+            <img class="vorher" src="fotos/leer-kueche.jpg" alt="Küche — Original" loading="lazy" />
+            <img class="nachher" src="fotos/leer-kueche-moebliert.jpg" alt="Küche — virtuell möbliert" loading="lazy" />
+            <input type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Vergleich Küche: Original / virtuell möbliert" />
+            <div class="griff" aria-hidden="true"></div>
+            <span class="label label-vorher">Original</span>
+            <span class="label label-nachher">Virtuell möbliert</span>
+          </div>
+        </div>
+        <div class="vergleich reveal">
+          <h3 class="vergleich-raum">Schlafzimmer</h3>
+          <div class="slider" style="--pos:50%">
+            <img class="vorher" src="fotos/leer-schlafzimmer.jpg" alt="Schlafzimmer — Original" loading="lazy" />
+            <img class="nachher" src="fotos/leer-schlafzimmer-moebliert.jpg" alt="Schlafzimmer — virtuell möbliert" loading="lazy" />
+            <input type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Vergleich Schlafzimmer: Original / virtuell möbliert" />
+            <div class="griff" aria-hidden="true"></div>
+            <span class="label label-vorher">Original</span>
+            <span class="label label-nachher">Virtuell möbliert</span>
+          </div>
+        </div>
+        <div class="vergleich reveal">
+          <h3 class="vergleich-raum">Bad</h3>
+          <div class="slider" style="--pos:50%">
+            <img class="vorher" src="fotos/leer-bad.jpg" alt="Bad — Original" loading="lazy" />
+            <img class="nachher" src="fotos/leer-bad-moebliert.jpg" alt="Bad — virtuell möbliert" loading="lazy" />
+            <input type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Vergleich Bad: Original / virtuell möbliert" />
+            <div class="griff" aria-hidden="true"></div>
+            <span class="label label-vorher">Original</span>
+            <span class="label label-nachher">Virtuell möbliert</span>
+          </div>
+        </div>
+        <div class="vergleich reveal">
+          <h3 class="vergleich-raum">Flur</h3>
+          <div class="slider" style="--pos:50%">
+            <img class="vorher" src="fotos/leer-flur.jpg" alt="Flur — Original" loading="lazy" />
+            <img class="nachher" src="fotos/leer-flur-moebliert.jpg" alt="Flur — virtuell möbliert" loading="lazy" />
+            <input type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Vergleich Flur: Original / virtuell möbliert" />
+            <div class="griff" aria-hidden="true"></div>
+            <span class="label label-vorher">Original</span>
+            <span class="label label-nachher">Virtuell möbliert</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       GALERIE
+       ===================================================================== -->
+
+  <!-- =====================================================================
+       360°-RUNDGANG (optional — wird ohne Panoramen komplett entfernt).
+       pannellum.css/.js + objekt-tour.js liegen nach dem Generator-Lauf in js/.
+       Der Wrapper stellt global starteTour(containerId, szenen) bereit.
+       ===================================================================== -->
+
+  <!-- =====================================================================
+       LAGE + ENERGIEAUSWEIS
+       ===================================================================== -->
+  <section class="section" id="lage" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Lage</span>
+        <h2>Wo Sie ankommen</h2>
+      </div>
+      <div class="lage-text reveal">
+        <p>Dies ist ein fiktives Musterobjekt mit Beispieldaten — es zeigt, wie Exposé Boost eine echte Immobilie präsentieren würde. Die Wohnung liegt in unserer „Beispielstadt“: drittes Obergeschoss, Balkonblick ins Grüne, fünf Gehminuten zum Park.</p>
+        <p>Auf einer echten Objektseite steht hier Ihre Lagebeschreibung: Viertel, Anbindung, Nahversorgung, Schulen — der Text, der Interessenten das Umfeld verkauft, bevor sie den Besichtigungstermin anfragen.</p>
+      </div>
+
+      <!-- Energieausweis: Pflichtangaben nach § 87 GEG -->
+      <div class="energie-block reveal" id="energie">
+        <h3>Energieausweis</h3>
+        <p class="energie-fallback">Der Energieausweis liegt zur Besichtigung vor — alle Pflichtangaben nach § 87 GEG erhalten Sie dort im Original.</p>
+      </div>
+
+      <!-- Kennzeichnung nach dem Irrefuehrungsverbot. Steht BEWUSST hier und nicht
+           in der Vergleichs-Sektion: die wird bei Objekten ohne Vorher/Nachher-Paare
+           komplett entfernt — der Hinweis muss aber auch dann stehen, etwa wenn nur
+           gestagte Bilder in der Galerie liegen. Die Lage-Sektion bleibt immer. -->
+      <div class="hinweis-virtuell reveal">
+        <b>Hinweis:</b> Die möblierten Darstellungen sind virtuell eingerichtet (KI-gestützt) und dienen der Veranschaulichung. Der Zustand der Immobilie entspricht den Original-Fotos.
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       KONTAKT / LEAD
+       ===================================================================== -->
+  <section class="section kontakt" id="kontakt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Kontakt</span>
+        <h2>Besichtigung anfragen</h2>
+        <p>Rufen Sie an oder schreiben Sie kurz — Sie erhalten zeitnah eine Antwort mit Terminvorschlägen.</p>
+      </div>
+      <div class="kontakt-grid">
+        <div class="makler-karte reveal">
+          <h3>ILIC ECOM HUB</h3>
+          <div class="makler-rolle">Ihr Ansprechpartner für dieses Objekt</div>
+          <div class="makler-wege">
+            <a class="weg" href="tel:+4917643478923">
+              <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span>
+              <span><b>Telefon</b><span>0176 43478923</span></span>
+            </a>
+            <a class="weg" href="mailto:kontakt@ilic-ecomhub.de">
+              <span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></span>
+              <span><b>E-Mail</b><span>kontakt@ilic-ecomhub.de</span></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Lead-Formular — wird komplett entfernt, wenn kein Formspree
+             konfiguriert (Regex auf das form-Element mit Klasse lead-form). -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FOOTER — Impressum/Datenschutz des Maklers (Pflicht: die Objektseite
+       läuft unter Verantwortung des Maklers)
+       ===================================================================== -->
+  <footer>
+    <div class="wrap foot-inner">
+      <span>© <span id="jahr"></span> ILIC ECOM HUB</span>
+      <span><a href="https://ilic-ecomhub.de/agency-website/impressum.html" target="_blank" rel="noopener">Impressum</a> · <a href="https://ilic-ecomhub.de/agency-website/datenschutz.html" target="_blank" rel="noopener">Datenschutz</a></span>
+      <span class="foot-credit">Objektseite: ILIC ECOM HUB</span>
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================================
+       JAVASCRIPT — bewusst wenig: Header, Reveals, Slider, Formular, Jahr.
+       Reines Vanilla-JS, keine Bibliotheken.
+       ========================================================================= */
+
+    /* --- 1) Header beim Scrollen hinterlegen -------------------------------- */
+    const kopf = document.querySelector('header');
+    const beimScrollen = () => kopf.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', beimScrollen, { passive: true });
+    beimScrollen();
+
+    /* --- 2) Scroll-Reveals (respektiert prefers-reduced-motion) ------------- */
+    const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!ruhig && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((eintraege) => {
+        eintraege.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      const zuZeigen = [...document.querySelectorAll('.reveal')];
+      zuZeigen.forEach(el => io.observe(el));
+
+      /* Netz: .reveal startet auf opacity:0 — bleibt ein Callback aus, waere der
+         Abschnitt unsichtbar. Deshalb zusaetzlich beim Scrollen nachpruefen.
+         Bewusst setTimeout statt requestAnimationFrame (rAF ruht, wenn nicht
+         sichtbar gerendert wird). Alles Erreichte wird gezeigt, damit auch nach
+         einem Ankersprung nichts darueber unsichtbar bleibt. */
+      let geplant = false;
+      const nachpruefen = () => {
+        geplant = false;
+        zuZeigen.forEach(el => {
+          if (!el.classList.contains('in') &&
+              el.getBoundingClientRect().top < window.innerHeight - 40) el.classList.add('in');
+        });
+      };
+      const anstossen = () => { if (geplant) return; geplant = true; setTimeout(nachpruefen, 60); };
+      window.addEventListener('scroll', anstossen, { passive: true });
+      window.addEventListener('resize', anstossen, { passive: true });
+      window.addEventListener('load', anstossen);
+      anstossen();
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    /* --- 3) Vorher/Nachher-Slider: Range steuert --pos (clip-path) ---------- */
+    document.querySelectorAll('.slider').forEach(slider => {
+      const regler = slider.querySelector('input[type="range"]');
+      if (!regler) return;
+      const setzen = () => slider.style.setProperty('--pos', regler.value + '%');
+      regler.addEventListener('input', setzen);
+      setzen();
+    });
+
+    /* --- 4) Lead-Formular: per fetch an Formspree, ohne Seitenwechsel ------- */
+    const formular = document.getElementById('leadForm');
+    if (formular) {
+      formular.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const status = document.getElementById('formStatus');
+        if (!formular.reportValidity()) return;
+        status.className = 'form-status';
+        try {
+          const antwort = await fetch(formular.action, {
+            method: 'POST',
+            body: new FormData(formular),
+            headers: { 'Accept': 'application/json' },
+          });
+          if (antwort.ok) {
+            formular.reset();
+            status.textContent = 'Danke! Ihre Anfrage ist angekommen — Sie hören zeitnah von uns.';
+            status.classList.add('ok');
+          } else { throw new Error('Formspree-Antwort nicht ok'); }
+        } catch {
+          status.textContent = 'Senden fehlgeschlagen — rufen Sie gern direkt an oder schreiben Sie eine E-Mail.';
+          status.classList.add('fehler');
+        }
+      });
+    }
+
+    /* --- 5) Jahreszahl im Footer -------------------------------------------- */
+    document.getElementById('jahr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
