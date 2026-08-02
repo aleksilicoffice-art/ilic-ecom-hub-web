@@ -144,6 +144,60 @@ h1,h2{font-family:var(--display);font-weight:400;font-variation-settings:'opsz' 
   font-size:.8125rem;
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Menü — gleicher Baustein wie auf der Startseite: EIN Satz Links,
+   schmal als Klappfeld, ab 62rem als Leiste. */
+.menue-knopf{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem .85rem;border-radius:999px;
+  background:none;color:inherit;font:inherit;
+  font-size:.875rem;font-weight:600;
+  border:1px solid color-mix(in oklab,var(--creme) 34%,transparent);
+  cursor:pointer;white-space:nowrap;
+}
+.menue-knopf .striche{position:relative;width:1rem;height:2px;background:currentColor;border-radius:2px}
+.menue-knopf .striche::before,.menue-knopf .striche::after{
+  content:'';position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:2px;
+  transition:transform .25s ease;
+}
+.menue-knopf .striche::before{top:-6px}
+.menue-knopf .striche::after{top:6px}
+.menue-knopf[aria-expanded="true"] .striche{background:transparent}
+.menue-knopf[aria-expanded="true"] .striche::before{transform:translateY(6px) rotate(45deg)}
+.menue-knopf[aria-expanded="true"] .striche::after{transform:translateY(-6px) rotate(-45deg)}
+.menue-knopf .wort-menue{display:none}
+@media (min-width:24rem){.menue-knopf .wort-menue{display:inline}}
+
+.haupt-nav{
+  position:absolute;top:100%;left:var(--rand);right:var(--rand);
+  display:none;flex-direction:column;
+  padding:.4rem 0;border-radius:.5rem;
+  background:var(--wasser-tief);
+  border:1px solid color-mix(in oklab,var(--creme) 16%,transparent);
+  box-shadow:0 18px 40px rgba(0,0,0,.4);
+}
+.haupt-nav[data-offen]{display:flex}
+.haupt-nav a{
+  text-decoration:none;padding:.85rem 1.15rem;
+  color:color-mix(in oklab,var(--creme) 86%,transparent);
+}
+.haupt-nav a:hover{color:var(--glut-hell);background:color-mix(in oklab,var(--creme) 7%,transparent)}
+.haupt-nav a[aria-current]{color:var(--glut-hell)}
+@media (min-width:62rem){
+  .menue-knopf{display:none}
+  .haupt-nav{
+    position:static;display:flex;flex-direction:row;gap:1.6rem;
+    margin-inline:auto;padding:0;font-size:.9375rem;
+    background:none;border:0;box-shadow:none;
+  }
+  .haupt-nav a{padding:0}
+  .haupt-nav a:hover{background:none}
+}
+.tel .kurz{display:none}
+@media (max-width:32rem){
+  .tel .lang{display:none}
+  .tel .kurz{display:inline}
+}
 </style>
 </head>
 <body>
@@ -154,9 +208,19 @@ h1,h2{font-family:var(--display);font-weight:400;font-variation-settings:'opsz' 
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Zur Langst
     </a>
+    <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="hauptmenue">
+      <span class="striche" aria-hidden="true"></span><span class="wort-menue">Menü</span>
+    </button>
+    <nav class="haupt-nav" id="hauptmenue" aria-label="Bereiche der Seite">
+      <a href="index.html">Start</a>
+      <a href="speisekarte.html" aria-current="page">Speisekarte</a>
+      <a href="fotos.html">Fotos</a>
+      <a href="index.html#besuch">Öffnungszeiten</a>
+      <a href="index.html#anfahrt">Anfahrt</a>
+    </nav>
     <a class="tel" href="tel:+4923828551018">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z" stroke-linejoin="round"/></svg>
-      02382 8551018
+      <span class="lang">02382 8551018</span><span class="kurz">Anrufen</span>
     </a>
   </div>
 </header>
@@ -364,7 +428,7 @@ h1,h2{font-family:var(--display);font-weight:400;font-variation-settings:'opsz' 
   <div class="bahn">
     <p><strong>Tisch reservieren:</strong> nur telefonisch unter <a href="tel:+4923828551018">02382 8551018</a> · Dienstag ist Ruhetag</p>
     <p>Landrestaurant · Café Zur Langst · Am Stadtwald 6 · 59227 Ahlen</p>
-    <p style="margin-top:1rem"><a href="index.html">Zurück zur Startseite</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+    <p style="margin-top:1rem"><a href="index.html">Zurück zur Startseite</a> · <a href="fotos.html">Fotos</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
     <p class="allergie">
       Sollten Sie von Allergien betroffen sein, sprechen Sie uns bitte an — unsere separate
       Allergikerkarte gibt Auskunft über die enthaltenen Zutaten. Unsere Kräuterbutter enthält
@@ -373,5 +437,20 @@ h1,h2{font-family:var(--display);font-weight:400;font-variation-settings:'opsz' 
   </div>
 </footer>
 
+<script>
+(function(){
+  var knopf=document.querySelector('.menue-knopf'), nav=document.getElementById('hauptmenue');
+  if(!knopf||!nav) return;
+  function zu(){nav.removeAttribute('data-offen');knopf.setAttribute('aria-expanded','false');}
+  function auf(){nav.setAttribute('data-offen','');knopf.setAttribute('aria-expanded','true');}
+  knopf.addEventListener('click',function(e){e.stopPropagation();
+    knopf.getAttribute('aria-expanded')==='true'?zu():auf();});
+  nav.addEventListener('click',function(e){if(e.target.closest('a'))zu();});
+  document.addEventListener('click',function(e){if(!nav.contains(e.target)&&e.target!==knopf)zu();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&knopf.getAttribute('aria-expanded')==='true'){zu();knopf.focus();}});
+  window.addEventListener('resize',function(){if(window.innerWidth>=992)zu();});
+})();
+</script>
 </body>
 </html>

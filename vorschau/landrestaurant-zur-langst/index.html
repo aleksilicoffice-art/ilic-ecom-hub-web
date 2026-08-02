@@ -10,12 +10,15 @@
 <meta property="og:type" content="restaurant">
 <meta property="og:title" content="Landrestaurant Zur Langst · Ahlen">
 <meta property="og:description" content="Am Wasser gebaut. Am Feuer gekocht. Terrasse direkt am Teich im Ahlener Stadtwald.">
-<meta property="og:image" content="bilder/sonnenuntergang.jpg">
+<meta property="og:url" content="https://zur-langst-ahlen.de/">
+<meta property="og:image" content="https://zur-langst-ahlen.de/bilder/hero-teich-quer.jpg">
+<meta property="og:image:width" content="2000">
+<meta property="og:image:height" content="1500">
 <meta property="og:locale" content="de_DE">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b2124'/%3E%3Cpath d='M18 66c8-6 14 6 22 0s14 6 22 0 14 6 20 0' stroke='%238fb5b0' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Ctext x='50' y='52' font-size='42' text-anchor='middle' fill='%23f8f2e7' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="schriften/fonts.css">
-<link rel="preload" as="image" href="bilder/sonnenuntergang.jpg" media="(max-width: 800px)">
-<link rel="preload" as="image" href="bilder/luftbild-teich.jpg" media="(min-width: 801px)">
+<link rel="preload" as="image" href="bilder/hero-teich-hoch.jpg" media="(max-width: 800px)">
+<link rel="preload" as="image" href="bilder/hero-teich-quer.jpg" media="(min-width: 801px)">
 <style>
 /* ============================================================
    Landrestaurant Zur Langst, Ahlen — Website-Entwurf
@@ -126,14 +129,56 @@ p{text-wrap:pretty}
   font-size:1.0625rem;letter-spacing:.02em;
   text-decoration:none;white-space:nowrap;
 }
-.haupt-nav{display:none;gap:1.6rem;margin-inline:auto;font-size:.9375rem}
-.haupt-nav a{
-  text-decoration:none;
-  color:color-mix(in oklab,var(--creme) 80%,transparent);
-  transition:color .2s ease;
+/* Navigation: EIN Satz Links, zwei Darstellungen. Schmal als ausklappbares
+   Feld hinter dem Menüknopf, ab 62rem als Leiste in der Kopfzeile. Vorher
+   war die Leiste unter 62rem schlicht ausgeblendet — auf dem Handy gab es
+   damit gar keine Navigation, und die meisten Gäste kommen vom Handy. */
+.menue-knopf{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.6rem .95rem;border-radius:999px;
+  background:none;color:inherit;font:inherit;
+  font-size:.9375rem;font-weight:600;
+  border:1px solid color-mix(in oklab,var(--creme) 40%,transparent);
+  cursor:pointer;white-space:nowrap;
 }
-.haupt-nav a:hover{color:var(--glut-hell)}
-@media (min-width:62rem){.haupt-nav{display:flex}}
+.menue-knopf .striche{position:relative;width:1.05rem;height:2px;background:currentColor;border-radius:2px}
+.menue-knopf .striche::before,.menue-knopf .striche::after{
+  content:'';position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:2px;
+  transition:transform .25s ease,opacity .2s ease;
+}
+.menue-knopf .striche::before{top:-6px}
+.menue-knopf .striche::after{top:6px}
+.menue-knopf[aria-expanded="true"] .striche{background:transparent}
+.menue-knopf[aria-expanded="true"] .striche::before{transform:translateY(6px) rotate(45deg)}
+.menue-knopf[aria-expanded="true"] .striche::after{transform:translateY(-6px) rotate(-45deg)}
+
+.haupt-nav{
+  position:absolute;top:100%;left:var(--rand);right:var(--rand);
+  display:none;flex-direction:column;gap:0;
+  padding:.4rem 0;border-radius:.5rem;
+  background:var(--wasser-tief);
+  border:1px solid color-mix(in oklab,var(--creme) 16%,transparent);
+  box-shadow:0 18px 40px rgba(0,0,0,.4);
+  font-size:1rem;
+}
+.haupt-nav[data-offen]{display:flex}
+.haupt-nav a{
+  text-decoration:none;padding:.85rem 1.15rem;
+  color:color-mix(in oklab,var(--creme) 86%,transparent);
+  transition:color .2s ease,background-color .2s ease;
+}
+.haupt-nav a:hover{color:var(--glut-hell);background:color-mix(in oklab,var(--creme) 7%,transparent)}
+
+@media (min-width:62rem){
+  .menue-knopf{display:none}
+  .haupt-nav{
+    position:static;display:flex;flex-direction:row;gap:1.6rem;
+    margin-inline:auto;padding:0;font-size:.9375rem;
+    background:none;border:0;box-shadow:none;
+  }
+  .haupt-nav a{padding:0}
+  .haupt-nav a:hover{background:none}
+}
 .tel-knopf{
   display:inline-flex;align-items:center;gap:.5rem;
   padding:.6rem 1.1rem;
@@ -254,24 +299,21 @@ section[id]{scroll-margin-top:5rem}
   background:linear-gradient(90deg,transparent,color-mix(in oklab,var(--wasser-hell) 45%,transparent),transparent);
 }
 
-/* ---------- Die Terrasse (gepinnt) ------------------------ */
-.aussicht{position:relative;background:var(--wasser-tief)}
-.aussicht-buehne{
-  position:relative;min-height:100svh;
-  display:grid;grid-template-rows:1fr auto;
-  overflow:hidden;
+/* ---------- Die Terrasse ---------------------------------- */
+/* Bild rechts, Text links — bewusst andersherum als Ankommen und Feiern,
+   damit die Seite beim Scrollen nicht denselben Rhythmus wiederholt.
+   Auf dem Handy stapelt es wie überall: Bild oben, Text darunter. */
+.aussicht{
+  background:var(--wasser-tief);
+  display:grid;gap:clamp(2rem,6vw,4rem);align-items:center;
 }
-.aussicht-bild{position:absolute;inset:0}
-.aussicht-bild img{width:100%;height:100%;object-fit:cover;will-change:transform}
-.aussicht-buehne::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(0deg,color-mix(in oklab,var(--wasser-nacht) 90%,transparent),transparent 58%);
+@media (min-width:56rem){
+  .aussicht{grid-template-columns:1fr 1.05fr}
+  .aussicht-text{grid-column:1;grid-row:1}
+  .aussicht-bild{grid-column:2;grid-row:1}
 }
-.aussicht-text{
-  position:relative;z-index:2;align-self:end;
-  padding:var(--rand);padding-bottom:clamp(3rem,9vh,6rem);
-}
-.aussicht-text h2{font-size:clamp(2rem,6.6vw,5rem);max-width:14ch}
+.aussicht-bild img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.25rem}
+.aussicht-text h2{font-size:clamp(1.75rem,4.4vw,3rem);max-width:14ch}
 .aussicht-text .wort{display:inline-block}
 .aussicht-liste{
   list-style:none;margin:clamp(1.5rem,4vh,2.5rem) 0 0;padding:0;
@@ -389,17 +431,6 @@ section[id]{scroll-margin-top:5rem}
   font-size:1rem;
   color:color-mix(in oklab,var(--creme) 76%,transparent);
 }
-
-/* ---------- Kaffee & Kuchen -------------------------------- */
-.kaffee{
-  display:grid;gap:clamp(2rem,6vw,4rem);align-items:center;
-}
-@media (min-width:56rem){.kaffee{grid-template-columns:1.05fr 1fr}}
-.kaffee-bild img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:.25rem}
-.kaffee-bild{grid-row:1}
-@media (min-width:56rem){.kaffee-bild{order:2}}
-.kaffee-text h2{font-size:clamp(1.75rem,4.4vw,3rem);margin-bottom:1rem}
-.kaffee-text .augbraue{color:var(--glut-hell)}
 
 /* ---------- Die Karte ------------------------------------- */
 .speisekarte{background:var(--glut-tief)}
@@ -572,13 +603,6 @@ section[id]{scroll-margin-top:5rem}
 .fuss p{margin:0}
 .fuss a{text-decoration:none;border-bottom:1px solid transparent}
 .fuss a:hover{border-color:currentColor}
-.entwurf-hinweis{
-  width:100%;padding-top:1.5rem;
-  border-top:1px solid color-mix(in oklab,var(--creme) 10%,transparent);
-  font-size:.8125rem;
-  color:color-mix(in oklab,var(--creme) 42%,transparent);
-}
-
 /* ---------- Reduzierte Bewegung --------------------------- */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -612,8 +636,12 @@ section[id]{scroll-margin-top:5rem}
 
 <header class="kopf">
   <a class="wort" href="#top">Zur Langst</a>
-  <nav class="haupt-nav" aria-label="Bereiche der Seite">
+  <button class="menue-knopf" type="button" aria-expanded="false" aria-controls="hauptmenue">
+    <span class="striche" aria-hidden="true"></span>Menü
+  </button>
+  <nav class="haupt-nav" id="hauptmenue" aria-label="Bereiche der Seite">
     <a href="speisekarte.html">Speisekarte</a>
+    <a href="fotos.html">Fotos</a>
     <a href="#terrasse">Terrasse</a>
     <a href="#besuch">Öffnungszeiten</a>
     <a href="#anfahrt">Anfahrt</a>
@@ -631,10 +659,13 @@ section[id]{scroll-margin-top:5rem}
 <!-- ===================== AUFTAKT ===================== -->
 <section class="hero" id="top">
   <div class="hero-bild">
+    <!-- Zwei Fassungen desselben Motivs: quer für breite Schirme, hochkant
+         fürs Handy. Ein 4:3-Bild verliert im Hochformat drei Viertel seiner
+         Breite — dann bliebe vom Haus nichts übrig. -->
     <picture>
-      <source media="(min-width:801px)" srcset="bilder/luftbild-teich.jpg">
-      <img src="bilder/sonnenuntergang.jpg" width="739" height="1168"
-           alt="Das beleuchtete Landrestaurant spiegelt sich bei Sonnenuntergang im Langst-Teich"
+      <source media="(min-width:801px)" srcset="bilder/hero-teich-quer.jpg">
+      <img src="bilder/hero-teich-hoch.jpg" width="1200" height="1816"
+           alt="Das Landrestaurant am Langst-Teich, davor die Fontäne, im Vordergrund eine alte Linde am Ufer"
            fetchpriority="high">
     </picture>
   </div>
@@ -683,21 +714,19 @@ section[id]{scroll-margin-top:5rem}
 </section>
 
 <!-- ===================== DIE TERRASSE ===================== -->
-<section class="aussicht" id="terrasse">
-  <div class="aussicht-buehne">
-    <div class="aussicht-bild">
-      <img src="bilder/terrasse-abend.jpg" width="1372" height="1200" loading="lazy"
-           alt="Die überdachte Terrasse am Abend in voller Breite, warm beleuchtet, mit Blick auf den Teich">
-    </div>
-    <div class="aussicht-text">
-      <p class="augbraue">Die Terrasse</p>
-      <h2 data-worte>Der Tisch, an dem das Wasser sitzt.</h2>
-      <ul class="aussicht-liste">
-        <li>Überdacht und windgeschützt, auch wenn das Wetter kippt.</li>
-        <li>Schattenplätze an sonnigen Tagen, Blick auf den Teich von jedem Platz.</li>
-        <li>Hunde sind willkommen, Kinder sowieso.</li>
-      </ul>
-    </div>
+<section class="abschnitt aussicht" id="terrasse">
+  <div class="aussicht-bild">
+    <img src="bilder/terrasse-abend-neu.jpg" width="1344" height="1008" loading="lazy"
+         alt="Die überdachte Terrasse am Abend, warm beleuchtet, davor das Wasserbecken">
+  </div>
+  <div class="aussicht-text">
+    <p class="augbraue">Die Terrasse</p>
+    <h2 data-worte>Der Tisch, an dem das Wasser sitzt.</h2>
+    <ul class="aussicht-liste">
+      <li>Überdacht und windgeschützt, auch wenn das Wetter kippt.</li>
+      <li>Schattenplätze an sonnigen Tagen, Blick auf den Teich von jedem Platz.</li>
+      <li>Hunde sind willkommen, Kinder sowieso.</li>
+    </ul>
   </div>
 </section>
 
@@ -761,19 +790,6 @@ section[id]{scroll-margin-top:5rem}
     <div><dt>3</dt><dd>Dressings</dd></div>
     <div><dt>∞</dt><dd>mal nachlegen</dd></div>
   </dl>
-</section>
-
-<!-- ===================== KAFFEE & KUCHEN ===================== -->
-<section class="abschnitt kaffee" id="kaffee">
-  <div class="kaffee-bild">
-    <img src="bilder/kaffee-am-teich.jpg" width="1200" height="1600" loading="lazy"
-         alt="Eine Tasse Kaffee auf der Terrassenbrüstung mit Blick auf den Teich und die Fontäne">
-  </div>
-  <div class="kaffee-text">
-    <p class="augbraue">Auch das gibt es</p>
-    <h2>Kaffee und Kuchen auf der Terrasse.</h2>
-    <p>Nicht nur zu bestimmten Stunden: Kaffee und hausgemachter Kuchen stehen bei uns immer auf der Karte, mit Blick auf den Teich.</p>
-  </div>
 </section>
 
 <!-- ===================== DIE KARTE =====================
@@ -893,8 +909,8 @@ section[id]{scroll-margin-top:5rem}
         02382 8551018
       </a>
     </div>
-    <img src="bilder/saal.jpg" width="1170" height="1560" loading="lazy"
-         alt="Der Saal mit weiß eingedeckten Tischen für Feiern und größere Gesellschaften">
+    <img src="bilder/tafel-lang.jpg" width="1300" height="1733" loading="lazy"
+         alt="Eine lange eingedeckte Tafel im Saal unter Fachwerkbalken, mit gefalteten Servietten für eine große Gesellschaft">
   </div>
 </section>
 
@@ -1017,8 +1033,7 @@ section[id]{scroll-margin-top:5rem}
 <footer class="fuss">
   <p>© <span id="jahr">2026</span> Landrestaurant · Café Zur Langst, Ahlen</p>
   <p><a href="tel:+4923828551018">02382 8551018</a></p>
-  <p><a href="speisekarte.html">Speisekarte</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
-  <p class="entwurf-hinweis">Entwurf einer neuen Website, erstellt von ILIC ECOM HUB. Fotos stammen aus dem öffentlichen Google-Unternehmensprofil und werden vor der Veröffentlichung durch eigene Aufnahmen ersetzt. Impressum und Datenschutzerklärung folgen mit der finalen Seite.</p>
+  <p><a href="speisekarte.html">Speisekarte</a> · <a href="fotos.html">Fotos</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
 </footer>
 
 <script src="js/gsap.min.js"></script>
@@ -1096,6 +1111,33 @@ section[id]{scroll-margin-top:5rem}
     wort.textContent = meldung;
   })();
 
+  /* ---- Menü auf schmalen Bildschirmen -------------------- */
+  (function menue(){
+    var knopf = document.querySelector('.menue-knopf');
+    var nav   = document.getElementById('hauptmenue');
+    if (!knopf || !nav) return;
+
+    function zu(){ nav.removeAttribute('data-offen'); knopf.setAttribute('aria-expanded','false'); }
+    function auf(){ nav.setAttribute('data-offen',''); knopf.setAttribute('aria-expanded','true'); }
+
+    knopf.addEventListener('click', function(e){
+      e.stopPropagation();
+      knopf.getAttribute('aria-expanded') === 'true' ? zu() : auf();
+    });
+    // Ein Klick auf einen Menüpunkt schließt wieder — sonst bliebe das Feld
+    // beim Sprung zu einem Anker offen über dem Ziel stehen.
+    nav.addEventListener('click', function(e){ if (e.target.closest('a')) zu(); });
+    document.addEventListener('click', function(e){
+      if (!nav.contains(e.target) && e.target !== knopf) zu();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && knopf.getAttribute('aria-expanded') === 'true') { zu(); knopf.focus(); }
+    });
+    // Wer das Fenster über die Umbruchbreite zieht, sieht sonst das offene
+    // Feld zusätzlich zur Leiste.
+    window.addEventListener('resize', function(){ if (window.innerWidth >= 992) zu(); });
+  })();
+
   /* ---- Kopfzeile bekommt Hintergrund --------------------- */
   var kopf = document.querySelector('.kopf');
   var hero = document.querySelector('.hero');
@@ -1160,7 +1202,7 @@ section[id]{scroll-margin-top:5rem}
       scrollTrigger:{trigger:el, start:'top 88%'}});
   });
 
-  /* ---- Terrasse: gepinnt, Wort für Wort ------------------ */
+  /* ---- Terrasse: Wort für Wort beim Hereinscrollen -------- */
   (function terrasse(){
     var h2 = document.querySelector('.aussicht-text h2[data-worte]');
     if (h2) {
@@ -1168,13 +1210,10 @@ section[id]{scroll-margin-top:5rem}
         return '<span class="wort">' + w + '</span>';
       }).join(' ');
     }
-    gsap.timeline({
-      scrollTrigger:{trigger:'.aussicht', start:'top top', end:'+=115%',
-                     pin:'.aussicht-buehne', scrub:.6, anticipatePin:1}
-    })
-    .fromTo('.aussicht-bild img', {scale:1.2, yPercent:-3}, {scale:1.02, yPercent:2, ease:'none'}, 0)
-    .from('.aussicht-text .wort', {opacity:0, yPercent:120, duration:.5, stagger:.09, ease:'power2.out'}, .1)
-    .from('.aussicht-liste li', {opacity:0, x:-18, duration:.4, stagger:.12, ease:'power2.out'}, .6);
+    gsap.timeline({scrollTrigger:{trigger:'.aussicht', start:'top 72%'}})
+      .from('.aussicht-bild img', {opacity:0, y:28, duration:.7, ease:'power2.out'}, 0)
+      .from('.aussicht-text .wort', {opacity:0, yPercent:110, duration:.5, stagger:.07, ease:'power2.out'}, .15)
+      .from('.aussicht-liste li', {opacity:0, x:-18, duration:.4, stagger:.12, ease:'power2.out'}, .5);
   })();
 
   /* ---- Wechsel: die Glut wächst -------------------------- */
@@ -1223,12 +1262,6 @@ section[id]{scroll-margin-top:5rem}
     scrollTrigger:{trigger:'.buffet', start:'top 78%'}});
   gsap.from('.buffet-zahlen > div', {opacity:0, y:20, duration:.7, stagger:.12, ease:'power2.out',
     scrollTrigger:{trigger:'.buffet', start:'top 74%'}});
-
-  /* ---- Kaffee & Kuchen ------------------------------------ */
-  gsap.from('.kaffee-text > *', {opacity:0, y:24, duration:.8, stagger:.1, ease:'power2.out',
-    scrollTrigger:{trigger:'.kaffee', start:'top 78%'}});
-  gsap.from('.kaffee-bild img', {opacity:0, scale:1.05, duration:.9, ease:'power2.out',
-    scrollTrigger:{trigger:'.kaffee', start:'top 78%'}});
 
   /* ---- Die Karte ----------------------------------------- */
   gsap.utils.toArray('.karte-gruppe').forEach(function(gruppe){
