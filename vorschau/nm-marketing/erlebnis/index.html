@@ -628,8 +628,15 @@ html.statisch .bahn i,.no-js .bahn i{transform:none}
   gsap.defaults({ ease: 'none' });
 
   var q = function(s){ return document.querySelector(s); };
-  var kompakt = function(){ return window.innerWidth < 960; };
-  var strecke = function(mobil, desktop){ return function(){ return '+=' + (kompakt() ? mobil : desktop) + '%'; }; };
+  /* Fenstermaße defensiv lesen: manche eingebetteten Ansichten melden 0. */
+  var breite = function(){ return window.innerWidth || document.documentElement.clientWidth || 1200; };
+  var hoehe  = function(){ return window.innerHeight || document.documentElement.clientHeight || 720; };
+  var kompakt = function(){ return breite() < 960; };
+  /* Scrollweg in Pixeln statt Prozent — Prozentwerte einer 0-hohen Ansicht
+     würden die Seite sonst auf zehntausende Pixel aufblasen. */
+  var strecke = function(mobil, desktop){
+    return function(){ return '+=' + Math.round(hoehe() * (kompakt() ? mobil : desktop) / 100); };
+  };
 
   /* ---------- Anfangszustände (nur im Animations-Modus — statisch bleibt alles sichtbar) ---------- */
   gsap.set('.beat-2, .beat-3', { autoAlpha: 0 });
