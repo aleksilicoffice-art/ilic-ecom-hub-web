@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js laden">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Proficut by Omar · Barbershop &amp; Friseur in Münster · Aegidiistraße 46</title>
+<meta name="description" content="Herrenschnitt, Bart und Rasur ohne Termin — mitten in Münster an der Aegidiistraße 46. 4,9 Sterne aus 166 Google-Bewertungen. Mo–Fr 9–19 Uhr, Sa 9–18 Uhr. Telefon 0251 67446469.">
+<meta name="author" content="Proficut by Omar">
+<meta name="geo.region" content="DE-NW">
+<meta name="geo.placename" content="Münster">
+<meta name="geo.position" content="51.9585196;7.6212942">
+<meta property="og:type" content="business.business">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Proficut by Omar">
+<meta property="og:title" content="Proficut by Omar · Barbershop in Münster">
+<meta property="og:description" content="Rein, sitzen, passt. Schnitt, Bart und Rasur ohne Termin an der Aegidiistraße 46 — 4,9 ★ aus 166 Google-Bewertungen.">
+<meta property="og:image" content="fotos/fade-fenster.jpg">
+<meta property="og:image:alt" content="Frisch geschnittener Fade bei Proficut by Omar, im Fenster der Barber-Pole und die Backsteinfassade der Aegidiistraße">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0d1420">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect width='50' height='50' rx='13' fill='%230d1420'/%3E%3Cg stroke='%23d5a94f' stroke-width='3.2' stroke-linecap='round' fill='none'%3E%3Cpath d='M18 9 L31 33'/%3E%3Cpath d='M32 9 L19 33'/%3E%3Ccircle cx='17.5' cy='39' r='4.6'/%3E%3Ccircle cx='32.5' cy='39' r='4.6'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preload" href="schriften/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="schriften/fonts.css">
+<script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
+<style>
+/* =========================================================================
+   PROFICUT BY OMAR — Münster
+   Palette: das Ladenschild. Tiefes Navy aus dem Logo, Gold aus dem Wortbild,
+   Glut aus den hinterleuchteten Spiegelregalen im Salon.
+   Schrift: Archivo — eine Familie, Breite als Kontrastachse.
+   ========================================================================= */
+:root{
+  --tinte:oklch(0.165 0.024 258);
+  --tinte-tief:oklch(0.115 0.022 258);
+  --tinte-hell:oklch(0.235 0.028 258);
+  --kreide:oklch(0.962 0.006 250);
+  --kreide-tief:oklch(0.912 0.010 250);
+  --gold:oklch(0.775 0.115 84);
+  --gold-hell:oklch(0.868 0.088 88);
+  --gold-tief:oklch(0.50 0.105 76);
+  --gold-text:oklch(0.43 0.090 72);
+  --glut:oklch(0.70 0.165 55);
+  --rauch:oklch(0.735 0.018 258);
+  --rauch-dunkel:oklch(0.44 0.022 258);
+  --linie-d:oklch(0.305 0.020 258);
+  --linie-h:oklch(0.855 0.016 250);
+  --offen:oklch(0.74 0.155 152);
+  --zu:oklch(0.70 0.150 30);
+
+  --schrift:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --maxw:1200px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-band:20; --z-kopf:40; --z-ruf:50; --z-fortschritt:60; --z-loader:100;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{overflow-x:clip}
+html.laden.js{overflow:hidden}
+body{background:var(--tinte);color:var(--kreide);font-family:var(--schrift);
+  font-size:clamp(1rem,0.96rem + 0.2vw,1.09rem);line-height:1.7;font-weight:400;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* Schilder-Schrift: breit, schwer, kurz gehalten */
+.disp,h1,h2,h3{font-weight:800;font-stretch:118%;letter-spacing:-0.018em;line-height:1.02;text-wrap:balance}
+h1{font-size:clamp(2.5rem,1.5rem + 4.6vw,5.4rem)}
+h2{font-size:clamp(2.1rem,1.4rem + 3.4vw,4.2rem)}
+h3{font-size:clamp(1.5rem,1.15rem + 1.6vw,2.35rem)}
+p{text-wrap:pretty;max-width:66ch}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--gold);color:var(--tinte-tief)}
+:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:5px}
+.wrap{width:min(100% - 2.4rem,var(--maxw));margin-inline:auto}
+.nur-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- Knöpfe ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:inherit;font-weight:700;font-stretch:104%;font-size:1.02rem;letter-spacing:.005em;
+  padding:1.05rem 2rem;border-radius:2px;cursor:pointer;border:2px solid transparent;
+  min-height:54px;text-align:center;
+  transition:transform .32s var(--ease),background .22s,color .22s,border-color .22s,box-shadow .32s var(--ease)}
+.btn svg{width:20px;height:20px;flex:0 0 auto}
+.btn-gold{background:var(--gold);color:var(--tinte-tief);border-color:var(--gold)}
+.btn-gold:hover{background:var(--gold-hell);border-color:var(--gold-hell);transform:translateY(-2px);
+  box-shadow:0 16px 34px -16px oklch(0.775 0.115 84/.6)}
+.btn-rand{background:transparent;color:var(--kreide);border-color:oklch(1 0 0/.32)}
+.btn-rand:hover{border-color:var(--gold);color:var(--gold-hell);transform:translateY(-2px)}
+.kap-hell .btn-rand{color:var(--tinte);border-color:oklch(0.165 0.024 258/.3)}
+.kap-hell .btn-rand:hover{border-color:var(--gold-text);color:var(--gold-text)}
+
+/* ---------- Fortschritt · Kopf · Rufleiste ---------- */
+#fortschritt{position:fixed;inset:0 0 auto 0;height:3px;z-index:var(--z-fortschritt);
+  background:linear-gradient(90deg,var(--gold-tief),var(--gold) 55%,var(--gold-hell));
+  transform:scaleX(0);transform-origin:left center;pointer-events:none}
+.kopf{position:fixed;inset:0 0 auto 0;z-index:var(--z-kopf);display:flex;align-items:center;
+  justify-content:space-between;gap:.8rem;padding:.85rem clamp(.9rem,3.5vw,2.2rem);pointer-events:none}
+.kopf>*{pointer-events:auto}
+.marke{display:flex;align-items:center;gap:.65rem;background:oklch(0.115 0.022 258/.9);
+  border:1px solid var(--linie-d);backdrop-filter:blur(10px);border-radius:2px;
+  padding:.42rem 1rem .42rem .5rem;box-shadow:0 10px 26px -18px oklch(0 0 0/.9)}
+.marke .mk{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--gold);
+  border:1.5px solid var(--gold-tief);background:var(--tinte-tief);flex:0 0 auto}
+.marke .mk svg{width:17px;height:17px}
+.marke b{display:block;font-weight:800;font-stretch:112%;font-size:.98rem;letter-spacing:.02em;line-height:1.1}
+.marke b i{font-style:normal;color:var(--gold)}
+.marke small{display:block;font-weight:600;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rauch);line-height:1.3;white-space:nowrap}
+@media (max-width:430px){
+  .marke{padding:.38rem .8rem .38rem .42rem;gap:.5rem}
+  .marke .mk{width:30px;height:30px}
+  .marke b{font-size:.88rem}
+  .marke small{font-size:.54rem;letter-spacing:.1em}
+  .kopf-ruf{font-size:.82rem;padding:.55rem .85rem}
+}
+.kopf-rechts{display:flex;align-items:center;gap:.6rem}
+.kopf-ruf{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:.9rem;
+  color:var(--tinte-tief);background:var(--gold);border:1px solid var(--gold);border-radius:2px;
+  padding:.62rem 1.1rem;box-shadow:0 10px 26px -18px oklch(0 0 0/.9);
+  transition:transform .25s var(--ease),background .22s}
+.kopf-ruf svg{width:15px;height:15px}
+.kopf-ruf:hover{transform:translateY(-2px);background:var(--gold-hell)}
+
+/* Live-Status: offen / geschlossen */
+.status{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.8rem;
+  letter-spacing:.01em;color:var(--kreide);background:oklch(0.115 0.022 258/.9);
+  border:1px solid var(--linie-d);backdrop-filter:blur(10px);border-radius:2px;padding:.6rem .95rem}
+.status .punkt{width:8px;height:8px;border-radius:50%;background:var(--rauch);flex:0 0 auto}
+.status.ist-offen .punkt{background:var(--offen);box-shadow:0 0 0 0 oklch(0.74 0.155 152/.6);animation:puls 2.4s infinite}
+.status.ist-zu .punkt{background:var(--zu)}
+@keyframes puls{70%{box-shadow:0 0 0 8px oklch(0.74 0.155 152/0)}100%{box-shadow:0 0 0 0 oklch(0.74 0.155 152/0)}}
+@media (max-width:900px){.kopf-status{display:none}}
+
+/* Ruf-Leiste unten (mobil) */
+.rufleiste{position:fixed;inset:auto 0 0 0;z-index:var(--z-ruf);display:none;
+  padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom));
+  background:oklch(0.115 0.022 258/.94);border-top:1px solid var(--linie-d);backdrop-filter:blur(12px);
+  transform:translateY(110%)}
+.rufleiste .btn{width:100%;padding:.9rem 1.4rem;min-height:52px}
+html.statisch .rufleiste,.no-js .rufleiste{transform:none}
+@media (max-width:760px){.rufleiste{display:block}}
+
+/* ---------- Loader ---------- */
+#loader{position:fixed;inset:0;z-index:var(--z-loader);background:var(--tinte-tief);
+  display:grid;place-content:center;justify-items:center;gap:1.3rem;text-align:center}
+.no-js #loader,html.statisch #loader{display:none}
+.lader-ring{width:110px;height:110px}
+.lader-ring .ring{stroke:var(--gold-tief);stroke-width:2;fill:none}
+.lader-ring .sch{stroke:var(--gold);stroke-width:5;stroke-linecap:round;fill:none}
+.lade-wort{display:flex;font-weight:800;font-stretch:120%;font-size:1.85rem;letter-spacing:.03em;overflow:hidden}
+.lade-wort span{display:block}
+.lade-wort .a{color:var(--gold)}
+.lade-ort{font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--rauch)}
+
+/* =========================================================================
+   AKT 1 · DAS ENTREE — die Schere schneidet das Wortbild auf
+   ========================================================================= */
+#entree{position:relative;overflow:clip}
+.buehne{position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--tinte-tief)}
+.buehne-bg,.buehne-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 22%}
+@media (max-aspect-ratio: 4/5){.buehne-bg img{object-position:58% 40%}}
+.js .buehne-bg img{transform:scale(1.16)}
+.buehne-dunkel{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,oklch(0.115 0.022 258/.86),oklch(0.115 0.022 258/.62) 45%,oklch(0.115 0.022 258/.9))}
+.no-js .buehne-dunkel,html.statisch .buehne-dunkel{
+  background:linear-gradient(180deg,oklch(0.115 0.022 258/.72),oklch(0.115 0.022 258/.45) 45%,oklch(0.115 0.022 258/.85))}
+
+/* die beiden Hälften des Vorhangs, jede trägt ihre Hälfte des Namens */
+.vorhang{position:absolute;inset:0;display:flex;z-index:3}
+.no-js .vorhang,html.statisch .vorhang{display:none}
+.vh{flex:1 1 50%;position:relative;overflow:hidden;will-change:transform;
+  background:radial-gradient(120% 90% at 50% 30%,var(--tinte-hell),var(--tinte) 45%,var(--tinte-tief))}
+.vh-l{box-shadow:inset -1px 0 0 oklch(0.775 0.115 84/.25)}
+.vh-r{box-shadow:inset 1px 0 0 oklch(0.775 0.115 84/.25)}
+/* feine Nadelstreifen wie auf einem Barber-Umhang */
+.vh::before{content:"";position:absolute;inset:0;opacity:.5;
+  background:repeating-linear-gradient(122deg,transparent 0 13px,oklch(1 0 0/.022) 13px 14px)}
+/* das Wortbild: je 100vw breit, von der Hälfte beschnitten -> exakt an der Naht geteilt */
+.vh-wort{position:absolute;top:50%;width:100vw;max-width:none;transform:translateY(-50%);
+  display:grid;grid-template-columns:50vw 50vw;align-items:center;
+  font-weight:800;font-stretch:122%;font-size:clamp(2.3rem,1rem + 6.2vw,5.9rem);
+  letter-spacing:.005em;line-height:1;user-select:none}
+.vh-l .vh-wort{left:0}
+.vh-r .vh-wort{right:0}
+.vh-wort .a{text-align:right;color:var(--gold);margin-right:-.055em}
+.vh-wort .b{text-align:left;color:var(--kreide)}
+.vh-unter{position:absolute;top:calc(50% + clamp(2.8rem,6vw,5rem));width:100vw;max-width:none;text-align:center;
+  font-size:clamp(.66rem,.6rem + .3vw,.82rem);font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--rauch)}
+.vh-l .vh-unter{left:0}
+.vh-r .vh-unter{right:0}
+
+/* die Schnittnaht + ihr Lichtschein */
+.naht{position:absolute;left:50%;bottom:0;width:2px;height:100%;z-index:4;
+  transform:translateX(-50%) scaleY(0);transform-origin:center bottom;
+  background:linear-gradient(180deg,var(--gold-hell),var(--gold) 60%,var(--glut));
+  box-shadow:0 0 22px oklch(0.775 0.115 84/.85),0 0 60px oklch(0.70 0.165 55/.4)}
+.no-js .naht,html.statisch .naht{display:none}
+
+/* die Schere */
+.schere{position:absolute;left:50%;top:50%;width:clamp(112px,15vw,178px);z-index:6;
+  margin-left:calc(clamp(112px,15vw,178px) / -2);will-change:transform;
+  filter:drop-shadow(0 12px 34px oklch(0 0 0/.6))}
+.no-js .schere,html.statisch .schere{display:none}
+.schere .blatt{fill:var(--gold);stroke:var(--gold-hell);stroke-width:1.5}
+.schere .griff{fill:none;stroke:var(--gold);stroke-width:7.5}
+.schere .niete{fill:var(--tinte-tief);stroke:var(--gold-hell);stroke-width:2.5}
+
+/* abgeschnittene Haare, die nach dem Schnitt fallen */
+.haare{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.no-js .haare,html.statisch .haare{display:none}
+.haare i{position:absolute;top:38%;width:2px;height:clamp(14px,2.4vw,26px);border-radius:2px;
+  background:linear-gradient(180deg,oklch(0.62 0.05 70/.9),oklch(0.42 0.04 70/.15));opacity:0}
+
+/* der Text, der nach dem Öffnen kommt */
+.buehne-ui{position:absolute;inset:0;z-index:7;display:grid;place-content:center;justify-items:center;
+  text-align:center;padding:clamp(1.2rem,4vw,2rem);gap:0}
+.js .buehne-ui{visibility:hidden}
+html.statisch .buehne-ui,.no-js .buehne-ui{visibility:visible}
+.ort{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.76rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold-hell);
+  text-shadow:0 2px 12px oklch(0 0 0/.85)}
+.ort svg{width:14px;height:14px}
+.buehne-ui h1{margin:1rem 0 0;max-width:16ch;
+  text-shadow:0 4px 14px oklch(0.115 0.022 258/.75),0 8px 46px oklch(0 0 0/.6)}
+.buehne-ui h1 em{font-style:normal;color:var(--gold)}
+.buehne-sub{margin:1.25rem auto 0;font-size:clamp(1.02rem,.97rem + .42vw,1.28rem);font-weight:500;
+  color:oklch(1 0 0/.94);max-width:38ch;line-height:1.6;text-wrap:balance;
+  text-shadow:0 2px 18px oklch(0 0 0/.7)}
+.buehne-cta{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:2.1rem}
+.buehne-fuss{position:absolute;left:0;right:0;bottom:clamp(1.2rem,3.5vh,2.4rem);z-index:7;
+  display:flex;justify-content:center;padding-inline:1rem}
+.blaettern{display:flex;align-items:center;gap:.5rem;font-size:.84rem;font-weight:500;color:oklch(1 0 0/.72)}
+.blaettern svg{width:16px;height:16px}
+.js .blaettern svg{animation:nicken 1.9s var(--ease) infinite}
+@keyframes nicken{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* =========================================================================
+   Kapitel-Gerüst
+   ========================================================================= */
+.kapitel{position:relative}
+.kap-dunkel{background:linear-gradient(180deg,var(--tinte-tief),var(--tinte) 20%,var(--tinte-tief) 92%)}
+.kap-hell{background:var(--kreide);color:var(--tinte)}
+.kap-hell p{color:var(--rauch-dunkel)}
+.kap-kopf{padding:clamp(4.5rem,3.5rem + 6vw,8.5rem) 0 clamp(1.8rem,1.4rem + 2vw,3.2rem)}
+.kap-kopf h2{max-width:19ch}
+.kap-intro{margin-top:1.25rem;font-size:clamp(1.02rem,.97rem + .38vw,1.24rem);color:var(--rauch);font-weight:500}
+.kap-hell .kap-intro{color:var(--rauch-dunkel)}
+.marke-linie{display:flex;align-items:center;gap:.9rem;font-weight:700;font-size:.76rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.marke-linie::after{content:"";flex:1;max-width:120px;height:1px;background:linear-gradient(90deg,var(--gold-tief),transparent)}
+.kap-hell .marke-linie{color:var(--gold-text)}
+.szene-pin{min-height:100svh;display:grid;align-content:center;gap:clamp(1.4rem,3vw,2.8rem)}
+
+/* ---------- Szene: Anatomie des Schnitts ---------- */
+#handwerk .szene-pin{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center}
+.anatomie{position:relative;justify-self:center;width:min(100%,360px)}
+.anatomie-rahmen{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:1350/1800;max-height:72svh;
+  border:1px solid var(--linie-d);box-shadow:0 36px 76px -32px oklch(0 0 0/.85);background:var(--tinte-hell)}
+.anatomie-rahmen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.anatomie-rahmen svg{position:absolute;inset:0;width:100%;height:100%}
+.mark circle{fill:oklch(0.115 0.022 258/.9);stroke:var(--gold);stroke-width:4}
+.mark text{font-family:var(--schrift);font-weight:800;font-size:46px;fill:var(--gold-hell)}
+.mark .mlinie{stroke:var(--gold);stroke-width:4.5;fill:none;opacity:.9;stroke-linecap:round;stroke-linejoin:round}
+.js .mark{opacity:0}
+html.statisch .mark,.no-js .mark{opacity:1}
+.anatomie figcaption{margin-top:.85rem;font-size:.82rem;font-weight:500;color:var(--rauch);text-align:center}
+.schritte{list-style:none;display:grid;gap:.85rem;counter-reset:s;margin-top:1.6rem}
+.schritte li{display:grid;grid-template-columns:46px 1fr;gap:.15rem 1rem;align-items:start;counter-increment:s;
+  opacity:.34;transition:opacity .38s var(--ease),transform .38s var(--ease)}
+.schritte li::before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;
+  font-weight:800;font-size:1.05rem;color:var(--kreide);background:var(--tinte-hell);border:1.5px solid var(--linie-d);
+  transition:background .38s,color .38s,border-color .38s}
+.schritte li b{display:block;grid-column:2;font-weight:800;font-stretch:110%;font-size:1.3rem;line-height:1.2}
+.schritte li span{display:block;grid-column:2;font-size:.95rem;color:var(--rauch)}
+.schritte li.aktiv{opacity:1;transform:translateX(5px)}
+.schritte li.aktiv::before{background:var(--gold);border-color:var(--gold);color:var(--tinte-tief)}
+html.statisch .schritte li,.no-js .schritte li{opacity:1;transform:none}
+.szene-note{font-size:.87rem;color:var(--rauch);border-top:1px solid var(--linie-d);
+  padding-top:.85rem;margin-top:1.5rem;max-width:46ch}
+
+/* ---------- Szene: vier Seiten (Rundum-Belege) ---------- */
+.rundum{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),400px));
+  justify-content:center;gap:clamp(1rem,2.5vw,2.2rem);margin-top:clamp(1.8rem,3vw,2.8rem)}
+.rundum figure{position:relative;border:1px solid var(--linie-d);border-radius:3px;overflow:hidden;
+  background:var(--tinte-hell);box-shadow:0 30px 60px -34px oklch(0 0 0/.85)}
+.rundum img{width:100%;aspect-ratio:787/1400;object-fit:cover}
+.rundum figcaption{padding:.9rem 1.1rem 1.05rem;font-size:.87rem;color:var(--rauch);border-top:1px solid var(--linie-d)}
+.rundum figcaption b{display:block;color:var(--kreide);font-weight:700;font-stretch:106%;font-size:1rem;margin-bottom:.15rem}
+
+/* ---------- Preiskarte ---------- */
+.karte-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(2rem,4.5vw,4.5rem);align-items:start;padding-bottom:clamp(4rem,3rem + 5vw,7rem)}
+.menu{list-style:none;margin-top:1.6rem;display:grid;gap:0}
+.menu li{display:flex;align-items:baseline;gap:.85rem;padding:.9rem 0;border-bottom:1px solid var(--linie-d)}
+.menu li:first-child{border-top:1px solid var(--linie-d)}
+.m-name{font-weight:600;font-size:1.05rem}
+.m-info{font-size:.84rem;color:var(--rauch);font-weight:400}
+.m-dots{flex:1;min-width:1.5rem;border-bottom:1.5px dotted var(--linie-d);transform:translateY(-5px)}
+.m-preis{font-weight:800;font-stretch:112%;font-size:1.45rem;color:var(--gold);white-space:nowrap;letter-spacing:-.01em}
+.kap-hell .menu li{border-color:var(--linie-h)}
+.kap-hell .m-dots{border-color:var(--linie-h)}
+.kap-hell .m-info{color:var(--rauch-dunkel)}
+.kap-hell .m-preis{color:var(--gold-tief)}
+.preis-note{margin-top:1.3rem;font-size:.85rem;color:var(--rauch);max-width:56ch}
+.kap-hell .preis-note{color:var(--rauch-dunkel)}
+.tafel{position:sticky;top:6rem;border:1px solid var(--linie-d);border-radius:3px;overflow:hidden;
+  background:var(--tinte-hell);box-shadow:0 30px 60px -34px oklch(0 0 0/.85)}
+.tafel img{width:100%}
+.tafel figcaption{padding:.85rem 1.1rem 1rem;font-size:.84rem;color:var(--rauch);border-top:1px solid var(--linie-d)}
+.kap-hell .tafel{border-color:var(--linie-h);background:#fff;box-shadow:0 30px 60px -38px oklch(0.165 0.024 258/.3)}
+.kap-hell .tafel figcaption{color:var(--rauch-dunkel);border-color:var(--linie-h)}
+
+/* Damen: Spalten-Preise nach Länge */
+.laengen{list-style:none;margin-top:1.5rem;display:grid;gap:0;max-width:840px}
+.laengen .kopfzeile,.laengen li{display:grid;grid-template-columns:minmax(0,1fr) 4.2rem 4.2rem 4.2rem;
+  gap:.6rem;align-items:baseline;padding:.78rem 0;border-bottom:1px solid var(--linie-h)}
+.laengen .kopfzeile{border-bottom-width:1.5px;font-size:.7rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rauch-dunkel);padding-bottom:.6rem}
+.laengen .kopfzeile span:not(:first-child),.laengen li span:not(:first-child){text-align:right}
+.laengen .l-name{font-weight:600;font-size:1rem;color:var(--tinte)}
+.laengen .l-name small{display:block;font-weight:400;font-size:.78rem;color:var(--rauch-dunkel)}
+.laengen .l-preis{font-weight:800;font-stretch:108%;font-size:1.2rem;color:var(--gold-tief);white-space:nowrap}
+.laengen .weit{grid-column:2 / -1;text-align:right}
+
+/* ---------- Der Laden: Panorama + Fakten ---------- */
+.panorama{position:relative;margin-top:clamp(2rem,4vw,3.5rem);border-block:1px solid var(--linie-d);
+  overflow:hidden;background:var(--tinte-tief)}
+.panorama img{width:100%;max-height:min(46svh,420px);object-fit:cover;object-position:center}
+.panorama figcaption{position:absolute;left:0;right:0;bottom:0;padding:2.4rem 1.2rem .9rem;
+  font-size:.82rem;color:oklch(1 0 0/.82);text-align:center;
+  background:linear-gradient(180deg,transparent,oklch(0.115 0.022 258/.85))}
+.fakten{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:clamp(1.2rem,2.5vw,2.2rem);margin-top:clamp(2.4rem,4vw,3.6rem)}
+.fakten li{display:grid;grid-template-columns:26px 1fr;gap:.2rem .9rem;align-items:start}
+.fakten svg{width:26px;height:26px;grid-row:span 2;color:var(--gold);stroke-width:1.6}
+.fakten b{font-weight:700;font-stretch:106%;font-size:1.05rem;line-height:1.35}
+.fakten span{font-size:.92rem;color:var(--rauch);line-height:1.55}
+
+/* ---------- Stimmen ---------- */
+#stimmen{padding:clamp(4.5rem,3.5rem + 5vw,8rem) 0;background:var(--tinte-tief);
+  border-top:1px solid var(--linie-d)}
+.stimmen-kopf{text-align:center;display:grid;justify-items:center;gap:.6rem}
+.wertung{display:flex;align-items:center;gap:1rem;margin-top:.6rem}
+.wertung .zahl{font-weight:800;font-stretch:120%;font-size:clamp(3.2rem,2.2rem + 4vw,5.4rem);
+  color:var(--gold);line-height:.9;letter-spacing:-.02em}
+.sterne{display:flex;gap:.22rem;color:var(--gold)}
+.sterne svg{width:clamp(20px,2.6vw,26px);height:clamp(20px,2.6vw,26px)}
+.wertung-sub{font-size:.95rem;color:var(--rauch)}
+.zitate{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:clamp(1.2rem,2.5vw,2rem);margin-top:clamp(2.6rem,4vw,4rem)}
+.zitat{display:grid;gap:.9rem;align-content:start;padding:1.6rem 1.5rem;background:var(--tinte);
+  border:1px solid var(--linie-d);border-radius:3px}
+.zitat p{font-size:1.02rem;line-height:1.65;color:var(--kreide)}
+.z-sterne{display:flex;gap:.15rem;color:var(--gold)}
+.z-sterne svg{width:15px;height:15px}
+.zitat footer{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--rauch);font-weight:500}
+.ava{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  background:var(--tinte-hell);border:1px solid var(--linie-d);color:var(--gold);font-weight:800;font-size:.85rem}
+
+/* ---------- Laufband ---------- */
+.band{overflow:hidden;background:var(--gold);color:var(--tinte-tief);padding:.85rem 0;
+  position:relative;z-index:var(--z-band)}
+.band-spur{display:flex;width:max-content;gap:0;will-change:transform}
+.band-spur span{display:inline-flex;align-items:center;gap:1.4rem;padding-right:1.4rem;white-space:nowrap;
+  font-weight:800;font-stretch:112%;font-size:clamp(.9rem,.85rem + .4vw,1.12rem);letter-spacing:.04em;text-transform:uppercase}
+.band-spur i{font-style:normal;opacity:.55}
+html.statisch .band-spur,.no-js .band-spur{animation:laufen 28s linear infinite}
+@keyframes laufen{to{transform:translateX(-50%)}}
+
+/* ---------- Finale ---------- */
+#finale{padding:clamp(4.5rem,3.5rem + 5vw,8rem) 0 0;background:var(--tinte)}
+.finale-kopf{text-align:center;display:grid;justify-items:center}
+.final-mark{width:56px;height:56px;display:grid;place-items:center;color:var(--gold);
+  border:1.5px solid var(--gold-tief);border-radius:50%;margin-bottom:1.4rem}
+.final-mark svg{width:26px;height:26px}
+.finale-kopf h2{max-width:16ch}
+.finale-kopf p{margin:1.2rem auto 0;color:var(--rauch);font-size:clamp(1.02rem,.97rem + .35vw,1.2rem)}
+.final-cta{display:flex;flex-wrap:wrap;gap:.85rem;justify-content:center;margin-top:2.2rem}
+.telzeile{margin-top:1.1rem;font-size:.88rem;color:var(--rauch)}
+.info-karten{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:clamp(1.6rem,3vw,3rem);margin-top:clamp(3rem,5vw,5rem);
+  padding-top:clamp(2.4rem,4vw,3.6rem);border-top:1px solid var(--linie-d)}
+.info h3{font-size:.78rem;font-weight:700;font-stretch:100%;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem}
+.info p{font-size:.98rem;color:var(--rauch);line-height:1.75}
+.info a{color:var(--kreide);border-bottom:1px solid var(--gold-tief);padding-bottom:1px;
+  transition:color .2s,border-color .2s}
+.info a:hover{color:var(--gold-hell);border-color:var(--gold)}
+.zeiten{display:grid;gap:.1rem;font-size:.95rem}
+.zeiten div{display:flex;justify-content:space-between;gap:1rem;padding:.42rem .6rem;
+  border-radius:2px;color:var(--rauch)}
+.zeiten div.heute{background:oklch(0.775 0.115 84/.14);color:var(--kreide);font-weight:600;
+  box-shadow:inset 2px 0 0 var(--gold)}
+.zeiten div.heute::after{content:"heute";font-size:.68rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold);align-self:center}
+.zeiten div.heute span:last-of-type{margin-left:auto;margin-right:.7rem}
+.karte-link{display:inline-flex;align-items:center;gap:.4rem;margin-top:.6rem}
+.karte-link svg{width:14px;height:14px;color:var(--gold)}
+footer.fuss{margin-top:clamp(3rem,5vw,5rem);border-top:1px solid var(--linie-d);
+  padding:1.6rem 0 calc(1.6rem + env(safe-area-inset-bottom));font-size:.82rem;color:oklch(0.63 0.016 258);line-height:1.75}
+.kap-hell footer.fuss{color:var(--rauch-dunkel)}
+footer.fuss a{color:var(--rauch);border-bottom:1px solid var(--linie-d)}
+@media (max-width:760px){footer.fuss{padding-bottom:calc(5.2rem + env(safe-area-inset-bottom))}}
+
+/* ---------- Zwischenraum ---------- */
+@media (max-width:960px){
+  #handwerk .szene-pin{grid-template-columns:1fr;gap:2rem}
+  .anatomie{width:min(100%,300px)}
+  .karte-grid{grid-template-columns:1fr}
+  .tafel{position:static;max-width:420px}
+  .szene-pin{min-height:auto;padding-block:clamp(2rem,6vw,4rem)}
+}
+@media (max-width:560px){
+  .laengen .kopfzeile{display:none}
+  .laengen li{grid-template-columns:repeat(3,minmax(0,1fr));gap:.1rem .4rem;padding:.9rem 0}
+  .laengen li .l-name{grid-column:1 / -1;margin-bottom:.45rem}
+  .laengen li span.l-preis{text-align:center;font-size:1.02rem}
+  .laengen li span.l-preis::before{content:attr(data-len);display:block;font-size:.58rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--rauch-dunkel);margin-bottom:.18rem}
+  .laengen li span.weit{grid-column:1 / -1;text-align:right}
+  .laengen li span.weit::before{content:none}
+  /* Zeilen mit nur einem Preis bleiben einzeilig */
+  .laengen li:has(.weit){grid-template-columns:minmax(0,1fr) auto}
+  .laengen li:has(.weit) .l-name{grid-column:1;margin-bottom:0}
+  .laengen li:has(.weit) span.weit{grid-column:2}
+  .m-info{display:none}
+}
+
+/* ---------- weniger Bewegung ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important}
+  .band-spur{animation:none !important}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "Proficut by Omar",
+  "alternateName": "Proficut Münster",
+  "description": "Barbershop und Friseursalon in der Münsteraner Innenstadt. Herrenschnitt, Fade, Bartkontur und Rasur ohne Termin, dazu Damenschnitt, Farbe und Strähnen.",
+  "image": ["fotos/laden.jpg", "fotos/salon-panorama.jpg", "fotos/fade-fenster.jpg"],
+  "telephone": "+4925167446469",
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR",
+  "paymentAccepted": "Bargeld, EC-Karte",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Aegidiistraße 46",
+    "postalCode": "48143",
+    "addressLocality": "Münster",
+    "addressRegion": "NRW",
+    "addressCountry": "DE"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 51.9585196, "longitude": 7.6212942 },
+  "hasMap": "https://maps.google.com/?cid=10517950784416614076",
+  "areaServed": { "@type": "City", "name": "Münster" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "18:00" }
+  ],
+  "isAccessibleForFree": false,
+  "publicAccess": true,
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Barrierefreier Eingang", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Ohne Termin möglich", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Kartenzahlung", "value": true }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Leistungen",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Herrenschnitt mit Styling" }, "price": "20", "priceCurrency": "EUR" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Waschen und Schneiden" }, "price": "23", "priceCurrency": "EUR" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Schnitt und Bart" }, "price": "32", "priceCurrency": "EUR" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maschinenschnitt" }, "price": "12", "priceCurrency": "EUR" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bartrasur" }, "price": "10", "priceCurrency": "EUR" },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kinderschnitt bis 10 Jahre" }, "price": "15", "priceCurrency": "EUR" }
+    ]
+  }
+}
+</script>
+</head>
+<body>
+
+<div id="fortschritt" aria-hidden="true"></div>
+
+<header class="kopf">
+  <a class="marke" href="#entree" aria-label="Proficut by Omar, zum Seitenanfang">
+    <span class="mk" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8.5 4 15 18"/><path d="M15.5 4 9 18"/><circle cx="7.5" cy="20" r="2"/><circle cx="16.5" cy="20" r="2"/></svg>
+    </span>
+    <span><b><i>PROFI</i>CUT</b><small>by Omar · Münster</small></span>
+  </a>
+  <div class="kopf-rechts">
+    <p class="status kopf-status" id="status" hidden><span class="punkt" aria-hidden="true"></span><span class="status-text">Öffnungszeiten</span></p>
+    <a class="kopf-ruf" href="tel:+4925167446469">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>0251&nbsp;67446469</span>
+    </a>
+  </div>
+</header>
+
+<div id="loader" aria-hidden="true">
+  <svg class="lader-ring" viewBox="0 0 120 120">
+    <circle class="ring" cx="60" cy="60" r="55"/>
+    <path class="sch s1" d="M45 32 L72 88"/>
+    <path class="sch s2" d="M75 32 L48 88"/>
+    <circle class="sch s3" cx="44" cy="95" r="8"/>
+    <circle class="sch s4" cx="76" cy="95" r="8"/>
+  </svg>
+  <p class="lade-wort"><span class="a">PROFI</span><span class="b">CUT</span></p>
+  <p class="lade-ort">by Omar · Münster</p>
+</div>
+
+<main>
+
+  <!-- ═══════════ AKT 1 · DAS ENTREE ═══════════ -->
+  <section id="entree" aria-label="Eingang: der Salon öffnet">
+    <div class="buehne">
+      <div class="buehne-bg">
+        <img src="fotos/fade-fenster.jpg" width="1350" height="1800" fetchpriority="high"
+             alt="Frisch geschnittener Fade bei Proficut by Omar — im Fenster dahinter die Barber-Pole und die Backsteinfassade der Aegidiistraße in Münster">
+      </div>
+      <div class="buehne-dunkel" aria-hidden="true"></div>
+
+      <div class="vorhang" aria-hidden="true">
+        <div class="vh vh-l">
+          <p class="vh-wort"><span class="a">PROFI</span><span class="b">CUT</span></p>
+          <p class="vh-unter">by Omar · Aegidiistraße 46 · Münster</p>
+        </div>
+        <div class="vh vh-r">
+          <p class="vh-wort"><span class="a">PROFI</span><span class="b">CUT</span></p>
+          <p class="vh-unter">by Omar · Aegidiistraße 46 · Münster</p>
+        </div>
+      </div>
+
+      <div class="naht" aria-hidden="true"></div>
+
+      <div class="haare" aria-hidden="true">
+        <i style="left:41%"></i><i style="left:44.5%"></i><i style="left:47%"></i><i style="left:49%"></i>
+        <i style="left:51%"></i><i style="left:53%"></i><i style="left:55.5%"></i><i style="left:58.5%"></i><i style="left:61%"></i>
+      </div>
+
+      <svg class="schere" viewBox="0 0 200 230" aria-hidden="true">
+        <g class="blatt blatt-l">
+          <path d="M100 104 L80 16 Q86 4 95 13 L106 102 Z"/>
+          <circle class="griff" cx="117" cy="152" r="19"/>
+        </g>
+        <g class="blatt blatt-r">
+          <path d="M100 104 L120 16 Q114 4 105 13 L94 102 Z"/>
+          <circle class="griff" cx="83" cy="152" r="19"/>
+        </g>
+        <circle class="niete" cx="100" cy="104" r="6"/>
+      </svg>
+
+      <div class="buehne-ui">
+        <p class="ort">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Aegidiistraße 46 · Münster
+        </p>
+        <h1>Rein, sitzen, <em>passt.</em></h1>
+        <p class="buehne-sub">Schnitt, Bart und Rasur mitten in Münster — ohne Termin, sechs Tage die Woche.</p>
+        <div class="buehne-cta">
+          <a class="btn btn-gold" href="tel:+4925167446469">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            0251 67446469
+          </a>
+          <a class="btn btn-rand" href="#karte">Preise ansehen</a>
+        </div>
+      </div>
+
+      <div class="buehne-fuss">
+        <p class="blaettern" id="blaettern">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v14m0 0 5-5m-5 5-5-5"/></svg>
+          Scrollen — die Schere macht auf
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ AKT 2 · DAS HANDWERK ═══════════ -->
+  <section id="handwerk" class="kapitel kap-dunkel" aria-label="Wie ein Schnitt bei Proficut entsteht">
+    <div class="kap-kopf wrap">
+      <p class="marke-linie">Das Handwerk</p>
+      <h2 class="split">Der Übergang entscheidet.</h2>
+      <p class="kap-intro">Ein Fade ist keine Länge, sondern ein Verlauf. Er wird in vier Schritten aufgebaut — und man sieht sofort, ob jeder davon gesessen hat.</p>
+    </div>
+
+    <div class="szene wrap">
+      <div class="szene-pin">
+        <figure class="anatomie">
+          <div class="anatomie-rahmen">
+            <img src="fotos/fade-fenster.jpg" width="1350" height="1800" decoding="async"
+                 alt="Nahaufnahme eines fertigen Fades: kurzer Übergang an der Schläfe, strukturiertes Deckhaar, im Hintergrund die Barber-Pole am Fenster">
+            <svg viewBox="0 0 1350 1800" aria-hidden="true">
+              <g class="mark m1"><path class="mlinie" d="M462 1117 H1105"/><circle cx="400" cy="1117" r="58"/><text x="400" y="1135" text-anchor="middle">1</text></g>
+              <g class="mark m2"><path class="mlinie" d="M462 796 H912"/><circle cx="400" cy="796" r="58"/><text x="400" y="814" text-anchor="middle">2</text></g>
+              <g class="mark m3"><path class="mlinie" d="M462 1312 H872"/><circle cx="400" cy="1312" r="58"/><text x="400" y="1330" text-anchor="middle">3</text></g>
+              <g class="mark m4"><path class="mlinie" d="M462 1642 H1122 V1252"/><circle cx="400" cy="1642" r="58"/><text x="400" y="1660" text-anchor="middle">4</text></g>
+            </svg>
+          </div>
+          <figcaption>Aufnahme aus dem Laden an der Aegidiistraße.</figcaption>
+        </figure>
+
+        <div class="handwerk-text">
+          <h3>Vier Schritte, in dieser Reihenfolge.</h3>
+          <ol class="schritte">
+            <li class="aktiv"><b>Die Maschine</b><span>Vom Nacken aufwärts, Millimeter für Millimeter. Hier entsteht der Verlauf — noch nicht die Frisur.</span></li>
+            <li><b>Die Schere</b><span>Deckhaar auf Ihren Kopf geschnitten: Wirbel, Haarrichtung, Stirnform. Danach fällt es von allein richtig.</span></li>
+            <li><b>Die Kontur</b><span>Stirn, Schläfe, Nacken. Kanten, die drei Wochen halten und nicht schon nach fünf Tagen ausfransen.</span></li>
+            <li><b>Der Bart</b><span>Vom Fade in die Bartlinie: ein Übergang, keine Kante. Zum Schluss heißes Tuch.</span></li>
+          </ol>
+          <p class="szene-note">Weiterscrollen — jeder Schritt zeigt, wo am Kopf er entschieden wird.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap" style="padding-bottom:clamp(4rem,3rem + 5vw,7rem)">
+      <h3 class="split">Vier Seiten. Ein Ergebnis.</h3>
+      <p class="kap-intro" style="max-width:58ch">Ein Schnitt, der nur von vorn sitzt, ist keiner. Beide Arbeiten stammen aus dem Salon — jeweils einmal rundum fotografiert.</p>
+      <div class="rundum">
+        <figure>
+          <img src="fotos/arbeit-blond.jpg" width="787" height="1400" loading="lazy" decoding="async"
+               alt="Blonder Crop mit hohem Fade, in vier Ansichten von vorne, hinten und beiden Seiten">
+          <figcaption><b>Crop mit hohem Fade</b>Kurzer Übergang bis fast auf Null, Deckhaar mit Struktur statt Helm.</figcaption>
+        </figure>
+        <figure>
+          <img src="fotos/arbeit-locken.jpg" width="787" height="1400" loading="lazy" decoding="async"
+               alt="Lockiger Herrenschnitt mit weichem Übergang, in vier Ansichten von vorne, hinten und beiden Seiten">
+          <figcaption><b>Locken, weich abgesetzt</b>Kein harter Absatz: der Übergang läuft in die Locke hinein aus.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ AKT 3 · DIE KARTE ═══════════ -->
+  <section id="karte" class="kapitel kap-dunkel" aria-label="Preise für Herren" style="border-top:1px solid var(--linie-d)">
+    <div class="kap-kopf wrap">
+      <p class="marke-linie">Die Karte</p>
+      <h2 class="split">Was es kostet. Ohne Sternchen.</h2>
+      <p class="kap-intro">Die Preise hängen im Laden aus — und stehen genauso hier. Bar oder mit EC-Karte.</p>
+    </div>
+
+    <div class="wrap karte-grid">
+      <div>
+        <ul class="menu">
+          <li><span class="m-name">Schneiden &amp; Style</span><span class="m-info">Schnitt mit Finish</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">20&nbsp;€</span></li>
+          <li><span class="m-name">Waschen &amp; Schneiden</span><span class="m-info">Mit Kopfwäsche</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">23&nbsp;€</span></li>
+          <li><span class="m-name">Schneiden &amp; Bart</span><span class="m-info">Schnitt mit modischer Bartkontur</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">32&nbsp;€</span></li>
+          <li><span class="m-name">Schnitt, Bart &amp; Augenbrauen</span><span class="m-info">Das komplette Programm</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">40&nbsp;€</span></li>
+          <li><span class="m-name">Maschinenschnitt</span><span class="m-info">Eine Länge, sauber</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">12&nbsp;€</span></li>
+          <li><span class="m-name">Bartrasur</span><span class="m-info">Klassisch</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">10&nbsp;€</span></li>
+          <li><span class="m-name">Bartrasur, modisch</span><span class="m-info">Mit Kontur</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">12&nbsp;€</span></li>
+          <li><span class="m-name">Augenbrauen zupfen</span><span class="m-info">Auf Wunsch dazu</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">8&nbsp;€</span></li>
+          <li><span class="m-name">Kinderschnitt</span><span class="m-info">Bis 10 Jahre</span><span class="m-dots" aria-hidden="true"></span><span class="m-preis">15&nbsp;€</span></li>
+        </ul>
+        <p class="preis-note">Stand der Preistafel im Salon, August 2026. Beratung kostet nichts — sagen Sie einfach, was Sie vorhaben.</p>
+      </div>
+      <figure class="tafel">
+        <img src="fotos/preistafel.jpg" width="1062" height="1500" loading="lazy" decoding="async"
+             alt="Die Preistafel im Salon Proficut by Omar mit den Spalten Herren und Damen">
+        <figcaption>Die Original-Tafel im Laden. Jeder Preis auf dieser Seite steht auch dort.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ═══════════ AKT 4 · DAMEN ═══════════ -->
+  <section id="damen" class="kapitel kap-hell" aria-label="Preise für Damen">
+    <div class="kap-kopf wrap">
+      <p class="marke-linie">Auch für Damen</p>
+      <h2 class="split">Nicht nur Herren.</h2>
+      <p class="kap-intro">Schnitt, Farbe, Strähnen, Hochsteckfrisur — die Damenkarte hängt auf derselben Tafel. Die Preise richten sich nach der Haarlänge.</p>
+    </div>
+
+    <div class="wrap" style="padding-bottom:clamp(4rem,3rem + 5vw,7rem)">
+      <ul class="laengen">
+        <li class="kopfzeile" aria-hidden="true"><span>Leistung</span><span>kurz</span><span>mittel</span><span>lang</span></li>
+        <li><span class="l-name">Schneiden</span><span class="l-preis" data-len="kurz">ab 23&nbsp;€</span><span class="l-preis" data-len="mittel">25&nbsp;€</span><span class="l-preis" data-len="lang">27&nbsp;€</span></li>
+        <li><span class="l-name">Waschen &amp; Schneiden</span><span class="l-preis" data-len="kurz">ab 25&nbsp;€</span><span class="l-preis" data-len="mittel">28&nbsp;€</span><span class="l-preis" data-len="lang">31&nbsp;€</span></li>
+        <li><span class="l-name">Waschen &amp; Föhnen</span><span class="l-preis" data-len="kurz">ab 25&nbsp;€</span><span class="l-preis" data-len="mittel">30&nbsp;€</span><span class="l-preis" data-len="lang">35&nbsp;€</span></li>
+        <li><span class="l-name">Waschen, Schneiden &amp; Föhnen</span><span class="l-preis" data-len="kurz">ab 35&nbsp;€</span><span class="l-preis" data-len="mittel">40&nbsp;€</span><span class="l-preis" data-len="lang">55&nbsp;€</span></li>
+        <li><span class="l-name">Färben<small>komplett</small></span><span class="l-preis" data-len="kurz">ab 35&nbsp;€</span><span class="l-preis" data-len="mittel">45&nbsp;€</span><span class="l-preis" data-len="lang">55&nbsp;€</span></li>
+        <li><span class="l-name">Färben<small>Ansatz</small></span><span class="l-preis" data-len="kurz">ab 32&nbsp;€</span><span class="l-preis" data-len="mittel">35&nbsp;€</span><span class="l-preis" data-len="lang">40&nbsp;€</span></li>
+        <li><span class="l-name">Dauerwelle</span><span class="l-preis" data-len="kurz">ab 45&nbsp;€</span><span class="l-preis" data-len="mittel">55&nbsp;€</span><span class="l-preis" data-len="lang">60&nbsp;€</span></li>
+        <li><span class="l-name">Hochsteckfrisur</span><span class="l-preis" data-len="kurz">ab 40&nbsp;€</span><span class="l-preis" data-len="mittel">60&nbsp;€</span><span class="l-preis" data-len="lang">70&nbsp;€</span></li>
+        <li><span class="l-name">Balayage</span><span class="l-preis" data-len="kurz">ab 190&nbsp;€</span><span class="l-preis" data-len="mittel">215&nbsp;€</span><span class="l-preis" data-len="lang">235&nbsp;€</span></li>
+        <li><span class="l-name">Strähnchen</span><span class="l-preis weit">ab 40&nbsp;€</span></li>
+        <li><span class="l-name">Gesichtshaarentfernung<small>mit Faden</small></span><span class="l-preis weit">17&nbsp;€</span></li>
+        <li><span class="l-name">Wimpernfarbe</span><span class="l-preis weit">15&nbsp;€</span></li>
+        <li><span class="l-name">Augenbrauen färben oder zupfen</span><span class="l-preis weit">je 8&nbsp;€</span></li>
+        <li><span class="l-name">Haarpflege &amp; Kur</span><span class="l-preis weit">8&nbsp;€</span></li>
+      </ul>
+      <p class="preis-note">Ab-Preise laut Aushang, August 2026. Der genaue Preis hängt an Länge, Dichte und Aufwand — das wird vorher besprochen, nicht hinterher.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ AKT 5 · DER LADEN ═══════════ -->
+  <section id="laden" class="kapitel kap-dunkel" aria-label="Der Salon und was Sie erwartet">
+    <div class="kap-kopf wrap">
+      <p class="marke-linie">Der Laden</p>
+      <h2 class="split">Mitten in der Stadt.</h2>
+      <p class="kap-intro">Aegidiistraße 46, ein paar Schritte vom Aegidiimarkt. Helle Plätze, Spiegelwand, Marmorboden — und in der Regel geht es direkt los.</p>
+    </div>
+
+    <figure class="panorama">
+      <img src="fotos/salon-panorama.jpg" width="1024" height="359" loading="lazy" decoding="async"
+           alt="Blick durch den Salon von Proficut by Omar: Spiegelplätze mit warm hinterleuchteten Regalen, Barberstühle und eine lange Wartebank">
+      <figcaption>Der Salon an der Aegidiistraße 46 in Münster</figcaption>
+    </figure>
+
+    <div class="wrap" style="padding-bottom:clamp(4rem,3rem + 5vw,7rem)">
+      <ul class="fakten">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l7-5 7 5v13"/><path d="M10 21v-6h4v6"/><path d="M21 21H3"/></svg>
+          <b>Ohne Termin</b><span>Reinkommen reicht. Wenn viel los ist, hilft ein kurzer Anruf vorher.</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <b>Sechs Tage geöffnet</b><span>Mo–Fr 9 bis 19 Uhr, Sa 9 bis 18 Uhr. Sonntag ist Ruhetag.</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>
+          <b>Bar oder Karte</b><span>EC-Karte wird akzeptiert, Bargeld natürlich auch.</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2"/><circle cx="17.5" cy="10.5" r="2"/><path d="M15 21v-1.5a3.5 3.5 0 0 1 6-2.4"/></svg>
+          <b>Kinder sind willkommen</b><span>Kinderschnitt bis 10 Jahre für 15 €. Geduld gehört laut Bewertungen dazu.</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M19 13h-6V8"/><path d="M13 8 8.5 9.2A2 2 0 0 0 7 11.1V14"/><path d="M7 14a5 5 0 1 0 5.6 6.3"/></svg>
+          <b>Ebenerdig hinein</b><span>Barrierefreier Eingang direkt von der Straße, keine Stufe.</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/><path d="M17 10h1.8a2.2 2.2 0 0 1 0 4.4H17"/><path d="M7 2v3M11 2v3"/></svg>
+          <b>Kaffee zum Warten</b><span>Wird in den Google-Bewertungen regelmäßig erwähnt — und gelobt.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════ AKT 6 · STIMMEN ═══════════ -->
+  <section id="stimmen" aria-label="Google-Bewertungen">
+    <div class="wrap">
+      <div class="stimmen-kopf">
+        <p class="marke-linie" style="justify-content:center">Was Münster sagt</p>
+        <div class="wertung">
+          <span class="zahl" id="zahl">4,9</span>
+          <span class="sterne" role="img" aria-label="4,9 von 5 Sternen">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg>
+          </span>
+        </div>
+        <p class="wertung-sub">aus 166 Google-Bewertungen</p>
+      </div>
+
+      <div class="zitate">
+        <blockquote class="zitat">
+          <span class="z-sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg></span>
+          <p>„Spontan entschieden. Ohne Termin direkt freundlich begrüßt. […] Sehr souverän und sicher mit Schere, Rasierer und Händen. […] Bart perfekt.“</p>
+          <footer><span class="ava" aria-hidden="true">D</span>Dirk P. · Google</footer>
+        </blockquote>
+        <blockquote class="zitat">
+          <span class="z-sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg></span>
+          <p>„Haarschnitt genau wie besprochen. Bin seit Jahren bei dem Inhaber und kann ehrlich sagen: bester Friseur, bei dem ich je war.“</p>
+          <footer><span class="ava" aria-hidden="true">S</span>Sebastian L. · Google</footer>
+        </blockquote>
+        <blockquote class="zitat">
+          <span class="z-sterne" role="img" aria-label="5 von 5 Sternen"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8L2.2 9l6.9-.7Z"/></svg></span>
+          <p>„Alle gehen auf die Wünsche ein — und können mega gut mit Kindern umgehen. Wirklich nice, immer wieder gerne.“</p>
+          <footer><span class="ava" aria-hidden="true">L</span>Lisa L. · Google</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" aria-hidden="true">
+    <div class="band-spur">
+      <span>Ohne Termin <i>·</i> Aegidiistraße 46 <i>·</i> 4,9 ★ bei Google <i>·</i> Mo–Sa geöffnet <i>·</i> Schnitt &amp; Bart 32 € <i>·</i></span>
+      <span>Ohne Termin <i>·</i> Aegidiistraße 46 <i>·</i> 4,9 ★ bei Google <i>·</i> Mo–Sa geöffnet <i>·</i> Schnitt &amp; Bart 32 € <i>·</i></span>
+    </div>
+  </div>
+
+  <!-- ═══════════ AKT 7 · FINALE ═══════════ -->
+  <section id="finale" aria-label="Kontakt, Öffnungszeiten und Anfahrt">
+    <div class="wrap">
+      <div class="finale-kopf">
+        <span class="final-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8.5 4 15 18"/><path d="M15.5 4 9 18"/><circle cx="7.5" cy="20" r="2"/><circle cx="16.5" cy="20" r="2"/></svg>
+        </span>
+        <h2 class="split">Der Stuhl ist frei.</h2>
+        <p>Kommen Sie vorbei — oder rufen Sie kurz an, dann wissen Sie vorher, ob gerade jemand vor Ihnen dran ist.</p>
+        <div class="final-cta">
+          <a class="btn btn-gold" href="tel:+4925167446469">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            0251 67446469
+          </a>
+          <a class="btn btn-rand" href="https://maps.google.com/?cid=10517950784416614076" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Route öffnen
+          </a>
+        </div>
+        <p class="telzeile" id="telzeile">Aegidiistraße 46 · 48143 Münster</p>
+      </div>
+
+      <div class="info-karten">
+        <div class="info">
+          <h3>Adresse</h3>
+          <p>Aegidiistraße 46<br>48143 Münster</p>
+          <p><a class="karte-link" href="https://maps.google.com/?cid=10517950784416614076" target="_blank" rel="noopener">In Google Maps öffnen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg></a></p>
+        </div>
+        <div class="info">
+          <h3>Öffnungszeiten</h3>
+          <div class="zeiten">
+            <div data-tag="1"><span>Montag</span><span>9–19 Uhr</span></div>
+            <div data-tag="2"><span>Dienstag</span><span>9–19 Uhr</span></div>
+            <div data-tag="3"><span>Mittwoch</span><span>9–19 Uhr</span></div>
+            <div data-tag="4"><span>Donnerstag</span><span>9–19 Uhr</span></div>
+            <div data-tag="5"><span>Freitag</span><span>9–19 Uhr</span></div>
+            <div data-tag="6"><span>Samstag</span><span>9–18 Uhr</span></div>
+            <div data-tag="0"><span>Sonntag</span><span>geschlossen</span></div>
+          </div>
+          <p class="status" style="margin-top:1rem" hidden><span class="punkt" aria-hidden="true"></span><span class="status-text">Öffnungszeiten</span></p>
+        </div>
+        <div class="info">
+          <h3>Kontakt &amp; Zahlung</h3>
+          <p><a href="tel:+4925167446469">0251 67446469</a></p>
+          <p>Bar und EC-Karte<br>Barrierefreier Eingang<br>Termin nicht nötig</p>
+        </div>
+      </div>
+
+      <footer class="fuss">
+        Konzept-Vorschau für Proficut by Omar — noch nicht die offizielle Website des Salons.
+        Gestaltet von <a href="https://ilic-ecomhub.de" target="_blank" rel="noopener">ILIC ECOM HUB</a>.
+        Fotos aus dem Google-Unternehmensprofil von Proficut by Omar. Preise und Öffnungszeiten laut Aushang im Salon, Stand August 2026.
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<div class="rufleiste" id="rufleiste">
+  <a class="btn btn-gold" href="tel:+4925167446469">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  <span id="ruf-text">Jetzt anrufen · 0251 67446469</span></a>
+</div>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/DrawSVGPlugin.min.js"></script>
+<script src="js/SplitText.min.js"></script>
+<script>
+(function(){
+  var docEl = document.documentElement;
+  var q = function(s){ return document.querySelector(s); };
+  var qa = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  /* =====================================================================
+     Öffnungszeiten — läuft immer, auch ohne GSAP
+     Mo–Fr 9–19 Uhr · Sa 9–18 Uhr · So geschlossen (Minuten seit Mitternacht)
+     ===================================================================== */
+  var PLAN = {0:null, 1:[540,1140], 2:[540,1140], 3:[540,1140], 4:[540,1140], 5:[540,1140], 6:[540,1080]};
+  var TAGE = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  function uhr(m){ var h = Math.floor(m/60), r = m % 60; return r ? h + ':' + String(r).padStart(2,'0') + ' Uhr' : h + ' Uhr'; }
+
+  function lage(){
+    var d = new Date(), tag = d.getDay(), min = d.getHours()*60 + d.getMinutes(), heute = PLAN[tag];
+    if (heute && min >= heute[0] && min < heute[1]) {
+      var rest = heute[1] - min;
+      return { offen:true, text: rest <= 60 ? 'Öffnet noch bis ' + uhr(heute[1]) : 'Jetzt geöffnet · bis ' + uhr(heute[1]) };
+    }
+    if (heute && min < heute[0]) return { offen:false, text:'Öffnet heute um ' + uhr(heute[0]) };
+    for (var i = 1; i <= 7; i++){
+      var t = (tag + i) % 7, p = PLAN[t];
+      if (p) return { offen:false, text: (i === 1 ? 'Öffnet morgen um ' : 'Öffnet ' + TAGE[t] + ' um ') + uhr(p[0]) };
+    }
+    return { offen:false, text:'Zurzeit geschlossen' };
+  }
+
+  function statusSetzen(){
+    var l = lage();
+    qa('.status').forEach(function(el){
+      el.hidden = false;
+      el.classList.toggle('ist-offen', l.offen);
+      el.classList.toggle('ist-zu', !l.offen);
+      var t = el.querySelector('.status-text');
+      if (t) t.textContent = l.text;
+    });
+  }
+  statusSetzen();
+  setInterval(statusSetzen, 60000);
+
+  /* heutigen Wochentag in der Zeitentabelle markieren */
+  var zeile = q('.zeiten div[data-tag="' + new Date().getDay() + '"]');
+  if (zeile) zeile.classList.add('heute');
+
+  /* =====================================================================
+     Ab hier: alles Bewegung. Ohne GSAP oder bei reduzierter Bewegung
+     schaltet die Seite auf "statisch" und zeigt einfach alles.
+     ===================================================================== */
+  var reduziert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduziert || !window.gsap || !window.ScrollTrigger) {
+    docEl.classList.add('statisch');
+    docEl.classList.remove('laden');
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, SplitText);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+  gsap.defaults({ ease: 'none' });
+
+  /* Fenstermaße defensiv lesen: manche eingebetteten Ansichten melden 0. */
+  var breite = function(){ return window.innerWidth || document.documentElement.clientWidth || 1200; };
+  var hoehe  = function(){ return window.innerHeight || document.documentElement.clientHeight || 720; };
+  var kompakt = function(){ return breite() < 960; };
+  /* Scrollweg in Pixeln statt Prozent — Prozentwerte einer 0-hohen Ansicht
+     würden die Seite sonst auf zehntausende Pixel aufblasen. */
+  var strecke = function(mobil, desktop){
+    return function(){ return '+=' + Math.round(hoehe() * (kompakt() ? mobil : desktop) / 100); };
+  };
+
+  /* ---------- Ladebild ---------- */
+  function loaderFertig(){
+    docEl.classList.remove('laden');
+    var l = q('#loader');
+    if (l) l.style.display = 'none';
+    ScrollTrigger.refresh();
+  }
+  if (window.scrollY > 60) {
+    loaderFertig();
+  } else {
+    var lt = gsap.timeline({ onComplete: loaderFertig });
+    lt.from('.lader-ring .ring', { drawSVG: 0, duration: .7, ease: 'power2.inOut' })
+      .from('.lader-ring .s1, .lader-ring .s2', { drawSVG: '50% 50%', duration: .45, ease: 'power2.out' }, .32)
+      .from('.lader-ring .s3, .lader-ring .s4', { drawSVG: 0, duration: .3, ease: 'power2.out' }, .58)
+      .from('.lade-wort span', { yPercent: 125, stagger: .09, duration: .5, ease: 'power4.out' }, .5)
+      .from('.lade-ort', { autoAlpha: 0, duration: .35 }, .78)
+      .to('#loader', { yPercent: -100, duration: .7, ease: 'power4.inOut' }, '+=0.28');
+    q('#loader').addEventListener('click', function(){ lt.progress(1); });
+    setTimeout(function(){ if (docEl.classList.contains('laden')) lt.progress(1); }, 4200);
+  }
+
+  /* ---------- Fortschrittsbalken ---------- */
+  gsap.to('#fortschritt', { scaleX: 1, scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
+
+  /* =====================================================================
+     AKT 1 · Die Schere schneidet PROFI | CUT auf
+     ===================================================================== */
+  gsap.set('.buehne-ui', { autoAlpha: 0, y: 26 });
+  gsap.set('.schere', { autoAlpha: 0, yPercent: kompakt() ? 150 : 122 });
+  gsap.set('.blatt-l', { rotation: -13, svgOrigin: '100 104' });
+  gsap.set('.blatt-r', { rotation: 13, svgOrigin: '100 104' });
+  gsap.set('.vh-l', { transformOrigin: '0% 100%' });
+  gsap.set('.vh-r', { transformOrigin: '100% 100%' });
+
+  var entreeTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#entree', start: 'top top', end: strecke(130, 170),
+      scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+    }
+  });
+
+  /* Klingenschlag: auf / zu, viermal auf dem Weg nach oben */
+  function schnappen(t){
+    entreeTl.to('.blatt-l', { rotation: -27, svgOrigin: '100 104', duration: .055 }, t)
+            .to('.blatt-r', { rotation:  27, svgOrigin: '100 104', duration: .055 }, t)
+            .to('.blatt-l', { rotation:  -4, svgOrigin: '100 104', duration: .055 }, t + .06)
+            .to('.blatt-r', { rotation:   4, svgOrigin: '100 104', duration: .055 }, t + .06);
+  }
+
+  entreeTl
+    .to('#blaettern', { autoAlpha: 0, y: 18, duration: .08, ease: 'power1.in' }, 0)
+    .to('.schere', { autoAlpha: 1, duration: .04 }, .015)
+    .to('.schere', { yPercent: -190, duration: .5 }, .05)
+    .to('.naht',   { scaleY: 1,     duration: .5 }, .05);
+  schnappen(.09); schnappen(.20); schnappen(.31); schnappen(.42);
+  entreeTl
+    .to('.schere', { autoAlpha: 0, duration: .07 }, .53)
+    /* abgeschnittene Haare rieseln */
+    .to('.haare i', {
+      keyframes: [{ opacity: .85, duration: .04 }, { opacity: 0, duration: .3 }],
+      y: function(){ return hoehe() * 0.42; },
+      rotation: function(i){ return (i % 2 ? 1 : -1) * (25 + i * 9); },
+      duration: .34, stagger: { each: .022, from: 'center' }, ease: 'power1.in'
+    }, .30)
+    /* der Vorhang geht auf, jede Hälfte nimmt ihr Stück vom Namen mit */
+    .to('.vh-l', { xPercent: -102, rotation: -2,  duration: .36, ease: 'power2.inOut' }, .55)
+    .to('.vh-r', { xPercent:  102, rotation:  2,  duration: .36, ease: 'power2.inOut' }, .55)
+    .to('.naht', { autoAlpha: 0, duration: .1 }, .58)
+    .to('.buehne-bg img',  { scale: 1,     duration: .5 }, .48)
+    .to('.buehne-dunkel',  { opacity: .7,  duration: .4 }, .56)
+    /* und der Text kommt hoch */
+    .to('.buehne-ui', { autoAlpha: 1, y: 0, duration: .22, ease: 'power2.out' }, .7);
+
+  /* ---------- Überschriften zeilenweise aufdecken ---------- */
+  document.fonts.ready.then(function(){
+    qa('.split').forEach(function(el){
+      var s = new SplitText(el, { type: 'words,chars' });
+      gsap.from(s.words, {
+        yPercent: 108, opacity: 0, duration: .8, stagger: .045, ease: 'power4.out',
+        scrollTrigger: { trigger: el, start: 'top 86%' }
+      });
+    });
+    ScrollTrigger.refresh();
+  });
+
+  /* =====================================================================
+     AKT 2 · Anatomie des Schnitts — Marker + Schritte laufen mit
+     ===================================================================== */
+  var mm = gsap.matchMedia();
+
+  function anatomie(gepinnt){
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#handwerk .szene', start: gepinnt ? 'top top' : 'top 72%',
+        end: gepinnt ? function(){ return '+=' + Math.round(hoehe() * 1.6); } : 'bottom 60%',
+        scrub: gepinnt ? 1 : .6, pin: gepinnt, anticipatePin: 1, invalidateOnRefresh: true
+      }
+    });
+    var schritte = qa('.schritte li');
+    ['.m1','.m2','.m3','.m4'].forEach(function(sel, i){
+      var t = .08 + i * .22;
+      tl.to(sel, { opacity: 1, duration: .1 }, t)
+        .add(function(){
+          schritte.forEach(function(li, j){ li.classList.toggle('aktiv', j === i); });
+        }, t)
+        .add(function(){
+          schritte.forEach(function(li, j){ li.classList.toggle('aktiv', j === i); });
+        }, t + .2);
+    });
+    return tl;
+  }
+  mm.add('(min-width: 961px)', function(){ anatomie(true); });
+  mm.add('(max-width: 960px)', function(){ anatomie(false); });
+
+  /* ---------- Rundum-Belege: leicht versetzt hochkommen ---------- */
+  gsap.from('.rundum figure', {
+    y: 46, opacity: 0, duration: .85, stagger: .12, ease: 'power3.out',
+    scrollTrigger: { trigger: '.rundum', start: 'top 82%' }
+  });
+
+  /* ---------- Preiszeilen: Zeile für Zeile ---------- */
+  qa('.menu, .laengen').forEach(function(liste){
+    gsap.from(liste.querySelectorAll('li'), {
+      x: -18, opacity: 0, duration: .5, stagger: .045, ease: 'power2.out',
+      scrollTrigger: { trigger: liste, start: 'top 84%' }
+    });
+  });
+  gsap.from('.tafel', {
+    y: 40, opacity: 0, duration: .9, ease: 'power3.out',
+    scrollTrigger: { trigger: '.tafel', start: 'top 88%' }
+  });
+
+  /* ---------- Panorama: sanfter Schwenk ---------- */
+  gsap.fromTo('.panorama img', { yPercent: -8 }, {
+    yPercent: 8, ease: 'none',
+    scrollTrigger: { trigger: '.panorama', start: 'top bottom', end: 'bottom top', scrub: .5 }
+  });
+
+  /* ---------- Fakten ---------- */
+  gsap.from('.fakten li', {
+    y: 28, opacity: 0, duration: .6, stagger: .08, ease: 'power2.out',
+    scrollTrigger: { trigger: '.fakten', start: 'top 85%' }
+  });
+
+  /* ---------- Bewertung: die 4,9 zählt hoch ---------- */
+  var zahl = q('#zahl');
+  if (zahl) {
+    /* Nur hochzählen, wenn die Zahl noch weit unterhalb des Fensters steht —
+       sonst würde sie sichtbar von 4,9 auf 0,0 zurückspringen. */
+    if (zahl.getBoundingClientRect().top > hoehe() * 0.9) {
+      zahl.textContent = '0,0';
+      var wert = { n: 0 };
+      gsap.to(wert, {
+        n: 4.9, duration: 1.3, ease: 'power2.out',
+        scrollTrigger: { trigger: '#stimmen', start: 'top 72%' },
+        onUpdate: function(){ zahl.textContent = wert.n.toFixed(1).replace('.', ','); }
+      });
+    }
+    gsap.from('.sterne svg', {
+      scale: 0, opacity: 0, duration: .5, stagger: .09, ease: 'back.out(2)',
+      scrollTrigger: { trigger: '#stimmen', start: 'top 72%' }
+    });
+    gsap.from('.zitat', {
+      y: 34, opacity: 0, duration: .7, stagger: .1, ease: 'power3.out',
+      scrollTrigger: { trigger: '.zitate', start: 'top 84%' }
+    });
+  }
+
+  /* ---------- Laufband: bewegt sich mit dem Scrollen ---------- */
+  gsap.to('.band-spur', {
+    xPercent: -50, ease: 'none',
+    scrollTrigger: { trigger: '.band', start: 'top bottom', end: 'bottom top', scrub: .8 }
+  });
+
+  /* ---------- Ruf-Leiste erscheint, sobald das Entree durch ist ---------- */
+  var leiste = q('#rufleiste');
+  if (leiste) {
+    gsap.set(leiste, { yPercent: 110 });
+    gsap.to(leiste, {
+      yPercent: 0, duration: .45, ease: 'power3.out', paused: false,
+      scrollTrigger: { trigger: '#handwerk', start: 'top 80%', toggleActions: 'play none none reverse' }
+    });
+  }
+
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
