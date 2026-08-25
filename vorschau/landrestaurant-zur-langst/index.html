@@ -1182,6 +1182,11 @@ section[id]{scroll-margin-top:5rem}
   gsap.registerPlugin(ScrollTrigger);
   /* verhindert Sprünge, wenn auf dem Handy die Adressleiste ein- und ausfährt */
   ScrollTrigger.config({ignoreMobileResize:true});
+  /* Fenstermaße defensiv lesen: manche eingebetteten Ansichten melden 0. */
+  var hoehe = function(){ return window.innerHeight || document.documentElement.clientHeight || 720; };
+  /* Scrollweg in Pixeln statt Prozent — bei einer 0-hohen Ansicht misst sich
+     ein Prozent-Ende am Trigger, den der Pin gerade selbst aufgebläht hat. */
+  var strecke = function(prozent){ return function(){ return '+=' + Math.round(hoehe() * prozent / 100); }; };
   /* Bilder laden verzögert nach und verschieben die Seitenhöhe — danach müssen
      alle Auslösepunkte neu vermessen werden. */
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
@@ -1238,7 +1243,7 @@ section[id]{scroll-margin-top:5rem}
 
     var tl = gsap.timeline({
       scrollTrigger:{
-        trigger:'.grill', start:'top top', end:'+=' + (laenge * 95) + '%',
+        trigger:'.grill', start:'top top', end:strecke(laenge * 95),
         pin:'.grill-buehne', scrub:.5, anticipatePin:1,
         onUpdate:function(self){
           var i = Math.min(laenge - 1, Math.floor(self.progress * laenge));
