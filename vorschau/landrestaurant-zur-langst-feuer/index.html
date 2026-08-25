@@ -1019,6 +1019,11 @@ section[id]{scroll-margin-top:5rem}
 
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ignoreMobileResize:true});
+  /* Fenstermaße defensiv lesen: manche eingebetteten Ansichten melden 0. */
+  var hoehe = function(){ return window.innerHeight || document.documentElement.clientHeight || 720; };
+  /* Scrollweg in Pixeln statt Prozent — bei einer 0-hohen Ansicht misst sich
+     ein Prozent-Ende am Trigger, den der Pin gerade selbst aufgebläht hat. */
+  var strecke = function(prozent){ return function(){ return '+=' + Math.round(hoehe() * prozent / 100); }; };
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 
   /* ---- Grillszene: kurz gehalten ------------------------- */
@@ -1035,7 +1040,7 @@ section[id]{scroll-margin-top:5rem}
 
     var tl = gsap.timeline({
       scrollTrigger:{
-        trigger:'.szene', start:'top top', end:'+=165%',
+        trigger:'.szene', start:'top top', end:strecke(165),
         pin:'.szene-buehne', scrub:.55, anticipatePin:1,
         onUpdate:function(self){
           var i = self.progress < .5 ? 0 : 1;
@@ -1100,7 +1105,7 @@ section[id]{scroll-margin-top:5rem}
 
     var tl = gsap.timeline({
       scrollTrigger:{
-        trigger:'.servieren', start:'top top', end:'+=185%',
+        trigger:'.servieren', start:'top top', end:strecke(185),
         pin:'.servier-buehne', scrub:.6, anticipatePin:1
       }
     });
