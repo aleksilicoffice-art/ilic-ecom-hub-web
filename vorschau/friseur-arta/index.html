@@ -596,8 +596,15 @@ html.statisch .band-spur,.no-js .band-spur{animation:none}
   gsap.defaults({ ease: 'none' });
 
   var q = function(s){ return document.querySelector(s); };
-  var kompakt = function(){ return window.innerWidth < 960; };
-  var strecke = function(mobil, desktop){ return function(){ return '+=' + (kompakt() ? mobil : desktop) + '%'; }; };
+  /* Fenstermaße defensiv lesen: manche eingebetteten Ansichten melden 0. */
+  var breite = function(){ return window.innerWidth || document.documentElement.clientWidth || 1200; };
+  var hoehe  = function(){ return window.innerHeight || document.documentElement.clientHeight || 720; };
+  var kompakt = function(){ return breite() < 960; };
+  /* Scrollweg in Pixeln statt Prozent — Prozentwerte einer 0-hohen Ansicht
+     würden die Seite sonst auf zehntausende Pixel aufblasen. */
+  var strecke = function(mobil, desktop){
+    return function(){ return '+=' + Math.round(hoehe() * (kompakt() ? mobil : desktop) / 100); };
+  };
 
   /* ---------- Loader ---------- */
   function loaderFertig(){
@@ -644,7 +651,7 @@ html.statisch .band-spur,.no-js .band-spur{animation:none}
     .to('.entree-dunkel', { opacity: .3, duration: .5 }, .4);
 
   q('#oeffnen').addEventListener('click', function(){
-    var ende = entreeTl.scrollTrigger ? entreeTl.scrollTrigger.end + 4 : window.innerHeight * 2;
+    var ende = entreeTl.scrollTrigger ? entreeTl.scrollTrigger.end + 4 : hoehe() * 2;
     window.scrollTo({ top: ende, behavior: 'smooth' });
   });
 
