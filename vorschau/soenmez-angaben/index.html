@@ -612,19 +612,20 @@ input:focus, textarea:focus{
           '<span><b>Bildungszentrum Sönmez</b><span>Angaben für Ihre neue Website</span></span>' +
         '</div>' +
         '<h1>Guten Tag, Herr Sönmez.</h1>' +
-        '<p class="fuehrt">Damit wir Ihnen nicht über Tage verteilt fünfzig Fragen per WhatsApp schicken, habe ich sie hier gesammelt. Sie gehen einmal durch, und danach kann ich ohne Rückfragen bauen.</p>' +
+        '<p class="fuehrt">Ich bin <b>ILION</b>, der KI-Partner von Aleksandar Ilic. Er baut Ihre Website, ich trage vorher zusammen, was er dafür braucht.</p>' +
+        '<p class="fuehrt" style="margin-top:1rem">In Ihren Betrieb habe ich mich eingelesen: Modulschulung für die Schlüsselzahl 95, beschleunigte Grundqualifikation, ADR, Stapler und Kran. Was in keiner öffentlichen Quelle steht, frage ich hier — einmal gesammelt statt fünfzig Nachrichten über Tage verteilt.</p>' +
         '<ul class="punkte">' +
           '<li>'+symbol('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')+'<span>Etwa eine Viertelstunde, in sieben Abschnitten.</span></li>' +
           '<li>'+symbol('<path d="M5 13l4 4L19 7"/>')+'<span>Alles wird automatisch gespeichert. Sie können jederzeit aufhören und später weitermachen.</span></li>' +
           '<li>'+symbol('<path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/>')+'<span>Was Sie nicht wissen, lassen Sie einfach frei. Nichts ist Pflicht.</span></li>' +
-          '<li>'+symbol('<path d="M4 4h16v12H7l-3 3z"/>')+'<span>Am Ende schicken Sie mir alles mit einem Tipp über WhatsApp.</span></li>' +
+          '<li>'+symbol('<path d="M4 4h16v12H7l-3 3z"/>')+'<span>Am Ende schicken Sie alles mit zwei Tipps an Aleksandar — per WhatsApp.</span></li>' +
         '</ul>' +
-        '<p class="hinweis">Ihre Angaben bleiben auf Ihrem eigenen Gerät, solange Sie sie nicht abschicken. Es wird nichts im Hintergrund übertragen und nichts gespeichert, wo Fremde herankommen.</p>' +
+        '<p class="hinweis">Ihre Angaben bleiben auf Ihrem Gerät, bis Sie sie selbst abschicken. Es läuft nichts im Hintergrund mit, und außer Aleksandar bekommt sie niemand zu sehen.</p>' +
         '<div style="margin-top:2rem; display:flex; flex-direction:column; gap:.75rem">' +
           '<button type="button" class="knopf knopf-haupt" id="losGehts">'+(begonnen ? "Weitermachen" : "Los geht’s")+'</button>' +
           (begonnen ? '<button type="button" class="knopf" id="neuStart">Von vorn anfangen</button>' : "") +
         '</div>' +
-        '<p class="fussnote">Erstellt von Aleksandar Ilic · ILIC ECOM HUB · Bei Fragen einfach anrufen: 0176 43478923</p>' +
+        '<p class="fussnote">ILION · KI-Partner von ILIC ECOM HUB · Lieber direkt sprechen? Aleksandar erreichen Sie unter 0176 43478923</p>' +
       '</div>';
 
     document.getElementById("losGehts").addEventListener("click", function(){
@@ -687,22 +688,22 @@ input:focus, textarea:focus{
 
     buehne.innerHTML =
       '<div class="etappe">' +
-        '<h1>Das war’s. Vielen Dank.</h1>' +
-        '<p style="color:var(--muted); margin-top:1rem">Bitte schicken Sie mir Ihre Antworten jetzt zu. Zwei Schritte, dann sind Sie fertig.</p>' +
+        '<h1>Danke, Herr Sönmez.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Das war alles. Schicken Sie Ihre Antworten jetzt an Aleksandar — zwei Schritte, dann sind Sie fertig.</p>' +
         '<div style="margin-top:2rem">' +
           '<div class="schritt"><span class="nr">1</span><p><b>Antworten kopieren</b>Ein Tipp auf den Knopf, der Text liegt dann in der Zwischenablage.</p></div>' +
           '<button type="button" class="knopf knopf-haupt" id="kopieren" style="width:100%">Antworten kopieren</button>' +
-          '<div class="schritt" style="margin-top:2rem"><span class="nr">2</span><p><b>In WhatsApp einfügen und senden</b>Der Chat mit mir öffnet sich. Lange auf das Textfeld tippen, „Einfügen“ wählen, absenden.</p></div>' +
+          '<div class="schritt" style="margin-top:2rem"><span class="nr">2</span><p><b>In WhatsApp einfügen und senden</b>Der Chat mit Aleksandar öffnet sich. Lange auf das Textfeld tippen, „Einfügen“ wählen, absenden.</p></div>' +
           '<a class="knopf" href="https://wa.me/' + WA_ALEKS + (zuLang ? '' : '?text=' + encodeURIComponent(text)) + '" target="_blank" rel="noopener" style="width:100%">WhatsApp öffnen</a>' +
         '</div>' +
-        '<p class="hinweis">Logo und Fotos schicken Sie mir am besten direkt hinterher im selben Chat. Falls beim Kopieren etwas klemmt: rufen Sie einfach an, 0176 43478923.</p>' +
+        '<p class="hinweis">Logo und Fotos schicken Sie am besten direkt hinterher in denselben Chat. Falls beim Kopieren etwas klemmt: Aleksandar erreichen Sie unter 0176 43478923.</p>' +'<p class="hinweis" style="margin-top:.75rem">Sobald Ihre Antworten da sind, bereite ich alles auf, damit Aleksandar direkt mit dem Bau anfangen kann. Sie bekommen dann mehrere Entwürfe zu sehen und suchen sich aus, welcher es wird.</p>' +
         '<div class="uebersicht">' +
           '<h3>Ihre Angaben zum Nachlesen</h3>' + liste +
         '</div>' +
         '<div style="display:flex; gap:.75rem; flex-wrap:wrap">' +
           '<button type="button" class="knopf" id="zurueckEnde">Noch einmal durchgehen</button>' +
         '</div>' +
-        '<p class="fussnote">Erstellt von Aleksandar Ilic · ILIC ECOM HUB</p>' +
+        '<p class="fussnote">ILION · KI-Partner von ILIC ECOM HUB</p>' +
       '</div>';
 
     var kn = document.getElementById("kopieren");
@@ -744,7 +745,7 @@ input:focus, textarea:focus{
   }
 
   function textBauen(){
-    var z = ["ANGABEN FÜR DIE WEBSITE", "Bildungszentrum Sönmez", ""];
+    var z = ["ANGABEN FÜR DIE WEBSITE", "Bildungszentrum Sönmez", "(ausgefüllt über die Fragenseite von ILION)", ""];
     ETAPPEN.forEach(function(e){
       var block = [];
       e.felder.forEach(function(f){
