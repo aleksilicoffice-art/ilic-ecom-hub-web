@@ -229,6 +229,29 @@ input:focus, textarea:focus{
 .schritt b{display:block; margin-bottom:.1rem}
 .hinweis{font-size:.875rem; color:var(--muted); background:var(--sunk); border-radius:var(--r); padding:var(--s3) var(--s4); margin-top:var(--s4)}
 
+details.notweg{margin-top:var(--s4); border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+details.notweg summary{
+  padding:.75rem .9rem; cursor:pointer; font-size:.875rem; font-weight:600; color:var(--muted);
+  list-style:none; display:flex; align-items:center; gap:var(--s2); min-height:44px;
+}
+details.notweg summary::-webkit-details-marker{display:none}
+details.notweg summary::before{content:"+"; font-size:1.1rem; line-height:1; width:1rem; text-align:center}
+details.notweg[open] summary::before{content:"–"}
+details.notweg summary:hover{color:var(--ink)}
+details.notweg textarea{
+  width:calc(100% - 1.8rem); margin:0 .9rem .9rem; min-height:11rem; font-size:14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; line-height:1.45;
+}
+.aufraeumen{
+  margin-top:var(--s6); padding-top:var(--s5); border-top:1px solid var(--line);
+}
+.aufraeumen p{font-size:.875rem; color:var(--muted); margin-bottom:var(--s3)}
+.fertig-hinweis{
+  display:none; align-items:flex-start; gap:var(--s3); background:var(--sunk);
+  border-radius:var(--r); padding:var(--s4); margin-top:var(--s4); font-size:.9375rem;
+}
+.fertig-hinweis.an{display:flex}
+.fertig-hinweis svg{width:20px; height:20px; flex:none; margin-top:.15rem; color:var(--gruen)}
 .fussnote{border-top:1px solid var(--line); margin-top:var(--s7); padding-top:var(--s4); font-size:.8125rem; color:var(--muted)}
 
 @media (prefers-reduced-motion:reduce){
@@ -671,7 +694,6 @@ input:focus, textarea:focus{
   function endeZeigen(){
     kopf.hidden = true; fuss.hidden = true;
     var text = textBauen();
-    var zuLang = encodeURIComponent(text).length > 1600;
 
     var liste = "";
     ETAPPEN.forEach(function(e){
@@ -694,14 +716,25 @@ input:focus, textarea:focus{
           '<div class="schritt"><span class="nr">1</span><p><b>Antworten kopieren</b>Ein Tipp auf den Knopf, der Text liegt dann in der Zwischenablage.</p></div>' +
           '<button type="button" class="knopf knopf-haupt" id="kopieren" style="width:100%">Antworten kopieren</button>' +
           '<div class="schritt" style="margin-top:2rem"><span class="nr">2</span><p><b>In WhatsApp einfügen und senden</b>Der Chat mit Aleksandar öffnet sich. Lange auf das Textfeld tippen, „Einfügen“ wählen, absenden.</p></div>' +
-          '<a class="knopf" href="https://wa.me/' + WA_ALEKS + (zuLang ? '' : '?text=' + encodeURIComponent(text)) + '" target="_blank" rel="noopener" style="width:100%">WhatsApp öffnen</a>' +
+          '<a class="knopf" href="https://wa.me/' + WA_ALEKS + '" target="_blank" rel="noopener" style="width:100%">WhatsApp öffnen</a>' +
         '</div>' +
-        '<p class="hinweis">Logo und Fotos schicken Sie am besten direkt hinterher in denselben Chat. Falls beim Kopieren etwas klemmt: Aleksandar erreichen Sie unter 0176 43478923.</p>' +'<p class="hinweis" style="margin-top:.75rem">Sobald Ihre Antworten da sind, bereite ich alles auf, damit Aleksandar direkt mit dem Bau anfangen kann. Sie bekommen dann mehrere Entwürfe zu sehen und suchen sich aus, welcher es wird.</p>' +
+        '<div class="fertig-hinweis" id="fertigHinweis">' +
+          symbol('<path d="M5 13l4 4L19 7"/>') +
+          '<span>WhatsApp ist geöffnet. Sobald die Nachricht abgeschickt ist, sind Sie fertig — Sie müssen hier nichts weiter tun.</span>' +
+        '</div>' +
+        '<details class="notweg"><summary>Klappt das Kopieren nicht? Text hier von Hand markieren</summary>' +
+          '<textarea id="rohText" readonly aria-label="Antworten als Text"></textarea></details>' +
+        '<p class="hinweis">Logo und Fotos schicken Sie am besten direkt hinterher in denselben Chat. Falls etwas klemmt: Aleksandar erreichen Sie unter 0176 43478923.</p>' +
+        '<p class="hinweis" style="margin-top:.75rem">Sobald Ihre Antworten da sind, bereite ich alles auf, damit Aleksandar direkt mit dem Bau anfangen kann. Sie bekommen dann mehrere Entwürfe zu sehen und suchen sich aus, welcher es wird.</p>' +
         '<div class="uebersicht">' +
           '<h3>Ihre Angaben zum Nachlesen</h3>' + liste +
         '</div>' +
-        '<div style="display:flex; gap:.75rem; flex-wrap:wrap">' +
-          '<button type="button" class="knopf" id="zurueckEnde">Noch einmal durchgehen</button>' +
+        '<div class="aufraeumen">' +
+          '<p>Wenn Sie an diesem Gerät fertig sind: Ihre Antworten liegen noch im Browser gespeichert, damit Sie jederzeit zurückkonnten. Sie können sie jetzt entfernen — vor allem sinnvoll, wenn andere denselben Rechner benutzen.</p>' +
+          '<div style="display:flex; gap:.75rem; flex-wrap:wrap">' +
+            '<button type="button" class="knopf" id="zurueckEnde">Noch einmal durchgehen</button>' +
+            '<button type="button" class="knopf" id="loeschen">Antworten vom Gerät löschen</button>' +
+          '</div>' +
         '</div>' +
         '<p class="fussnote">ILION · KI-Partner von ILIC ECOM HUB</p>' +
       '</div>';
@@ -725,8 +758,20 @@ input:focus, textarea:focus{
         document.body.removeChild(ta);
       }
     });
+    document.getElementById("rohText").value = text;
+    document.querySelector("a.knopf[href^='https://wa.me']").addEventListener("click", function(){
+      document.getElementById("fertigHinweis").classList.add("an");
+    });
     document.getElementById("zurueckEnde").addEventListener("click", function(){
       ansicht = 0; zeigen();
+    });
+    document.getElementById("loeschen").addEventListener("click", function(){
+      if(!confirm("Alle Antworten von diesem Gerät löschen? Das lässt sich nicht rückgängig machen — schicken Sie sie vorher ab.")) return;
+      try { localStorage.removeItem(SPEICHER); } catch(e){}
+      daten = {};
+      buehne.innerHTML = '<div class="etappe"><h1>Gelöscht.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Auf diesem Gerät ist nichts mehr gespeichert. Falls Sie doch noch etwas nachreichen möchten, schreiben Sie Aleksandar einfach direkt.</p>' +
+        '<p class="fussnote">ILION · KI-Partner von ILIC ECOM HUB</p></div>';
     });
     window.scrollTo(0, 0);
   }
