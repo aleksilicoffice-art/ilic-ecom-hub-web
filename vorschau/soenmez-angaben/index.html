@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Angaben für Ihre Website · Bildungszentrum Sönmez</title>
+<meta name="description" content="Fragebogen für die neue Website des Bildungszentrums Sönmez.">
+<meta name="theme-color" content="#0b2f5c">
+<link rel="stylesheet" href="schriften/fonts.css">
+<style>
+:root{
+  --bg:oklch(0.985 0.004 245);
+  --surface:oklch(1 0 0);
+  --sunk:oklch(0.955 0.007 245);
+  --ink:oklch(0.25 0.025 252);
+  --muted:oklch(0.49 0.022 252);
+  --line:oklch(0.89 0.012 245);
+  --blau:oklch(0.42 0.115 252);
+  --blau-hell:oklch(0.95 0.02 252);
+  --rot:oklch(0.52 0.19 27);
+  --gruen:oklch(0.50 0.10 158);
+  --auf-blau:oklch(1 0 0);
+
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem;
+  --r:.5rem;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-kopf:10; --z-fuss:20;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:oklch(0.19 0.018 250);
+    --surface:oklch(0.235 0.02 250);
+    --sunk:oklch(0.275 0.022 250);
+    --ink:oklch(0.96 0.006 245);
+    --muted:oklch(0.72 0.018 245);
+    --line:oklch(0.34 0.022 250);
+    --blau:oklch(0.68 0.12 250);
+    --blau-hell:oklch(0.30 0.045 250);
+    --rot:oklch(0.68 0.16 27);
+    --gruen:oklch(0.70 0.11 158);
+    --auf-blau:oklch(0.17 0.02 250);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:oklch(0.19 0.018 250); --surface:oklch(0.235 0.02 250); --sunk:oklch(0.275 0.022 250);
+  --ink:oklch(0.96 0.006 245); --muted:oklch(0.72 0.018 245); --line:oklch(0.34 0.022 250);
+  --blau:oklch(0.68 0.12 250); --blau-hell:oklch(0.30 0.045 250); --rot:oklch(0.68 0.16 27);
+  --gruen:oklch(0.70 0.11 158); --auf-blau:oklch(0.17 0.02 250);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  overflow-wrap:break-word;
+}
+h1,h2,h3{margin:0; font-weight:700; letter-spacing:-.018em; line-height:1.18; text-wrap:balance}
+h1{font-size:2.125rem}
+h2{font-size:1.375rem}
+h3{font-size:1.125rem}
+p{margin:0}
+a{color:inherit}
+button{font:inherit; color:inherit}
+.spalte{width:min(34rem,100% - 2rem); margin-inline:auto}
+.zahl{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--blau); outline-offset:2px; border-radius:4px}
+
+/* ══════ Kopf ══════ */
+.kopf{
+  position:sticky; top:0; z-index:var(--z-kopf); background:var(--bg);
+  border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top);
+}
+.kopf-innen{display:flex; align-items:center; gap:var(--s3); padding-block:var(--s3)}
+.kopf-titel{flex:1; min-width:0}
+.kopf-titel b{display:block; font-size:.9375rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kopf-titel span{display:block; font-size:.78rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kopf-notiz{display:none}
+@media (min-width:26rem){.kopf-notiz{display:inline}}
+.balken{height:4px; background:var(--line)}
+.balken i{display:block; height:100%; background:var(--blau); transform-origin:left center; transform:scaleX(0); transition:transform .18s var(--ease)}
+
+/* ══════ Bühne ══════ */
+main{padding-block:var(--s6) 8rem}
+.etappe{animation:auf .18s var(--ease) both}
+@keyframes auf{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+.etappe-kopf{margin-bottom:var(--s6)}
+.etappe-kopf h2{margin-bottom:var(--s2)}
+.etappe-kopf p{color:var(--muted); font-size:.9375rem}
+
+/* ══════ Frage ══════ */
+.frage{padding-block:var(--s5); border-top:1px solid var(--line)}
+.frage:first-of-type{border-top:0; padding-top:0}
+.frage > label, .frage-titel{display:block; font-weight:600; font-size:1rem; margin-bottom:var(--s1)}
+.warum{display:block; color:var(--muted); font-size:.875rem; margin-bottom:var(--s3); line-height:1.45}
+.noetig{
+  display:inline-flex; align-items:center; gap:.3rem; font-size:.75rem; font-weight:600;
+  color:var(--rot); margin-left:var(--s2); vertical-align:1px; white-space:nowrap;
+}
+.noetig::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor; flex:none}
+
+input[type=text], input[type=tel], input[type=email], textarea{
+  width:100%; font:inherit; font-size:16px; color:var(--ink); background:var(--surface);
+  border:1px solid var(--line); border-radius:var(--r); padding:.7rem .8rem;
+  transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+textarea{min-height:5.5rem; resize:vertical; line-height:1.5}
+input::placeholder, textarea::placeholder{color:var(--muted); opacity:1}
+input:hover, textarea:hover{border-color:var(--muted)}
+input:focus, textarea:focus{
+  outline:none; border-color:var(--blau); box-shadow:0 0 0 3px color-mix(in oklab,var(--blau) 22%,transparent);
+}
+
+/* Auswahl (eine Antwort) */
+.wahl{display:flex; flex-direction:column; gap:var(--s2)}
+.wahl button{
+  display:flex; align-items:center; gap:var(--s3); min-height:48px; width:100%; text-align:left;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.6rem .85rem; cursor:pointer; font-size:.9375rem;
+  transition:border-color .18s var(--ease), background-color .18s var(--ease);
+}
+.wahl button::before{
+  content:""; width:20px; height:20px; flex:none; border-radius:50%;
+  border:2px solid var(--muted); transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.wahl button:hover{border-color:var(--muted)}
+.wahl button[aria-pressed="true"]{border-color:var(--blau); background:var(--blau-hell)}
+.wahl button[aria-pressed="true"]::before{
+  border-color:var(--blau); box-shadow:inset 0 0 0 4px var(--surface), inset 0 0 0 20px var(--blau);
+}
+
+/* Mehrfachauswahl */
+.mehrfach{display:flex; flex-direction:column; gap:var(--s2)}
+.mehrfach label{
+  display:flex; align-items:center; gap:var(--s3); min-height:46px; cursor:pointer;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.5rem .85rem; font-size:.9375rem; transition:border-color .18s var(--ease), background-color .18s var(--ease);
+}
+.mehrfach label:hover{border-color:var(--muted)}
+.mehrfach input{
+  appearance:none; width:20px; height:20px; flex:none; margin:0; cursor:pointer;
+  border:2px solid var(--muted); border-radius:5px; background:var(--surface); position:relative;
+  transition:background-color .18s var(--ease), border-color .18s var(--ease);
+}
+.mehrfach input:checked{background:var(--blau); border-color:var(--blau)}
+.mehrfach input:checked::after{
+  content:""; position:absolute; left:5px; top:1px; width:6px; height:11px;
+  border:solid var(--auf-blau); border-width:0 2.5px 2.5px 0; transform:rotate(43deg);
+}
+.mehrfach label:has(input:checked){border-color:var(--blau); background:var(--blau-hell)}
+
+/* Leistung + Preis */
+.leistungen{display:flex; flex-direction:column; gap:var(--s2)}
+.leistung{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.5rem .85rem; transition:border-color .18s var(--ease), background-color .18s var(--ease);
+}
+.leistung:has(input[type=checkbox]:checked){border-color:var(--blau); background:var(--blau-hell)}
+.leistung > label{display:flex; align-items:center; gap:var(--s3); min-height:44px; cursor:pointer; font-size:.9375rem}
+.leistung input[type=checkbox]{
+  appearance:none; width:20px; height:20px; flex:none; margin:0; cursor:pointer;
+  border:2px solid var(--muted); border-radius:5px; background:var(--surface); position:relative;
+}
+.leistung input[type=checkbox]:checked{background:var(--blau); border-color:var(--blau)}
+.leistung input[type=checkbox]:checked::after{
+  content:""; position:absolute; left:5px; top:1px; width:6px; height:11px;
+  border:solid var(--auf-blau); border-width:0 2.5px 2.5px 0; transform:rotate(43deg);
+}
+.preis-zeile{display:none; flex-wrap:wrap; gap:var(--s1) var(--s2); align-items:center; padding:0 0 var(--s2) 2.1rem}
+.leistung:has(input[type=checkbox]:checked) .preis-zeile{display:flex}
+.preis-zeile input{width:8.5rem; flex:none; font-size:16px}
+.preis-zeile span{font-size:.8125rem; color:var(--muted); flex:1; min-width:9rem; line-height:1.35}
+
+/* Folgefeld */
+.folge{margin-top:var(--s3); padding-left:var(--s4); border-left:1px solid var(--line)}
+.folge label{display:block; font-size:.875rem; font-weight:600; margin-bottom:var(--s2)}
+
+/* ══════ Fuß ══════ */
+.fuss{
+  position:fixed; left:0; right:0; bottom:0; z-index:var(--z-fuss); background:var(--bg);
+  border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom);
+}
+.fuss-innen{display:flex; gap:var(--s3); align-items:center; padding-block:var(--s3)}
+.knopf{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s2);
+  min-height:48px; padding:0 1.15rem; border-radius:var(--r); border:1px solid var(--line);
+  background:var(--surface); color:var(--ink); cursor:pointer; font-weight:600; font-size:1rem; text-decoration:none;
+  transition:background-color .18s var(--ease), border-color .18s var(--ease), opacity .18s var(--ease);
+}
+.knopf:hover{border-color:var(--muted)}
+.knopf-haupt{background:var(--blau); border-color:var(--blau); color:var(--auf-blau); flex:1}
+.knopf-haupt:hover{border-color:var(--blau); filter:brightness(1.08)}
+.knopf[disabled]{opacity:.4; cursor:default}
+.gespeichert{
+  font-size:.8125rem; color:var(--gruen); text-align:center; height:1.1rem; padding-bottom:var(--s1);
+  opacity:0; transition:opacity .18s var(--ease);
+}
+.gespeichert.an{opacity:1}
+
+/* ══════ Start & Ende ══════ */
+.start-marke{
+  display:inline-flex; align-items:center; gap:var(--s3); background:var(--sunk);
+  border-radius:var(--r); padding:var(--s3) var(--s4); margin-bottom:var(--s5);
+}
+.start-marke svg{width:26px; height:26px; flex:none; color:var(--blau)}
+.start-marke b{font-size:.9375rem}
+.start-marke span{display:block; font-size:.8125rem; color:var(--muted)}
+.start p{color:var(--muted); margin-top:var(--s4)}
+.start h1{margin-bottom:var(--s4)}
+.start .fuehrt{color:var(--ink); font-size:1.0625rem}
+.punkte{list-style:none; margin:var(--s5) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--s3)}
+.punkte li{display:flex; gap:var(--s3); align-items:flex-start; font-size:.9375rem; color:var(--muted)}
+.punkte svg{width:19px; height:19px; flex:none; margin-top:.2rem; color:var(--blau)}
+
+.uebersicht{background:var(--sunk); border-radius:var(--r); padding:var(--s4); margin-block:var(--s5)}
+.uebersicht h3{font-size:.9375rem; margin-bottom:var(--s3)}
+.uebersicht dl{margin:0; display:flex; flex-direction:column; gap:var(--s3)}
+.uebersicht dt{font-size:.8125rem; color:var(--muted)}
+.uebersicht dd{margin:0; font-size:.9375rem; white-space:pre-wrap}
+.uebersicht .leer{color:var(--muted); font-style:italic}
+.schritt{display:flex; gap:var(--s3); align-items:flex-start; margin-bottom:var(--s4)}
+.schritt .nr{
+  width:26px; height:26px; flex:none; border-radius:50%; background:var(--blau); color:var(--auf-blau);
+  display:grid; place-items:center; font-size:.8125rem; font-weight:700;
+}
+.schritt p{font-size:.9375rem}
+.schritt b{display:block; margin-bottom:.1rem}
+.hinweis{font-size:.875rem; color:var(--muted); background:var(--sunk); border-radius:var(--r); padding:var(--s3) var(--s4); margin-top:var(--s4)}
+
+.fussnote{border-top:1px solid var(--line); margin-top:var(--s7); padding-top:var(--s4); font-size:.8125rem; color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:0s !important; animation-duration:0s !important}
+}
+</style>
+</head>
+<body>
+
+<header class="kopf" id="kopf" hidden>
+  <div class="spalte kopf-innen">
+    <div class="kopf-titel">
+      <b id="kopfTitel">—</b>
+      <span><span class="zahl" id="kopfZahl">1 von 7</span><span class="kopf-notiz"> · wird automatisch gespeichert</span></span>
+    </div>
+  </div>
+  <div class="balken"><i id="balken"></i></div>
+</header>
+
+<main>
+  <div class="spalte" id="buehne"></div>
+</main>
+
+<footer class="fuss" id="fuss" hidden>
+  <div class="spalte">
+    <p class="gespeichert" id="gespeichert">gespeichert</p>
+    <div class="fuss-innen">
+      <button type="button" class="knopf" id="zurueck">Zurück</button>
+      <button type="button" class="knopf knopf-haupt" id="weiter">Weiter</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var WA_ALEKS = "4917643478923";
+  var SPEICHER = "bzs-info-v1";
+
+  /* ══════════════════════════════════════════════════════════
+     Die Fragen. Alles hier drin ist Inhalt, kein Layout —
+     Änderungen an der Erhebung passieren nur in diesem Block.
+     ══════════════════════════════════════════════════════════ */
+  var ETAPPEN = [
+    {
+      titel:"Ihre Firma",
+      intro:"Diese Angaben stehen später im Impressum. Das ist Pflicht für jede Website in Deutschland, und falsche oder fehlende Angaben sind der häufigste Grund für teure Abmahnungen. Deshalb fangen wir damit an.",
+      felder:[
+        {id:"firma_name", typ:"text", frage:"Wie heißt Ihre Firma genau?", warum:"Genau so, wie es auf Ihrer Rechnung oder im Gewerbeschein steht — mit GmbH, UG oder e. K., falls vorhanden.", platzhalter:"z. B. Bildungszentrum Sönmez GmbH", noetig:true},
+        {id:"rechtsform", typ:"wahl", frage:"Welche Rechtsform hat die Firma?", noetig:true,
+         optionen:["Einzelunternehmen","GmbH","UG (haftungsbeschränkt)","GbR","e. K. (eingetragener Kaufmann)","Etwas anderes / weiß ich nicht"]},
+        {id:"inhaber", typ:"text", frage:"Wer ist Inhaber oder Geschäftsführer?", warum:"Vollständiger Vor- und Nachname. Bei mehreren Geschäftsführern bitte alle nennen.", platzhalter:"z. B. Zülküf Sönmez", noetig:true},
+        {id:"adresse", typ:"text", frage:"Unter welcher Anschrift ist die Firma gemeldet?", warum:"Die Adresse muss ins Impressum, ein Postfach reicht rechtlich nicht aus.", platzhalter:"Straße, Hausnummer, PLZ, Ort", noetig:true},
+        {id:"telefon", typ:"tel", frage:"Welche Telefonnummer soll auf der Website stehen?", platzhalter:"z. B. 0173 93 24 87 9", noetig:true},
+        {id:"email", typ:"email", frage:"Welche E-Mail-Adresse soll auf der Website stehen?", warum:"Wenn Sie später eine Adresse mit Ihrer eigenen Domain möchten (z. B. info@ihre-adresse.de), richten wir die mit ein.", platzhalter:"z. B. bkfsonmez@gmail.com", noetig:true},
+        {id:"gegruendet", typ:"text", frage:"Seit wann gibt es das Bildungszentrum?", warum:"Das Jahr genügt. Wer länger da ist, wirkt verlässlicher — das gehört auf die Seite.", platzhalter:"z. B. seit 2019"},
+        {id:"team", typ:"text", frage:"Wie viele Personen arbeiten bei Ihnen, und wie viele davon unterrichten?", platzhalter:"z. B. 4 Mitarbeiter, davon 2 Dozenten"}
+      ]
+    },
+    {
+      titel:"Amtliche Angaben",
+      intro:"Hier wird es kurz trocken, dafür ist es danach erledigt. Zwei dieser Punkte entscheiden mit darüber, wie wir die Website aufbauen — vor allem die Frage nach dem Bildungsgutschein.",
+      felder:[
+        {id:"hr", typ:"wahl", frage:"Ist die Firma im Handelsregister eingetragen?",
+         optionen:["Ja","Nein","Weiß ich nicht"],
+         folge:{wenn:"Ja", id:"hr_nummer", typ:"text", frage:"Welches Registergericht und welche Nummer?", platzhalter:"z. B. Amtsgericht Dortmund, HRB 12345"}},
+        {id:"ust", typ:"wahl", frage:"Wie sind Sie umsatzsteuerlich aufgestellt?",
+         warum:"Wir brauchen die Umsatzsteuer-Identifikationsnummer (beginnt mit DE), nicht Ihre Steuernummer vom Finanzamt. Die Steuernummer gehört ausdrücklich nicht ins Impressum — bitte auch nicht hier eintragen.",
+         optionen:["Ich habe eine USt-IdNr (DE…)","Kleinunternehmer, keine Umsatzsteuer","Weiß ich nicht"],
+         folge:{wenn:"Ich habe eine USt-IdNr (DE…)", id:"ust_nummer", typ:"text", frage:"Wie lautet die Umsatzsteuer-Identifikationsnummer?", platzhalter:"DE…"}},
+        {id:"anerkennung", typ:"wahl", frage:"Sind Sie als Ausbildungsstätte nach § 7 BKrFQG anerkannt?", noetig:true,
+         warum:"Das ist Ihr stärkstes Vertrauenssignal und gehört sichtbar auf die Seite. Ohne diese Anerkennung dürften die Schulungen gar nicht angeboten werden — wer sie hat, sollte sie auch zeigen.",
+         optionen:["Ja","Beantragt, läuft noch","Nein","Weiß ich nicht"],
+         folge:{wenn:"Ja", id:"anerkennung_nr", typ:"text", frage:"Welche Anerkennungsnummer, und von welcher Behörde?", platzhalter:"z. B. Bezirksregierung Arnsberg, Nr. …"}},
+        {id:"azav", typ:"wahl", frage:"Sind Sie AZAV-zertifiziert?", noetig:true,
+         warum:"Davon hängt ab, ob Teilnehmer Ihre Kurse über einen Bildungsgutschein bezahlen können. Falls ja, wird das eine der wichtigsten Botschaften der ganzen Website.",
+         optionen:["Ja","In Vorbereitung","Nein","Weiß ich nicht"],
+         folge:{wenn:"Ja", id:"azav_stelle", typ:"text", frage:"Über welche Zertifizierungsstelle?", platzhalter:"z. B. CERTQUA, DEKRA, TÜV …"}},
+        {id:"foerderung", typ:"mehrfach", frage:"Über welche Stellen kommen Teilnehmer zu Ihnen, deren Kurs bezahlt wird?",
+         optionen:["Agentur für Arbeit","Jobcenter","Berufsförderungsdienst der Bundeswehr","Deutsche Rentenversicherung","Berufsgenossenschaft","Arbeitgeber zahlt direkt","Keine — alle zahlen selbst"]},
+        {id:"kammer", typ:"wahl", frage:"Sind Sie Mitglied einer Kammer?", warum:"Bei anerkannten Bildungsträgern gehört das ins Impressum.",
+         optionen:["IHK","Handwerkskammer","Beides","Nein","Weiß ich nicht"]},
+        {id:"haftpflicht", typ:"wahl", frage:"Haben Sie eine Betriebs- oder Berufshaftpflichtversicherung?", warum:"Nicht zwingend, aber ein gutes Argument für Firmenkunden.",
+         optionen:["Ja","Nein","Weiß ich nicht"],
+         folge:{wenn:"Ja", id:"haftpflicht_wo", typ:"text", frage:"Bei welcher Versicherung, und in welchem Geltungsbereich?", platzhalter:"z. B. Allianz, Deutschland"}}
+      ]
+    },
+    {
+      titel:"Was Sie anbieten",
+      intro:"Kreuzen Sie an, was Sie durchführen, und schreiben Sie den Preis direkt daneben. Wenn ein Preis schwankt, reicht eine Spanne oder „auf Anfrage“. Preise sind auf einer Website erfahrungsgemäß der Punkt, der über einen Anruf entscheidet.",
+      felder:[
+        {id:"leistungen", typ:"leistungen", frage:"Welche Schulungen bieten Sie an — und was kosten sie?", noetig:true,
+         optionen:[
+           "Weiterbildung Schlüsselzahl 95 — einzelnes Modul",
+           "Weiterbildung Schlüsselzahl 95 — alle fünf Module zusammen",
+           "Beschleunigte Grundqualifikation",
+           "Grundqualifikation (die vollständige, mit IHK-Prüfung)",
+           "ADR Basiskurs (Gefahrgut)",
+           "ADR Auffrischung",
+           "ADR Aufbaukurse (Tank, Klasse 1, Klasse 7)",
+           "Gabelstapler",
+           "Ladekran",
+           "Bagger und Erdbaumaschinen",
+           "Ersthelfer / Erste Hilfe",
+           "Fachseminar für Unternehmer und Verkehrsleiter"
+         ]},
+        {id:"leistungen_sonst", typ:"textarea", frage:"Bieten Sie noch etwas an, das oben fehlt?", platzhalter:"Alles, was uns fehlt — auch Beratungen, Prüfungsvorbereitung, Inhouse-Schulungen …"},
+        {id:"fuehrerschein", typ:"wahl", frage:"Machen Sie auch Führerscheine (Klassen C, CE, D)?",
+         warum:"Wer neu einsteigt, braucht zuerst den Führerschein. Wenn Sie das nicht selbst anbieten, ist ein Partner an dieser Stelle wertvoll für die Seite.",
+         optionen:["Ja, wir haben eine eigene Fahrschule","Nein, aber wir arbeiten mit einer Fahrschule zusammen","Nein, gar nicht"],
+         folge:{wenn:"Nein, aber wir arbeiten mit einer Fahrschule zusammen", id:"fahrschule_partner", typ:"text", frage:"Mit welcher Fahrschule?", platzhalter:"Name und Ort"}}
+      ]
+    },
+    {
+      titel:"Wie der Unterricht läuft",
+      intro:"Damit die Website die Fragen beantwortet, die Ihnen sonst am Telefon gestellt werden.",
+      felder:[
+        {id:"wann", typ:"mehrfach", frage:"Wann finden Ihre Kurse statt?", noetig:true,
+         optionen:["Samstags","Wochentags tagsüber","Abends","Ganze Woche am Stück (Montag bis Freitag)","Sonntags","Nach Absprache"]},
+        {id:"gruppe", typ:"text", frage:"Wie viele Teilnehmer sind in einem Kurs?", warum:"Kleine Gruppen sind ein Verkaufsargument — dann sollten wir die Zahl auch nennen.", platzhalter:"z. B. mindestens 6, höchstens 16"},
+        {id:"sprachen_unterricht", typ:"mehrfach", frage:"In welchen Sprachen können Sie unterrichten?", noetig:true,
+         warum:"Ab Oktober 2026 kann die Prüfung zur beschleunigten Grundqualifikation in acht Fremdsprachen abgelegt werden. Wer da sprachlich aufgestellt ist, erreicht Teilnehmer, die andere Anbieter nicht erreichen.",
+         optionen:["Deutsch","Türkisch","Englisch","Russisch","Arabisch","Rumänisch","Polnisch","Bulgarisch","Kroatisch / Serbisch / Bosnisch","Ukrainisch"]},
+        {id:"anmeldung", typ:"mehrfach", frage:"Wie melden sich Teilnehmer heute bei Ihnen an?", noetig:true,
+         optionen:["Anruf","WhatsApp","Instagram-Nachricht","E-Mail","Sie kommen persönlich vorbei","Der Arbeitgeber meldet sie an"]},
+        {id:"zahlung", typ:"mehrfach", frage:"Wie kann bezahlt werden?",
+         optionen:["Rechnung","Bar vor Ort","EC- oder Kreditkarte","Überweisung im Voraus","Ratenzahlung möglich","Über Bildungsgutschein"]},
+        {id:"vorlauf", typ:"wahl", frage:"Wie weit im Voraus stehen Ihre Termine fest?",
+         warum:"Das entscheidet, wie wir den Terminbereich bauen — als festen Kalender oder als flexible Liste.",
+         optionen:["Etwa einen Monat","Etwa drei Monate","Ein halbes Jahr oder länger","Sehr unterschiedlich"]},
+        {id:"pflege", typ:"wahl", frage:"Wer soll die Termine später auf der Website eintragen?", noetig:true,
+         warum:"Eine Terminliste, die veraltet, schadet mehr als sie nützt. Sagen Sie einfach, was Ihnen lieber ist — wir bauen es entsprechend.",
+         optionen:["Ich selbst, wenn es einfach genug ist","Jemand aus meinem Team","Das sollen Sie für mich übernehmen","Weiß ich noch nicht"]},
+        {id:"inklusive", typ:"mehrfach", frage:"Was ist bei Ihnen im Preis enthalten?",
+         optionen:["Zertifikat","Verpflegung","Kostenlose Parkplätze","Lernmaterial / Skripte","Getränke","Prüfungsgebühr"]},
+        {id:"buero", typ:"text", frage:"Wann ist Ihr Büro telefonisch erreichbar?", platzhalter:"z. B. Mo–Fr 09:00–17:00 Uhr"}
+      ]
+    },
+    {
+      titel:"Was Sie besser macht",
+      intro:"Der wichtigste Teil, und der einzige, den nur Sie beantworten können. Nehmen Sie sich hier ruhig zwei Minuten mehr — daraus entstehen die Texte, die auf der Seite tatsächlich überzeugen. Schreiben Sie ruhig so, wie Sie sprechen.",
+      felder:[
+        {id:"staerke", typ:"textarea", frage:"Warum sollte jemand zu Ihnen kommen und nicht zum nächsten Anbieter?", noetig:true,
+         warum:"Was machen Sie anders oder besser? Was sagen Teilnehmer, wenn sie zufrieden sind?", platzhalter:"Auch einzelne Stichworte helfen uns weiter."},
+        {id:"haeufigste_frage", typ:"textarea", frage:"Was werden Sie am Telefon immer wieder gefragt?",
+         warum:"Diese Fragen beantworten wir direkt auf der Seite. Das spart Ihnen Anrufe und bringt Sie bei Google nach vorn.", platzhalter:"z. B. „Wie lange dauert das?“, „Zahlt das die Agentur für Arbeit?“ …"},
+        {id:"aerger", typ:"textarea", frage:"Was ärgert Sie an anderen Anbietern in Ihrer Branche?",
+         warum:"Was Sie stört, machen Sie vermutlich bewusst anders. Genau das ist Ihr Alleinstellungsmerkmal.", platzhalter:"Ganz offen, das steht so nicht auf der Seite."},
+        {id:"teilnehmerzahl", typ:"text", frage:"Wie viele Teilnehmer haben Sie ungefähr schon geschult?",
+         warum:"Nur eintragen, wenn Sie eine belastbare Zahl haben. Wir schreiben keine Zahlen auf die Seite, die nicht stimmen.", platzhalter:"z. B. über 500 seit 2019 — oder leer lassen"},
+        {id:"firmenkunden", typ:"textarea", frage:"Welche Speditionen oder Firmen schicken regelmäßig Leute zu Ihnen?",
+         warum:"Namen dürfen wir nur mit deren Einverständnis nennen. Für uns ist erst mal wichtig zu wissen, wie groß dieser Teil Ihres Geschäfts ist.", platzhalter:"z. B. drei feste Speditionen, etwa 40 % der Teilnehmer"},
+        {id:"stimmen", typ:"textarea", frage:"Haben Sie Rückmeldungen von Teilnehmern, die wir zeigen dürfen?",
+         warum:"Auch WhatsApp-Nachrichten oder Google-Bewertungen. Echte Sätze wirken stärker als jeder Werbetext.", platzhalter:"Gern hinterher als Screenshot per WhatsApp."}
+      ]
+    },
+    {
+      titel:"Bilder und Auftritt",
+      intro:"Eine Website lebt von echten Bildern. Fotos vom eigenen Betrieb wirken immer besser als gekaufte Bilder — auch wenn sie nur mit dem Handy gemacht sind.",
+      felder:[
+        {id:"logo", typ:"wahl", frage:"Haben Sie Ihr Logo als Datei?", noetig:true,
+         optionen:["Ja, als richtige Datei vom Grafiker","Nur als Bild, z. B. aus Instagram","Nein, habe ich nicht"]},
+        {id:"fotos", typ:"mehrfach", frage:"Wovon haben Sie Fotos?",
+         warum:"Was fehlt, machen wir bei einem Besuch selbst — das ist kein Problem und rechtlich am saubersten.",
+         optionen:["Gebäude von außen","Schulungsraum","Unterricht mit Teilnehmern","Sie selbst / das Team","Fahrzeuge oder Geräte (Stapler, Kran)","Urkunden und Zertifikate","Habe keine Fotos"]},
+        {id:"personen", typ:"wahl", frage:"Dürfen auf der Website Teilnehmer zu sehen sein?",
+         warum:"Wenn Menschen erkennbar sind, brauchen wir von jedem eine schriftliche Einwilligung — sonst wird es rechtlich heikel. Bilder von hinten oder unscharf im Hintergrund sind unkritisch.",
+         optionen:["Ja, ich hole die Einwilligungen ein","Nein, lieber ohne erkennbare Personen","Nur ich selbst und mein Team"]},
+        {id:"spruch", typ:"wahl", frage:"Soll Ihr Spruch „Kompetenz auf der Straße“ bleiben?",
+         optionen:["Ja, der bleibt","Nein, wir brauchen etwas Neues","Mir egal, entscheiden Sie"]},
+        {id:"farben", typ:"text", frage:"Ihr Logo ist rot, blau und weiß. Soll die Website diese Farben aufnehmen?", platzhalter:"z. B. ja — oder: lieber moderner, andere Farben"},
+        {id:"kanaele", typ:"textarea", frage:"Wo sind Sie sonst noch im Internet zu finden?",
+         warum:"Ein Google-Unternehmensprofil ist kostenlos und bringt bei örtlicher Suche oft mehr als die Website selbst. Falls Sie keins haben, richten wir das mit ein.",
+         platzhalter:"Instagram, Facebook, Google-Eintrag, alte Website …"}
+      ]
+    },
+    {
+      titel:"Ihre Ziele",
+      intro:"Zum Schluss: Wofür soll die Seite eigentlich arbeiten? Daran messen wir später, ob sie ihren Zweck erfüllt.",
+      felder:[
+        {id:"ziel", typ:"wahl", frage:"Was soll die Website vor allem bringen?", noetig:true,
+         optionen:["Mehr einzelne Fahrer für die Modulschulung","Mehr Speditionen als feste Firmenkunden","Mehr Teilnehmer für die Grundqualifikation","Überhaupt erst einmal gefunden werden"]},
+        {id:"zielgruppe", typ:"mehrfach", frage:"Wen wollen Sie erreichen?",
+         optionen:["Fahrer aus Dortmund und Umgebung","Fahrer aus ganz Nordrhein-Westfalen","Speditionen und Fuhrparks","Menschen, die neu in den Beruf einsteigen","Betriebe, die Stapler- oder Kranscheine brauchen"]},
+        {id:"sprachen_seite", typ:"mehrfach", frage:"In welchen Sprachen soll die Website sein?", noetig:true,
+         warum:"Deutsch und Türkisch sind unser Vorschlag. Weitere Sprachen können wir später ergänzen.",
+         optionen:["Deutsch","Türkisch","Russisch","Rumänisch","Polnisch","Arabisch"]},
+        {id:"online_anmeldung", typ:"wahl", frage:"Soll man sich auf der Website direkt anmelden können?",
+         warum:"Ein Formular bringt nur etwas, wenn jemand es zeitnah beantwortet. Sonst ist WhatsApp der bessere Weg.",
+         optionen:["Ja, mit Formular","Nein, WhatsApp und Telefon reichen","Beides anbieten"]},
+        {id:"domain", typ:"text", frage:"Welche Internetadresse hätten Sie gern?",
+         warum:"Wir prüfen, was frei ist, und melden sie auf Ihren Namen an — die Adresse gehört Ihnen, nicht uns.",
+         platzhalter:"z. B. bildungszentrum-soenmez.de"},
+        {id:"vorbilder", typ:"textarea", frage:"Gibt es Websites, die Ihnen gefallen?",
+         warum:"Muss nichts aus Ihrer Branche sein. Auch „das gefällt mir gar nicht“ hilft uns.", platzhalter:"Adresse oder Name genügt."},
+        {id:"tabu", typ:"textarea", frage:"Was soll auf keinen Fall auf die Seite?", platzhalter:"z. B. bestimmte Preise, Ihre Privatadresse, Fotos von …"},
+        {id:"sonstiges", typ:"textarea", frage:"Gibt es sonst etwas, das wir wissen sollten?",
+         warum:"Alles, was Ihnen wichtig ist und oben nicht vorkam.", platzhalter:"Auch Pläne für die nächsten Monate — je mehr wir wissen, desto besser passt die Seite."}
+      ]
+    }
+  ];
+
+  /* ══════════════════════════════════════════════════════════
+     Zustand
+     ══════════════════════════════════════════════════════════ */
+  var daten = {};
+  try { daten = JSON.parse(localStorage.getItem(SPEICHER) || "{}"); } catch(e){ daten = {}; }
+  var ansicht = typeof daten.__ansicht === "number" ? daten.__ansicht : -1;   // -1 = Start, ETAPPEN.length = Ende
+
+  var buehne = document.getElementById("buehne");
+  var kopf = document.getElementById("kopf");
+  var fuss = document.getElementById("fuss");
+  var kopfTitel = document.getElementById("kopfTitel");
+  var kopfZahl = document.getElementById("kopfZahl");
+  var balken = document.getElementById("balken");
+  var gespeichert = document.getElementById("gespeichert");
+  var bZurueck = document.getElementById("zurueck");
+  var bWeiter = document.getElementById("weiter");
+  var speicherUhr;
+
+  function sichern(){
+    daten.__ansicht = ansicht;
+    try {
+      localStorage.setItem(SPEICHER, JSON.stringify(daten));
+      clearTimeout(speicherUhr);
+      gespeichert.classList.add("an");
+      speicherUhr = setTimeout(function(){ gespeichert.classList.remove("an"); }, 1600);
+    } catch(e){
+      gespeichert.textContent = "Konnte nicht gespeichert werden — bitte in einem Zug ausfüllen.";
+      gespeichert.style.color = "var(--rot)";
+      gespeichert.classList.add("an");
+    }
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     Aufbau der Felder
+     ══════════════════════════════════════════════════════════ */
+  function feldBauen(f){
+    var w = document.createElement("div");
+    w.className = "frage";
+    var titelId = "f-" + f.id;
+    var noetig = f.noetig ? '<span class="noetig">brauchen wir</span>' : "";
+
+    if(f.typ === "text" || f.typ === "tel" || f.typ === "email" || f.typ === "textarea"){
+      var art = f.typ === "textarea" ? "textarea" : "input";
+      w.innerHTML =
+        '<label for="'+titelId+'">'+esc(f.frage)+noetig+'</label>' +
+        (f.warum ? '<span class="warum">'+esc(f.warum)+'</span>' : "") +
+        (art === "textarea"
+          ? '<textarea id="'+titelId+'" placeholder="'+esc(f.platzhalter||"")+'"></textarea>'
+          : '<input type="'+(f.typ==="text"?"text":f.typ)+'" id="'+titelId+'" placeholder="'+esc(f.platzhalter||"")+'">');
+      var eingabe = w.querySelector("#"+CSS.escape(titelId));
+      eingabe.value = daten[f.id] || "";
+      eingabe.addEventListener("input", function(){ daten[f.id] = eingabe.value; sichern(); });
+      return w;
+    }
+
+    if(f.typ === "wahl"){
+      w.innerHTML =
+        '<span class="frage-titel" id="'+titelId+'">'+esc(f.frage)+noetig+'</span>' +
+        (f.warum ? '<span class="warum">'+esc(f.warum)+'</span>' : "") +
+        '<div class="wahl" role="group" aria-labelledby="'+titelId+'"></div>' +
+        '<div class="folge-halter"></div>';
+      var box = w.querySelector(".wahl");
+      var halter = w.querySelector(".folge-halter");
+
+      f.optionen.forEach(function(o){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = o;
+        b.setAttribute("aria-pressed", String(daten[f.id] === o));
+        b.addEventListener("click", function(){
+          daten[f.id] = o;
+          box.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+          b.setAttribute("aria-pressed","true");
+          folgeZeigen();
+          sichern();
+        });
+        box.appendChild(b);
+      });
+
+      function folgeZeigen(){
+        halter.innerHTML = "";
+        if(!f.folge || daten[f.id] !== f.folge.wenn) return;
+        var fo = f.folge, foId = "f-" + fo.id;
+        var d = document.createElement("div");
+        d.className = "folge";
+        d.innerHTML = '<label for="'+foId+'">'+esc(fo.frage)+'</label>' +
+                      '<input type="text" id="'+foId+'" placeholder="'+esc(fo.platzhalter||"")+'">';
+        var ein = d.querySelector("input");
+        ein.value = daten[fo.id] || "";
+        ein.addEventListener("input", function(){ daten[fo.id] = ein.value; sichern(); });
+        halter.appendChild(d);
+      }
+      folgeZeigen();
+      return w;
+    }
+
+    if(f.typ === "mehrfach"){
+      w.innerHTML =
+        '<span class="frage-titel" id="'+titelId+'">'+esc(f.frage)+noetig+'</span>' +
+        (f.warum ? '<span class="warum">'+esc(f.warum)+'</span>' : "") +
+        '<div class="mehrfach" role="group" aria-labelledby="'+titelId+'"></div>';
+      var mbox = w.querySelector(".mehrfach");
+      var gewaehlt = Array.isArray(daten[f.id]) ? daten[f.id] : [];
+
+      f.optionen.forEach(function(o){
+        var l = document.createElement("label");
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = gewaehlt.indexOf(o) > -1;
+        cb.addEventListener("change", function(){
+          var liste = Array.isArray(daten[f.id]) ? daten[f.id] : [];
+          if(cb.checked){ if(liste.indexOf(o) < 0) liste.push(o); }
+          else { liste = liste.filter(function(x){ return x !== o; }); }
+          daten[f.id] = liste;
+          sichern();
+        });
+        l.appendChild(cb);
+        l.appendChild(document.createTextNode(o));
+        mbox.appendChild(l);
+      });
+      return w;
+    }
+
+    if(f.typ === "leistungen"){
+      w.innerHTML =
+        '<span class="frage-titel" id="'+titelId+'">'+esc(f.frage)+noetig+'</span>' +
+        (f.warum ? '<span class="warum">'+esc(f.warum)+'</span>' : "") +
+        '<div class="leistungen" role="group" aria-labelledby="'+titelId+'"></div>';
+      var lbox = w.querySelector(".leistungen");
+      var stand = (daten[f.id] && typeof daten[f.id] === "object") ? daten[f.id] : {};
+      daten[f.id] = stand;
+
+      f.optionen.forEach(function(o, i){
+        var zeile = document.createElement("div");
+        zeile.className = "leistung";
+        var pid = "p-" + f.id + "-" + i;
+        zeile.innerHTML =
+          '<label><input type="checkbox">' + esc(o) + '</label>' +
+          '<div class="preis-zeile"><input type="text" id="'+pid+'" placeholder="Preis" aria-label="Preis für '+esc(o)+'"><span>z. B. 95 €, 450–550 € oder „auf Anfrage“</span></div>';
+        var cb = zeile.querySelector('input[type=checkbox]');
+        var pr = zeile.querySelector('.preis-zeile input');
+        cb.checked = Object.prototype.hasOwnProperty.call(stand, o);
+        pr.value = stand[o] || "";
+        cb.addEventListener("change", function(){
+          if(cb.checked){ stand[o] = pr.value || ""; } else { delete stand[o]; }
+          sichern();
+          if(cb.checked) pr.focus();
+        });
+        pr.addEventListener("input", function(){ stand[o] = pr.value; sichern(); });
+        lbox.appendChild(zeile);
+      });
+      return w;
+    }
+
+    return w;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     Ansichten
+     ══════════════════════════════════════════════════════════ */
+  function symbol(pfad){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+pfad+'</svg>';
+  }
+
+  function startZeigen(){
+    kopf.hidden = true; fuss.hidden = true;
+    var begonnen = Object.keys(daten).some(function(k){ return k.charAt(0) !== "_"; });
+    buehne.innerHTML =
+      '<div class="etappe start">' +
+        '<div class="start-marke">' +
+          symbol('<path d="M3 17V7a1 1 0 0 1 1-1h10v11"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/>') +
+          '<span><b>Bildungszentrum Sönmez</b><span>Angaben für Ihre neue Website</span></span>' +
+        '</div>' +
+        '<h1>Guten Tag, Herr Sönmez.</h1>' +
+        '<p class="fuehrt">Damit wir Ihnen nicht über Tage verteilt fünfzig Fragen per WhatsApp schicken, habe ich sie hier gesammelt. Sie gehen einmal durch, und danach kann ich ohne Rückfragen bauen.</p>' +
+        '<ul class="punkte">' +
+          '<li>'+symbol('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')+'<span>Etwa eine Viertelstunde, in sieben Abschnitten.</span></li>' +
+          '<li>'+symbol('<path d="M5 13l4 4L19 7"/>')+'<span>Alles wird automatisch gespeichert. Sie können jederzeit aufhören und später weitermachen.</span></li>' +
+          '<li>'+symbol('<path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/>')+'<span>Was Sie nicht wissen, lassen Sie einfach frei. Nichts ist Pflicht.</span></li>' +
+          '<li>'+symbol('<path d="M4 4h16v12H7l-3 3z"/>')+'<span>Am Ende schicken Sie mir alles mit einem Tipp über WhatsApp.</span></li>' +
+        '</ul>' +
+        '<p class="hinweis">Ihre Angaben bleiben auf Ihrem eigenen Gerät, solange Sie sie nicht abschicken. Es wird nichts im Hintergrund übertragen und nichts gespeichert, wo Fremde herankommen.</p>' +
+        '<div style="margin-top:2rem; display:flex; flex-direction:column; gap:.75rem">' +
+          '<button type="button" class="knopf knopf-haupt" id="losGehts">'+(begonnen ? "Weitermachen" : "Los geht’s")+'</button>' +
+          (begonnen ? '<button type="button" class="knopf" id="neuStart">Von vorn anfangen</button>' : "") +
+        '</div>' +
+        '<p class="fussnote">Erstellt von Aleksandar Ilic · ILIC ECOM HUB · Bei Fragen einfach anrufen: 0176 43478923</p>' +
+      '</div>';
+
+    document.getElementById("losGehts").addEventListener("click", function(){
+      ansicht = (typeof daten.__letzte === "number" && begonnen) ? daten.__letzte : 0;
+      zeigen();
+    });
+    var nb = document.getElementById("neuStart");
+    if(nb) nb.addEventListener("click", function(){
+      if(!confirm("Alle bisherigen Eingaben löschen und von vorn anfangen?")) return;
+      daten = {};
+      try { localStorage.removeItem(SPEICHER); } catch(e){}
+      ansicht = 0; zeigen();
+    });
+  }
+
+  function etappeZeigen(){
+    var e = ETAPPEN[ansicht];
+    kopf.hidden = false; fuss.hidden = false;
+    kopfTitel.textContent = e.titel;
+    kopfZahl.textContent = (ansicht + 1) + " von " + ETAPPEN.length;
+    balken.style.transform = "scaleX(" + (ansicht / ETAPPEN.length) + ")";
+    requestAnimationFrame(function(){
+      balken.style.transform = "scaleX(" + ((ansicht + 1) / ETAPPEN.length) + ")";
+    });
+
+    var d = document.createElement("div");
+    d.className = "etappe";
+    var k = document.createElement("div");
+    k.className = "etappe-kopf";
+    k.innerHTML = "<h2>" + esc(e.titel) + "</h2>" + (e.intro ? "<p>" + esc(e.intro) + "</p>" : "");
+    d.appendChild(k);
+    e.felder.forEach(function(f){ d.appendChild(feldBauen(f)); });
+    buehne.innerHTML = "";
+    buehne.appendChild(d);
+
+    bZurueck.disabled = false;
+    bZurueck.textContent = "Zurück";
+    bWeiter.textContent = (ansicht === ETAPPEN.length - 1) ? "Fertig" : "Weiter";
+    daten.__letzte = ansicht;
+    window.scrollTo(0, 0);
+  }
+
+  function endeZeigen(){
+    kopf.hidden = true; fuss.hidden = true;
+    var text = textBauen();
+    var zuLang = encodeURIComponent(text).length > 1600;
+
+    var liste = "";
+    ETAPPEN.forEach(function(e){
+      liste += '<h3>' + esc(e.titel) + '</h3><dl>';
+      e.felder.forEach(function(f){
+        var wert = wertLesbar(f);
+        liste += '<dt>' + esc(f.frage) + '</dt><dd' + (wert ? '' : ' class="leer"') + '>' + esc(wert || "— offen gelassen") + '</dd>';
+        if(f.folge && daten[f.folge.id]){
+          liste += '<dt>' + esc(f.folge.frage) + '</dt><dd>' + esc(daten[f.folge.id]) + '</dd>';
+        }
+      });
+      liste += '</dl>';
+    });
+
+    buehne.innerHTML =
+      '<div class="etappe">' +
+        '<h1>Das war’s. Vielen Dank.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Bitte schicken Sie mir Ihre Antworten jetzt zu. Zwei Schritte, dann sind Sie fertig.</p>' +
+        '<div style="margin-top:2rem">' +
+          '<div class="schritt"><span class="nr">1</span><p><b>Antworten kopieren</b>Ein Tipp auf den Knopf, der Text liegt dann in der Zwischenablage.</p></div>' +
+          '<button type="button" class="knopf knopf-haupt" id="kopieren" style="width:100%">Antworten kopieren</button>' +
+          '<div class="schritt" style="margin-top:2rem"><span class="nr">2</span><p><b>In WhatsApp einfügen und senden</b>Der Chat mit mir öffnet sich. Lange auf das Textfeld tippen, „Einfügen“ wählen, absenden.</p></div>' +
+          '<a class="knopf" href="https://wa.me/' + WA_ALEKS + (zuLang ? '' : '?text=' + encodeURIComponent(text)) + '" target="_blank" rel="noopener" style="width:100%">WhatsApp öffnen</a>' +
+        '</div>' +
+        '<p class="hinweis">Logo und Fotos schicken Sie mir am besten direkt hinterher im selben Chat. Falls beim Kopieren etwas klemmt: rufen Sie einfach an, 0176 43478923.</p>' +
+        '<div class="uebersicht">' +
+          '<h3>Ihre Angaben zum Nachlesen</h3>' + liste +
+        '</div>' +
+        '<div style="display:flex; gap:.75rem; flex-wrap:wrap">' +
+          '<button type="button" class="knopf" id="zurueckEnde">Noch einmal durchgehen</button>' +
+        '</div>' +
+        '<p class="fussnote">Erstellt von Aleksandar Ilic · ILIC ECOM HUB</p>' +
+      '</div>';
+
+    var kn = document.getElementById("kopieren");
+    kn.addEventListener("click", function(){
+      function erfolg(){
+        kn.textContent = "Kopiert — weiter mit Schritt 2";
+        setTimeout(function(){ kn.textContent = "Antworten kopieren"; }, 3000);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(erfolg, ersatzKopie);
+      } else { ersatzKopie(); }
+      function ersatzKopie(){
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); erfolg(); }
+        catch(e){ kn.textContent = "Bitte den Text unten von Hand kopieren"; }
+        document.body.removeChild(ta);
+      }
+    });
+    document.getElementById("zurueckEnde").addEventListener("click", function(){
+      ansicht = 0; zeigen();
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function wertLesbar(f){
+    var v = daten[f.id];
+    if(v === undefined || v === null || v === "") return "";
+    if(Array.isArray(v)) return v.length ? v.join(", ") : "";
+    if(typeof v === "object"){
+      var t = Object.keys(v).map(function(k){
+        return "· " + k + (v[k] ? ": " + v[k] : ": Preis offen");
+      });
+      return t.length ? t.join("\n") : "";
+    }
+    return String(v);
+  }
+
+  function textBauen(){
+    var z = ["ANGABEN FÜR DIE WEBSITE", "Bildungszentrum Sönmez", ""];
+    ETAPPEN.forEach(function(e){
+      var block = [];
+      e.felder.forEach(function(f){
+        var w = wertLesbar(f);
+        if(w) block.push(f.frage + "\n" + w);
+        if(f.folge && daten[f.folge.id]) block.push(f.folge.frage + "\n" + daten[f.folge.id]);
+      });
+      if(block.length){
+        z.push("— " + e.titel.toUpperCase() + " —");
+        z.push(block.join("\n\n"));
+        z.push("");
+      }
+    });
+    return z.join("\n").trim();
+  }
+
+  function zeigen(){
+    if(ansicht < 0) startZeigen();
+    else if(ansicht >= ETAPPEN.length) endeZeigen();
+    else etappeZeigen();
+    sichern();
+  }
+
+  bZurueck.addEventListener("click", function(){ ansicht--; zeigen(); });
+  bWeiter.addEventListener("click", function(){ ansicht++; zeigen(); });
+
+  zeigen();
+})();
+</script>
+</body>
+</html>
