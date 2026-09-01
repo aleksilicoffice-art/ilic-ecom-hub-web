@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Entwürfe · Bildungszentrum Sönmez</title>
+<meta name="description" content="Gestaltungsentwürfe für die Website des Bildungszentrums Sönmez.">
+<meta name="theme-color" content="#2b2e33">
+<link rel="stylesheet" href="schriften/fonts.css">
+<style>
+:root{
+  --flaeche:oklch(0.26 0.006 265); --flaeche-tief:oklch(0.19 0.006 265); --flaeche-hell:oklch(0.32 0.008 265);
+  --text:oklch(0.97 0.002 265); --text-weich:oklch(0.74 0.006 265);
+  --akzent:oklch(0.58 0.205 27); --akzent-tief:oklch(0.46 0.18 27);
+  --linie:oklch(0.38 0.008 265); --gruen:oklch(0.68 0.15 152);
+  --disp:"Bricolage Grotesque","Arial Narrow",sans-serif;
+  --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--flaeche-tief); color:var(--text); font-family:var(--sans); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--disp); font-weight:800; letter-spacing:-.022em; line-height:1.08; margin:0; text-wrap:balance}
+h1{font-size:clamp(1.9rem,5vw,3rem)}
+h2{font-size:1.3rem; font-weight:700}
+p{margin:0}
+a{color:inherit}
+.spalte{width:min(60rem,100% - 2.4rem); margin-inline:auto}
+.kopf{padding-block:clamp(2.5rem,6vw,4rem) 2rem; border-bottom:1px solid var(--linie)}
+.marke{display:inline-flex; flex-direction:column; gap:.14em; line-height:1; font-size:1.15rem; margin-bottom:1.6rem}
+.marke .balken{background:var(--akzent); color:#fff; font-family:var(--disp); font-weight:700; letter-spacing:.055em; font-size:.62em; padding:.26em .5em .3em; align-self:flex-start}
+.marke .name{font-family:var(--disp); font-weight:800}
+.kopf p{color:var(--text-weich); max-width:44em; margin-top:1rem}
+
+main{padding-block:clamp(2.5rem,6vw,4rem) 5rem}
+.karten{display:grid; gap:1.4rem}
+@media (min-width:52rem){.karten{grid-template-columns:1fr 1fr}}
+.karte{
+  background:var(--flaeche); border:1px solid var(--linie); border-radius:12px; overflow:hidden;
+  display:flex; flex-direction:column; transition:border-color .2s var(--ease), transform .2s var(--ease);
+}
+.karte:hover{border-color:var(--akzent); transform:translateY(-2px)}
+.karte.kommt{opacity:.62}
+.karte.kommt:hover{border-color:var(--linie); transform:none}
+.buehne{aspect-ratio:16/10; background:var(--flaeche-tief); position:relative; overflow:hidden; display:grid; place-items:center; border-bottom:1px solid var(--linie)}
+.buehne svg{width:78%; height:auto}
+.k-text{padding:1.4rem 1.5rem 1.6rem; display:flex; flex-direction:column; gap:.6rem; flex:1}
+.k-marke{font-size:.72rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--akzent)}
+.karte.kommt .k-marke{color:var(--text-weich)}
+.k-text p{font-size:.95rem; color:var(--text-weich)}
+.k-fuss{margin-top:auto; padding-top:1rem; display:flex; gap:.7rem; flex-wrap:wrap}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 1.1rem;
+  border-radius:6px; font-weight:600; font-size:.95rem; text-decoration:none; border:1px solid var(--linie);
+  transition:filter .2s var(--ease), border-color .2s var(--ease);
+}
+.btn-akzent{background:var(--akzent); border-color:var(--akzent); color:#fff}
+.btn-akzent:hover{filter:brightness(1.1)}
+.btn:hover{border-color:var(--text-weich)}
+
+.stand{margin-top:clamp(2.5rem,6vw,4rem); background:var(--flaeche); border:1px solid var(--linie); border-radius:12px; padding:clamp(1.4rem,3vw,2rem)}
+.stand h2{margin-bottom:1rem}
+.liste{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7rem; font-size:.95rem}
+.liste li{display:flex; gap:.75rem; align-items:flex-start; color:var(--text-weich)}
+.liste svg{width:16px; height:16px; flex:none; margin-top:.28rem; stroke-width:2.6; fill:none}
+.liste .ok svg{stroke:var(--gruen)}
+.liste .offen svg{stroke:var(--akzent)}
+.fuss{border-top:1px solid var(--linie); padding-block:1.6rem 3rem; font-size:.82rem; color:var(--text-weich)}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="spalte">
+    <span class="marke">
+      <span class="balken">Bildungszentrum</span>
+      <span class="name">Sönmez</span>
+    </span>
+    <h1>Zwei Entwürfe für Ihre Website</h1>
+    <p>Beide zeigen dieselben Inhalte und dieselben Preise. Sie unterscheiden sich darin, <em>wie</em> sie erzählen. Sehen Sie sich beide in Ruhe an, am besten auf dem Handy, und sagen Sie mir, welcher Ihnen näher ist. Alles Weitere bauen wir dann auf dem gewählten Entwurf auf.</p>
+  </div>
+</header>
+
+<main>
+  <div class="spalte">
+    <div class="karten">
+
+      <article class="karte">
+        <div class="buehne">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <rect width="320" height="200" fill="oklch(0.19 0.006 265)"/>
+            <g transform="translate(20,80)">
+              <rect x="0" y="10" width="46" height="22" rx="2" fill="oklch(0.93 0.004 265)"/><rect x="0" y="28" width="46" height="3" fill="oklch(0.58 0.205 27)"/>
+              <rect x="58" y="10" width="46" height="22" rx="2" fill="oklch(0.42 0.03 27)"/><rect x="58" y="28" width="46" height="3" fill="oklch(0.58 0.205 27)"/>
+              <rect x="116" y="10" width="46" height="22" rx="2" fill="oklch(0.93 0.004 265)"/><rect x="116" y="28" width="46" height="3" fill="oklch(0.58 0.205 27)"/>
+              <rect x="174" y="10" width="46" height="22" rx="2" fill="oklch(0.42 0.03 27)"/><rect x="174" y="28" width="46" height="3" fill="oklch(0.58 0.205 27)"/>
+              <rect x="232" y="10" width="46" height="22" rx="2" fill="oklch(0.42 0.03 27)"/><rect x="232" y="28" width="46" height="3" fill="oklch(0.58 0.205 27)"/>
+            </g>
+            <text x="160" y="52" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="19" fill="oklch(0.97 0.002 265)">Der Fuhrpark steht</text>
+            <text x="160" y="150" text-anchor="middle" font-family="Hanken Grotesk, sans-serif" font-size="11" fill="oklch(0.74 0.006 265)">Fristen laufen ab · Fahrzeuge bleiben stehen</text>
+          </svg>
+        </div>
+        <div class="k-text">
+          <span class="k-marke">Entwurf A</span>
+          <h2>Der Fuhrpark</h2>
+          <p>Beim Scrollen läuft die Zeit: Ein Fahrzeug nach dem anderen verliert seine Frist und bleibt stehen, bis der ganze Fuhrpark steht. Dann greifen Sie ein und alle fahren wieder. Danach kommen die Belege: 200 Unternehmen, über 5.000 Teilnehmer, seit 2016.</p>
+          <p><strong>Für wen:</strong> spricht den Disponenten direkt an seiner größten Sorge an. Bleibt im Kopf.</p>
+          <div class="k-fuss">
+            <a class="btn btn-akzent" href="fuhrpark/">Entwurf A ansehen</a>
+            <a class="btn" href="fuhrpark/?statisch">ohne Bewegung</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="karte kommt">
+        <div class="buehne">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <rect width="320" height="200" fill="oklch(0.93 0.004 265)"/>
+            <text x="30" y="62" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="26" fill="oklch(0.24 0.008 265)">Schwarz</text>
+            <text x="30" y="92" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="26" fill="oklch(0.58 0.205 27)">auf Weiß</text>
+            <rect x="30" y="112" width="120" height="3" fill="oklch(0.24 0.008 265)"/>
+            <text x="30" y="140" font-family="Hanken Grotesk, sans-serif" font-size="11" fill="oklch(0.46 0.01 265)">Termine · Preise · Sprachen</text>
+            <text x="30" y="158" font-family="Hanken Grotesk, sans-serif" font-size="11" fill="oklch(0.46 0.01 265)">in 30 Sekunden erfasst</text>
+          </svg>
+        </div>
+        <div class="k-text">
+          <span class="k-marke">Entwurf B · in Arbeit</span>
+          <h2>Schwarz auf Weiß</h2>
+          <p>Keine Bewegung, dafür kompromisslose Klarheit. Wie ein exzellent gesetzter Aushang: Was, wann, für wen, was kostet es. Die vier Fragen, die Sie täglich am Telefon hören, ohne Scrollen beantwortet.</p>
+          <p><strong>Für wen:</strong> den Disponenten, der schnell scannt und sofort weiß, woran er ist.</p>
+          <div class="k-fuss">
+            <span class="btn" style="opacity:.6; cursor:default">wird gerade gebaut</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <section class="stand">
+      <h2>Was noch fehlt</h2>
+      <ul class="liste">
+        <li class="ok"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span>Alle Inhalte, Preise und Zahlen stammen aus Ihren Angaben vom 30.08.</span></li>
+        <li class="offen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5"/><path d="M12 16h.01"/></svg><span><strong>Die Termine sind Beispiele.</strong> Sobald Ihre echten Termine da sind, tragen wir sie ein.</span></li>
+        <li class="offen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5"/><path d="M12 16h.01"/></svg><span>Ihre Anerkennungsnummer und die Umsatzsteuer-ID fehlen noch — beide gehören ins Impressum.</span></li>
+        <li class="offen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5"/><path d="M12 16h.01"/></svg><span>Preise für Ladekran, Bagger und das Fachseminar stehen bis dahin als „auf Anfrage".</span></li>
+        <li class="offen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5"/><path d="M12 16h.01"/></svg><span>Ihr Logo ist vorläufig nachgebaut. Sobald die Datei vom Grafiker da ist, tauschen wir sie ein.</span></li>
+        <li class="offen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5"/><path d="M12 16h.01"/></svg><span>Fotos vom Gebäude, Schulungsraum und den Urkunden kommen noch dazu.</span></li>
+        <li class="offen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4.5"/><path d="M12 16h.01"/></svg><span>Die türkische Fassung bauen wir für den Entwurf, den Sie auswählen.</span></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<footer class="fuss">
+  <div class="spalte">Entwürfe von ILIC ECOM HUB · Aleksandar Ilic · 0176 43478923 · Nicht öffentlich, nur über diesen Link erreichbar.</div>
+</footer>
+
+</body>
+</html>

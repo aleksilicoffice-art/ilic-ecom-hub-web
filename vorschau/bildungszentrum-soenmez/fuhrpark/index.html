@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="de" class="laden palette-asphalt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Bildungszentrum Sönmez · Weiterbildung für Berufskraftfahrer in Dortmund</title>
+<meta name="description" content="Modul 95, beschleunigte Grundqualifikation, ADR, Stapler und Kran in Dortmund. Seit 2016, über 5.000 Teilnehmer, rund 200 Partnerunternehmen. Unterricht in sechs Sprachen.">
+<meta name="theme-color" content="#2b2e33">
+<link rel="stylesheet" href="../schriften/fonts.css">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/basis.css">
+<style>
+/* ============================================================
+   TERMINE — hier monatlich pflegen, sonst nichts anfassen.
+   Eine Zeile pro Kurstag. Format: Modul | Titel | Datum | Uhrzeit | Status
+   Status: frei | wenige | voll
+   ⚠️ PLATZHALTER — echte Termine von Herrn Sönmez einsetzen.
+   ============================================================ */
+
+/* ---------- Palette: Asphalt + Signalrot (aus dem Logo) ---------- */
+.palette-asphalt{
+  --flaeche:      oklch(0.26 0.006 265);
+  --flaeche-tief: oklch(0.19 0.006 265);
+  --flaeche-hell: oklch(0.32 0.008 265);
+  --gegen:        oklch(0.97 0.002 265);
+  --gegen-tief:   oklch(0.93 0.004 265);
+  --text:         var(--gegen);
+  --text-weich:   oklch(0.74 0.006 265);
+  --akzent:       oklch(0.58 0.205 27);
+  --akzent-hell:  oklch(0.68 0.18 27);
+  --akzent-tief:  oklch(0.46 0.18 27);
+  --linie:        oklch(0.38 0.008 265);
+  --linie-gegen:  oklch(0.87 0.006 265);
+  --gruen:        oklch(0.68 0.15 152);
+  --disp: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+  --sans: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ---------- Wortmarke in Code (bis die Grafikerdatei kommt) ---------- */
+.wortmarke{display:inline-flex; flex-direction:column; gap:.14em; line-height:1; text-decoration:none}
+.wortmarke .balken{
+  background:var(--akzent); color:#fff; font-family:var(--disp); font-weight:700;
+  letter-spacing:.055em; font-size:.62em; padding:.26em .5em .3em; align-self:flex-start;
+}
+.wortmarke .name{
+  display:flex; align-items:center; gap:.34em;
+  font-family:var(--disp); font-weight:800; letter-spacing:-.01em; color:var(--text);
+}
+.wortmarke .name svg{height:.78em; width:auto; flex:none; opacity:.9}
+.wortmarke .name svg path{fill:currentColor}
+.wortmarke .name svg .strich{fill:var(--akzent)}
+
+/* ---------- Kopfleiste ---------- */
+.oben-fest{position:fixed; inset:0 0 auto; z-index:var(--z-kopf)}
+.kopf{position:static; padding:.85rem 0; transition:background-color .3s var(--ease), backdrop-filter .3s var(--ease)}
+.kopf.fest{background:color-mix(in oklab, var(--flaeche-tief) 88%, transparent); backdrop-filter:blur(14px); border-bottom:1px solid var(--linie)}
+.kopf-innen{width:min(var(--maxw), 100% - 2.4rem); margin-inline:auto; display:flex; align-items:center; gap:1.4rem}
+.kopf .wortmarke{font-size:1.32rem; margin-right:auto}
+.kopf-nav{display:flex; gap:1.5rem; font-size:.92rem}
+.kopf-nav a{color:var(--text-weich); text-decoration:none; padding-block:.25rem; border-bottom:2px solid transparent; transition:color .2s, border-color .2s}
+.kopf-nav a:hover{color:var(--text); border-bottom-color:var(--akzent)}
+@media (max-width:980px){.kopf-nav{display:none} .kopf .wortmarke{font-size:1.1rem}}
+
+/* ---------- Entree: der Fuhrpark ---------- */
+#entree{position:relative; min-height:100svh; overflow:hidden; background:var(--flaeche-tief)}
+.entree-himmel{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(120% 80% at 50% 0%, oklch(0.34 0.01 265) 0%, transparent 60%),
+    linear-gradient(180deg, var(--flaeche) 0%, var(--flaeche-tief) 100%);
+}
+.entree-buehne{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:center; gap:clamp(1.2rem,3.5vh,2.6rem); padding-block:clamp(8rem,17vh,11rem) clamp(2rem,5vh,3.5rem)}
+.entree-kopf{width:min(var(--maxw),100% - 2.4rem); margin-inline:auto; text-align:center}
+.entree-kicker{
+  font-family:var(--sans); font-size:.78rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--akzent-hell); margin-bottom:1rem;
+}
+.entree-kopf h1{
+  font-family:var(--disp); font-weight:800; letter-spacing:-.025em; line-height:1.02;
+  font-size:clamp(2rem,5.6vw,4.1rem); margin:0; text-wrap:balance;
+}
+.entree-kopf h1 em{font-style:normal; color:var(--akzent)}
+.entree-sub{
+  margin:1.15rem auto 0; max-width:34em; color:var(--text-weich);
+  font-size:clamp(1rem,1.6vw,1.16rem); line-height:1.55;
+}
+
+/* Kalenderband */
+.kalender{
+  width:min(var(--maxw),100% - 2.4rem); margin-inline:auto;
+  display:flex; align-items:center; justify-content:center; gap:.7rem;
+  font-family:var(--sans); font-variant-numeric:tabular-nums;
+}
+.kalender .marke{font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-weich)}
+.kalender .datum{
+  font-family:var(--disp); font-weight:700; font-size:clamp(1.4rem,3vw,2rem);
+  color:var(--text); min-width:5.5ch; text-align:center;
+}
+
+/* Fahrzeugreihe */
+.flotte{
+  width:min(1320px,100% - 1.4rem); margin-inline:auto;
+  display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(.35rem,1vw,1rem); align-items:end;
+}
+.fzg{position:relative; display:flex; flex-direction:column; align-items:center; gap:.5rem}
+.fzg svg{width:100%; height:auto; display:block}
+.fzg .karosserie{fill:var(--gegen-tief); transition:fill .4s var(--ease)}
+.fzg .scheibe{fill:var(--flaeche-hell)}
+.fzg .rad{fill:var(--flaeche-tief)}
+.fzg .felge{fill:var(--text-weich)}
+.fzg .streifen{fill:var(--akzent); opacity:.85}
+.fzg .frist{
+  font-family:var(--sans); font-size:.66rem; font-weight:600; letter-spacing:.04em;
+  padding:.2rem .42rem; border-radius:3px; white-space:nowrap;
+  background:color-mix(in oklab, var(--gruen) 20%, transparent); color:var(--gruen);
+  border:1px solid color-mix(in oklab, var(--gruen) 40%, transparent);
+  transition:background-color .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+.fzg[data-stand="aus"] .karosserie{fill:oklch(0.42 0.03 27)}
+.fzg[data-stand="aus"] .frist{
+  background:color-mix(in oklab, var(--akzent) 24%, transparent); color:var(--akzent-hell);
+  border-color:color-mix(in oklab, var(--akzent) 55%, transparent);
+}
+@media (max-width:760px){
+  .flotte{grid-template-columns:repeat(3,1fr); gap:.6rem 1rem}
+  .fzg .frist{font-size:.6rem; padding:.16rem .3rem}
+}
+
+.entree-stand{
+  width:min(46rem,100% - 2.4rem); margin-inline:auto; text-align:center; text-wrap:balance;
+  font-family:var(--disp); font-weight:700; font-size:clamp(1.05rem,2.4vw,1.6rem);
+  line-height:1.3; color:var(--text-weich); min-height:2.6em;
+}
+.entree-stand b{color:var(--akzent); font-weight:700}
+.entree-stand.gut b{color:var(--gruen)}
+
+/* ---------- Abschnitte ---------- */
+.abschnitt{padding-block:clamp(4rem,9vw,7.5rem)}
+section[id]{scroll-margin-top:7.5rem}
+.abschnitt.hell{background:var(--gegen); color:oklch(0.24 0.008 265)}
+.abschnitt.hell .kicker{color:var(--akzent-tief)}
+.abschnitt.hell .weich{color:oklch(0.46 0.01 265)}
+.innen{width:min(var(--maxw),100% - 2.4rem); margin-inline:auto}
+.kicker{
+  font-family:var(--sans); font-size:.76rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--akzent-hell); margin-bottom:.9rem;
+}
+h2{font-family:var(--disp); font-weight:800; letter-spacing:-.022em; line-height:1.08; font-size:clamp(1.7rem,4vw,2.9rem); margin:0; text-wrap:balance}
+h3{font-family:var(--disp); font-weight:700; letter-spacing:-.014em; font-size:1.24rem; margin:0}
+p{margin:0; line-height:1.6}
+.weich{color:var(--text-weich)}
+.fuehrt{font-size:clamp(1.02rem,1.7vw,1.18rem); max-width:36em; margin-top:1.1rem; line-height:1.6}
+
+/* Belege */
+.belege{display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(1.5rem,4vw,3rem) 1rem; margin-top:clamp(2.5rem,5vw,4rem)}
+@media (min-width:840px){.belege{grid-template-columns:repeat(4,1fr)}}
+.beleg{text-align:center}
+.beleg .z{
+  font-family:var(--disp); font-weight:800; letter-spacing:-.04em; line-height:.9;
+  font-size:clamp(2.6rem,6.5vw,4.4rem); color:var(--text); font-variant-numeric:tabular-nums;
+}
+.beleg .z em{font-style:normal; color:var(--akzent); font-size:.62em; vertical-align:.18em; margin-right:.06em}
+.beleg .b{margin-top:.6rem; font-size:.92rem; color:var(--text-weich); line-height:1.4}
+
+/* Zwei Wege */
+.wege{display:grid; gap:1.2rem; margin-top:clamp(2rem,4vw,3rem)}
+@media (min-width:900px){.wege{grid-template-columns:1.25fr 1fr; align-items:stretch}}
+.weg{
+  background:var(--flaeche-hell); border:1px solid var(--linie); border-radius:10px;
+  padding:clamp(1.5rem,3.2vw,2.4rem); display:flex; flex-direction:column; gap:1rem;
+}
+.weg.haupt{background:linear-gradient(150deg, var(--akzent-tief) 0%, oklch(0.34 0.09 27) 100%); border-color:transparent}
+.weg.haupt .kicker{color:oklch(0.9 0.06 30)}
+.weg ul{margin:0; padding-left:1.15rem; display:flex; flex-direction:column; gap:.55rem; font-size:.98rem; line-height:1.5}
+.weg.haupt ul{color:oklch(0.95 0.02 30)}
+.weg:not(.haupt) ul{color:var(--text-weich)}
+.weg .btn{align-self:flex-start; margin-top:auto}
+
+/* Termine */
+.plan{border:1px solid var(--linie); border-radius:10px; overflow:hidden; margin-top:clamp(1.8rem,4vw,2.6rem); background:var(--flaeche-hell)}
+.plan-zeile{
+  display:grid; grid-template-columns:auto 1fr auto auto; gap:1rem; align-items:center;
+  padding:1.05rem clamp(1rem,2.4vw,1.5rem); border-top:1px solid var(--linie);
+}
+.plan-zeile:first-child{border-top:0}
+.plan-zeile:hover{background:color-mix(in oklab, var(--akzent) 7%, transparent)}
+.mod{
+  width:2.6rem; height:2.6rem; flex:none; border-radius:6px; display:grid; place-items:center;
+  background:color-mix(in oklab, var(--akzent) 18%, transparent); color:var(--akzent-hell);
+  font-family:var(--disp); font-weight:800; font-size:1.05rem;
+}
+.plan-titel{font-weight:600; font-size:1rem}
+.plan-was{font-size:.84rem; color:var(--text-weich); margin-top:.14rem}
+.plan-datum{text-align:right; font-family:var(--sans); font-variant-numeric:tabular-nums; font-size:.98rem; font-weight:500}
+.plan-datum small{display:block; color:var(--text-weich); font-size:.78rem; font-weight:400}
+.plan-status{font-size:.74rem; font-weight:600; padding:.24rem .5rem; border-radius:3px; white-space:nowrap}
+.st-frei{background:color-mix(in oklab, var(--gruen) 18%, transparent); color:var(--gruen)}
+.st-wenige{background:color-mix(in oklab, var(--akzent) 20%, transparent); color:var(--akzent-hell)}
+.st-voll{background:var(--flaeche); color:var(--text-weich)}
+@media (max-width:780px){
+  .plan-zeile{grid-template-columns:auto 1fr; gap:.5rem 1rem}
+  .plan-datum{grid-column:2; text-align:left}
+  .plan-status{grid-column:2; justify-self:start}
+}
+.plan-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; margin-top:1.3rem}
+
+/* Schulungen */
+.kurse{display:grid; gap:1px; background:var(--linie-gegen); border:1px solid var(--linie-gegen); border-radius:10px; overflow:hidden; margin-top:clamp(2rem,4vw,3rem)}
+@media (min-width:760px){.kurse{grid-template-columns:1fr 1fr}}
+.kurs{background:var(--gegen); padding:clamp(1.3rem,2.8vw,1.9rem); display:flex; flex-direction:column; gap:.55rem}
+.kurs-kopf{display:flex; align-items:baseline; justify-content:space-between; gap:1rem}
+.kurs h3{font-size:1.14rem}
+.kurs .preis{font-family:var(--disp); font-weight:800; font-size:1.24rem; color:var(--akzent-tief); white-space:nowrap; font-variant-numeric:tabular-nums}
+.kurs .preis small{display:block; font-family:var(--sans); font-weight:400; font-size:.72rem; color:oklch(0.5 0.01 265); text-align:right; margin-top:.1rem}
+.kurs p{font-size:.94rem; color:oklch(0.44 0.01 265)}
+
+/* Sprachen */
+.sprachen{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:clamp(1.8rem,3.5vw,2.5rem)}
+.sprache{
+  font-family:var(--disp); font-weight:700; font-size:clamp(1.1rem,2.6vw,1.7rem);
+  padding:.4rem .85rem; border:1px solid var(--linie); border-radius:6px; color:var(--text-weich);
+  transition:color .3s var(--ease), border-color .3s var(--ease), background-color .3s var(--ease);
+}
+.sprache.an{color:var(--gegen); border-color:var(--akzent); background:color-mix(in oklab, var(--akzent) 16%, transparent)}
+
+/* Ablauf */
+.schritte{display:grid; gap:1.2rem; margin-top:clamp(2rem,4vw,3rem); counter-reset:s}
+@media (min-width:820px){.schritte{grid-template-columns:repeat(3,1fr)}}
+.schritt{display:flex; gap:1rem; align-items:flex-start}
+.schritt .nr{
+  width:2.3rem; height:2.3rem; flex:none; border-radius:50%; display:grid; place-items:center;
+  border:1px solid var(--akzent); color:var(--akzent-hell); font-family:var(--disp); font-weight:800; font-size:.98rem;
+}
+.schritt h3{font-size:1.06rem; margin-bottom:.3rem}
+.schritt p{font-size:.94rem; color:var(--text-weich)}
+
+/* Inklusive */
+.inkl{display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.6rem}
+.inkl span{
+  display:inline-flex; align-items:center; gap:.45rem; font-size:.92rem; color:var(--text-weich);
+  background:var(--flaeche-hell); border:1px solid var(--linie); border-radius:99px; padding:.42rem .85rem;
+}
+.inkl svg{width:14px; height:14px; stroke:var(--gruen); stroke-width:2.6; fill:none; flex:none}
+
+/* Kontakt */
+.kontakt-raster{display:grid; gap:2rem; margin-top:clamp(2rem,4vw,3rem)}
+@media (min-width:900px){.kontakt-raster{grid-template-columns:1fr 1fr; align-items:start}}
+.kontakt-liste{display:flex; flex-direction:column}
+.kontakt-zeile{display:flex; gap:1rem; padding-block:1rem; border-top:1px solid var(--linie)}
+.kontakt-zeile:first-child{border-top:0; padding-top:0}
+.kontakt-zeile .k{font-size:.8rem; color:var(--text-weich); width:6.5rem; flex:none; padding-top:.2rem}
+.kontakt-zeile .v{font-weight:500}
+.kontakt-zeile .v small{display:block; font-weight:400; color:var(--text-weich); font-size:.85rem; margin-top:.15rem}
+.kontakt-zeile a{color:inherit}
+.formular{background:var(--flaeche-hell); border:1px solid var(--linie); border-radius:10px; padding:clamp(1.4rem,3vw,2rem); display:flex; flex-direction:column; gap:.9rem}
+.formular label{display:block; font-size:.84rem; font-weight:600; margin-bottom:.35rem; color:var(--text-weich)}
+.formular input, .formular textarea, .formular select{
+  width:100%; font:inherit; font-size:16px; color:var(--text); background:var(--flaeche);
+  border:1px solid var(--linie); border-radius:6px; padding:.7rem .8rem;
+  transition:border-color .2s, box-shadow .2s;
+}
+.formular textarea{min-height:5rem; resize:vertical}
+.formular input:focus, .formular textarea:focus, .formular select:focus{
+  outline:none; border-color:var(--akzent); box-shadow:0 0 0 3px color-mix(in oklab, var(--akzent) 25%, transparent);
+}
+.formular .hinweis{font-size:.8rem; color:var(--text-weich); line-height:1.45}
+
+/* Fußzeile */
+.fuss{background:var(--flaeche-tief); padding-block:3rem 2.4rem; border-top:1px solid var(--linie)}
+.fuss-innen{width:min(var(--maxw),100% - 2.4rem); margin-inline:auto; display:grid; gap:2rem}
+@media (min-width:820px){.fuss-innen{grid-template-columns:1.3fr 1fr 1fr}}
+.fuss h4{font-family:var(--sans); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text-weich); margin:0 0 .8rem}
+.fuss ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.45rem; font-size:.92rem}
+.fuss a{color:var(--text-weich); text-decoration:none}
+.fuss a:hover{color:var(--text)}
+.fuss-unten{width:min(var(--maxw),100% - 2.4rem); margin:2.4rem auto 0; padding-top:1.4rem; border-top:1px solid var(--linie); font-size:.82rem; color:var(--text-weich); display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; justify-content:space-between}
+
+/* Entwurfsleiste */
+.entwurf{background:var(--akzent-tief); color:#fff; font-size:.78rem; padding:.5rem 1rem; text-align:center; line-height:1.35}
+
+html.statisch .fzg[data-stand]{--x:0}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001s !important; transition-duration:.001s !important}}
+</style>
+</head>
+<body>
+
+<div class="oben-fest">
+<div class="entwurf">Entwurf A · „Der Fuhrpark" · unverbindlicher Gestaltungsvorschlag von ILIC ECOM HUB</div>
+
+<!-- ══════════ LOADER ══════════ -->
+<div id="loader">
+  <div class="lader-ring">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <circle class="ring" cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="lade-zeile"><span>Bildungszentrum</span> <em>Sönmez</em></div>
+  <div class="lade-ort">Dortmund · seit 2016</div>
+</div>
+
+<div id="fortschritt"></div>
+
+<!-- ══════════ KOPF ══════════ -->
+<header class="kopf" id="kopf">
+  <div class="kopf-innen">
+    <a class="wortmarke" href="#oben">
+      <span class="balken">Bildungszentrum</span>
+      <span class="name">
+        <svg viewBox="0 0 40 18" aria-hidden="true"><path d="M2 13V5h13v8zM15 8h6l4 5h-10zM0 14h30" class="strich" opacity=".55"/><path d="M2 4h13v9H2zM16 7h6.2l4.3 6H16z"/><circle cx="8" cy="15" r="2.4"/><circle cx="23" cy="15" r="2.4"/></svg>
+        Sönmez
+      </span>
+    </a>
+    <nav class="kopf-nav">
+      <a href="#firmen">Für Speditionen</a>
+      <a href="#termine">Termine</a>
+      <a href="#kurse">Schulungen</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="btn btn-akzent" href="tel:+491739324879">0173 9324879</a>
+  </div>
+</header>
+</div>
+
+<main id="oben">
+
+<!-- ══════════ ENTREE: DER FUHRPARK ══════════ -->
+<section id="entree">
+  <div class="entree-himmel"></div>
+  <div class="entree-buehne">
+
+    <div class="entree-kopf">
+      <p class="entree-kicker">Weiterbildung für Berufskraftfahrer · Dortmund</p>
+      <h1 class="split">Ein Fahrer ohne gültige 95 <em>darf nicht fahren.</em></h1>
+      <p class="entree-sub">Die Schlüsselzahl 95 läuft alle fünf Jahre ab. Wer sie nicht rechtzeitig auffrischt, steht. Und mit ihm sein Fahrzeug.</p>
+    </div>
+
+    <div class="kalender">
+      <span class="marke">Frist</span>
+      <span class="datum" id="kalDatum">2026</span>
+    </div>
+
+    <div class="flotte" id="flotte" aria-hidden="true">
+      <div class="fzg" data-stand="an" data-ab="0.12">
+        <svg viewBox="0 0 120 62"><rect class="karosserie" x="34" y="14" width="80" height="32" rx="2"/><rect class="streifen" x="34" y="40" width="80" height="4"/><path class="karosserie" d="M6 22h24v24H6a2 2 0 0 1-2-2V24a2 2 0 0 1 2-2z"/><rect class="scheibe" x="8" y="25" width="18" height="11" rx="1.5"/><circle class="rad" cx="18" cy="50" r="8"/><circle class="felge" cx="18" cy="50" r="3.4"/><circle class="rad" cx="86" cy="50" r="8"/><circle class="felge" cx="86" cy="50" r="3.4"/><circle class="rad" cx="104" cy="50" r="8"/><circle class="felge" cx="104" cy="50" r="3.4"/></svg>
+        <span class="frist">gültig</span>
+      </div>
+      <div class="fzg" data-stand="an" data-ab="0.26">
+        <svg viewBox="0 0 120 62"><path class="karosserie" d="M10 16h96a6 6 0 0 1 6 6v24H4V22a6 6 0 0 1 6-6z"/><rect class="scheibe" x="12" y="20" width="26" height="13" rx="2"/><rect class="scheibe" x="44" y="20" width="26" height="13" rx="2"/><rect class="scheibe" x="76" y="20" width="26" height="13" rx="2"/><rect class="streifen" x="4" y="38" width="108" height="4"/><circle class="rad" cx="26" cy="50" r="8"/><circle class="felge" cx="26" cy="50" r="3.4"/><circle class="rad" cx="92" cy="50" r="8"/><circle class="felge" cx="92" cy="50" r="3.4"/></svg>
+        <span class="frist">gültig</span>
+      </div>
+      <div class="fzg" data-stand="an" data-ab="0.40">
+        <svg viewBox="0 0 120 62"><rect class="karosserie" x="34" y="14" width="80" height="32" rx="2"/><rect class="streifen" x="34" y="40" width="80" height="4"/><path class="karosserie" d="M6 22h24v24H6a2 2 0 0 1-2-2V24a2 2 0 0 1 2-2z"/><rect class="scheibe" x="8" y="25" width="18" height="11" rx="1.5"/><circle class="rad" cx="18" cy="50" r="8"/><circle class="felge" cx="18" cy="50" r="3.4"/><circle class="rad" cx="86" cy="50" r="8"/><circle class="felge" cx="86" cy="50" r="3.4"/><circle class="rad" cx="104" cy="50" r="8"/><circle class="felge" cx="104" cy="50" r="3.4"/></svg>
+        <span class="frist">gültig</span>
+      </div>
+      <div class="fzg" data-stand="an" data-ab="0.54">
+        <svg viewBox="0 0 120 62"><rect class="karosserie" x="34" y="14" width="80" height="32" rx="2"/><rect class="streifen" x="34" y="40" width="80" height="4"/><path class="karosserie" d="M6 22h24v24H6a2 2 0 0 1-2-2V24a2 2 0 0 1 2-2z"/><rect class="scheibe" x="8" y="25" width="18" height="11" rx="1.5"/><circle class="rad" cx="18" cy="50" r="8"/><circle class="felge" cx="18" cy="50" r="3.4"/><circle class="rad" cx="86" cy="50" r="8"/><circle class="felge" cx="86" cy="50" r="3.4"/><circle class="rad" cx="104" cy="50" r="8"/><circle class="felge" cx="104" cy="50" r="3.4"/></svg>
+        <span class="frist">gültig</span>
+      </div>
+      <div class="fzg" data-stand="an" data-ab="0.68">
+        <svg viewBox="0 0 120 62"><path class="karosserie" d="M10 16h96a6 6 0 0 1 6 6v24H4V22a6 6 0 0 1 6-6z"/><rect class="scheibe" x="12" y="20" width="26" height="13" rx="2"/><rect class="scheibe" x="44" y="20" width="26" height="13" rx="2"/><rect class="scheibe" x="76" y="20" width="26" height="13" rx="2"/><rect class="streifen" x="4" y="38" width="108" height="4"/><circle class="rad" cx="26" cy="50" r="8"/><circle class="felge" cx="26" cy="50" r="3.4"/><circle class="rad" cx="92" cy="50" r="8"/><circle class="felge" cx="92" cy="50" r="3.4"/></svg>
+        <span class="frist">gültig</span>
+      </div>
+      <div class="fzg" data-stand="an" data-ab="0.80">
+        <svg viewBox="0 0 120 62"><rect class="karosserie" x="34" y="14" width="80" height="32" rx="2"/><rect class="streifen" x="34" y="40" width="80" height="4"/><path class="karosserie" d="M6 22h24v24H6a2 2 0 0 1-2-2V24a2 2 0 0 1 2-2z"/><rect class="scheibe" x="8" y="25" width="18" height="11" rx="1.5"/><circle class="rad" cx="18" cy="50" r="8"/><circle class="felge" cx="18" cy="50" r="3.4"/><circle class="rad" cx="86" cy="50" r="8"/><circle class="felge" cx="86" cy="50" r="3.4"/><circle class="rad" cx="104" cy="50" r="8"/><circle class="felge" cx="104" cy="50" r="3.4"/></svg>
+        <span class="frist">gültig</span>
+      </div>
+    </div>
+
+    <p class="entree-stand" id="stand">Sechs Fahrzeuge. Sechs Fahrer. Alle dürfen fahren.</p>
+  </div>
+</section>
+
+<!-- ══════════ BELEGE ══════════ -->
+<section class="abschnitt" id="belege">
+  <div class="innen">
+    <p class="kicker">Warum Speditionen hierher kommen</p>
+    <h2 class="split">Wir halten Fuhrparks auf der Straße. Seit zehn Jahren.</h2>
+    <p class="fuehrt weich">Bildungszentrum Sönmez ist nach § 7 BKrFQG anerkannt und schult in Dortmund-Wickede alles, was ein Berufskraftfahrer braucht: von der Modulschulung bis zum Kranschein.</p>
+
+    <div class="belege">
+      <div class="beleg"><div class="z" data-zahl="200"><em>ca.</em>200</div><p class="b">Unternehmen schicken ihre Fahrer zu uns</p></div>
+      <div class="beleg"><div class="z" data-zahl="5000"><em>über</em>5.000</div><p class="b">Teilnehmer haben wir bereits geschult</p></div>
+      <div class="beleg"><div class="z" data-zahl="2016">2016</div><p class="b">seit diesem Jahr am Markt</p></div>
+      <div class="beleg"><div class="z" data-zahl="6">6</div><p class="b">Sprachen, in denen wir unterrichten</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ZWEI WEGE ══════════ -->
+<section class="abschnitt" id="firmen" style="background:var(--flaeche-tief)">
+  <div class="innen">
+    <p class="kicker">Zwei Wege zu uns</p>
+    <h2 class="split">Ob zwölf Fahrer oder einer.</h2>
+
+    <div class="wege">
+      <div class="weg haupt">
+        <p class="kicker">Für Speditionen und Fuhrparks</p>
+        <h3 style="font-size:1.5rem">Ihre Fahrer sollen fahren, nicht Fristen verwalten.</h3>
+        <ul>
+          <li>Geschlossene Gruppen für Ihren Betrieb, auf Wunsch die ganze Woche am Stück, damit die Schulung in Ihren Ablauf passt</li>
+          <li>Eine Sammelrechnung statt fünfzehn Einzelbelegen</li>
+          <li>Unterricht in sechs Sprachen. Ihre Fahrer verstehen den Stoff wirklich</li>
+          <li>Rund 200 Unternehmen arbeiten bereits mit uns</li>
+        </ul>
+        <a class="btn btn-rand" href="#kontakt">Angebot für Ihren Fuhrpark</a>
+      </div>
+
+      <div class="weg">
+        <p class="kicker">Für Fahrerinnen und Fahrer</p>
+        <h3>Du brauchst deine 95 zurück.</h3>
+        <ul>
+          <li>Module samstags oder als ganze Woche</li>
+          <li>Anmeldung per Anruf oder WhatsApp, ohne Formular</li>
+          <li>Zertifikat noch am selben Tag</li>
+          <li>Verpflegung, Getränke und Parkplatz inklusive</li>
+        </ul>
+        <a class="btn btn-wa" href="https://wa.me/491739324879" target="_blank" rel="noopener">Termin per WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TERMINE ══════════ -->
+<section class="abschnitt" id="termine">
+  <div class="innen">
+    <p class="kicker">Nächste Termine</p>
+    <h2 class="split">Fünf Module. Fünf Tage. Danach gilt die 95 wieder fünf Jahre.</h2>
+    <p class="fuehrt weich">Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen. Alle Termine finden bei uns in Dortmund-Wickede statt.</p>
+
+    <!-- ⚠️ PLATZHALTER-TERMINE — durch die echten Termine von Herrn Sönmez ersetzen.
+         Eine Zeile pro Kurstag. Status-Klasse: st-frei · st-wenige · st-voll -->
+    <div class="plan">
+      <div class="plan-zeile">
+        <span class="mod">1</span>
+        <span><span class="plan-titel">Eco Training &amp; Assistenzsysteme</span><span class="plan-was">Kraftstoff sparen, moderne Assistenzsysteme sicher nutzen</span></span>
+        <span class="plan-datum">Sa 05.09.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span class="plan-status st-frei">Plätze frei</span>
+      </div>
+      <div class="plan-zeile">
+        <span class="mod">2</span>
+        <span><span class="plan-titel">Sozialvorschriften &amp; Tachograf</span><span class="plan-was">Lenk- und Ruhezeiten, Kontrollen sicher bestehen</span></span>
+        <span class="plan-datum">Sa 12.09.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span class="plan-status st-wenige">Noch wenige Plätze</span>
+      </div>
+      <div class="plan-zeile">
+        <span class="mod">3</span>
+        <span><span class="plan-titel">Gefahrenwahrnehmung</span><span class="plan-was">Kritische Situationen früher erkennen und richtig reagieren</span></span>
+        <span class="plan-datum">Sa 19.09.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span class="plan-status st-frei">Plätze frei</span>
+      </div>
+      <div class="plan-zeile">
+        <span class="mod">4</span>
+        <span><span class="plan-titel">Schadenprävention</span><span class="plan-was">Unfälle und teure Schäden vermeiden</span></span>
+        <span class="plan-datum">Sa 26.09.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span class="plan-status st-frei">Plätze frei</span>
+      </div>
+      <div class="plan-zeile">
+        <span class="mod">5</span>
+        <span><span class="plan-titel">Ladungssicherung</span><span class="plan-was">Sicher zurren, Bußgelder und Haftung vermeiden</span></span>
+        <span class="plan-datum">Sa 03.10.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span class="plan-status st-voll">Warteliste</span>
+      </div>
+    </div>
+
+    <div class="plan-fuss">
+      <p class="weich" style="font-size:.92rem; max-width:44em">Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein.</p>
+      <a class="btn btn-akzent" href="tel:+491739324879">Termin abstimmen: 0173 9324879</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SCHULUNGEN ══════════ -->
+<section class="abschnitt hell" id="kurse">
+  <div class="innen">
+    <p class="kicker">Was wir schulen</p>
+    <h2 class="split">Alles, was auf der Straße und im Betrieb verlangt wird.</h2>
+
+    <div class="kurse">
+      <div class="kurs">
+        <div class="kurs-kopf"><h3>Weiterbildung Schlüsselzahl 95</h3><span class="preis">120 €<small>je Modul</small></span></div>
+        <p>Die gesetzliche Pflichtschulung: 35 Stunden in fünf Modulen, alle fünf Jahre. Ohne gültige 95 darf niemand gewerblich Lkw oder Bus fahren. Bei Kontrollen zahlen Fahrer und Unternehmen.</p>
+      </div>
+      <div class="kurs">
+        <div class="kurs-kopf"><h3>Beschleunigte Grundqualifikation</h3><span class="preis">2.500 €</span></div>
+        <p>Der Einstieg in den Beruf für alle, die neu anfangen. Anerkannte Schulung nach BKrFQG mit erfahrenen Dozenten.</p>
+      </div>
+      <div class="kurs">
+        <div class="kurs-kopf"><h3>Gabelstapler</h3><span class="preis">250 €</span></div>
+        <p>Staplerschein mit Theorie und Praxis. Pflicht für jeden, der im Betrieb einen Stapler bewegt.</p>
+      </div>
+      <div class="kurs">
+        <div class="kurs-kopf"><h3>Ladekran</h3><span class="preis">auf Anfrage</span></div>
+        <p>Bedienerschulung für den Ladekran. Der Nachweis, den jede Baustelle und jeder Auftraggeber sehen will.</p>
+      </div>
+      <div class="kurs">
+        <div class="kurs-kopf"><h3>Bagger &amp; Erdbaumaschinen</h3><span class="preis">auf Anfrage</span></div>
+        <p>Bedienerschulung für Erdbaumaschinen, mit Theorie und praktischer Unterweisung.</p>
+      </div>
+      <div class="kurs">
+        <div class="kurs-kopf"><h3>Fachseminar für Unternehmer &amp; Verkehrsleiter</h3><span class="preis">auf Anfrage</span></div>
+        <p>Aktuelle Rechtslage, Sozialvorschriften und Haftung, für alle, die im Betrieb Verantwortung für den Fuhrpark tragen.</p>
+      </div>
+    </div>
+
+    <p class="weich" style="margin-top:1.4rem; font-size:.92rem">Den Lkw-Führerschein selbst machen wir nicht. Dafür arbeiten wir mit einer Fahrschule zusammen und vermitteln Sie gern weiter.</p>
+  </div>
+</section>
+
+<!-- ══════════ SPRACHEN ══════════ -->
+<section class="abschnitt" id="sprachen" style="background:var(--flaeche-tief)">
+  <div class="innen">
+    <p class="kicker">Sechs Sprachen</p>
+    <h2 class="split">Wer den Beruf kann, soll nicht an der Sprache scheitern.</h2>
+    <p class="fuehrt weich">Unsere Dozenten unterrichten in sechs Sprachen. Für Sie als Spedition heißt das: Ihre Fahrer sitzen den Tag nicht ab, sondern verstehen den Stoff wirklich und bestehen.</p>
+
+    <div class="sprachen" id="sprachen-liste">
+      <span class="sprache an">Deutsch</span>
+      <span class="sprache">Türkçe</span>
+      <span class="sprache">English</span>
+      <span class="sprache">Русский</span>
+      <span class="sprache">العربية</span>
+      <span class="sprache">Hrvatski · Srpski · Bosanski</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABLAUF ══════════ -->
+<section class="abschnitt">
+  <div class="innen">
+    <p class="kicker">So läuft eine Firmenanmeldung</p>
+    <h2 class="split">Drei Schritte, ein Ansprechpartner.</h2>
+
+    <div class="schritte">
+      <div class="schritt">
+        <span class="nr">1</span>
+        <div><h3>Anrufen oder schreiben</h3><p>Sie sagen uns, wie viele Fahrer, welche Schulung und bis wann. Der Chef geht selbst ans Telefon.</p></div>
+      </div>
+      <div class="schritt">
+        <span class="nr">2</span>
+        <div><h3>Termin abstimmen</h3><p>Samstags, als ganze Woche oder nach Absprache. Wir richten uns nach Ihrem Betriebsablauf, nicht umgekehrt.</p></div>
+      </div>
+      <div class="schritt">
+        <span class="nr">3</span>
+        <div><h3>Schulung und Sammelrechnung</h3><p>Ihre Fahrer kommen, bekommen ihr Zertifikat noch am selben Tag, und Sie erhalten eine Rechnung für alle.</p></div>
+      </div>
+    </div>
+
+    <div class="inkl">
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Zertifikat inklusive</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Verpflegung und Getränke</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Lernmaterial und Skripte</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Kostenlose Parkplätze</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Zahlung per Rechnung</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ KONTAKT ══════════ -->
+<section class="abschnitt" id="kontakt" style="background:var(--flaeche-tief)">
+  <div class="innen">
+    <p class="kicker">Kontakt</p>
+    <h2 class="split">Rufen Sie durch. Wir gehen ans Telefon.</h2>
+
+    <div class="kontakt-raster">
+      <div class="kontakt-liste">
+        <div class="kontakt-zeile"><span class="k">Telefon</span><span class="v"><a href="tel:+491739324879">0173 9324879</a><small>Mo–Sa 10:00–17:00 Uhr</small></span></div>
+        <div class="kontakt-zeile"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/491739324879" target="_blank" rel="noopener">Nachricht schreiben</a><small>oft der schnellste Weg</small></span></div>
+        <div class="kontakt-zeile"><span class="k">E-Mail</span><span class="v"><a href="mailto:bkfsonmez@gmail.com">bkfsonmez@gmail.com</a></span></div>
+        <div class="kontakt-zeile"><span class="k">Adresse</span><span class="v">Zum Lonnenhohl 23<small>44319 Dortmund-Wickede · kostenlose Parkplätze am Haus</small></span></div>
+        <div class="kontakt-zeile"><span class="k">Ansprechpartner</span><span class="v">Zülküf Sönmez<small>Inhaber</small></span></div>
+      </div>
+
+      <form class="formular" id="anfrage">
+        <div>
+          <label for="f-name">Name</label>
+          <input type="text" id="f-name" name="name" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="f-firma">Firma <span class="weich" style="font-weight:400">(optional)</span></label>
+          <input type="text" id="f-firma" name="firma" autocomplete="organization">
+        </div>
+        <div>
+          <label for="f-kontakt">Telefon oder E-Mail</label>
+          <input type="text" id="f-kontakt" name="kontakt" required>
+        </div>
+        <div>
+          <label for="f-thema">Worum geht es?</label>
+          <select id="f-thema" name="thema">
+            <option>Weiterbildung Schlüsselzahl 95</option>
+            <option>Beschleunigte Grundqualifikation</option>
+            <option>Gabelstapler, Ladekran oder Bagger</option>
+            <option>Geschlossene Gruppe für unseren Betrieb</option>
+            <option>Etwas anderes</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-text">Ihre Nachricht</label>
+          <textarea id="f-text" name="nachricht" placeholder="Wie viele Fahrer, bis wann, welche Schulung?"></textarea>
+        </div>
+        <button class="btn btn-akzent" type="submit">Anfrage senden</button>
+        <p class="hinweis">Wir melden uns in der Regel am selben Werktag. Ihre Angaben verwenden wir ausschließlich zur Beantwortung Ihrer Anfrage.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FUSSZEILE ══════════ -->
+<footer class="fuss">
+  <div class="fuss-innen">
+    <div>
+      <a class="wortmarke" href="#oben" style="font-size:1.2rem">
+        <span class="balken">Bildungszentrum</span>
+        <span class="name">Sönmez</span>
+      </a>
+      <p class="weich" style="margin-top:1rem; font-size:.9rem; max-width:26em">Anerkannte Ausbildungsstätte nach § 7 BKrFQG. Zum Lonnenhohl 23, 44319 Dortmund.</p>
+    </div>
+    <div>
+      <h4>Schulungen</h4>
+      <ul>
+        <li><a href="#kurse">Schlüsselzahl 95</a></li>
+        <li><a href="#kurse">Beschleunigte Grundqualifikation</a></li>
+        <li><a href="#kurse">Gabelstapler &amp; Ladekran</a></li>
+        <li><a href="#termine">Termine</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="tel:+491739324879">0173 9324879</a></li>
+        <li><a href="mailto:bkfsonmez@gmail.com">bkfsonmez@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/bildungszentrum.soenmez" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fuss-unten">
+    <span>© 2026 Bildungszentrum Sönmez · Inhaber Zülküf Sönmez</span>
+    <span><a href="../impressum.html">Impressum</a> · <a href="../datenschutz.html">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script src="../js/gsap.min.js"></script>
+<script src="../js/ScrollTrigger.min.js"></script>
+<script src="../js/DrawSVGPlugin.min.js"></script>
+<script src="../js/SplitText.min.js"></script>
+<script src="../js/erlebnis.js"></script>
+<script>
+ERLEBNIS.start({
+  szenen: function (h) {
+
+    /* ---------- Der Fuhrpark steht ----------
+       Gepinnte Szene: Ein Datum läuft von 2026 nach 2031. Nacheinander
+       laufen die Fristen der sechs Fahrzeuge ab — jedes wird rot, sackt
+       ab und steht. Am Ende steht der ganze Fuhrpark. Danach der Eingriff:
+       alle werden wieder grün und fahren an.                              */
+    var fzge  = gsap.utils.toArray(".fzg");
+    var datum = h.q("#kalDatum");
+    var stand = h.q("#stand");
+    var jahr  = { v: 2026 };
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#entree",
+        start: "top top",
+        /* Pixel statt Prozent: h.strecke() liefert "+=N%", was an gepinnten
+           Triggern auf die wachsende Elementhöhe bezogen wird und sich
+           aufschaukelt (dokumentiert in MASTER.md, eine Seite wurde 213.000 px hoch). */
+        end: function () { var vh = window.innerHeight || 800; return "+=" + Math.round(vh * (h.kompakt() ? 3.0 : 3.8)); },
+        pin: true,
+        scrub: 0.6,
+        anticipatePin: 1
+      }
+    });
+
+    /* Datum läuft */
+    tl.to(jahr, {
+      v: 2031, ease: "none",
+      onUpdate: function () { datum.textContent = Math.round(jahr.v); }
+    }, 0);
+
+    /* Fahrzeuge fallen nacheinander aus */
+    fzge.forEach(function (el) {
+      var ab = parseFloat(el.dataset.ab);
+      tl.call(function () {
+        el.dataset.stand = "aus";
+        el.querySelector(".frist").textContent = "abgelaufen";
+      }, null, ab);
+      tl.to(el, { y: 10, duration: 0.06, ease: "power2.in" }, ab);
+      /* Rückweg beim Zurückscrollen */
+      tl.call(function () {
+        el.dataset.stand = "an";
+        el.querySelector(".frist").textContent = "gültig";
+      }, null, ab - 0.001);
+    });
+
+    /* Standtext wechselt mit */
+    tl.call(function () { stand.innerHTML = "Die ersten Fristen laufen ab. <b>Zwei Fahrzeuge stehen.</b>"; }, null, 0.3)
+      .call(function () { stand.innerHTML = "Sechs Fahrzeuge. Sechs Fahrer. Alle dürfen fahren."; }, null, 0.299)
+      .call(function () { stand.innerHTML = "Und dann steht der <b>ganze Fuhrpark.</b>"; }, null, 0.84)
+      .call(function () { stand.innerHTML = "Die ersten Fristen laufen ab. <b>Zwei Fahrzeuge stehen.</b>"; }, null, 0.839);
+
+    /* Der Eingriff: alle wieder auf die Straße */
+    tl.call(function () {
+      fzge.forEach(function (el) {
+        el.dataset.stand = "an";
+        el.querySelector(".frist").textContent = "aufgefrischt";
+      });
+      stand.classList.add("gut");
+      stand.innerHTML = "Wir bringen sie zurück. <b>Alle sechs.</b>";
+    }, null, 0.93);
+    tl.call(function () {
+      fzge.forEach(function (el) {
+        el.dataset.stand = "aus";
+        el.querySelector(".frist").textContent = "abgelaufen";
+      });
+      stand.classList.remove("gut");
+      stand.innerHTML = "Und dann steht der <b>ganze Fuhrpark.</b>";
+    }, null, 0.929);
+    tl.to(fzge, { y: 0, x: 6, duration: 0.07, stagger: 0.008, ease: "power2.out" }, 0.93);
+
+    /* ---------- Belege: Zahlen zählen hoch ---------- */
+    gsap.utils.toArray(".beleg .z").forEach(function (el) {
+      var ziel = parseInt(el.dataset.zahl, 10);
+      var vor  = el.querySelector("em");
+      var obj  = { v: 0 };
+      gsap.to(obj, {
+        v: ziel, duration: 1.4, ease: "power2.out",
+        scrollTrigger: { trigger: el, start: "top 84%", once: true },
+        onUpdate: function () {
+          var n = Math.round(obj.v).toLocaleString("de-DE");
+          el.textContent = n;
+          if (vor) el.insertBefore(vor, el.firstChild);
+        }
+      });
+    });
+
+    /* ---------- Sprachen leuchten nacheinander auf ---------- */
+    var spr = gsap.utils.toArray(".sprache");
+    ScrollTrigger.create({
+      trigger: "#sprachen-liste",
+      start: "top 78%",
+      once: true,
+      onEnter: function () {
+        spr.forEach(function (el, i) {
+          gsap.delayedCall(i * 0.28, function () {
+            spr.forEach(function (x) { x.classList.remove("an"); });
+            el.classList.add("an");
+          });
+        });
+        gsap.delayedCall(spr.length * 0.28 + 0.4, function () {
+          spr.forEach(function (x) { x.classList.add("an"); });
+        });
+      }
+    });
+
+  }
+});
+
+/* ---------- Kopfleiste wird fest, sobald man scrollt ----------
+   Bewusst ein nativer Listener statt ScrollTrigger: der statische Pfad
+   (reduced-motion) startet GSAP nie, und ohne Hintergrund läuft der
+   Seiteninhalt sichtbar durch die Kopfleiste. */
+(function () {
+  var kopf = document.getElementById("kopf");
+  var setzen = function () { kopf.classList.toggle("fest", window.scrollY > 60); };
+  window.addEventListener("scroll", setzen, { passive: true });
+  setzen();
+})();
+
+/* ---------- Statischer Pfad ----------
+   Bei prefers-reduced-motion (oder ?statisch) läuft die Fuhrpark-Szene nie.
+   Ohne Eingriff sähe der Besucher nur "alle dürfen fahren" und bekäme die
+   Aussage der Seite nie zu sehen. Deshalb wird hier der Zustand gesetzt,
+   der die Botschaft auch ohne Bewegung trägt. */
+if (document.documentElement.classList.contains("statisch")) {
+  var sFzge = document.querySelectorAll(".fzg");
+  [1, 3, 4].forEach(function (i) {
+    if (!sFzge[i]) return;
+    sFzge[i].dataset.stand = "aus";
+    sFzge[i].querySelector(".frist").textContent = "abgelaufen";
+  });
+  var sKal = document.getElementById("kalDatum");
+  if (sKal) sKal.textContent = "2031";
+  var sStand = document.getElementById("stand");
+  if (sStand) sStand.innerHTML = "In fünf Jahren laufen alle Fristen ab. <b>Wir bringen die Fahrer rechtzeitig zurück.</b>";
+  document.querySelectorAll(".sprache").forEach(function (x) { x.classList.add("an"); });
+}
+
+/* Formular: bis zur Anbindung nur eine ehrliche Rückmeldung */
+document.getElementById("anfrage").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var b = e.target.querySelector("button");
+  b.textContent = "Im Entwurf noch ohne Versand";
+  b.disabled = true;
+});
+</script>
+</body>
+</html>
