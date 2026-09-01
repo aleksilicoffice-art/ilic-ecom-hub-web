@@ -108,6 +108,14 @@ img{max-width:100%; display:block}
 .kopf-nav{display:flex; gap:1.6rem; font-size:.94rem; font-weight:500}
 .kopf-nav a{color:var(--tinte-weich); text-decoration:none; padding-block:.3rem; border-bottom:2px solid transparent; transition:color .18s, border-color .18s}
 .kopf-nav a:hover{color:var(--tinte); border-bottom-color:var(--akzent)}
+.sprachwahl{display:flex; border:1px solid var(--linie); border-radius:6px; overflow:hidden; flex:none}
+.sprachwahl button{
+  background:transparent; border:0; padding:.5rem .7rem; cursor:pointer; font-family:var(--sans);
+  font-weight:700; font-size:.82rem; letter-spacing:.04em; color:var(--tinte-weich);
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.sprachwahl button:hover{color:var(--tinte)}
+.sprachwahl button[aria-pressed="true"]{background:var(--akzent); color:var(--auf-akzent)}
 @media (max-width:1000px){.kopf-nav{display:none} .marke .name{font-size:1.12rem}}
 
 /* ══════════ 1 · EINSTIEG — ein Bild, eine Aussage, zwei Wege ══════════ */
@@ -321,11 +329,15 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         </span>
       </a>
       <nav class="kopf-nav">
-        <a href="#firmen">Für Speditionen</a>
-        <a href="#termine">Termine</a>
-        <a href="#kurse">Schulungen</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#firmen" data-de="Für Speditionen" data-tr="Nakliyeciler için">Für Speditionen</a>
+        <a href="#termine" data-de="Termine" data-tr="Tarihler">Termine</a>
+        <a href="#kurse" data-de="Schulungen" data-tr="Eğitimler">Schulungen</a>
+        <a href="#kontakt" data-de="Kontakt" data-tr="İletişim">Kontakt</a>
       </nav>
+      <div class="sprachwahl" role="group" aria-label="Sprache wählen / Dil seçimi">
+        <button type="button" data-sprache="de" aria-pressed="true">DE</button>
+        <button type="button" data-sprache="tr" aria-pressed="false">TR</button>
+      </div>
       <a class="btn btn-voll" href="tel:+491739324879">0173 9324879</a>
     </div>
   </header>
@@ -337,16 +349,16 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="einstieg">
   <div class="spalte einstieg-raster">
     <div>
-      <p class="kicker">Anerkanntes Bildungszentrum · Dortmund</p>
-      <h1>Damit Ihre Fahrer <span>fahren dürfen.</span></h1>
-      <p class="fuehrt">Weiterbildung nach Schlüsselzahl 95, beschleunigte Grundqualifikation, Stapler und Kran. Seit 2016 in Dortmund-Wickede, unterrichtet in sechs Sprachen.</p>
+      <p class="kicker" data-de="Anerkanntes Bildungszentrum · Dortmund" data-tr="Onaylı eğitim merkezi · Dortmund">Anerkanntes Bildungszentrum · Dortmund</p>
+      <h1 data-de="Damit Ihre Fahrer &lt;span&gt;fahren dürfen.&lt;/span&gt;" data-tr="Sürücüleriniz &lt;span&gt;direksiyonda kalsın.&lt;/span&gt;">Damit Ihre Fahrer <span>fahren dürfen.</span></h1>
+      <p class="fuehrt" data-de="Weiterbildung nach Schlüsselzahl 95, beschleunigte Grundqualifikation, Stapler und Kran. Seit 2016 in Dortmund-Wickede, unterrichtet in sechs Sprachen." data-tr="95 anahtar sayısı yenileme eğitimi, hızlandırılmış temel yeterlilik, forklift ve vinç. 2016&#39;dan beri Dortmund-Wickede&#39;de, altı dilde eğitim.">Weiterbildung nach Schlüsselzahl 95, beschleunigte Grundqualifikation, Stapler und Kran. Seit 2016 in Dortmund-Wickede, unterrichtet in sechs Sprachen.</p>
       <div class="einstieg-cta">
-        <a class="btn btn-voll" href="#firmen">Für Speditionen</a>
-        <a class="btn btn-rand" href="#termine">Termine ansehen</a>
+        <a class="btn btn-voll" href="#firmen" data-de="Für Speditionen" data-tr="Nakliyeciler için">Für Speditionen</a>
+        <a class="btn btn-rand" href="#termine" data-de="Termine ansehen" data-tr="Tarihleri gör">Termine ansehen</a>
       </div>
     </div>
     <div class="bildrahmen">
-      <img src="../bilder/hero-lkw-weiss.jpg" alt="Weißer Sattelzug auf einer freien Fläche unter offenem Himmel" width="1600" height="1067" fetchpriority="high">
+      <img src="../bilder/hero-lkw-weiss.jpg" alt="Weißer Sattelzug auf einer freien Fläche unter offenem Himmel" data-alt-de="Weißer Sattelzug auf einer freien Fläche unter offenem Himmel" data-alt-tr="Açık gökyüzü altında boş bir alanda beyaz bir tır" width="1600" height="1067" fetchpriority="high">
     </div>
   </div>
 </section>
@@ -354,10 +366,10 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <!-- ══════════ VERTRAUENSBAND ══════════ -->
 <div class="band">
   <div class="spalte band-innen">
-    <div class="band-zelle"><div class="w zahl">2016</div><p class="b">seit diesem Jahr am Markt</p></div>
-    <div class="band-zelle"><div class="w zahl" data-zaehl="5000"><em>über</em>5.000</div><p class="b">geschulte Teilnehmer</p></div>
-    <div class="band-zelle"><div class="w zahl" data-zaehl="200"><em>ca.</em>200</div><p class="b">Unternehmen arbeiten mit uns</p></div>
-    <div class="band-zelle"><div class="w zahl">§ 7</div><p class="b">anerkannt nach BKrFQG</p></div>
+    <div class="band-zelle"><div class="w zahl">2016</div><p class="b" data-de="seit diesem Jahr am Markt" data-tr="bu yıldan beri hizmetteyiz">seit diesem Jahr am Markt</p></div>
+    <div class="band-zelle"><div class="w zahl" data-zaehl="5000"><em data-de="über" data-tr="&gt;">über</em>5.000</div><p class="b" data-de="geschulte Teilnehmer" data-tr="eğitim alan katılımcı">geschulte Teilnehmer</p></div>
+    <div class="band-zelle"><div class="w zahl" data-zaehl="200"><em data-de="ca." data-tr="yakl.">ca.</em>200</div><p class="b" data-de="Unternehmen arbeiten mit uns" data-tr="firma bizimle çalışıyor">Unternehmen arbeiten mit uns</p></div>
+    <div class="band-zelle"><div class="w zahl">§ 7</div><p class="b" data-de="anerkannt nach BKrFQG" data-tr="BKrFQG&#39;ye göre onaylı">anerkannt nach BKrFQG</p></div>
   </div>
 </div>
 
@@ -365,25 +377,25 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs" id="fragen">
   <div class="spalte">
     <div class="kopfzeile">
-      <p class="kicker">Häufige Fragen</p>
-      <h2>Das Wichtigste vorab.</h2>
+      <p class="kicker" data-de="Häufige Fragen" data-tr="Sık sorulan sorular">Häufige Fragen</p>
+      <h2 data-de="Das Wichtigste vorab." data-tr="En önemlisi baştan.">Das Wichtigste vorab.</h2>
     </div>
     <div class="fragen">
       <div class="frage">
-        <h3>Wann sind die Kurse?</h3>
-        <p><b>Samstags, als ganze Woche am Stück oder nach Absprache.</b> Für Betriebe richten wir Termine so ein, dass der Fuhrpark weiterläuft.</p>
+        <h3 data-de="Wann sind die Kurse?" data-tr="Kurslar ne zaman?">Wann sind die Kurse?</h3>
+        <p data-de="&lt;b&gt;Samstags, als ganze Woche am Stück oder nach Absprache.&lt;/b&gt; Für Betriebe richten wir Termine so ein, dass der Fuhrpark weiterläuft." data-tr="&lt;b&gt;Cumartesileri, bir hafta boyunca ya da anlaşmaya göre.&lt;/b&gt; Firmalar için tarihleri, araç filosu çalışmaya devam edecek şekilde ayarlıyoruz."><b>Samstags, als ganze Woche am Stück oder nach Absprache.</b> Für Betriebe richten wir Termine so ein, dass der Fuhrpark weiterläuft.</p>
       </div>
       <div class="frage">
-        <h3>Was kostet das?</h3>
-        <p><b>120 € je Modul</b> der Weiterbildung 95, <b>2.500 €</b> für die beschleunigte Grundqualifikation, <b>250 €</b> für den Staplerschein. Zertifikat und Verpflegung sind drin.</p>
+        <h3 data-de="Was kostet das?" data-tr="Ücreti nedir?">Was kostet das?</h3>
+        <p><b>120 €</b> <span data-de="je Modul der Weiterbildung 95," data-tr="95 yenileme eğitiminde modül başına,">je Modul der Weiterbildung 95,</span> <b>2.500 €</b> <span data-de="für die beschleunigte Grundqualifikation," data-tr="hızlandırılmış temel yeterlilik için,">für die beschleunigte Grundqualifikation,</span> <b>250 €</b> <span data-de="für den Staplerschein. Zertifikat und Verpflegung sind drin." data-tr="forklift belgesi için. Sertifika ve yemek dahildir.">für den Staplerschein. Zertifikat und Verpflegung sind drin.</span></p>
       </div>
       <div class="frage">
-        <h3>Welche Kurse gibt es?</h3>
-        <p>Weiterbildung 95, beschleunigte Grundqualifikation, <b>Gabelstapler, Ladekran, Bagger</b> und Fachseminare für Unternehmer und Verkehrsleiter.</p>
+        <h3 data-de="Welche Kurse gibt es?" data-tr="Hangi kurslar var?">Welche Kurse gibt es?</h3>
+        <p data-de="Weiterbildung 95, beschleunigte Grundqualifikation, &lt;b&gt;Gabelstapler, Ladekran, Bagger&lt;/b&gt; und Fachseminare für Unternehmer und Verkehrsleiter." data-tr="95 yenileme eğitimi, hızlandırılmış temel yeterlilik, &lt;b&gt;forklift, yükleme vinci, kepçe&lt;/b&gt; ve işletmeciler ile trafik yöneticileri için uzmanlık seminerleri.">Weiterbildung 95, beschleunigte Grundqualifikation, <b>Gabelstapler, Ladekran, Bagger</b> und Fachseminare für Unternehmer und Verkehrsleiter.</p>
       </div>
       <div class="frage">
-        <h3>Von wann bis wann?</h3>
-        <p><b>08:00 bis 16:00 Uhr</b>, ein Modul pro Tag. Das Büro erreichen Sie <b>montags bis samstags von 10 bis 17 Uhr</b>.</p>
+        <h3 data-de="Von wann bis wann?" data-tr="Saat kaçtan kaça?">Von wann bis wann?</h3>
+        <p><b>08:00 – 16:00</b><span data-de=", ein Modul pro Tag. Das Büro erreichen Sie montags bis samstags von" data-tr=", günde bir modül. Büromuza pazartesiden cumartesiye ulaşabilirsiniz:">, ein Modul pro Tag. Das Büro erreichen Sie montags bis samstags von</span> <b>10 – 17</b><span data-de=" Uhr." data-tr=".">&nbsp;Uhr.</span></p>
       </div>
     </div>
   </div>
@@ -393,31 +405,31 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs weiss" id="firmen">
   <div class="spalte">
     <div class="kopfzeile">
-      <p class="kicker">Zwei Wege zu uns</p>
-      <h2>Ob zwölf Fahrer oder einer.</h2>
+      <p class="kicker" data-de="Zwei Wege zu uns" data-tr="Bize iki yol">Zwei Wege zu uns</p>
+      <h2 data-de="Ob zwölf Fahrer oder einer." data-tr="İster on iki sürücü, ister bir.">Ob zwölf Fahrer oder einer.</h2>
     </div>
     <div class="wege">
       <div class="weg haupt">
-        <p class="kicker">Für Speditionen und Fuhrparks</p>
-        <h3 style="font-size:1.45rem">Ihre Fahrer sollen fahren, nicht Fristen verwalten.</h3>
+        <p class="kicker" data-de="Für Speditionen und Fuhrparks" data-tr="Nakliyeciler ve araç filoları için">Für Speditionen und Fuhrparks</p>
+        <h3 style="font-size:1.45rem" data-de="Ihre Fahrer sollen fahren, nicht Fristen verwalten." data-tr="Sürücüleriniz yolda olsun, süre takibiyle uğraşmasın.">Ihre Fahrer sollen fahren, nicht Fristen verwalten.</h3>
         <ul>
-          <li>Geschlossene Gruppen für Ihren Betrieb, auf Wunsch die ganze Woche am Stück</li>
-          <li>Eine Sammelrechnung statt fünfzehn Einzelbelegen</li>
-          <li>Unterricht in sechs Sprachen, damit jeder Fahrer den Stoff wirklich versteht</li>
-          <li>Rund 200 Unternehmen schicken ihre Fahrer bereits zu uns</li>
+          <li data-de="Geschlossene Gruppen für Ihren Betrieb, auf Wunsch die ganze Woche am Stück" data-tr="İşletmenize özel kapalı gruplar, istenirse bir hafta boyunca">Geschlossene Gruppen für Ihren Betrieb, auf Wunsch die ganze Woche am Stück</li>
+          <li data-de="Eine Sammelrechnung statt fünfzehn Einzelbelegen" data-tr="On beş ayrı fiş yerine tek toplu fatura">Eine Sammelrechnung statt fünfzehn Einzelbelegen</li>
+          <li data-de="Unterricht in sechs Sprachen, damit jeder Fahrer den Stoff wirklich versteht" data-tr="Altı dilde eğitim, böylece her sürücü konuyu gerçekten anlar">Unterricht in sechs Sprachen, damit jeder Fahrer den Stoff wirklich versteht</li>
+          <li data-de="Rund 200 Unternehmen schicken ihre Fahrer bereits zu uns" data-tr="Yaklaşık 200 firma sürücülerini şimdiden bize gönderiyor">Rund 200 Unternehmen schicken ihre Fahrer bereits zu uns</li>
         </ul>
-        <a class="btn btn-weiss" href="#kontakt">Angebot für Ihren Fuhrpark</a>
+        <a class="btn btn-weiss" href="#kontakt" data-de="Angebot für Ihren Fuhrpark" data-tr="Filonuz için teklif alın">Angebot für Ihren Fuhrpark</a>
       </div>
       <div class="weg">
-        <p class="kicker">Für Fahrerinnen und Fahrer</p>
-        <h3>Du brauchst deine 95 zurück.</h3>
+        <p class="kicker" data-de="Für Fahrerinnen und Fahrer" data-tr="Sürücüler için">Für Fahrerinnen und Fahrer</p>
+        <h3 data-de="Du brauchst deine 95 zurück." data-tr="95&#39;ini yenilemen gerekiyor.">Du brauchst deine 95 zurück.</h3>
         <ul>
-          <li>Module samstags oder als ganze Woche</li>
-          <li>Anmeldung per Anruf oder WhatsApp, ohne Formular</li>
-          <li>Zertifikat noch am selben Tag</li>
-          <li>Verpflegung, Getränke und Parkplatz inklusive</li>
+          <li data-de="Module samstags oder als ganze Woche" data-tr="Cumartesi ya da bir hafta boyunca modüller">Module samstags oder als ganze Woche</li>
+          <li data-de="Anmeldung per Anruf oder WhatsApp, ohne Formular" data-tr="Telefon ya da WhatsApp ile kayıt, form doldurmadan">Anmeldung per Anruf oder WhatsApp, ohne Formular</li>
+          <li data-de="Zertifikat noch am selben Tag" data-tr="Sertifika aynı gün elinde">Zertifikat noch am selben Tag</li>
+          <li data-de="Verpflegung, Getränke und Parkplatz inklusive" data-tr="Yemek, içecek ve otopark dahil">Verpflegung, Getränke und Parkplatz inklusive</li>
         </ul>
-        <a class="btn btn-rand" href="https://wa.me/491739324879" target="_blank" rel="noopener">Termin per WhatsApp</a>
+        <a class="btn btn-rand" href="https://wa.me/491739324879" target="_blank" rel="noopener" data-de="Termin per WhatsApp" data-tr="WhatsApp ile randevu">Termin per WhatsApp</a>
       </div>
     </div>
   </div>
@@ -427,29 +439,29 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs" id="frist">
   <div class="spalte zwei-spalten">
     <div>
-      <p class="kicker">Schlüsselzahl 95</p>
-      <h2>Alle fünf Jahre läuft die 95 ab.</h2>
-      <p class="fuehrt">Und mit ihr die Erlaubnis, gewerblich zu fahren. Wer die Frist verpasst, steht: der Fahrer und sein Fahrzeug.</p>
+      <p class="kicker" data-de="Schlüsselzahl 95" data-tr="95 anahtar sayısı">Schlüsselzahl 95</p>
+      <h2 data-de="Alle fünf Jahre läuft die 95 ab." data-tr="95 her beş yılda bir doluyor.">Alle fünf Jahre läuft die 95 ab.</h2>
+      <p class="fuehrt" data-de="Und mit ihr die Erlaubnis, gewerblich zu fahren. Wer die Frist verpasst, steht: der Fahrer und sein Fahrzeug." data-tr="Onunla birlikte ticari araç kullanma izni de. Süreyi kaçıran durur: hem sürücü hem aracı.">Und mit ihr die Erlaubnis, gewerblich zu fahren. Wer die Frist verpasst, steht: der Fahrer und sein Fahrzeug.</p>
       <p class="frist-satz" id="fristSatz">Drei Fahrer, drei gültige Nachweise. <b>Alle drei dürfen fahren.</b></p>
     </div>
 
       <div class="rechner">
-        <h3>Wann läuft Ihre Schlüsselzahl 95 ab?</h3>
-        <p>Tragen Sie das Datum ein. Sie sehen sofort, wie viel Zeit bleibt und wann Sie anfangen sollten.</p>
+        <h3 data-de="Wann läuft Ihre Schlüsselzahl 95 ab?" data-tr="95 anahtar sayınız ne zaman doluyor?">Wann läuft Ihre Schlüsselzahl 95 ab?</h3>
+        <p data-de="Tragen Sie das Datum ein. Sie sehen sofort, wie viel Zeit bleibt und wann Sie anfangen sollten." data-tr="Tarihi girin. Ne kadar zamanınız kaldığını ve ne zaman başlamanız gerektiğini hemen görün.">Tragen Sie das Datum ein. Sie sehen sofort, wie viel Zeit bleibt und wann Sie anfangen sollten.</p>
         <div class="rechner-feld">
           <div>
-            <label for="ablauf95">Gültig bis</label>
+            <label for="ablauf95" data-de="Gültig bis" data-tr="Geçerlilik tarihi">Gültig bis</label>
             <input type="date" id="ablauf95" value="2027-06-30">
           </div>
         </div>
-        <p class="hilfe">Das Datum steht auf Ihrem Fahrerqualifizierungsnachweis, bei älteren Führerscheinen in der Zeile mit der Zahl 95.</p>
+        <p class="hilfe" data-de="Das Datum steht auf Ihrem Fahrerqualifizierungsnachweis, bei älteren Führerscheinen in der Zeile mit der Zahl 95." data-tr="Bu tarih sürücü yeterlilik belgenizde, eski ehliyetlerde ise 95 numaralı satırda yazar.">Das Datum steht auf Ihrem Fahrerqualifizierungsnachweis, bei älteren Führerscheinen in der Zeile mit der Zahl 95.</p>
         <div class="rechner-ergebnis" id="ergebnis95" role="status" aria-live="polite">
           <div class="lage" id="lage95"></div>
           <div class="tage" id="tage95"></div>
           <p class="rat" id="rat95"></p>
         </div>
-        <a class="btn btn-voll" href="#termine">Passende Termine ansehen</a>
-        <p class="gewaehr">Die Berechnung dient der Orientierung. Verbindlich ist allein das Datum auf Ihrem Nachweis.</p>
+        <a class="btn btn-voll" href="#termine" data-de="Passende Termine ansehen" data-tr="Uygun tarihleri gör">Passende Termine ansehen</a>
+        <p class="gewaehr" data-de="Die Berechnung dient der Orientierung. Verbindlich ist allein das Datum auf Ihrem Nachweis." data-tr="Bu hesaplama yalnızca bilgi amaçlıdır. Bağlayıcı olan yalnızca belgenizdeki tarihtir.">Die Berechnung dient der Orientierung. Verbindlich ist allein das Datum auf Ihrem Nachweis.</p>
       </div>
 
     <div class="flotte" id="flotte" aria-hidden="true">
@@ -473,9 +485,9 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs sand" id="termine">
   <div class="spalte">
     <div class="kopfzeile">
-      <p class="kicker">Nächste Termine</p>
-      <h2>Fünf Module. Danach gilt die 95 wieder fünf Jahre.</h2>
-      <p class="fuehrt">Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen.</p>
+      <p class="kicker" data-de="Nächste Termine" data-tr="Yaklaşan tarihler">Nächste Termine</p>
+      <h2 data-de="Fünf Module. Danach gilt die 95 wieder fünf Jahre." data-tr="Beş modül. Sonrasında 95 yeniden beş yıl geçerli.">Fünf Module. Danach gilt die 95 wieder fünf Jahre.</h2>
+      <p class="fuehrt" data-de="Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen." data-tr="Modüller tek tek ve istediğiniz sırayla alınabilir. 1. modülden başlamak zorunda değilsiniz.">Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen.</p>
     </div>
 
     <!-- TERMINE — hier monatlich pflegen. Eine Zeile pro Kurstag.
@@ -484,39 +496,39 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     <div class="plan">
       <div class="plan-zeile">
         <span class="mod">1</span>
-        <span><span class="plan-titel">Eco Training &amp; Assistenzsysteme</span><span class="plan-was">Kraftstoff sparen, Assistenzsysteme sicher nutzen</span></span>
-        <span class="plan-datum">Sa 05.09.2026<small>08:00 – 16:00 Uhr</small></span>
-        <span class="plan-status st-frei">Plätze frei</span>
+        <span><span class="plan-titel">Eco Training &amp; Assistenzsysteme</span><span class="plan-was" data-de="Kraftstoff sparen, Assistenzsysteme sicher nutzen" data-tr="Yakıt tasarrufu, asistan sistemlerini güvenle kullanma">Kraftstoff sparen, Assistenzsysteme sicher nutzen</span></span>
+        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 05.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
+        <span class="plan-status st-frei" data-de="Plätze frei" data-tr="Yer var">Plätze frei</span>
       </div>
       <div class="plan-zeile">
         <span class="mod">2</span>
-        <span><span class="plan-titel">Sozialvorschriften &amp; Tachograf</span><span class="plan-was">Lenk- und Ruhezeiten, Kontrollen sicher bestehen</span></span>
-        <span class="plan-datum">Sa 12.09.2026<small>08:00 – 16:00 Uhr</small></span>
-        <span class="plan-status st-wenige">Noch wenige Plätze</span>
+        <span><span class="plan-titel">Sozialvorschriften &amp; Tachograf</span><span class="plan-was" data-de="Lenk- und Ruhezeiten, Kontrollen sicher bestehen" data-tr="Sürüş ve dinlenme süreleri, denetimleri sorunsuz geçme">Lenk- und Ruhezeiten, Kontrollen sicher bestehen</span></span>
+        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 12.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
+        <span class="plan-status st-wenige" data-de="Noch wenige Plätze" data-tr="Az yer kaldı">Noch wenige Plätze</span>
       </div>
       <div class="plan-zeile">
         <span class="mod">3</span>
-        <span><span class="plan-titel">Gefahrenwahrnehmung</span><span class="plan-was">Kritische Situationen früher erkennen</span></span>
-        <span class="plan-datum">Sa 19.09.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span><span class="plan-titel">Gefahrenwahrnehmung</span><span class="plan-was" data-de="Kritische Situationen früher erkennen" data-tr="Riskli durumları erken fark etme">Kritische Situationen früher erkennen</span></span>
+        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 19.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
         <span class="plan-status st-frei">Plätze frei</span>
       </div>
       <div class="plan-zeile">
         <span class="mod">4</span>
-        <span><span class="plan-titel">Schadenprävention</span><span class="plan-was">Unfälle und teure Schäden vermeiden</span></span>
-        <span class="plan-datum">Sa 26.09.2026<small>08:00 – 16:00 Uhr</small></span>
+        <span><span class="plan-titel">Schadenprävention</span><span class="plan-was" data-de="Unfälle und teure Schäden vermeiden" data-tr="Kaza ve pahalı hasarları önleme">Unfälle und teure Schäden vermeiden</span></span>
+        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 26.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
         <span class="plan-status st-frei">Plätze frei</span>
       </div>
       <div class="plan-zeile">
         <span class="mod">5</span>
-        <span><span class="plan-titel">Ladungssicherung</span><span class="plan-was">Sicher zurren, Bußgelder und Haftung vermeiden</span></span>
-        <span class="plan-datum">Sa 03.10.2026<small>08:00 – 16:00 Uhr</small></span>
-        <span class="plan-status st-voll">Warteliste</span>
+        <span><span class="plan-titel">Ladungssicherung</span><span class="plan-was" data-de="Sicher zurren, Bußgelder und Haftung vermeiden" data-tr="Güvenli yükleme, ceza ve sorumluluktan kaçınma">Sicher zurren, Bußgelder und Haftung vermeiden</span></span>
+        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 03.10.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
+        <span class="plan-status st-voll" data-de="Warteliste" data-tr="Bekleme listesi">Warteliste</span>
       </div>
     </div>
 
     <div class="plan-fuss">
-      <p class="weich" style="font-size:.93rem; max-width:42em">Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein.</p>
-      <a class="btn btn-voll" href="tel:+491739324879">Termin abstimmen</a>
+      <p class="weich" style="font-size:.93rem; max-width:42em" data-de="Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein." data-tr="Başka bir tarihe ya da işletmenize özel kapalı gruba mı ihtiyacınız var? Anlaşmaya göre de kurs açıyoruz.">Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein.</p>
+      <a class="btn btn-voll" href="tel:+491739324879" data-de="Termin abstimmen" data-tr="Tarih için arayın">Termin abstimmen</a>
     </div>
   </div>
 </section>
@@ -525,36 +537,36 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs weiss" id="kurse">
   <div class="spalte">
     <div class="kopfzeile">
-      <p class="kicker">Was wir schulen</p>
-      <h2>Alles, was auf der Straße und im Betrieb verlangt wird.</h2>
+      <p class="kicker" data-de="Was wir schulen" data-tr="Verdiğimiz eğitimler">Was wir schulen</p>
+      <h2 data-de="Alles, was auf der Straße und im Betrieb verlangt wird." data-tr="Yolda ve işletmede gereken her şey.">Alles, was auf der Straße und im Betrieb verlangt wird.</h2>
     </div>
     <div class="kurse">
       <div class="kurs">
-        <div class="kurs-kopf"><h3>Weiterbildung Schlüsselzahl 95</h3><span class="preis">120 €<small>je Modul</small></span></div>
-        <p>Die gesetzliche Pflichtschulung: 35 Stunden in fünf Modulen, alle fünf Jahre. Ohne gültige 95 darf niemand gewerblich Lkw oder Bus fahren.</p>
+        <div class="kurs-kopf"><h3 data-de="Weiterbildung Schlüsselzahl 95" data-tr="95 anahtar sayısı yenileme eğitimi">Weiterbildung Schlüsselzahl 95</h3><span class="preis">120 €<small data-de="je Modul" data-tr="modül başına">je Modul</small></span></div>
+        <p data-de="Die gesetzliche Pflichtschulung: 35 Stunden in fünf Modulen, alle fünf Jahre. Ohne gültige 95 darf niemand gewerblich Lkw oder Bus fahren." data-tr="Yasal zorunlu eğitim: beş modülde 35 saat, her beş yılda bir. Geçerli 95 olmadan hiç kimse ticari olarak kamyon ya da otobüs kullanamaz.">Die gesetzliche Pflichtschulung: 35 Stunden in fünf Modulen, alle fünf Jahre. Ohne gültige 95 darf niemand gewerblich Lkw oder Bus fahren.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3>Beschleunigte Grundqualifikation</h3><span class="preis">2.500 €</span></div>
-        <p>Der Einstieg in den Beruf für alle, die neu anfangen. Anerkannte Schulung nach BKrFQG mit erfahrenen Dozenten.</p>
+        <div class="kurs-kopf"><h3 data-de="Beschleunigte Grundqualifikation" data-tr="Hızlandırılmış temel yeterlilik">Beschleunigte Grundqualifikation</h3><span class="preis">2.500 €</span></div>
+        <p data-de="Der Einstieg in den Beruf für alle, die neu anfangen. Anerkannte Schulung nach BKrFQG mit erfahrenen Dozenten." data-tr="Mesleğe yeni başlayanlar için giriş. BKrFQG&#39;ye göre onaylı eğitim, deneyimli eğitmenlerle.">Der Einstieg in den Beruf für alle, die neu anfangen. Anerkannte Schulung nach BKrFQG mit erfahrenen Dozenten.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3>Gabelstapler</h3><span class="preis">250 €</span></div>
-        <p>Staplerschein mit Theorie und Praxis. Pflicht für jeden, der im Betrieb einen Stapler bewegt.</p>
+        <div class="kurs-kopf"><h3 data-de="Gabelstapler" data-tr="Forklift">Gabelstapler</h3><span class="preis">250 €</span></div>
+        <p data-de="Staplerschein mit Theorie und Praxis. Pflicht für jeden, der im Betrieb einen Stapler bewegt." data-tr="Teori ve pratikle forklift belgesi. İşletmede forklift kullanan herkes için zorunlu.">Staplerschein mit Theorie und Praxis. Pflicht für jeden, der im Betrieb einen Stapler bewegt.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3>Ladekran</h3><span class="preis">auf Anfrage</span></div>
-        <p>Bedienerschulung für den Ladekran. Der Nachweis, den jede Baustelle und jeder Auftraggeber sehen will.</p>
+        <div class="kurs-kopf"><h3 data-de="Ladekran" data-tr="Yükleme vinci">Ladekran</h3><span class="preis" data-de="auf Anfrage" data-tr="talep üzerine">auf Anfrage</span></div>
+        <p data-de="Bedienerschulung für den Ladekran. Der Nachweis, den jede Baustelle und jeder Auftraggeber sehen will." data-tr="Yükleme vinci için operatör eğitimi. Her şantiyenin ve her işverenin görmek istediği belge.">Bedienerschulung für den Ladekran. Der Nachweis, den jede Baustelle und jeder Auftraggeber sehen will.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3>Bagger &amp; Erdbaumaschinen</h3><span class="preis">auf Anfrage</span></div>
-        <p>Bedienerschulung für Erdbaumaschinen, mit Theorie und praktischer Unterweisung.</p>
+        <div class="kurs-kopf"><h3 data-de="Bagger &amp; Erdbaumaschinen" data-tr="Kepçe ve iş makineleri">Bagger &amp; Erdbaumaschinen</h3><span class="preis">auf Anfrage</span></div>
+        <p data-de="Bedienerschulung für Erdbaumaschinen, mit Theorie und praktischer Unterweisung." data-tr="İş makineleri için operatör eğitimi, teori ve uygulamalı öğretimle.">Bedienerschulung für Erdbaumaschinen, mit Theorie und praktischer Unterweisung.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3>Fachseminar für Unternehmer</h3><span class="preis">auf Anfrage</span></div>
-        <p>Aktuelle Rechtslage, Sozialvorschriften und Haftung für alle, die im Betrieb Verantwortung für den Fuhrpark tragen.</p>
+        <div class="kurs-kopf"><h3 data-de="Fachseminar für Unternehmer" data-tr="İşletmeciler için uzmanlık semineri">Fachseminar für Unternehmer</h3><span class="preis">auf Anfrage</span></div>
+        <p data-de="Aktuelle Rechtslage, Sozialvorschriften und Haftung für alle, die im Betrieb Verantwortung für den Fuhrpark tragen." data-tr="Güncel mevzuat, sosyal kurallar ve sorumluluk: işletmede araç filosundan sorumlu olan herkes için.">Aktuelle Rechtslage, Sozialvorschriften und Haftung für alle, die im Betrieb Verantwortung für den Fuhrpark tragen.</p>
       </div>
     </div>
-    <p class="weich" style="margin-top:1.4rem; font-size:.92rem">Den Lkw-Führerschein selbst machen wir nicht. Dafür arbeiten wir mit einer Fahrschule zusammen und vermitteln Sie gern weiter.</p>
+    <p class="weich" style="margin-top:1.4rem; font-size:.92rem" data-de="Den Lkw-Führerschein selbst machen wir nicht. Dafür arbeiten wir mit einer Fahrschule zusammen und vermitteln Sie gern weiter." data-tr="Kamyon ehliyetini kendimiz vermiyoruz. Bunun için bir sürücü kursuyla çalışıyoruz ve sizi memnuniyetle yönlendiriyoruz.">Den Lkw-Führerschein selbst machen wir nicht. Dafür arbeiten wir mit einer Fahrschule zusammen und vermitteln Sie gern weiter.</p>
   </div>
 </section>
 
@@ -562,9 +574,9 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs" id="sprachen">
   <div class="spalte zwei-spalten">
     <div>
-      <p class="kicker">Sechs Sprachen</p>
-      <h2>Wer den Beruf kann, soll nicht an der Sprache scheitern.</h2>
-      <p class="fuehrt">Unsere Dozenten unterrichten in sechs Sprachen. Für Sie als Spedition heißt das: Ihre Fahrer sitzen den Tag nicht ab, sondern verstehen den Stoff und bestehen.</p>
+      <p class="kicker" data-de="Sechs Sprachen" data-tr="Altı dil">Sechs Sprachen</p>
+      <h2 data-de="Wer den Beruf kann, soll nicht an der Sprache scheitern." data-tr="Mesleğini bilen, dil yüzünden takılmasın.">Wer den Beruf kann, soll nicht an der Sprache scheitern.</h2>
+      <p class="fuehrt" data-de="Unsere Dozenten unterrichten in sechs Sprachen. Für Sie als Spedition heißt das: Ihre Fahrer sitzen den Tag nicht ab, sondern verstehen den Stoff und bestehen." data-tr="Eğitmenlerimiz altı dilde ders veriyor. Nakliyeci olarak sizin için bu şu demek: sürücüleriniz günü geçiştirmez, konuyu anlar ve başarır.">Unsere Dozenten unterrichten in sechs Sprachen. Für Sie als Spedition heißt das: Ihre Fahrer sitzen den Tag nicht ab, sondern verstehen den Stoff und bestehen.</p>
       <div class="sprachen">
         <span class="sprache stark">Deutsch</span>
         <span class="sprache">Türkçe</span>
@@ -575,7 +587,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
       </div>
     </div>
     <div class="bildrahmen" style="aspect-ratio:16/11">
-      <img src="../bilder/strasse-luft.jpg" alt="Landstraße zwischen Feldern aus der Vogelperspektive, ein Sattelzug unterwegs" width="1600" height="900" loading="lazy">
+      <img src="../bilder/strasse-luft.jpg" alt="Landstraße zwischen Feldern aus der Vogelperspektive, ein Sattelzug unterwegs" data-alt-de="Landstraße zwischen Feldern aus der Vogelperspektive, ein Sattelzug unterwegs" data-alt-tr="Kuş bakışı tarlalar arasında bir kara yolu, yolda bir tır" width="1600" height="900" loading="lazy">
     </div>
   </div>
 </section>
@@ -584,20 +596,20 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs weiss">
   <div class="spalte">
     <div class="kopfzeile">
-      <p class="kicker">So läuft eine Firmenanmeldung</p>
-      <h2>Drei Schritte, ein Ansprechpartner.</h2>
+      <p class="kicker" data-de="So läuft eine Firmenanmeldung" data-tr="Firma kaydı nasıl işler">So läuft eine Firmenanmeldung</p>
+      <h2 data-de="Drei Schritte, ein Ansprechpartner." data-tr="Üç adım, tek muhatap.">Drei Schritte, ein Ansprechpartner.</h2>
     </div>
     <div class="schritte">
-      <div class="schritt"><span class="nr">1</span><div><h3>Anrufen oder schreiben</h3><p>Sie sagen uns, wie viele Fahrer, welche Schulung und bis wann. Der Chef geht selbst ans Telefon.</p></div></div>
-      <div class="schritt"><span class="nr">2</span><div><h3>Termin abstimmen</h3><p>Samstags, als ganze Woche oder nach Absprache. Wir richten uns nach Ihrem Betriebsablauf.</p></div></div>
-      <div class="schritt"><span class="nr">3</span><div><h3>Schulung und Sammelrechnung</h3><p>Ihre Fahrer bekommen ihr Zertifikat noch am selben Tag, Sie erhalten eine Rechnung für alle.</p></div></div>
+      <div class="schritt"><span class="nr">1</span><div><h3 data-de="Anrufen oder schreiben" data-tr="Arayın ya da yazın">Anrufen oder schreiben</h3><p data-de="Sie sagen uns, wie viele Fahrer, welche Schulung und bis wann. Der Chef geht selbst ans Telefon." data-tr="Kaç sürücü, hangi eğitim ve ne zamana kadar: bize söyleyin. Telefonu patron kendisi açar.">Sie sagen uns, wie viele Fahrer, welche Schulung und bis wann. Der Chef geht selbst ans Telefon.</p></div></div>
+      <div class="schritt"><span class="nr">2</span><div><h3 data-de="Termin abstimmen" data-tr="Tarihi belirleyin">Termin abstimmen</h3><p data-de="Samstags, als ganze Woche oder nach Absprache. Wir richten uns nach Ihrem Betriebsablauf." data-tr="Cumartesi, bir hafta boyunca ya da anlaşmaya göre. Biz sizin işleyişinize uyum sağlarız.">Samstags, als ganze Woche oder nach Absprache. Wir richten uns nach Ihrem Betriebsablauf.</p></div></div>
+      <div class="schritt"><span class="nr">3</span><div><h3 data-de="Schulung und Sammelrechnung" data-tr="Eğitim ve toplu fatura">Schulung und Sammelrechnung</h3><p data-de="Ihre Fahrer bekommen ihr Zertifikat noch am selben Tag, Sie erhalten eine Rechnung für alle." data-tr="Sürücüleriniz sertifikalarını aynı gün alır, siz de hepsi için tek fatura alırsınız.">Ihre Fahrer bekommen ihr Zertifikat noch am selben Tag, Sie erhalten eine Rechnung für alle.</p></div></div>
     </div>
     <div class="inkl">
-      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Zertifikat inklusive</span>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Verpflegung und Getränke</span>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Lernmaterial und Skripte</span>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Kostenlose Parkplätze</span>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Zahlung per Rechnung</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Zertifikat inklusive" data-tr="Sertifika dahil">Zertifikat inklusive</span></span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Verpflegung und Getränke" data-tr="Yemek ve içecek">Verpflegung und Getränke</span></span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Lernmaterial und Skripte" data-tr="Ders materyali ve notlar">Lernmaterial und Skripte</span></span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Kostenlose Parkplätze" data-tr="Ücretsiz otopark">Kostenlose Parkplätze</span></span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Zahlung per Rechnung" data-tr="Fatura ile ödeme">Zahlung per Rechnung</span></span>
     </div>
   </div>
 </section>
@@ -606,32 +618,32 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 <section class="abs sand" id="kontakt">
   <div class="spalte">
     <div class="kopfzeile">
-      <p class="kicker">Kontakt</p>
-      <h2>Rufen Sie durch. Wir gehen ans Telefon.</h2>
+      <p class="kicker" data-de="Kontakt" data-tr="İletişim">Kontakt</p>
+      <h2 data-de="Rufen Sie durch. Wir gehen ans Telefon." data-tr="Bizi arayın. Telefonu açıyoruz.">Rufen Sie durch. Wir gehen ans Telefon.</h2>
     </div>
     <div class="kontakt-raster">
       <div>
-        <div class="kontakt-zeile"><span class="k">Telefon</span><span class="v"><a href="tel:+491739324879">0173 9324879</a><small>Mo – Sa, 10:00 bis 17:00 Uhr</small></span></div>
-        <div class="kontakt-zeile"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/491739324879" target="_blank" rel="noopener">Nachricht schreiben</a><small>oft der schnellste Weg</small></span></div>
+        <div class="kontakt-zeile"><span class="k" data-de="Telefon" data-tr="Telefon">Telefon</span><span class="v"><a href="tel:+491739324879">0173 9324879</a><small><span data-de="Mo – Sa" data-tr="Pzt – Cmt">Mo – Sa</span>, 10:00 – 17:00</small></span></div>
+        <div class="kontakt-zeile"><span class="k">WhatsApp</span><span class="v"><a href="https://wa.me/491739324879" target="_blank" rel="noopener" data-de="Nachricht schreiben" data-tr="Mesaj yazın">Nachricht schreiben</a><small data-de="oft der schnellste Weg" data-tr="çoğu zaman en hızlı yol">oft der schnellste Weg</small></span></div>
         <div class="kontakt-zeile"><span class="k">E-Mail</span><span class="v"><a href="mailto:bkfsonmez@gmail.com">bkfsonmez@gmail.com</a></span></div>
-        <div class="kontakt-zeile"><span class="k">Adresse</span><span class="v">Zum Lonnenhohl 23<small>44319 Dortmund-Wickede · kostenlose Parkplätze am Haus</small></span></div>
-        <div class="kontakt-zeile"><span class="k">Inhaber</span><span class="v">Zülküf Sönmez</span></div>
+        <div class="kontakt-zeile"><span class="k" data-de="Adresse" data-tr="Adres">Adresse</span><span class="v">Zum Lonnenhohl 23<small>44319 Dortmund-Wickede · <span data-de="kostenlose Parkplätze am Haus" data-tr="binanın önünde ücretsiz otopark">kostenlose Parkplätze am Haus</span></small></span></div>
+        <div class="kontakt-zeile"><span class="k" data-de="Inhaber" data-tr="Sahibi">Inhaber</span><span class="v">Zülküf Sönmez</span></div>
       </div>
 
       <div class="anfahrt">
         <img src="../bilder/karte-anfahrt.png" alt="Kartenausschnitt: Zum Lonnenhohl 23 im Gewerbegebiet Dortmund-Wickede" width="800" height="500" loading="lazy">
         <div class="anfahrt-fuss">
-          <span>Zum Lonnenhohl 23, 44319 Dortmund-Wickede · kostenlose Parkplätze direkt am Haus</span>
-          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Zum+Lonnenhohl+23,+44319+Dortmund" target="_blank" rel="noopener">Route planen</a>
+          <span>Zum Lonnenhohl 23, 44319 Dortmund-Wickede · <span data-de="kostenlose Parkplätze direkt am Haus" data-tr="binanın hemen önünde ücretsiz otopark">kostenlose Parkplätze direkt am Haus</span></span>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Zum+Lonnenhohl+23,+44319+Dortmund" target="_blank" rel="noopener" data-de="Route planen" data-tr="Yol tarifi al">Route planen</a>
         </div>
         <p style="padding:0 1.2rem 1rem; font-size:.76rem; color:var(--tinte-weich)">Kartendaten © OpenStreetMap-Mitwirkende</p>
       </div>
 
       <form class="formular" id="anfrage">
-        <div><label for="f-name">Name</label><input type="text" id="f-name" name="name" autocomplete="name" required></div>
+        <div><label for="f-name" data-de="Name" data-tr="Adınız">Name</label><input type="text" id="f-name" name="name" autocomplete="name" required></div>
         <div><label for="f-firma">Firma <span class="weich" style="font-weight:400">(optional)</span></label><input type="text" id="f-firma" name="firma" autocomplete="organization"></div>
-        <div><label for="f-kontakt">Telefon oder E-Mail</label><input type="text" id="f-kontakt" name="kontakt" required></div>
-        <div><label for="f-thema">Worum geht es?</label>
+        <div><label for="f-kontakt" data-de="Telefon oder E-Mail" data-tr="Telefon veya e-posta">Telefon oder E-Mail</label><input type="text" id="f-kontakt" name="kontakt" required></div>
+        <div><label for="f-thema" data-de="Worum geht es?" data-tr="Konu nedir?">Worum geht es?</label>
           <select id="f-thema" name="thema">
             <option>Weiterbildung Schlüsselzahl 95</option>
             <option>Beschleunigte Grundqualifikation</option>
@@ -640,9 +652,9 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
             <option>Etwas anderes</option>
           </select>
         </div>
-        <div><label for="f-text">Ihre Nachricht</label><textarea id="f-text" name="nachricht" placeholder="Wie viele Fahrer, bis wann, welche Schulung?"></textarea></div>
-        <button class="btn btn-voll" type="submit">Anfrage senden</button>
-        <p class="hinweis">Wir melden uns in der Regel am selben Werktag. Ihre Angaben verwenden wir ausschließlich zur Beantwortung Ihrer Anfrage.</p>
+        <div><label for="f-text" data-de="Ihre Nachricht" data-tr="Mesajınız">Ihre Nachricht</label><textarea id="f-text" name="nachricht" placeholder="Wie viele Fahrer, bis wann, welche Schulung?"></textarea></div>
+        <button class="btn btn-voll" type="submit" data-de="Anfrage senden" data-tr="Talebi gönderin">Anfrage senden</button>
+        <p class="hinweis" data-de="Wir melden uns in der Regel am selben Werktag. Ihre Angaben verwenden wir ausschließlich zur Beantwortung Ihrer Anfrage." data-tr="Genelde aynı iş günü içinde dönüş yaparız. Bilgilerinizi yalnızca talebinizi yanıtlamak için kullanırız.">Wir melden uns in der Regel am selben Werktag. Ihre Angaben verwenden wir ausschließlich zur Beantwortung Ihrer Anfrage.</p>
       </form>
     </div>
   </div>
@@ -661,16 +673,16 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         <p style="margin-top:1rem; font-size:.9rem; max-width:26em; color:color-mix(in oklab, var(--papier) 74%, transparent)">Anerkannte Ausbildungsstätte nach § 7 BKrFQG, Bezirksregierung Arnsberg. Zum Lonnenhohl 23, 44319 Dortmund.</p>
       </div>
       <div>
-        <h4>Schulungen</h4>
+        <h4 data-de="Schulungen" data-tr="Eğitimler">Schulungen</h4>
         <ul>
-          <li><a href="#kurse">Schlüsselzahl 95</a></li>
-          <li><a href="#kurse">Beschleunigte Grundqualifikation</a></li>
-          <li><a href="#kurse">Gabelstapler &amp; Ladekran</a></li>
-          <li><a href="#termine">Termine</a></li>
+          <li><a href="#kurse" data-de="Schlüsselzahl 95" data-tr="95 anahtar sayısı">Schlüsselzahl 95</a></li>
+          <li><a href="#kurse" data-de="Beschleunigte Grundqualifikation" data-tr="Hızlandırılmış temel yeterlilik">Beschleunigte Grundqualifikation</a></li>
+          <li><a href="#kurse" data-de="Gabelstapler &amp; Ladekran" data-tr="Forklift ve yükleme vinci">Gabelstapler &amp; Ladekran</a></li>
+          <li><a href="#termine" data-de="Termine" data-tr="Tarihler">Termine</a></li>
         </ul>
       </div>
       <div>
-        <h4>Kontakt</h4>
+        <h4 data-de="Kontakt" data-tr="İletişim">Kontakt</h4>
         <ul>
           <li><a href="tel:+491739324879">0173 9324879</a></li>
           <li><a href="mailto:bkfsonmez@gmail.com">bkfsonmez@gmail.com</a></li>
@@ -792,6 +804,70 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   });
 
 
+
+  /* ══════════ Sprachumschaltung Deutsch / Türkisch ══════════
+     Alle Texte liegen als data-de / data-tr am Element. Datumsangaben,
+     Uhrzeiten und Preise stehen bewusst NICHT hier drin: sie sind
+     sprachneutral und existieren nur einmal im HTML. Eine Terminänderung
+     wird an einer Stelle gemacht und gilt für beide Sprachen.
+
+     ⚠ Die türkische Fassung ist noch NICHT von einem Muttersprachler
+     gegengelesen. Vor dem Livegang von Sönmez' Dozenten prüfen lassen. */
+  window.RECHNER_TEXTE = {
+    de: {
+      abgelaufen: "Abgelaufen.", knapp: "Es wird knapp.",
+      bald: "Zeit genug, aber nicht mehr viel.", ruhig: "Alles im Rahmen.",
+      tage: "Tage", ueberfaellig: "Tage überfällig",
+      textAb: "Ohne gültigen Nachweis darf gewerblich nicht gefahren werden. Die fünf Module lassen sich jederzeit nachholen — melden Sie sich, wir setzen Sie in die nächste Gruppe.",
+      textKnapp: "Fünf Module brauchen fünf Termine. Mit Puffer für Urlaub und Krankheit sollten Sie jetzt anfangen.",
+      textBald: "Der beste Zeitpunkt zum Anmelden ist etwa ein halbes Jahr vorher. Dann suchen Sie sich die Termine aus, statt zu nehmen, was übrig ist.",
+      textRuhig: "Notieren Sie sich {monat} — dann ist der richtige Moment, die Termine zu planen."
+    },
+    tr: {
+      abgelaufen: "Süresi doldu.", knapp: "Zaman daralıyor.",
+      bald: "Zaman var, ama çok değil.", ruhig: "Her şey yolunda.",
+      tage: "gün", ueberfaellig: "gün gecikmiş",
+      textAb: "Geçerli belge olmadan ticari araç kullanılamaz. Beş modül her zaman tamamlanabilir — bize ulaşın, sizi bir sonraki gruba yazalım.",
+      textKnapp: "Beş modül, beş ders günü demek. İzin ve hastalık payı da düşünülürse şimdi başlamalısınız.",
+      textBald: "Kayıt için en uygun zaman yaklaşık altı ay öncesidir. O zaman tarihleri siz seçersiniz, kalanı almak zorunda kalmazsınız.",
+      textRuhig: "{monat} için bir not alın — tarihleri planlamanın doğru zamanı odur."
+    }
+  };
+
+  (function () {
+    var SPRACHEN = ["de", "tr"];
+    var knoepfe = document.querySelectorAll(".sprachwahl button");
+
+    function setzen(sp, merken) {
+      document.documentElement.lang = sp;
+      document.querySelectorAll("[data-de]").forEach(function (el) {
+        var t = el.getAttribute("data-" + sp);
+        if (t !== null) el.innerHTML = t;
+      });
+      document.querySelectorAll("[data-alt-de]").forEach(function (el) {
+        var t = el.getAttribute("data-alt-" + sp);
+        if (t !== null) el.setAttribute("alt", t);
+      });
+      knoepfe.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.sprache === sp));
+      });
+      if (typeof window.rechnerNeu === "function") window.rechnerNeu();
+      if (merken) { try { localStorage.setItem("bzs-sprache", sp); } catch (e) {} }
+    }
+
+    knoepfe.forEach(function (b) {
+      b.addEventListener("click", function () { setzen(b.dataset.sprache, true); });
+    });
+
+    /* Reihenfolge: ?lang= in der URL (teilbarer Link) schlägt die gemerkte Wahl */
+    var ausUrl = (location.search.match(/[?&]lang=(de|tr)/) || [])[1];
+    var gemerkt = null;
+    try { gemerkt = localStorage.getItem("bzs-sprache"); } catch (e) {}
+    var start = ausUrl || (SPRACHEN.indexOf(gemerkt) > -1 ? gemerkt : "de");
+    if (start !== "de") setzen(start, false);
+    else knoepfe.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.sprache === "de")); });
+  })();
+
   /* ══════════ Fristen-Rechner ══════════
      Rechnet nur Tage bis zum eingegebenen Datum. Bewusst keine
      Rechtsauskunft: verbindlich ist der Nachweis des Fahrers. */
@@ -810,24 +886,25 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
       var tage = Math.round((ziel - heute) / 86400000);
       var art, kopf, zahl, text;
 
+      var W = window.RECHNER_TEXTE[document.documentElement.lang === "tr" ? "tr" : "de"];
+      var ort = document.documentElement.lang === "tr" ? "tr-TR" : "de-DE";
       if (tage < 0) {
-        art = "re-eng"; kopf = "Abgelaufen.";
-        zahl = Math.abs(tage).toLocaleString("de-DE") + " Tage überfällig";
-        text = "Ohne gültigen Nachweis darf gewerblich nicht gefahren werden. Die fünf Module lassen sich jederzeit nachholen — melden Sie sich, wir setzen Sie in die nächste Gruppe.";
+        art = "re-eng"; kopf = W.abgelaufen;
+        zahl = Math.abs(tage).toLocaleString(ort) + " " + W.ueberfaellig;
+        text = W.textAb;
       } else if (tage <= 180) {
-        art = "re-eng"; kopf = "Es wird knapp.";
-        zahl = tage.toLocaleString("de-DE") + " Tage";
-        text = "Fünf Module brauchen fünf Termine. Mit Puffer für Urlaub und Krankheit sollten Sie jetzt anfangen.";
+        art = "re-eng"; kopf = W.knapp;
+        zahl = tage.toLocaleString(ort) + " " + W.tage;
+        text = W.textKnapp;
       } else if (tage <= 365) {
-        art = "re-eng"; kopf = "Zeit genug, aber nicht mehr viel.";
-        zahl = tage.toLocaleString("de-DE") + " Tage";
-        text = "Der beste Zeitpunkt zum Anmelden ist etwa ein halbes Jahr vorher. Dann suchen Sie sich die Termine aus, statt zu nehmen, was übrig ist.";
+        art = "re-eng"; kopf = W.bald;
+        zahl = tage.toLocaleString(ort) + " " + W.tage;
+        text = W.textBald;
       } else {
-        art = "re-ok"; kopf = "Alles im Rahmen.";
-        zahl = tage.toLocaleString("de-DE") + " Tage";
+        art = "re-ok"; kopf = W.ruhig;
+        zahl = tage.toLocaleString(ort) + " " + W.tage;
         var start = new Date(ziel.getTime() - 365 * 86400000);
-        text = "Notieren Sie sich " + start.toLocaleDateString("de-DE", { month: "long", year: "numeric" }) +
-               " — dann ist der richtige Moment, die Termine zu planen.";
+        text = W.textRuhig.replace("{monat}", start.toLocaleDateString(ort, { month: "long", year: "numeric" }));
       }
       kasten.className = "rechner-ergebnis an " + art;
       lage.textContent = kopf;
@@ -836,6 +913,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     }
     feld.addEventListener("input", rechne);
     feld.addEventListener("change", rechne);
+    window.rechnerNeu = rechne;
     rechne();
   })();
 
