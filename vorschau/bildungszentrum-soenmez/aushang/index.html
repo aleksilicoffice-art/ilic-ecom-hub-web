@@ -251,6 +251,45 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .fuss .marke .name svg{color:color-mix(in oklab, var(--papier) 62%, transparent)}
 .fuss-unten{margin-top:2.4rem; padding-top:1.4rem; border-top:1px solid color-mix(in oklab, var(--papier) 18%, transparent); font-size:.82rem; color:color-mix(in oklab, var(--papier) 68%, transparent); display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; justify-content:space-between}
 
+
+/* ══════════ Fristen-Rechner ══════════ */
+.rechner{
+  background:var(--weiss); border:1px solid var(--linie); border-radius:12px;
+  padding:clamp(1.4rem,3vw,2rem); margin-top:clamp(1.8rem,4vw,2.6rem);
+}
+.rechner h3{margin-bottom:.5rem}
+.rechner > p{color:var(--tinte-weich); font-size:.95rem}
+.rechner-feld{display:flex; flex-wrap:wrap; gap:.7rem; align-items:flex-end; margin-top:1.2rem}
+.rechner-feld > div{flex:1 1 14rem}
+.rechner label{display:block; font-size:.84rem; font-weight:600; margin-bottom:.4rem}
+.rechner input{
+  width:100%; font:inherit; font-size:16px; font-variant-numeric:tabular-nums;
+  color:var(--tinte); background:var(--papier); border:1px solid var(--linie);
+  border-radius:7px; padding:.72rem .85rem; transition:border-color .18s, box-shadow .18s;
+}
+.rechner input:focus{outline:none; border-color:var(--akzent); box-shadow:0 0 0 3px color-mix(in oklab, var(--akzent) 20%, transparent)}
+.rechner .hilfe{font-size:.82rem; color:var(--tinte-weich); margin-top:.5rem; line-height:1.45}
+.rechner-ergebnis{display:none; margin-top:1.2rem; border-radius:9px; padding:1.1rem 1.2rem}
+.rechner-ergebnis.an{display:block}
+.rechner-ergebnis .lage{font-weight:700; font-size:1.06rem}
+.rechner-ergebnis .tage{font-size:2.1rem; font-weight:800; letter-spacing:-.035em; line-height:1.1; margin-block:.25rem; font-variant-numeric:tabular-nums}
+.rechner-ergebnis .rat{font-size:.94rem; margin-top:.45rem}
+.re-eng{background:var(--akzent-zart); color:var(--akzent-tief); border:1px solid color-mix(in oklab,var(--akzent) 28%,transparent)}
+.re-ok{background:var(--gruen-zart); color:var(--gruen); border:1px solid color-mix(in oklab,var(--gruen) 26%,transparent)}
+.rechner-ergebnis .rat{color:var(--tinte-weich)}
+.rechner .btn{margin-top:1rem}
+.rechner .gewaehr{font-size:.78rem; color:var(--tinte-weich); margin-top:1rem; line-height:1.45}
+
+/* ══════════ Anfahrt ══════════ */
+.anfahrt{margin-top:clamp(2rem,4vw,3rem); border:1px solid var(--linie); border-radius:12px; overflow:hidden; background:var(--weiss)}
+.anfahrt img{width:100%; height:auto; display:block}
+.anfahrt-fuss{
+  display:flex; flex-wrap:wrap; gap:.8rem 1.4rem; align-items:center; justify-content:space-between;
+  padding:1rem 1.2rem; border-top:1px solid var(--linie); font-size:.88rem; color:var(--tinte-weich);
+}
+.anfahrt-fuss a{color:var(--akzent); font-weight:600; text-decoration:none}
+.anfahrt-fuss a:hover{text-decoration:underline}
+
 @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important}}
 </style>
 </head>
@@ -338,6 +377,25 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         <dd><b>08:00 bis 16:00 Uhr</b>, ein Modul pro Tag. Das Büro erreichen Sie <b>montags bis samstags von 10 bis 17 Uhr</b>.</dd>
       </div>
     </dl>
+
+    <div class="rechner">
+        <h3>Wann läuft Ihre Schlüsselzahl 95 ab?</h3>
+        <p>Tragen Sie das Datum ein. Sie sehen sofort, wie viel Zeit bleibt und wann Sie anfangen sollten.</p>
+        <div class="rechner-feld">
+          <div>
+            <label for="ablauf95">Gültig bis</label>
+            <input type="date" id="ablauf95" value="2027-06-30">
+          </div>
+        </div>
+        <p class="hilfe">Das Datum steht auf Ihrem Fahrerqualifizierungsnachweis, bei älteren Führerscheinen in der Zeile mit der Zahl 95.</p>
+        <div class="rechner-ergebnis" id="ergebnis95" role="status" aria-live="polite">
+          <div class="lage" id="lage95"></div>
+          <div class="tage" id="tage95"></div>
+          <p class="rat" id="rat95"></p>
+        </div>
+        <a class="btn btn-voll" href="#termine">Passende Termine ansehen</a>
+        <p class="gewaehr">Die Berechnung dient der Orientierung. Verbindlich ist allein das Datum auf Ihrem Nachweis.</p>
+      </div>
   </div>
 </section>
 
@@ -524,6 +582,16 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         <div class="kontakt-zeile"><span class="k">Adresse</span><span class="v">Zum Lonnenhohl 23<small>44319 Dortmund-Wickede · kostenlose Parkplätze am Haus</small></span></div>
         <div class="kontakt-zeile"><span class="k">Inhaber</span><span class="v">Zülküf Sönmez</span></div>
       </div>
+
+      <div class="anfahrt">
+        <img src="../bilder/karte-anfahrt.png" alt="Kartenausschnitt: Zum Lonnenhohl 23 im Gewerbegebiet Dortmund-Wickede" width="800" height="500" loading="lazy">
+        <div class="anfahrt-fuss">
+          <span>Zum Lonnenhohl 23, 44319 Dortmund-Wickede · kostenlose Parkplätze direkt am Haus</span>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Zum+Lonnenhohl+23,+44319+Dortmund" target="_blank" rel="noopener">Route planen</a>
+        </div>
+        <p style="padding:0 1.2rem 1rem; font-size:.76rem; color:var(--tinte-weich)">Kartendaten © OpenStreetMap-Mitwirkende</p>
+      </div>
+
       <form class="formular" id="anfrage">
         <div><label for="f-name">Name</label><input type="text" id="f-name" name="name" autocomplete="name" required></div>
         <div><label for="f-firma">Firma (optional)</label><input type="text" id="f-firma" name="firma" autocomplete="organization"></div>
@@ -613,6 +681,54 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   var kopfSetzen = function () { kopf.classList.toggle("fest", window.scrollY > 40); };
   window.addEventListener("scroll", kopfSetzen, { passive: true });
   kopfSetzen();
+
+
+  /* ══════════ Fristen-Rechner ══════════
+     Rechnet nur Tage bis zum eingegebenen Datum. Bewusst keine
+     Rechtsauskunft: verbindlich ist der Nachweis des Fahrers. */
+  (function () {
+    var feld = document.getElementById("ablauf95");
+    if (!feld) return;
+    var kasten = document.getElementById("ergebnis95");
+    var lage = document.getElementById("lage95");
+    var tageEl = document.getElementById("tage95");
+    var rat = document.getElementById("rat95");
+
+    function rechne() {
+      if (!feld.value) { kasten.classList.remove("an"); return; }
+      var ziel = new Date(feld.value + "T00:00:00");
+      var heute = new Date(); heute.setHours(0, 0, 0, 0);
+      var tage = Math.round((ziel - heute) / 86400000);
+      var art, kopf, zahl, text;
+
+      if (tage < 0) {
+        art = "re-eng"; kopf = "Abgelaufen.";
+        zahl = Math.abs(tage).toLocaleString("de-DE") + " Tage überfällig";
+        text = "Ohne gültigen Nachweis darf gewerblich nicht gefahren werden. Die fünf Module lassen sich jederzeit nachholen — melden Sie sich, wir setzen Sie in die nächste Gruppe.";
+      } else if (tage <= 180) {
+        art = "re-eng"; kopf = "Es wird knapp.";
+        zahl = tage.toLocaleString("de-DE") + " Tage";
+        text = "Fünf Module brauchen fünf Termine. Mit Puffer für Urlaub und Krankheit sollten Sie jetzt anfangen.";
+      } else if (tage <= 365) {
+        art = "re-eng"; kopf = "Zeit genug, aber nicht mehr viel.";
+        zahl = tage.toLocaleString("de-DE") + " Tage";
+        text = "Der beste Zeitpunkt zum Anmelden ist etwa ein halbes Jahr vorher. Dann suchen Sie sich die Termine aus, statt zu nehmen, was übrig ist.";
+      } else {
+        art = "re-ok"; kopf = "Alles im Rahmen.";
+        zahl = tage.toLocaleString("de-DE") + " Tage";
+        var start = new Date(ziel.getTime() - 365 * 86400000);
+        text = "Notieren Sie sich " + start.toLocaleDateString("de-DE", { month: "long", year: "numeric" }) +
+               " — dann ist der richtige Moment, die Termine zu planen.";
+      }
+      kasten.className = "rechner-ergebnis an " + art;
+      lage.textContent = kopf;
+      tageEl.textContent = zahl;
+      rat.textContent = text;
+    }
+    feld.addEventListener("input", rechne);
+    feld.addEventListener("change", rechne);
+    rechne();
+  })();
 
   document.getElementById("anfrage").addEventListener("submit", function (e) {
     e.preventDefault();
