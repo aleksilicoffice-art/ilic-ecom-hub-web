@@ -1,0 +1,225 @@
+/* ============================================================
+   BAUKASTEN · basis.css — das Fundament jeder Premium-Seite
+   ============================================================
+   Baut ausschließlich auf den Rollen aus tokens.css auf. Enthält alles,
+   was sich über kamm2karim / salon-fa-koenig / friseur-arta / bp-erlebnis
+   wortgleich wiederholt hat — Szenen-Spezifisches liegt in szenen/.
+
+   Fallback-System (Pflicht, nie entfernen):
+     html.no-js      … JavaScript aus → alles sichtbar, nichts animiert
+     html.statisch   … GSAP fehlt oder reduced-motion → wie no-js
+     html.laden.js   … Loader aktiv, Seite noch gesperrt                  */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
+html.laden.js{overflow:hidden}
+body{background:var(--flaeche);color:var(--text);font-family:var(--sans);
+  font-size:clamp(1rem,0.97rem + 0.16vw,1.08rem);line-height:1.65;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:.96;letter-spacing:.015em;text-wrap:balance}
+h3{font-size:clamp(1.9rem,1.5rem + 2vw,3rem)}
+p{text-wrap:pretty;max-width:62ch}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--akzent);color:var(--flaeche-tief)}
+:focus-visible{outline:2.5px solid var(--akzent);outline-offset:3px;border-radius:4px}
+.wrap{width:min(100% - 2.5rem,var(--maxw));margin-inline:auto}
+/* Anker nie unter die fixe Kopfzeile springen lassen (Abnahme-Befund 08.08.2026) */
+[id]{scroll-margin-top:5.5rem}
+/* Bildunterschriften: nowrap schneidet auf schmalen Handys beidseitig ab —
+   ab hier bricht sie lieber um (Abnahme-Befund 08.08.2026, mehrfach gefunden). */
+figcaption{max-width:calc(100vw - 2rem)}
+@media(max-width:26rem){figcaption{white-space:normal!important;text-align:center}}
+
+/* ---------- Knöpfe ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);
+  font-weight:600;font-size:1rem;padding:1rem 1.9rem;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+  min-height:52px;transition:transform .3s var(--ease),background .25s,color .25s,border-color .25s,box-shadow .3s var(--ease)}
+.btn svg{width:20px;height:20px;flex:0 0 auto}
+.btn-akzent{background:var(--akzent);color:var(--flaeche-tief)}
+.btn-akzent:hover{background:var(--akzent-hell);transform:translateY(-2px);
+  box-shadow:0 14px 30px -14px color-mix(in oklab,var(--akzent) 55%,transparent)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{background:var(--wa-deep);transform:translateY(-2px);
+  box-shadow:0 12px 26px -12px color-mix(in oklab,var(--wa) 70%,transparent)}
+.btn-rand{background:transparent;color:var(--text);border-color:color-mix(in oklab,var(--text) 40%,transparent)}
+.btn-rand:hover{border-color:var(--akzent);color:var(--akzent-hell);transform:translateY(-2px)}
+
+/* ---------- Fortschritt + Kopf ---------- */
+#fortschritt{position:fixed;inset:0 0 auto 0;height:3px;z-index:var(--z-fortschritt);
+  background:linear-gradient(90deg,var(--akzent-tief),var(--akzent) 55%,var(--akzent-hell));
+  transform:scaleX(0);transform-origin:left center;pointer-events:none}
+.kopf{position:fixed;inset:0 0 auto 0;z-index:var(--z-kopf);display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem clamp(1rem,4vw,2.4rem);pointer-events:none}
+.kopf>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:.6rem;background:color-mix(in oklab,var(--flaeche) 88%,transparent);
+  border:1px solid var(--linie);backdrop-filter:blur(8px);border-radius:999px;padding:.4rem .95rem .4rem .45rem;
+  box-shadow:0 8px 22px -16px oklch(0 0 0/.8)}
+.brand .mk{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--akzent);
+  border:1.5px solid var(--akzent-tief);background:var(--flaeche-tief)}
+.brand .mk svg{width:17px;height:17px}
+.brand b{font-family:var(--disp);font-weight:400;font-size:1.06rem;letter-spacing:.05em;line-height:1.05}
+.brand small{display:block;font-weight:600;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-weich);line-height:1.2}
+.kopf-link{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.85rem;color:var(--text);
+  background:color-mix(in oklab,var(--flaeche) 88%,transparent);border:1px solid var(--linie);backdrop-filter:blur(8px);
+  border-radius:999px;padding:.55rem 1.05rem;box-shadow:0 8px 22px -16px oklch(0 0 0/.8);
+  transition:transform .25s var(--ease),border-color .25s}
+.kopf-link svg{width:15px;height:15px;color:var(--akzent)}
+.kopf-link:hover{transform:translateY(-2px);border-color:var(--akzent-tief)}
+
+/* ---------- Loader (Ring generisch — das Motiv darin liefert die Szene) ---------- */
+#loader{position:fixed;inset:0;z-index:var(--z-loader);background:var(--flaeche-tief);display:grid;place-content:center;
+  justify-items:center;gap:1.2rem;text-align:center;color:var(--text)}
+.no-js #loader,html.statisch #loader{display:none}
+.lader-ring{width:112px;height:112px}
+.lader-ring circle{stroke:var(--akzent);stroke-width:2.5;fill:none}
+.lade-zeile{display:flex;gap:.45rem;font-family:var(--disp);font-size:1.7rem;letter-spacing:.09em;overflow:hidden}
+.lade-zeile em{font-style:normal;color:var(--akzent)}
+.lade-ort{font-size:.78rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-weich)}
+
+/* ---------- Entree-Gerüst (die Mechanik darin liefert die Szene) ---------- */
+#entree{position:relative;overflow:clip}
+.entree-buehne{position:relative;height:100svh;overflow:hidden;background:var(--flaeche-tief)}
+.entree-bg,.entree-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.js .entree-bg img{transform:scale(1.14)}
+.entree-dunkel{position:absolute;inset:0;background:color-mix(in oklab,var(--flaeche-tief) 68%,transparent)}
+.no-js .entree-dunkel,html.statisch .entree-dunkel{background:color-mix(in oklab,var(--flaeche-tief) 45%,transparent)}
+/* grid-template-columns:minmax(0,100%): ohne das wird die implizite Spalte so
+   breit wie die laengste unumbrochene Zeile — auf dem Handy ragt die Headline
+   dann rechts aus dem Viewport (Fund 06.08.2026 am Kos-Grill-Entree). */
+.entree-ui{position:absolute;inset:0;z-index:5;display:grid;place-content:center;justify-items:center;text-align:center;
+  grid-template-columns:minmax(0,100%);
+  padding:1.5rem;color:var(--text)}
+.entree-ui h1{max-width:100%;overflow-wrap:break-word}
+.entree-kicker{font-weight:600;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--akzent-hell)}
+.entree-ui h1{font-size:clamp(3.4rem,2.2rem + 7vw,7rem);margin:.7rem 0 0;text-shadow:0 4px 34px oklch(0 0 0/.5)}
+.entree-sub{margin:1.2rem auto 0;font-size:clamp(1.02rem,.97rem + .4vw,1.28rem);font-weight:500;
+  color:color-mix(in oklab,var(--text) 90%,transparent);max-width:38ch}
+.entree-ui .btn{margin-top:2.1rem}
+.entree-hinweis{margin-top:1.05rem;font-size:.86rem;font-weight:500;
+  color:color-mix(in oklab,var(--text) 70%,transparent);display:flex;align-items:center;gap:.5rem}
+.entree-hinweis svg{width:16px;height:16px}
+.js .entree-hinweis svg{animation:nicken 1.8s var(--ease) infinite}
+@keyframes nicken{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ---------- Kapitel-Gerüst ---------- */
+.kapitel{position:relative}
+.badge{display:inline-flex;align-items:center;gap:.55rem;font-weight:700;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--akzent-hell);background:color-mix(in oklab,var(--akzent) 12%,transparent);
+  border:1px solid color-mix(in oklab,var(--akzent) 30%,transparent);border-radius:999px;padding:.38rem 1rem}
+.kap-kopf{padding:clamp(5rem,4rem + 6vw,9rem) 0 clamp(2rem,1.5rem + 2vw,3.5rem)}
+.kap-kopf h2,.schwelle-text h2{font-size:clamp(2.7rem,1.8rem + 4.4vw,5rem);margin-top:1.1rem}
+.kap-intro{margin-top:1.1rem;font-size:clamp(1.02rem,.97rem + .35vw,1.25rem);color:var(--text-weich);font-weight:500}
+.szene-pin{min-height:100svh;display:grid;align-content:center;gap:clamp(1.4rem,3vw,3rem)}
+.szene-note{font-size:.88rem;color:var(--text-weich);border-top:1px solid var(--linie);padding-top:.8rem;margin-top:1.3rem;max-width:44ch}
+
+/* Helle Gegen-Kapitel: Rollen lokal umgehängt, Szenen erben automatisch */
+.kap-hell{background:linear-gradient(180deg,var(--gegen),var(--gegen-tief) 45%,var(--gegen));color:var(--flaeche);
+  --text:var(--flaeche);
+  --text-weich:color-mix(in oklab,var(--flaeche) 62%,var(--gegen));
+  --linie:var(--linie-gegen);
+  --akzent-hell:var(--akzent-tief)}
+.kap-hell h2,.kap-hell h3{color:var(--flaeche)}
+
+/* ---------- Nummerierte Schritte ---------- */
+.schritte{list-style:none;display:grid;gap:.9rem;counter-reset:s}
+.schritte li{display:grid;grid-template-columns:42px 1fr;gap:.1rem .95rem;align-items:start;counter-increment:s;
+  opacity:.38;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.schritte li::before{content:counter(s);display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
+  font-family:var(--disp);font-size:1.15rem;color:var(--text);background:var(--flaeche-hell);border:1.5px solid var(--linie);
+  transition:background .35s,color .35s,border-color .35s}
+.schritte li b{display:block;grid-column:2;font-family:var(--disp);font-weight:400;font-size:1.42rem;letter-spacing:.04em;line-height:1.15}
+.schritte li span{display:block;grid-column:2;font-size:.93rem;color:var(--text-weich)}
+.schritte li.aktiv{opacity:1;transform:translateX(4px)}
+.schritte li.aktiv::before{background:var(--akzent);border-color:var(--akzent);color:var(--flaeche-tief)}
+html.statisch .schritte li,.no-js .schritte li{opacity:1;transform:none}
+
+/* ---------- Preis-/Leistungsliste ---------- */
+.menu{list-style:none;margin-top:2rem;max-width:760px;display:grid;gap:.2rem}
+.menu li{display:flex;align-items:baseline;gap:.9rem;padding:.85rem 0;border-bottom:1px solid var(--linie)}
+.menu .m-name{font-weight:600;font-size:1.04rem}
+.menu .m-info{font-size:.85rem;color:var(--text-weich)}
+.menu .m-dots{flex:1;border-bottom:2px dotted var(--linie);transform:translateY(-4px)}
+.menu .m-preis{font-family:var(--disp);font-size:1.75rem;color:var(--akzent);white-space:nowrap;letter-spacing:.03em}
+
+/* ---------- Marquee ---------- */
+.band{overflow:hidden;border-block:1px solid var(--linie);background:var(--flaeche-tief);padding:1.05rem 0}
+.band-spur{display:flex;gap:3rem;width:max-content;will-change:transform;animation:band 26s linear infinite}
+.band span{font-family:var(--disp);font-size:1.5rem;letter-spacing:.12em;color:var(--text-weich);
+  display:inline-flex;align-items:center;gap:3rem;white-space:nowrap}
+.band i{font-style:normal;color:var(--akzent)}
+@keyframes band{to{transform:translateX(-50%)}}
+html.statisch .band-spur,.no-js .band-spur{animation:none}
+
+/* ---------- Stimmen ---------- */
+#stimmen{background:linear-gradient(180deg,var(--flaeche-tief),var(--flaeche))}
+#stimmen .wrap{padding:clamp(4.5rem,3.5rem + 5vw,8rem) 0}
+.stimmen-kopf{text-align:center;display:grid;justify-items:center}
+.rating{display:flex;align-items:baseline;gap:1rem;margin-top:1.2rem}
+.rating .zahl{font-family:var(--disp);font-size:clamp(4.4rem,3.4rem + 5vw,7rem);color:var(--akzent);line-height:1}
+.sterne{display:flex;gap:.35rem}
+.sterne svg{width:clamp(22px,2.6vw,30px);height:clamp(22px,2.6vw,30px);color:var(--akzent)}
+.rating-sub{margin-top:.6rem;font-size:.9rem;font-weight:600;color:var(--text-weich);letter-spacing:.06em;text-transform:uppercase}
+.zitate{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:3rem}
+.zitat{background:var(--flaeche-hell);border:1px solid var(--linie);border-radius:18px;padding:1.6rem 1.5rem;
+  display:grid;gap:1rem;align-content:start;box-shadow:0 24px 48px -30px oklch(0 0 0/.7)}
+.zitat p{font-size:.97rem;line-height:1.6}
+.zitat footer{display:flex;align-items:center;gap:.75rem;font-size:.85rem;font-weight:600;color:var(--text-weich)}
+.zitat .ava{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  font-weight:700;color:var(--flaeche-tief);background:linear-gradient(135deg,var(--akzent-hell),var(--akzent-tief))}
+.zitat .z-sterne{display:flex;gap:.2rem}
+.zitat .z-sterne svg{width:15px;height:15px;color:var(--akzent)}
+
+/* ---------- Finale ---------- */
+#finale{position:relative;padding:clamp(5rem,4rem + 6vw,9rem) 0 0;background:
+  radial-gradient(120% 90% at 50% 0%,color-mix(in oklab,var(--akzent-tief) 30%,transparent) 0%,transparent 55%),var(--flaeche-tief)}
+.finale-inhalt{display:grid;justify-items:center;text-align:center}
+.final-mark{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;color:var(--akzent);
+  border:1.5px solid var(--akzent-tief);background:var(--flaeche);box-shadow:0 24px 50px -20px oklch(0 0 0/.7)}
+.final-mark svg{width:38px;height:38px}
+#finale h2{font-size:clamp(3rem,2rem + 5vw,5.6rem);margin-top:1.6rem}
+#finale .finale-inhalt>p{margin:1.2rem auto 0;font-size:clamp(1.02rem,.97rem + .4vw,1.25rem);font-weight:500;
+  color:var(--text-weich);max-width:46ch}
+.final-cta{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;margin-top:2.3rem}
+.info-karten{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:clamp(3rem,2.5rem + 2vw,4.5rem);
+  width:100%;text-align:left}
+.info{background:var(--flaeche-hell);border:1px solid var(--linie);border-radius:18px;padding:1.5rem;display:grid;gap:.4rem;align-content:start}
+.info h4{font-family:var(--sans);font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--akzent);margin-bottom:.5rem}
+.info p,.info a{font-size:.95rem;color:var(--text)}
+.info a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:color-mix(in oklab,var(--akzent) 50%,transparent)}
+.info a:hover{text-decoration-color:var(--akzent)}
+.zeiten{display:grid;gap:.3rem;font-size:.93rem}
+.zeiten div{display:flex;justify-content:space-between;gap:.75rem;color:var(--text-weich)}
+.zeiten div>*:last-child{text-align:right}
+.zeiten div.heute{color:var(--akzent-hell);font-weight:600}
+/* Die Marke haengt am TAGNAMEN, nicht am div: als drittes Flex-Item schoebe sie
+   die Uhrzeit aus der rechten Flucht aller anderen Zeilen und liesse lange
+   Doppelzeiten mitten durchbrechen (Abnahme-Befund 08.08.2026). */
+.zeiten div.heute>*:first-child::after{content:" · heute";font-size:.78rem;font-weight:700}
+#finale footer{margin-top:clamp(3.5rem,3rem + 3vw,6rem);border-top:1px solid var(--linie);
+  padding:1.4rem 0 max(1.4rem,env(safe-area-inset-bottom));font-size:.82rem;color:var(--text-weich);text-align:center}
+
+/* ---------- Responsive ---------- */
+@media(max-width:960px){
+  .zitate{grid-template-columns:1fr}
+  .info-karten{grid-template-columns:1fr}
+}
+@media(max-width:540px){
+  /* Breite Displayschriften (Bricolage u. a.) sprengen sonst die 390-px-Zeile —
+     die grosse clamp-Formel ist fuer Desktop gedacht (Fund 06.08.2026). */
+  .entree-ui h1{font-size:clamp(2.4rem,10.5vw,3.2rem)}
+  .brand small{display:none}
+  .kopf-link span{display:none}
+  .kopf-link{padding:.55rem .7rem}
+  .final-cta{flex-direction:column;width:100%}
+  .final-cta .btn{width:100%}
+  .menu .m-info{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  html.js{scroll-behavior:auto}
+  .js .entree-hinweis svg{animation:none}
+  .band-spur{animation:none}
+}
