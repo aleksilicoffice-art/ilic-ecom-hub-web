@@ -304,6 +304,45 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .anfahrt-fuss a{color:var(--akzent); font-weight:600; text-decoration:none}
 .anfahrt-fuss a:hover{text-decoration:underline}
 
+
+/* ══════════ Muster-Zertifikat ══════════ */
+.nachweis-raster{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media (min-width:60rem){.nachweis-raster{grid-template-columns:1fr 1.05fr}}
+.blatt-buehne{perspective:1400px}
+.blatt{
+  background:var(--weiss); border:1px solid var(--linie); border-radius:3px;
+  padding:clamp(1.5rem,3.5vw,2.4rem) clamp(1.3rem,3vw,2rem);
+  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 18px 40px -18px rgba(0,0,0,.28);
+  position:relative; transform:rotate(-1.1deg);
+}
+.blatt-kopf{text-align:center; padding-bottom:.9rem; border-bottom:1px solid var(--linie)}
+.blatt-kopf .bz{font-weight:800; font-size:1.02rem; letter-spacing:-.02em}
+.blatt-kopf .adr{font-size:.72rem; color:var(--tinte-weich); margin-top:.15rem; line-height:1.4}
+.blatt h4{
+  font-size:clamp(1.25rem,2.6vw,1.65rem); font-weight:800; letter-spacing:-.03em;
+  text-align:center; margin:1.2rem 0 .35rem;
+}
+.blatt .anlass{text-align:center; font-size:.86rem; color:var(--tinte-weich); margin-bottom:1.1rem}
+.blatt .firma{
+  text-align:center; font-weight:700; font-size:1.06rem; padding:.55rem .8rem;
+  background:var(--sand); border-radius:4px; margin-bottom:1.1rem;
+}
+.blatt .satz{font-size:.83rem; color:var(--tinte-weich); line-height:1.55}
+.blatt .norm{font-weight:700; font-size:.95rem; margin:.9rem 0 .5rem; color:var(--tinte)}
+.blatt ul{margin:0; padding-left:1.05rem; display:flex; flex-direction:column; gap:.22rem; font-size:.79rem; color:var(--tinte-weich)}
+.blatt-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:flex-end; margin-top:1.5rem; padding-top:.9rem; border-top:1px solid var(--linie)}
+.blatt-fuss div{font-size:.76rem; color:var(--tinte-weich)}
+.blatt-fuss .unterschrift{
+  font-family:"Segoe Script","Bradley Hand",cursive; font-size:1.15rem; color:var(--tinte);
+  border-bottom:1px solid var(--linie); padding:0 1.2rem .1rem 0; margin-bottom:.3rem; display:inline-block;
+}
+.blatt .muster{
+  position:absolute; top:.7rem; right:.7rem; font-size:.62rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--akzent);
+  border:1px solid currentColor; padding:.2rem .45rem; border-radius:3px; background:var(--weiss);
+}
+@media (prefers-reduced-motion:reduce){.blatt{transform:none}}
+
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important; transition-duration:.001ms !important}}
 </style>
 </head>
@@ -554,7 +593,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         <p data-de="Staplerschein mit Theorie und Praxis. Pflicht für jeden, der im Betrieb einen Stapler bewegt." data-tr="Teori ve pratikle forklift belgesi. İşletmede forklift kullanan herkes için zorunlu.">Staplerschein mit Theorie und Praxis. Pflicht für jeden, der im Betrieb einen Stapler bewegt.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3 data-de="Ladekran" data-tr="Yükleme vinci">Ladekran</h3><span class="preis" data-de="auf Anfrage" data-tr="talep üzerine">auf Anfrage</span></div>
+        <div class="kurs-kopf"><h3 data-de="Ladekran" data-tr="Yükleme vinci">Ladekran</h3><span class="preis">199 €</span></div>
         <p data-de="Bedienerschulung für den Ladekran. Der Nachweis, den jede Baustelle und jeder Auftraggeber sehen will." data-tr="Yükleme vinci için operatör eğitimi. Her şantiyenin ve her işverenin görmek istediği belge.">Bedienerschulung für den Ladekran. Der Nachweis, den jede Baustelle und jeder Auftraggeber sehen will.</p>
       </div>
       <div class="kurs">
@@ -562,7 +601,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         <p data-de="Bedienerschulung für Erdbaumaschinen, mit Theorie und praktischer Unterweisung." data-tr="İş makineleri için operatör eğitimi, teori ve uygulamalı öğretimle.">Bedienerschulung für Erdbaumaschinen, mit Theorie und praktischer Unterweisung.</p>
       </div>
       <div class="kurs">
-        <div class="kurs-kopf"><h3 data-de="Fachseminar für Unternehmer" data-tr="İşletmeciler için uzmanlık semineri">Fachseminar für Unternehmer</h3><span class="preis">auf Anfrage</span></div>
+        <div class="kurs-kopf"><h3 data-de="Fachseminar für Unternehmer" data-tr="İşletmeciler için uzmanlık semineri">Fachseminar für Unternehmer</h3><span class="preis">1.200 €</span></div>
         <p data-de="Aktuelle Rechtslage, Sozialvorschriften und Haftung für alle, die im Betrieb Verantwortung für den Fuhrpark tragen." data-tr="Güncel mevzuat, sosyal kurallar ve sorumluluk: işletmede araç filosundan sorumlu olan herkes için.">Aktuelle Rechtslage, Sozialvorschriften und Haftung für alle, die im Betrieb Verantwortung für den Fuhrpark tragen.</p>
       </div>
     </div>
@@ -610,6 +649,45 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
       <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Lernmaterial und Skripte" data-tr="Ders materyali ve notlar">Lernmaterial und Skripte</span></span>
       <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Kostenlose Parkplätze" data-tr="Ücretsiz otopark">Kostenlose Parkplätze</span></span>
       <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg><span data-de="Zahlung per Rechnung" data-tr="Fatura ile ödeme">Zahlung per Rechnung</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="abs sand" id="nachweis">
+  <div class="spalte">
+    <div class="nachweis-raster">
+      <div>
+        <p class="kicker" data-de="Der Nachweis" data-tr="Belge">Der Nachweis</p>
+        <h2 data-de="Am Ende zählt das Papier in der Hand." data-tr="Sonunda elinizdeki belge önemlidir.">Am Ende zählt das Papier in der Hand.</h2>
+        <p class="fuehrt" data-de="Jede Schulung endet mit einer Bescheinigung, die Inhalte, Datum und Dauer ausweist. Ihre Fahrer bekommen sie noch am selben Tag, Ihr Betrieb hat den Nachweis für die nächste Prüfung." data-tr="Her eğitim; içerik, tarih ve süreyi gösteren bir belgeyle sona erer. Sürücüleriniz belgeyi aynı gün alır, işletmeniz bir sonraki denetim için kanıta sahip olur.">Jede Schulung endet mit einer Bescheinigung, die Inhalte, Datum und Dauer ausweist. Ihre Fahrer bekommen sie noch am selben Tag, Ihr Betrieb hat den Nachweis für die nächste Prüfung.</p>
+      </div>
+      <div class="blatt-buehne">
+        <div class="blatt">
+          <span class="muster" data-de="Muster" data-tr="Örnek">Muster</span>
+          <div class="blatt-kopf">
+            <div class="bz">Bildungszentrum Sönmez</div>
+            <div class="adr">Zum Lonnenhohl 23 · 44319 Dortmund</div>
+          </div>
+          <h4 data-de="Teilnahmebescheinigung" data-tr="Katılım belgesi">Teilnahmebescheinigung</h4>
+          <p class="anlass" data-de="Ladungssicherungsschulung am 14.03.2026" data-tr="14.03.2026 tarihli yük emniyeti eğitimi">Ladungssicherungsschulung am 14.03.2026</p>
+          <p class="firma">Musterspedition GmbH</p>
+          <p class="satz" data-de="Die Mitarbeiter der Musterspedition GmbH haben am 14.03.2026 von 09:00 bis 13:00 Uhr erfolgreich teilgenommen." data-tr="Musterspedition GmbH çalışanları 14.03.2026 tarihinde 09:00 – 13:00 saatleri arasında başarıyla katılmıştır.">Die Mitarbeiter der Musterspedition GmbH haben am 14.03.2026 von 09:00 bis 13:00 Uhr erfolgreich teilgenommen.</p>
+          <p class="norm" data-de="Schulung für Ladungssicherung gemäß VDI 2700a" data-tr="VDI 2700a uyarınca yük emniyeti eğitimi">Schulung für Ladungssicherung gemäß VDI 2700a</p>
+          <ul>
+            <li data-de="Rechtliche Grundlagen" data-tr="Yasal esaslar">Rechtliche Grundlagen</li>
+            <li data-de="Physikalische Grundlagen" data-tr="Fiziksel esaslar">Physikalische Grundlagen</li>
+            <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-tr="DIN EN 12640&#39;a göre araç üstyapıları">Aufbauten von Fahrzeugarten nach DIN EN 12640</li>
+            <li data-de="Arten der Ladungssicherung" data-tr="Yük emniyeti türleri">Arten der Ladungssicherung</li>
+            <li data-de="Ermittlung der erforderlichen Sicherungskräfte" data-tr="Gerekli emniyet kuvvetlerinin hesabı">Ermittlung der erforderlichen Sicherungskräfte</li>
+            <li data-de="Zurrmittel und weitere Hilfsmittel" data-tr="Bağlama ve diğer yardımcı gereçler">Zurrmittel und weitere Hilfsmittel</li>
+            <li data-de="Ordnungswidrigkeiten" data-tr="İdari para cezaları">Ordnungswidrigkeiten</li>
+          </ul>
+          <div class="blatt-fuss">
+            <div><span class="unterschrift">Z. Sönmez</span><br>Lehrgangsleiter</div>
+            <div>Dortmund, 14.03.2026</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

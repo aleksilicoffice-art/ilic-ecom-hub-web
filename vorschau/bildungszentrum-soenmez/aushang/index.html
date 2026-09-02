@@ -290,6 +290,45 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .anfahrt-fuss a{color:var(--akzent); font-weight:600; text-decoration:none}
 .anfahrt-fuss a:hover{text-decoration:underline}
 
+
+/* ══════════ Muster-Zertifikat ══════════ */
+.nachweis-raster{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media (min-width:60rem){.nachweis-raster{grid-template-columns:1fr 1.05fr}}
+.blatt-buehne{perspective:1400px}
+.blatt{
+  background:var(--weiss); border:1px solid var(--linie); border-radius:3px;
+  padding:clamp(1.5rem,3.5vw,2.4rem) clamp(1.3rem,3vw,2rem);
+  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 18px 40px -18px rgba(0,0,0,.28);
+  position:relative; transform:rotate(-1.1deg);
+}
+.blatt-kopf{text-align:center; padding-bottom:.9rem; border-bottom:1px solid var(--linie)}
+.blatt-kopf .bz{font-weight:800; font-size:1.02rem; letter-spacing:-.02em}
+.blatt-kopf .adr{font-size:.72rem; color:var(--tinte-weich); margin-top:.15rem; line-height:1.4}
+.blatt h4{
+  font-size:clamp(1.25rem,2.6vw,1.65rem); font-weight:800; letter-spacing:-.03em;
+  text-align:center; margin:1.2rem 0 .35rem;
+}
+.blatt .anlass{text-align:center; font-size:.86rem; color:var(--tinte-weich); margin-bottom:1.1rem}
+.blatt .firma{
+  text-align:center; font-weight:700; font-size:1.06rem; padding:.55rem .8rem;
+  background:var(--sand); border-radius:4px; margin-bottom:1.1rem;
+}
+.blatt .satz{font-size:.83rem; color:var(--tinte-weich); line-height:1.55}
+.blatt .norm{font-weight:700; font-size:.95rem; margin:.9rem 0 .5rem; color:var(--tinte)}
+.blatt ul{margin:0; padding-left:1.05rem; display:flex; flex-direction:column; gap:.22rem; font-size:.79rem; color:var(--tinte-weich)}
+.blatt-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:flex-end; margin-top:1.5rem; padding-top:.9rem; border-top:1px solid var(--linie)}
+.blatt-fuss div{font-size:.76rem; color:var(--tinte-weich)}
+.blatt-fuss .unterschrift{
+  font-family:"Segoe Script","Bradley Hand",cursive; font-size:1.15rem; color:var(--tinte);
+  border-bottom:1px solid var(--linie); padding:0 1.2rem .1rem 0; margin-bottom:.3rem; display:inline-block;
+}
+.blatt .muster{
+  position:absolute; top:.7rem; right:.7rem; font-size:.62rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--akzent);
+  border:1px solid currentColor; padding:.2rem .45rem; border-radius:3px; background:var(--weiss);
+}
+@media (prefers-reduced-motion:reduce){.blatt{transform:none}}
+
 @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important}}
 </style>
 </head>
@@ -470,9 +509,9 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
           <tr><td><span class="name">Weiterbildung Schlüsselzahl 95</span><span class="was">Gesetzliche Pflicht: 35 Stunden in fünf Modulen, alle fünf Jahre</span></td><td class="p">120 €<small>je Modul</small></td></tr>
           <tr><td><span class="name">Beschleunigte Grundqualifikation</span><span class="was">Der Einstieg in den Beruf, anerkannt nach BKrFQG</span></td><td class="p">2.500 €</td></tr>
           <tr><td><span class="name">Gabelstapler</span><span class="was">Theorie und Praxis, Pflicht für jeden Staplerfahrer im Betrieb</span></td><td class="p">250 €</td></tr>
-          <tr><td><span class="name">Ladekran</span><span class="was">Bedienerschulung, der Nachweis für Baustelle und Auftraggeber</span></td><td class="p">auf Anfrage</td></tr>
+          <tr><td><span class="name">Ladekran</span><span class="was">Bedienerschulung, der Nachweis für Baustelle und Auftraggeber</span></td><td class="p">199 €</td></tr>
           <tr><td><span class="name">Bagger &amp; Erdbaumaschinen</span><span class="was">Bedienerschulung mit praktischer Unterweisung</span></td><td class="p">auf Anfrage</td></tr>
-          <tr><td><span class="name">Fachseminar für Unternehmer</span><span class="was">Rechtslage, Sozialvorschriften und Haftung im Fuhrpark</span></td><td class="p">auf Anfrage</td></tr>
+          <tr><td><span class="name">Fachseminar für Unternehmer</span><span class="was">Rechtslage, Sozialvorschriften und Haftung im Fuhrpark</span></td><td class="p">1.200 €</td></tr>
         </tbody>
       </table>
     </div>
@@ -563,6 +602,45 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
       <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Lernmaterial und Skripte</span>
       <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Kostenlose Parkplätze</span>
       <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Zahlung per Rechnung</span>
+    </div>
+  </div>
+</section>
+
+<section class="abs" id="nachweis">
+  <div class="spalte">
+    <div class="nachweis-raster">
+      <div>
+        <span class="etikett leise">Der Nachweis</span>
+        <h2>Am Ende zählt das Papier in der Hand.</h2>
+        <p class="fuehrt">Jede Schulung endet mit einer Bescheinigung, die Inhalte, Datum und Dauer ausweist. Ihre Fahrer bekommen sie noch am selben Tag, Ihr Betrieb hat den Nachweis für die nächste Prüfung.</p>
+      </div>
+      <div class="blatt-buehne">
+        <div class="blatt">
+          <span class="muster">Muster</span>
+          <div class="blatt-kopf">
+            <div class="bz">Bildungszentrum Sönmez</div>
+            <div class="adr">Zum Lonnenhohl 23 · 44319 Dortmund</div>
+          </div>
+          <h4>Teilnahmebescheinigung</h4>
+          <p class="anlass">Ladungssicherungsschulung am 14.03.2026</p>
+          <p class="firma">Musterspedition GmbH</p>
+          <p class="satz">Die Mitarbeiter der Musterspedition GmbH haben am 14.03.2026 von 09:00 bis 13:00 Uhr erfolgreich teilgenommen.</p>
+          <p class="norm">Schulung für Ladungssicherung gemäß VDI 2700a</p>
+          <ul>
+            <li>Rechtliche Grundlagen</li>
+            <li>Physikalische Grundlagen</li>
+            <li>Aufbauten von Fahrzeugarten nach DIN EN 12640</li>
+            <li>Arten der Ladungssicherung</li>
+            <li>Ermittlung der erforderlichen Sicherungskräfte</li>
+            <li>Zurrmittel und weitere Hilfsmittel</li>
+            <li>Ordnungswidrigkeiten</li>
+          </ul>
+          <div class="blatt-fuss">
+            <div><span class="unterschrift">Z. Sönmez</span><br>Lehrgangsleiter</div>
+            <div>Dortmund, 14.03.2026</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
