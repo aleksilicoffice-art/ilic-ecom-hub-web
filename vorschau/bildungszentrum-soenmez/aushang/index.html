@@ -329,6 +329,18 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 }
 @media (prefers-reduced-motion:reduce){.blatt{transform:none}}
 
+
+/* ══════════ Dozenten-Hinweis ══════════ */
+.dozent{
+  display:flex; flex-wrap:wrap; gap:1.1rem; align-items:flex-start;
+  background:var(--akzent-zart); border:1px solid color-mix(in oklab, var(--akzent) 24%, transparent);
+  border-radius:10px; padding:clamp(1.2rem,2.6vw,1.7rem); margin-top:clamp(1.6rem,3.5vw,2.4rem);
+}
+.dozent svg{width:26px; height:26px; flex:none; stroke:var(--akzent); stroke-width:1.7; fill:none; margin-top:.15rem}
+.dozent-text{flex:1 1 18rem}
+.dozent-text b{display:block; font-size:1.05rem; font-weight:700; letter-spacing:-.015em; margin-bottom:.3rem}
+.dozent-text p{font-size:.94rem; color:var(--tinte-weich)}
+
 @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important}}
 </style>
 </head>
@@ -514,6 +526,13 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
           <tr><td><span class="name">Fachseminar für Unternehmer</span><span class="was">Rechtslage, Sozialvorschriften und Haftung im Fuhrpark</span></td><td class="p">1.200 €</td></tr>
         </tbody>
       </table>
+    </div>
+    <div class="dozent">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6.5V12c0 5 3.4 8.7 8 9.5 4.6-.8 8-4.5 8-9.5V6.5z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div class="dozent-text">
+        <b>Ladungssicherung unterrichtet bei uns ein Hauptkommissar.</b>
+        <p>Daniel Heyer schult bei uns nach VDI 2700a — jemand, der Ladungssicherung im Dienst selbst kontrolliert. Ihre Fahrer lernen die Regeln von der Seite, die sie später prüft.</p>
+      </div>
     </div>
     <p class="weich" style="margin-top:1.3rem; font-size:.92rem">Den Lkw-Führerschein selbst machen wir nicht. Dafür arbeiten wir mit einer Fahrschule zusammen und vermitteln Sie gern weiter.</p>
   </div>

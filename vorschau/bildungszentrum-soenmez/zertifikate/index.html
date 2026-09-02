@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bescheinigungen erstellen · Bildungszentrum Sönmez</title>
+<link rel="stylesheet" href="../schriften/fonts.css">
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   WERKZEUG · Bescheinigungen erstellen
+   Alle Fließtexte, Normbezeichnungen und Lerninhalte sind hier fest
+   hinterlegt und korrekturgelesen. Herr Sönmez tippt nur noch Firma,
+   Datum, Uhrzeit und Namen — dort kann er sich nicht vertippen, weil
+   Datum und Zeit über Eingabefelder mit fester Form laufen.
+
+   NEUE SCHULUNGSART ERGÄNZEN → unten im Skript im Block SCHULUNGEN.
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --papier:oklch(0.985 0.002 250); --weiss:oklch(1 0 0); --sand:oklch(0.955 0.004 250);
+  --tinte:oklch(0.22 0.012 258); --tinte-weich:oklch(0.47 0.012 258);
+  --linie:oklch(0.90 0.006 255); --linie-zart:oklch(0.945 0.004 255);
+  --akzent:oklch(0.52 0.196 27); --akzent-tief:oklch(0.42 0.17 27); --akzent-zart:oklch(0.965 0.018 27);
+  --gruen:oklch(0.50 0.11 155); --gruen-zart:oklch(0.955 0.025 155);
+  --schrift:"Archivo",-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--papier); color:var(--tinte); font-family:var(--schrift); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0; font-weight:800; letter-spacing:-.025em; line-height:1.1}
+p{margin:0}
+button,input,select,textarea{font-family:inherit}
+
+.kopf{background:var(--tinte); color:var(--papier); padding:1.1rem 0}
+.spalte{width:min(1220px,100% - 2.4rem); margin-inline:auto}
+.kopf-innen{display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; align-items:baseline; justify-content:space-between}
+.kopf h1{font-size:1.2rem}
+.kopf .hinweis{font-size:.82rem; color:color-mix(in oklab, var(--papier) 68%, transparent)}
+
+.werkbank{display:grid; gap:1.6rem; padding-block:1.6rem 4rem}
+@media (min-width:64rem){.werkbank{grid-template-columns:26rem 1fr; align-items:start}}
+
+/* ── Formular ── */
+.formular{background:var(--weiss); border:1px solid var(--linie); border-radius:12px; padding:1.4rem; position:sticky; top:1rem}
+@media (max-width:64rem){.formular{position:static}}
+.gruppe{padding-block:1rem; border-top:1px solid var(--linie-zart)}
+.gruppe:first-of-type{border-top:0; padding-top:0}
+.gruppe > h3{font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; color:var(--tinte-weich); margin-bottom:.8rem; font-weight:700}
+label{display:block; font-size:.83rem; font-weight:600; margin-bottom:.3rem}
+input,select,textarea{
+  width:100%; font-size:16px; color:var(--tinte); background:var(--papier);
+  border:1px solid var(--linie); border-radius:7px; padding:.62rem .75rem;
+  transition:border-color .18s, box-shadow .18s;
+}
+textarea{min-height:5.5rem; resize:vertical; line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:none; border-color:var(--akzent); box-shadow:0 0 0 3px color-mix(in oklab,var(--akzent) 20%,transparent)}
+.feld{margin-bottom:.85rem}
+.feld:last-child{margin-bottom:0}
+.zwei{display:grid; grid-template-columns:1fr 1fr; gap:.7rem}
+.tipp{font-size:.78rem; color:var(--tinte-weich); margin-top:.35rem; line-height:1.45}
+.knopfreihe{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.45rem; min-height:46px;
+  padding:0 1.1rem; border-radius:7px; border:1px solid var(--linie); background:var(--weiss);
+  font-weight:600; font-size:.95rem; cursor:pointer; transition:filter .18s var(--ease), border-color .18s var(--ease);
+}
+.btn:hover{border-color:var(--tinte-weich)}
+.btn-voll{background:var(--akzent); border-color:var(--akzent); color:#fff; flex:1}
+.btn-voll:hover{filter:brightness(1.08)}
+.merker{font-size:.8rem; color:var(--gruen); min-height:1.2rem; margin-top:.5rem}
+
+/* ── Vorschau ── */
+.vorschau-kopf{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:baseline; justify-content:space-between; margin-bottom:.8rem}
+.vorschau-kopf h2{font-size:1rem}
+.vorschau-kopf span{font-size:.83rem; color:var(--tinte-weich)}
+.blaetter{display:flex; flex-direction:column; gap:1.4rem}
+
+/* ── Das Blatt (A4-Verhältnis) ── */
+.blatt{
+  background:var(--weiss); border:1px solid var(--linie); border-radius:4px;
+  padding:16mm 15mm; box-shadow:0 1px 2px rgba(0,0,0,.04), 0 14px 32px -20px rgba(0,0,0,.3);
+  font-size:11pt; line-height:1.5;
+}
+.blatt-kopf{text-align:center; padding-bottom:.7rem; border-bottom:1.5px solid var(--tinte)}
+.blatt-kopf .bz{font-weight:800; font-size:14pt; letter-spacing:-.02em}
+.blatt-kopf .adr{font-size:8.5pt; color:var(--tinte-weich); margin-top:.15rem; line-height:1.4}
+.blatt h3{font-size:23pt; text-align:center; margin:1.5rem 0 .3rem; letter-spacing:-.03em}
+.blatt .anlass{text-align:center; font-size:10.5pt; color:var(--tinte-weich); margin-bottom:1.4rem}
+.blatt .firma{text-align:center; font-weight:700; font-size:15pt; padding:.6rem .8rem; background:var(--sand); border-radius:4px; margin-bottom:1.2rem}
+.blatt .satz{font-size:10.5pt; color:var(--tinte); line-height:1.6}
+.blatt .norm{font-weight:700; font-size:11.5pt; margin:1.2rem 0 .5rem}
+.blatt ul{margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:.2rem; font-size:10pt; color:var(--tinte-weich)}
+.blatt .teilnehmer{margin-top:1.2rem}
+.blatt .teilnehmer b{font-size:10pt; display:block; margin-bottom:.4rem}
+.blatt .teilnehmer ol{margin:0; padding-left:1.3rem; font-size:10.5pt; columns:2; gap:1.5rem}
+.blatt-fuss{display:flex; flex-wrap:wrap; gap:1.5rem; justify-content:space-between; align-items:flex-end; margin-top:2rem; padding-top:.8rem}
+.blatt-fuss .sig{font-size:8.5pt; color:var(--tinte-weich); border-top:1px solid var(--tinte); padding-top:.3rem; min-width:11rem}
+.blatt-fuss .ort{font-size:9.5pt; color:var(--tinte-weich)}
+.leerhinweis{background:var(--akzent-zart); border:1px solid color-mix(in oklab,var(--akzent) 25%,transparent); border-radius:10px; padding:1.2rem; font-size:.92rem; color:var(--akzent-tief)}
+
+/* ── Druck: nur die Blätter, je eines pro Seite ── */
+@media print{
+  @page{size:A4 portrait; margin:0}
+  body{background:#fff}
+  .kopf,.formular,.vorschau-kopf,.leerhinweis{display:none !important}
+  .werkbank{display:block; padding:0}
+  .spalte{width:auto}
+  .blaetter{gap:0}
+  .blatt{
+    border:0; border-radius:0; box-shadow:none; break-after:page;
+    width:210mm; min-height:297mm; padding:20mm 18mm;
+  }
+  .blatt:last-child{break-after:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="spalte kopf-innen">
+    <h1>Bescheinigungen erstellen</h1>
+    <p class="hinweis">Alles bleibt auf diesem Gerät. Es wird nichts übertragen und nichts gespeichert, wo Fremde herankommen.</p>
+  </div>
+</header>
+
+<div class="spalte werkbank">
+
+  <!-- ══════════ FORMULAR ══════════ -->
+  <form class="formular" id="form" autocomplete="off">
+    <div class="gruppe">
+      <h3>Schulung</h3>
+      <div class="feld">
+        <label for="art">Welche Schulung?</label>
+        <select id="art"></select>
+        <p class="tipp">Überschrift, Normbezeichnung und Lerninhalte werden automatisch eingesetzt und sind bereits korrekturgelesen.</p>
+      </div>
+      <div class="zwei">
+        <div class="feld"><label for="datum">Datum</label><input type="date" id="datum"></div>
+        <div class="feld"><label for="ort">Ort</label><input type="text" id="ort" value="Dortmund"></div>
+      </div>
+      <div class="zwei">
+        <div class="feld"><label for="von">Von</label><input type="time" id="von" value="09:00"></div>
+        <div class="feld"><label for="bis">Bis</label><input type="time" id="bis" value="13:00"></div>
+      </div>
+    </div>
+
+    <div class="gruppe">
+      <h3>Teilnehmer</h3>
+      <div class="feld">
+        <label for="firma">Firma</label>
+        <input type="text" id="firma" placeholder="z. B. Musterspedition GmbH">
+      </div>
+      <div class="feld">
+        <label for="namen">Namen <span style="font-weight:400; color:var(--tinte-weich)">(einer pro Zeile, optional)</span></label>
+        <textarea id="namen" placeholder="Ahmet Yılmaz&#10;Stefan Berger&#10;…"></textarea>
+        <p class="tipp">Leer lassen für eine Firmenbescheinigung ohne Namensliste. Mit Namen erscheinen sie auf dem Blatt.</p>
+      </div>
+      <div class="feld">
+        <label for="proBlatt">Ausgabe</label>
+        <select id="proBlatt">
+          <option value="sammel">Ein Blatt für die ganze Firma</option>
+          <option value="einzeln">Ein eigenes Blatt je Teilnehmer</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="gruppe">
+      <h3>Unterschrift</h3>
+      <div class="feld">
+        <label for="leiter">Lehrgangsleiter</label>
+        <input type="text" id="leiter" value="Zülküf Sönmez">
+      </div>
+      <div class="feld">
+        <label for="dozent">Ausführender Dozent <span style="font-weight:400; color:var(--tinte-weich)">(optional)</span></label>
+        <input type="text" id="dozent" placeholder="z. B. Daniel Heyer, Hauptkommissar">
+        <p class="tipp">Nur eintragen, wenn die Person der Nennung zugestimmt hat.</p>
+      </div>
+    </div>
+
+    <div class="knopfreihe">
+      <button type="button" class="btn btn-voll" id="drucken">Drucken oder als PDF sichern</button>
+      <button type="button" class="btn" id="leeren">Felder leeren</button>
+    </div>
+    <p class="merker" id="merker"></p>
+  </form>
+
+  <!-- ══════════ VORSCHAU ══════════ -->
+  <div>
+    <div class="vorschau-kopf">
+      <h2>Vorschau</h2>
+      <span id="zaehler"></span>
+    </div>
+    <div class="blaetter" id="blaetter"></div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ══════════════════════════════════════════════════════════════
+     SCHULUNGEN — hier neue Arten ergänzen.
+     titel   = Überschrift auf dem Blatt
+     anlass  = Zeile darunter (das Datum wird automatisch angehängt)
+     norm    = fette Zeile über den Lerninhalten (leer lassen, wenn keine)
+     inhalte = Lerninhalte, einer pro Eintrag
+     Alle Texte hier sind korrekturgelesen. Wer sie ändert, prüft bitte
+     Rechtschreibung und Normbezeichnung gegen.
+     ══════════════════════════════════════════════════════════════ */
+  var SCHULUNGEN = {
+    lasi: {
+      name: "Ladungssicherung (VDI 2700a)",
+      titel: "Teilnahmebescheinigung",
+      anlass: "Ladungssicherungsschulung am",
+      norm: "Schulung für Ladungssicherung gemäß VDI 2700a",
+      inhalte: [
+        "Rechtliche Grundlagen",
+        "Physikalische Grundlagen",
+        "Aufbauten von Fahrzeugarten nach DIN EN 12640",
+        "Arten der Ladungssicherung",
+        "Ermittlung der erforderlichen Sicherungskräfte",
+        "Zurrmittel und weitere Hilfsmittel zur Ladungssicherung",
+        "Ordnungswidrigkeiten",
+        "Ladungssicherung durch Niederzurren"
+      ]
+    },
+    tacho: {
+      name: "Tachograf und Sozialvorschriften",
+      titel: "Zertifikat",
+      anlass: "Tachografschulung am",
+      norm: "",
+      inhalte: [
+        "Rechtliche Grundlagen und Neuerungen",
+        "Lenk- und Ruhezeiten",
+        "Arbeitszeitgesetz",
+        "Nachträge am Tachografen",
+        "Eintrag und Durchführung der Abfahrtkontrolle",
+        "Ländererkennung",
+        "Der neue Tachograf 4.1",
+        "Notstandsklausel nach Artikel 12 VO (EG) 561/2006",
+        "Dokumentation"
+      ]
+    },
+    stapler: {
+      name: "Gabelstapler",
+      titel: "Teilnahmebescheinigung",
+      anlass: "Staplerschulung am",
+      norm: "Ausbildung nach DGUV Grundsatz 308-001",
+      inhalte: [
+        "Rechtliche Grundlagen und Verantwortung",
+        "Aufbau und Funktion von Flurförderzeugen",
+        "Standsicherheit und Traglastdiagramm",
+        "Betriebsanweisung und tägliche Einsatzprüfung",
+        "Verhalten im Betriebsgelände",
+        "Praktische Fahrübungen und Abschlussprüfung"
+      ]
+    },
+    kran: {
+      name: "Ladekran",
+      titel: "Teilnahmebescheinigung",
+      anlass: "Ladekranschulung am",
+      norm: "Ausbildung nach DGUV Grundsatz 309-003",
+      inhalte: [
+        "Rechtliche Grundlagen und Verantwortung",
+        "Aufbau und Funktion von Ladekranen",
+        "Standsicherheit und Lastdiagramm",
+        "Anschlagmittel und deren Prüfung",
+        "Sicheres Arbeiten im Umfeld",
+        "Praktische Übungen und Abschlussprüfung"
+      ]
+    },
+    modul: {
+      name: "Weiterbildung Schlüsselzahl 95 (ein Modul)",
+      titel: "Teilnahmebescheinigung",
+      anlass: "Weiterbildung nach BKrFQG am",
+      norm: "Weiterbildung nach dem Berufskraftfahrer-Qualifikations-Gesetz",
+      inhalte: [
+        "Eco Training und Assistenzsysteme",
+        "Sozialvorschriften und Tachograf",
+        "Gefahrenwahrnehmung",
+        "Schadenprävention",
+        "Ladungssicherung"
+      ]
+    }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var felder = ["art", "datum", "ort", "von", "bis", "firma", "namen", "proBlatt", "leiter", "dozent"];
+
+  /* Auswahlliste aus den Schulungen aufbauen */
+  Object.keys(SCHULUNGEN).forEach(function (k) {
+    var o = document.createElement("option");
+    o.value = k; o.textContent = SCHULUNGEN[k].name;
+    $("art").appendChild(o);
+  });
+
+  /* Datum auf heute vorbelegen */
+  var heute = new Date();
+  $("datum").value = heute.getFullYear() + "-" +
+    String(heute.getMonth() + 1).padStart(2, "0") + "-" +
+    String(heute.getDate()).padStart(2, "0");
+
+  function datumLang(iso) {
+    if (!iso) return "";
+    var t = iso.split("-");
+    return t[2] + "." + t[1] + "." + t[0];
+  }
+
+  function blatt(firma, namen) {
+    var sch = SCHULUNGEN[$("art").value];
+    var d = datumLang($("datum").value);
+    var von = $("von").value, bis = $("bis").value;
+    var zeit = (von && bis) ? " von " + von + " bis " + bis + " Uhr" : "";
+    var wer = firma || "…";
+
+    var el = document.createElement("div");
+    el.className = "blatt";
+
+    var teilnehmerBlock = "";
+    if (namen && namen.length) {
+      teilnehmerBlock =
+        '<div class="teilnehmer"><b>' + (namen.length === 1 ? "Teilnehmer" : "Teilnehmerinnen und Teilnehmer") + '</b>' +
+        '<ol><li>' + namen.map(esc).join("</li><li>") + '</li></ol></div>';
+    }
+
+    el.innerHTML =
+      '<div class="blatt-kopf">' +
+        '<div class="bz">Bildungszentrum Sönmez</div>' +
+        '<div class="adr">Zum Lonnenhohl 23 · 44319 Dortmund · Inhaber Zülküf Sönmez</div>' +
+      '</div>' +
+      '<h3>' + esc(sch.titel) + '</h3>' +
+      '<p class="anlass">' + esc(sch.anlass) + ' ' + esc(d) + '</p>' +
+      '<p class="firma">' + esc(wer) + '</p>' +
+      '<p class="satz">' + (namen && namen.length === 1
+          ? esc(namen[0]) + ' hat am ' + esc(d) + esc(zeit) + ' erfolgreich teilgenommen.'
+          : 'Die Mitarbeiterinnen und Mitarbeiter der ' + esc(wer) + ' haben am ' + esc(d) + esc(zeit) + ' erfolgreich teilgenommen.') +
+      '</p>' +
+      (sch.norm ? '<p class="norm">' + esc(sch.norm) + '</p>' : '<p class="norm">Lerninhalte</p>') +
+      '<ul><li>' + sch.inhalte.map(esc).join("</li><li>") + '</li></ul>' +
+      teilnehmerBlock +
+      '<div class="blatt-fuss">' +
+        '<div class="sig">' + esc($("leiter").value || "") + '<br>Lehrgangsleiter</div>' +
+        ($("dozent").value ? '<div class="sig">' + esc($("dozent").value) + '<br>Ausführender Dozent</div>' : '') +
+        '<div class="ort">' + esc($("ort").value || "Dortmund") + ', den ' + esc(d) + '</div>' +
+      '</div>';
+    return el;
+  }
+
+  function esc(t) {
+    return String(t).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function zeichnen() {
+    var ziel = $("blaetter");
+    ziel.innerHTML = "";
+    var firma = $("firma").value.trim();
+    var namen = $("namen").value.split("\n").map(function (n) { return n.trim(); }).filter(Boolean);
+
+    if (!firma && !namen.length) {
+      ziel.innerHTML = '<div class="leerhinweis">Tragen Sie links eine Firma oder Namen ein. Die Vorschau zeigt dann, wie die Bescheinigung aussieht.</div>';
+      $("zaehler").textContent = "";
+      return;
+    }
+
+    if ($("proBlatt").value === "einzeln" && namen.length) {
+      namen.forEach(function (n) { ziel.appendChild(blatt(firma, [n])); });
+      $("zaehler").textContent = namen.length + (namen.length === 1 ? " Blatt" : " Blätter");
+    } else {
+      ziel.appendChild(blatt(firma, namen));
+      $("zaehler").textContent = "1 Blatt";
+    }
+    sichern();
+  }
+
+  /* Eingaben merken, damit Stammdaten nicht jedes Mal neu getippt werden */
+  var uhr;
+  function sichern() {
+    clearTimeout(uhr);
+    uhr = setTimeout(function () {
+      var d = {};
+      felder.forEach(function (f) { d[f] = $(f).value; });
+      try {
+        localStorage.setItem("bzs-zert", JSON.stringify(d));
+        $("merker").textContent = "gespeichert";
+        setTimeout(function () { $("merker").textContent = ""; }, 1500);
+      } catch (e) {}
+    }, 400);
+  }
+  try {
+    var alt = JSON.parse(localStorage.getItem("bzs-zert") || "{}");
+    felder.forEach(function (f) {
+      if (alt[f] !== undefined && f !== "firma" && f !== "namen" && f !== "datum") $(f).value = alt[f];
+    });
+  } catch (e) {}
+
+  felder.forEach(function (f) {
+    $(f).addEventListener("input", zeichnen);
+    $(f).addEventListener("change", zeichnen);
+  });
+
+  $("drucken").addEventListener("click", function () { window.print(); });
+  $("leeren").addEventListener("click", function () {
+    $("firma").value = ""; $("namen").value = "";
+    zeichnen();
+    $("firma").focus();
+  });
+
+  zeichnen();
+})();
+</script>
+</body>
+</html>
