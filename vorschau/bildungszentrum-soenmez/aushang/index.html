@@ -170,6 +170,14 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .fahrplan .was{display:block; font-size:.86rem; color:var(--tinte-weich); font-weight:400; margin-top:.1rem}
 .fahrplan .datum{font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap}
 .fahrplan .datum small{display:block; font-weight:400; color:var(--tinte-weich); font-size:.78rem}
+
+.plan-anmelden{
+  font-size:.82rem; font-weight:600; white-space:nowrap; text-decoration:none;
+  color:var(--akzent-tief); background:var(--akzent-zart); padding:.42rem .8rem; border-radius:99px;
+  border:1px solid color-mix(in oklab, var(--akzent) 22%, transparent);
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.plan-anmelden:hover{background:var(--akzent); color:var(--auf-akzent, #fff)}
 .marke-status{font-size:.73rem; font-weight:600; padding:.22rem .5rem; white-space:nowrap}
 .st-frei{background:var(--gruen-zart); color:var(--gruen)}
 .st-wenige{background:var(--akzent-zart); color:var(--akzent-tief)}
@@ -459,46 +467,12 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
       <p>Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen.</p>
     </div>
 
-    <!-- TERMINE — hier monatlich pflegen. Eine Zeile pro Kurstag.
-         Status-Klasse: st-frei · st-wenige · st-voll
-         ⚠️ Aktuell Beispieltermine. Echte Termine von Herrn Sönmez einsetzen. -->
+    <!-- Die Termine werden aus TERMINPLAN im Skript unten berechnet.
+         Hier steht bewusst nichts fest Eingetragenes mehr. -->
     <div class="tabelle-rahmen">
       <table class="fahrplan">
-        <thead>
-          <tr><th>Nr.</th><th>Modul</th><th>Termin</th><th>Plätze</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="nr">1</td>
-            <td><span class="titel">Eco Training &amp; Assistenzsysteme</span><span class="was">Kraftstoff sparen, Assistenzsysteme sicher nutzen</span></td>
-            <td class="datum">Sa 05.09.2026<small>08:00 – 16:00 Uhr</small></td>
-            <td class="status-zelle"><span class="marke-status st-frei">Plätze frei</span></td>
-          </tr>
-          <tr>
-            <td class="nr">2</td>
-            <td><span class="titel">Sozialvorschriften &amp; Tachograf</span><span class="was">Lenk- und Ruhezeiten, Kontrollen sicher bestehen</span></td>
-            <td class="datum">Sa 12.09.2026<small>08:00 – 16:00 Uhr</small></td>
-            <td class="status-zelle"><span class="marke-status st-wenige">Noch wenige</span></td>
-          </tr>
-          <tr>
-            <td class="nr">3</td>
-            <td><span class="titel">Gefahrenwahrnehmung</span><span class="was">Kritische Situationen früher erkennen</span></td>
-            <td class="datum">Sa 19.09.2026<small>08:00 – 16:00 Uhr</small></td>
-            <td class="status-zelle"><span class="marke-status st-frei">Plätze frei</span></td>
-          </tr>
-          <tr>
-            <td class="nr">4</td>
-            <td><span class="titel">Schadenprävention</span><span class="was">Unfälle und teure Schäden vermeiden</span></td>
-            <td class="datum">Sa 26.09.2026<small>08:00 – 16:00 Uhr</small></td>
-            <td class="status-zelle"><span class="marke-status st-frei">Plätze frei</span></td>
-          </tr>
-          <tr>
-            <td class="nr">5</td>
-            <td><span class="titel">Ladungssicherung</span><span class="was">Sicher zurren, Bußgelder und Haftung vermeiden</span></td>
-            <td class="datum">Sa 03.10.2026<small>08:00 – 16:00 Uhr</small></td>
-            <td class="status-zelle"><span class="marke-status st-voll">Warteliste</span></td>
-          </tr>
-        </tbody>
+        <thead><tr><th>Nr.</th><th>Modul</th><th>Termin</th><th>Anmeldung</th></tr></thead>
+        <tbody id="terminliste"></tbody>
       </table>
     </div>
 
@@ -780,6 +754,88 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   kopfSetzen();
 
 
+
+  /* ══════════════════════════════════════════════════════════════════
+     TERMINPLAN — die einzige Stelle, die je angefasst werden muss.
+
+     Die Termine werden aus dieser Regel berechnet, nicht eingetippt.
+     Grundlage ist der Rhythmus aus dem eigenen Aushang: jeden Samstag
+     ein Modul, Reihenfolge 1 bis 5, dann wieder von vorn.
+
+     ÄNDERN muss man hier nur etwas, wenn sich der Rhythmus ändert
+     (anderer Wochentag, andere Uhrzeit) oder wenn ein Termin ausfällt —
+     dann das Datum in "ausfall" eintragen, Format JJJJ-MM-TT.
+     ══════════════════════════════════════════════════════════════════ */
+  var TERMINPLAN = {
+    wochentag: 6,            /* 0 = Sonntag … 6 = Samstag */
+    beginn: "08:00",
+    ende:   "16:00",
+    anker:  { datum: "2026-07-18", modul: 1 },   /* an diesem Tag lief Modul 1 */
+    anzeigen: 5,             /* wie viele Termine die Seite zeigt */
+    ausfall: [               /* Tage ohne Kurs (Feiertage, Urlaub) */
+      /* "2026-12-26", */
+    ],
+    module: [
+      { nr: 1, titel: "Eco Training & Assistenzsysteme", was: "Kraftstoff sparen, Assistenzsysteme sicher nutzen", wasTr: "Yakıt tasarrufu, asistan sistemlerini güvenle kullanma" },
+      { nr: 2, titel: "Sozialvorschriften & Tachograf",  was: "Lenk- und Ruhezeiten, Kontrollen sicher bestehen",  wasTr: "Sürüş ve dinlenme süreleri, denetimleri sorunsuz geçme" },
+      { nr: 3, titel: "Gefahrenwahrnehmung",             was: "Kritische Situationen früher erkennen",             wasTr: "Riskli durumları erken fark etme" },
+      { nr: 4, titel: "Schadenprävention",               was: "Unfälle und teure Schäden vermeiden",               wasTr: "Kaza ve pahalı hasarları önleme" },
+      { nr: 5, titel: "Ladungssicherung",                was: "Sicher zurren, Bußgelder und Haftung vermeiden",    wasTr: "Güvenli yükleme, ceza ve sorumluluktan kaçınma" }
+    ]
+  };
+
+  function terminListe() {
+    var P = TERMINPLAN;
+    var anker = new Date(P.anker.datum + "T00:00:00");
+    var heute = new Date(); heute.setHours(0, 0, 0, 0);
+
+    /* Beim nächsten passenden Wochentag ab heute beginnen */
+    var d = new Date(heute);
+    while (d.getDay() !== P.wochentag) d.setDate(d.getDate() + 1);
+
+    var raus = [], schutz = 0;
+    while (raus.length < P.anzeigen && schutz++ < 400) {
+      var iso = d.getFullYear() + "-" +
+                String(d.getMonth() + 1).padStart(2, "0") + "-" +
+                String(d.getDate()).padStart(2, "0");
+      if (P.ausfall.indexOf(iso) === -1) {
+        var wochen = Math.round((d - anker) / 604800000);
+        var i = (((wochen + P.anker.modul - 1) % P.module.length) + P.module.length) % P.module.length;
+        raus.push({ datum: new Date(d), modul: P.module[i] });
+      }
+      d.setDate(d.getDate() + 7);
+    }
+    return raus;
+  }
+
+  function terminZeichnen() {
+    var ziel = document.getElementById("terminliste");
+    if (!ziel) return;
+    var tr = document.documentElement.lang === "tr";
+    var wtag = tr ? ["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"] : ["So","Mo","Di","Mi","Do","Fr","Sa"];
+    var P = TERMINPLAN;
+    ziel.innerHTML = "";
+
+    terminListe().forEach(function (t) {
+      var d = t.datum;
+      var datum = String(d.getDate()).padStart(2, "0") + "." +
+                  String(d.getMonth() + 1).padStart(2, "0") + "." + d.getFullYear();
+      var frage = (tr
+        ? "Merhaba, " + datum + " tarihli " + t.modul.nr + ". modül (" + t.modul.titel + ") için yer ayırtmak istiyorum."
+        : "Guten Tag, ich möchte mich für Modul " + t.modul.nr + " (" + t.modul.titel + ") am " + datum + " anmelden.");
+      var zeile = document.createElement("tr");
+      zeile.innerHTML =
+        '<td class="nr">' + t.modul.nr + '</td>' +
+        '<td><span class="titel">' + t.modul.titel + '</span>' +
+        '<span class="was">' + t.modul.was + '</span></td>' +
+        '<td class="datum">' + wtag[d.getDay()] + " " + datum +
+          '<small>' + P.beginn + " – " + P.ende + ' Uhr</small></td>' +
+        '<td class="status-zelle"><a class="plan-anmelden" href="https://wa.me/491739324879?text=' +
+          encodeURIComponent(frage) + '" target="_blank" rel="noopener">Platz anfragen</a></td>';
+      ziel.appendChild(zeile);
+    });
+  }
+
   /* ══════════ Fristen-Rechner ══════════
      Rechnet nur Tage bis zum eingegebenen Datum. Bewusst keine
      Rechtsauskunft: verbindlich ist der Nachweis des Fahrers. */
@@ -826,6 +882,8 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     feld.addEventListener("change", rechne);
     rechne();
   })();
+
+  terminZeichnen();
 
   document.getElementById("anfrage").addEventListener("submit", function (e) {
     e.preventDefault();

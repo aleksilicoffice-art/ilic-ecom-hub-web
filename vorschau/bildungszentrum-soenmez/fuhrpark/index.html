@@ -205,6 +205,14 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   .plan-datum{grid-column:2; text-align:left}
   .plan-status{grid-column:2; justify-self:start}
 }
+
+.plan-anmelden{
+  font-size:.82rem; font-weight:600; white-space:nowrap; text-decoration:none;
+  color:var(--akzent-tief); background:var(--akzent-zart); padding:.42rem .8rem; border-radius:99px;
+  border:1px solid color-mix(in oklab, var(--akzent) 22%, transparent);
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.plan-anmelden:hover{background:var(--akzent); color:var(--auf-akzent, #fff)}
 .plan-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; margin-top:1.4rem}
 
 /* ══════════ Schulungen ══════════ */
@@ -541,41 +549,9 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
       <p class="fuehrt" data-de="Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen." data-tr="Modüller tek tek ve istediğiniz sırayla alınabilir. 1. modülden başlamak zorunda değilsiniz.">Die Module lassen sich einzeln und in beliebiger Reihenfolge belegen. Sie müssen nicht bei Modul 1 anfangen.</p>
     </div>
 
-    <!-- TERMINE — hier monatlich pflegen. Eine Zeile pro Kurstag.
-         Status-Klasse: st-frei · st-wenige · st-voll
-         ⚠️ Aktuell Beispieltermine. Echte Termine von Herrn Sönmez einsetzen. -->
-    <div class="plan">
-      <div class="plan-zeile">
-        <span class="mod">1</span>
-        <span><span class="plan-titel">Eco Training &amp; Assistenzsysteme</span><span class="plan-was" data-de="Kraftstoff sparen, Assistenzsysteme sicher nutzen" data-tr="Yakıt tasarrufu, asistan sistemlerini güvenle kullanma">Kraftstoff sparen, Assistenzsysteme sicher nutzen</span></span>
-        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 05.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
-        <span class="plan-status st-frei" data-de="Plätze frei" data-tr="Yer var">Plätze frei</span>
-      </div>
-      <div class="plan-zeile">
-        <span class="mod">2</span>
-        <span><span class="plan-titel">Sozialvorschriften &amp; Tachograf</span><span class="plan-was" data-de="Lenk- und Ruhezeiten, Kontrollen sicher bestehen" data-tr="Sürüş ve dinlenme süreleri, denetimleri sorunsuz geçme">Lenk- und Ruhezeiten, Kontrollen sicher bestehen</span></span>
-        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 12.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
-        <span class="plan-status st-wenige" data-de="Noch wenige Plätze" data-tr="Az yer kaldı">Noch wenige Plätze</span>
-      </div>
-      <div class="plan-zeile">
-        <span class="mod">3</span>
-        <span><span class="plan-titel">Gefahrenwahrnehmung</span><span class="plan-was" data-de="Kritische Situationen früher erkennen" data-tr="Riskli durumları erken fark etme">Kritische Situationen früher erkennen</span></span>
-        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 19.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
-        <span class="plan-status st-frei">Plätze frei</span>
-      </div>
-      <div class="plan-zeile">
-        <span class="mod">4</span>
-        <span><span class="plan-titel">Schadenprävention</span><span class="plan-was" data-de="Unfälle und teure Schäden vermeiden" data-tr="Kaza ve pahalı hasarları önleme">Unfälle und teure Schäden vermeiden</span></span>
-        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 26.09.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
-        <span class="plan-status st-frei">Plätze frei</span>
-      </div>
-      <div class="plan-zeile">
-        <span class="mod">5</span>
-        <span><span class="plan-titel">Ladungssicherung</span><span class="plan-was" data-de="Sicher zurren, Bußgelder und Haftung vermeiden" data-tr="Güvenli yükleme, ceza ve sorumluluktan kaçınma">Sicher zurren, Bußgelder und Haftung vermeiden</span></span>
-        <span class="plan-datum"><span data-de="Sa" data-tr="Cmt">Sa</span> 03.10.2026<small>08:00 – 16:00<span data-de=" Uhr" data-tr=""> Uhr</span></small></span>
-        <span class="plan-status st-voll" data-de="Warteliste" data-tr="Bekleme listesi">Warteliste</span>
-      </div>
-    </div>
+    <!-- Die Termine werden aus TERMINPLAN im Skript unten berechnet.
+         Hier steht bewusst nichts fest Eingetragenes mehr. -->
+    <div class="plan" id="terminliste"></div>
 
     <div class="plan-fuss">
       <p class="weich" style="font-size:.93rem; max-width:42em" data-de="Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein." data-tr="Başka bir tarihe ya da işletmenize özel kapalı gruba mı ihtiyacınız var? Anlaşmaya göre de kurs açıyoruz.">Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein.</p>
@@ -841,6 +817,90 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     b.disabled = true;
   });
 
+  /* ══════════════════════════════════════════════════════════════════
+     TERMINPLAN — die einzige Stelle, die je angefasst werden muss.
+
+     Die Termine werden aus dieser Regel berechnet, nicht eingetippt.
+     Grundlage ist der Rhythmus aus dem eigenen Aushang: jeden Samstag
+     ein Modul, Reihenfolge 1 bis 5, dann wieder von vorn.
+
+     ÄNDERN muss man hier nur etwas, wenn sich der Rhythmus ändert
+     (anderer Wochentag, andere Uhrzeit) oder wenn ein Termin ausfällt —
+     dann das Datum in "ausfall" eintragen, Format JJJJ-MM-TT.
+     ══════════════════════════════════════════════════════════════════ */
+  var TERMINPLAN = {
+    wochentag: 6,            /* 0 = Sonntag … 6 = Samstag */
+    beginn: "08:00",
+    ende:   "16:00",
+    anker:  { datum: "2026-07-18", modul: 1 },   /* an diesem Tag lief Modul 1 */
+    anzeigen: 5,             /* wie viele Termine die Seite zeigt */
+    ausfall: [               /* Tage ohne Kurs (Feiertage, Urlaub) */
+      /* "2026-12-26", */
+    ],
+    module: [
+      { nr: 1, titel: "Eco Training & Assistenzsysteme", was: "Kraftstoff sparen, Assistenzsysteme sicher nutzen", wasTr: "Yakıt tasarrufu, asistan sistemlerini güvenle kullanma" },
+      { nr: 2, titel: "Sozialvorschriften & Tachograf",  was: "Lenk- und Ruhezeiten, Kontrollen sicher bestehen",  wasTr: "Sürüş ve dinlenme süreleri, denetimleri sorunsuz geçme" },
+      { nr: 3, titel: "Gefahrenwahrnehmung",             was: "Kritische Situationen früher erkennen",             wasTr: "Riskli durumları erken fark etme" },
+      { nr: 4, titel: "Schadenprävention",               was: "Unfälle und teure Schäden vermeiden",               wasTr: "Kaza ve pahalı hasarları önleme" },
+      { nr: 5, titel: "Ladungssicherung",                was: "Sicher zurren, Bußgelder und Haftung vermeiden",    wasTr: "Güvenli yükleme, ceza ve sorumluluktan kaçınma" }
+    ]
+  };
+
+  function terminListe() {
+    var P = TERMINPLAN;
+    var anker = new Date(P.anker.datum + "T00:00:00");
+    var heute = new Date(); heute.setHours(0, 0, 0, 0);
+
+    /* Beim nächsten passenden Wochentag ab heute beginnen */
+    var d = new Date(heute);
+    while (d.getDay() !== P.wochentag) d.setDate(d.getDate() + 1);
+
+    var raus = [], schutz = 0;
+    while (raus.length < P.anzeigen && schutz++ < 400) {
+      var iso = d.getFullYear() + "-" +
+                String(d.getMonth() + 1).padStart(2, "0") + "-" +
+                String(d.getDate()).padStart(2, "0");
+      if (P.ausfall.indexOf(iso) === -1) {
+        var wochen = Math.round((d - anker) / 604800000);
+        var i = (((wochen + P.anker.modul - 1) % P.module.length) + P.module.length) % P.module.length;
+        raus.push({ datum: new Date(d), modul: P.module[i] });
+      }
+      d.setDate(d.getDate() + 7);
+    }
+    return raus;
+  }
+
+  function terminZeichnen() {
+    var ziel = document.getElementById("terminliste");
+    if (!ziel) return;
+    var tr = document.documentElement.lang === "tr";
+    var wtag = tr ? ["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"] : ["So","Mo","Di","Mi","Do","Fr","Sa"];
+    var P = TERMINPLAN;
+    ziel.innerHTML = "";
+
+    terminListe().forEach(function (t) {
+      var d = t.datum;
+      var datum = String(d.getDate()).padStart(2, "0") + "." +
+                  String(d.getMonth() + 1).padStart(2, "0") + "." + d.getFullYear();
+      var frage = (tr
+        ? "Merhaba, " + datum + " tarihli " + t.modul.nr + ". modül (" + t.modul.titel + ") için yer ayırtmak istiyorum."
+        : "Guten Tag, ich möchte mich für Modul " + t.modul.nr + " (" + t.modul.titel + ") am " + datum + " anmelden.");
+      var zeile = document.createElement("div");
+      zeile.className = "plan-zeile";
+      zeile.innerHTML =
+        '<span class="mod">' + t.modul.nr + '</span>' +
+        '<span><span class="plan-titel">' + t.modul.titel + '</span>' +
+        '<span class="plan-was">' + (tr ? t.modul.wasTr : t.modul.was) + '</span></span>' +
+        '<span class="plan-datum">' + wtag[d.getDay()] + " " + datum +
+          '<small>' + P.beginn + " – " + P.ende + (tr ? "" : " Uhr") + '</small></span>' +
+        '<a class="plan-anmelden" href="https://wa.me/491739324879?text=' + encodeURIComponent(frage) + '" target="_blank" rel="noopener">' +
+          (tr ? "Yer ayırt" : "Platz anfragen") + '</a>';
+      ziel.appendChild(zeile);
+    });
+  }
+
+  terminZeichnen();
+
   /* ═══ Bewegung nur, wenn erwünscht und GSAP geladen ═══ */
   var reduziert = window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
                   /[?&]statisch/.test(location.search);
@@ -949,6 +1009,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         b.setAttribute("aria-pressed", String(b.dataset.sprache === sp));
       });
       if (typeof window.rechnerNeu === "function") window.rechnerNeu();
+      if (typeof terminZeichnen === "function") terminZeichnen();
       if (merken) { try { localStorage.setItem("bzs-sprache", sp); } catch (e) {} }
     }
 
@@ -964,6 +1025,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     if (start !== "de") setzen(start, false);
     else knoepfe.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.sprache === "de")); });
   })();
+
 
   /* ══════════ Fristen-Rechner ══════════
      Rechnet nur Tage bis zum eingegebenen Datum. Bewusst keine
