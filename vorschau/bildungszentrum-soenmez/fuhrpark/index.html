@@ -442,7 +442,7 @@ img{max-width:100%; display:block}
 section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .kopfzeile{max-width:44rem; margin-bottom:clamp(2rem,4vw,3rem)}
 
-.fragen{display:grid; gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:10px; overflow:hidden}
+.fragen{display:grid; grid-template-columns:minmax(0,1fr); gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:10px; overflow:hidden}
 @media (min-width:46rem){.fragen{grid-template-columns:1fr 1fr}}
 .frage{background:var(--weiss); padding:clamp(1.3rem,2.8vw,1.9rem)}
 .frage h3{margin-bottom:.55rem; display:flex; gap:.6rem; align-items:baseline}
@@ -511,10 +511,11 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .plan-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; margin-top:1.4rem}
 
 /* ══════════ Schulungen ══════════ */
-.kurse{display:grid; gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:12px; overflow:hidden}
+.kurse{display:grid; grid-template-columns:minmax(0,1fr); gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:12px; overflow:hidden}
 @media (min-width:48rem){.kurse{grid-template-columns:1fr 1fr}}
 .kurs{background:var(--weiss); padding:clamp(1.3rem,2.8vw,1.9rem); display:flex; flex-direction:column; gap:.5rem}
-.kurs-kopf{display:flex; align-items:baseline; justify-content:space-between; gap:1rem}
+.kurs-kopf{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; min-width:0}
+.kurs-kopf h3{min-width:0}
 .kurs .preis{font-family:var(--disp); font-weight:800; font-size:1.22rem; color:var(--akzent-tief); white-space:nowrap; font-variant-numeric:tabular-nums}
 .kurs .preis small{display:block; font-weight:400; font-size:.72rem; color:var(--tinte-weich); text-align:right; margin-top:.1rem}
 .kurs p{font-size:.94rem; color:var(--tinte-weich)}
