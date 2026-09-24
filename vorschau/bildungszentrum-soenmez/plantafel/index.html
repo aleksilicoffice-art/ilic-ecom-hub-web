@@ -666,12 +666,12 @@ section[id],div[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .fragen details p{padding:0 0 1.1rem; color:var(--tinte-weich); font-size:1rem; max-width:64ch}
 
 /* ══════════ 09 · Kontakt ══════════ */
-.kontakt-raster{display:grid; gap:2.4rem; margin-top:clamp(1.6rem, 3vw, 2.4rem)}
+.kontakt-raster{display:grid; grid-template-columns:minmax(0,1fr); gap:2.4rem; margin-top:clamp(1.6rem, 3vw, 2.4rem)}
 @media (min-width:60rem){.kontakt-raster{grid-template-columns:5fr 7fr; align-items:start}}
 .kontakt-zeilen{border-top:1px solid var(--tinte)}
 .kontakt-zeile{display:grid; grid-template-columns:6.5rem 1fr; gap:.4rem 1rem; padding:.85rem 0; border-bottom:1px solid var(--linie)}
 .kontakt-zeile .k{font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--tinte-weich); font-weight:700; padding-top:.3rem}
-.kontakt-zeile .v{font-weight:700}
+.kontakt-zeile .v{font-weight:700; min-width:0; overflow-wrap:anywhere}
 .kontakt-zeile .v a{text-decoration:none}
 .kontakt-zeile .v a:hover{text-decoration:underline; text-underline-offset:4px}
 .kontakt-zeile .v small{display:block; font-weight:400; color:var(--tinte-weich); font-size:.9rem; margin-top:.1rem}

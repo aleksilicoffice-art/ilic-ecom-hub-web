@@ -1,0 +1,614 @@
+/* ══════════════════════════════════════════════════════════════════
+   ENTWURF A · gemeinsamer Stil für Startseite und alle Unterseiten
+   (fuhrpark/index.html, spedition/, fahrer/, ueber-uns/, fotos/).
+   Eine Quelle: Änderungen hier gelten überall. Die tr/- und en/-Fassung
+   binden ../stil.css ein (setzt _bauen.mjs automatisch).
+   ══════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   TERMINE PFLEGEN → weiter unten der Block <!-- TERMINE -->.
+   Dort eine Zeile pro Kurstag ändern, sonst nichts anfassen.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --papier:      oklch(0.985 0.002 250);
+  --weiss:       oklch(1 0 0);
+  --sand:        oklch(0.955 0.004 250);
+  --tinte:       oklch(0.22 0.012 258);
+  --tinte-weich: oklch(0.47 0.012 258);
+  --linie:       oklch(0.90 0.006 255);
+  --linie-zart:  oklch(0.945 0.004 255);
+  --akzent:      oklch(0.52 0.196 27);
+  --akzent-tief: oklch(0.42 0.17 27);
+  --akzent-zart: oklch(0.965 0.018 27);
+  --gruen:       oklch(0.50 0.11 155);
+  --gruen-zart:  oklch(0.955 0.025 155);
+  --auf-akzent:  oklch(1 0 0);
+  --disp:"Archivo",-apple-system,"Segoe UI",sans-serif;
+  --sans:"Archivo",-apple-system,"Segoe UI",sans-serif;
+  --maxw:1140px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+/* Blau — sachlich, behördennah */
+.farbe-blau{
+  --akzent:oklch(0.44 0.135 252); --akzent-tief:oklch(0.35 0.12 252); --akzent-zart:oklch(0.965 0.016 252);
+  --tinte:oklch(0.21 0.02 255); --tinte-weich:oklch(0.46 0.016 255); --linie:oklch(0.90 0.008 252);
+}
+/* Sand — wärmer, ruhiger */
+.farbe-sand{
+  --papier:oklch(0.975 0.008 85); --sand:oklch(0.945 0.012 85);
+  --tinte:oklch(0.24 0.014 70); --tinte-weich:oklch(0.48 0.014 70);
+  --linie:oklch(0.89 0.012 82); --linie-zart:oklch(0.935 0.01 84);
+  --akzent:oklch(0.47 0.13 42); --akzent-tief:oklch(0.38 0.11 42); --akzent-zart:oklch(0.955 0.022 42);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--papier); color:var(--tinte);
+  font-family:var(--sans); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--disp); margin:0; line-height:1.06; letter-spacing:-.028em; text-wrap:balance; font-weight:700}
+h1{font-size:clamp(2.15rem,5.4vw,4rem); font-weight:800}
+h2{font-size:clamp(1.6rem,3.5vw,2.5rem)}
+h3{font-size:1.18rem; letter-spacing:-.015em}
+p{margin:0}
+a{color:inherit}
+img{max-width:100%; display:block}
+.spalte{width:min(var(--maxw),100% - 2.6rem); margin-inline:auto}
+.zahl{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--akzent); outline-offset:3px; border-radius:3px}
+::selection{background:var(--akzent); color:var(--auf-akzent)}
+
+.kicker{font-size:.75rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--akzent); margin-bottom:.9rem}
+.fuehrt{font-size:clamp(1.02rem,1.5vw,1.16rem); color:var(--tinte-weich); max-width:38em; margin-top:1.1rem}
+.weich{color:var(--tinte-weich)}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  min-height:50px; padding:0 1.35rem; border-radius:6px; border:1px solid transparent;
+  font-family:var(--sans); font-weight:600; font-size:1rem; text-decoration:none; cursor:pointer;
+  transition:filter .18s var(--ease), border-color .18s var(--ease);
+}
+.btn-voll{background:var(--akzent); color:var(--auf-akzent)}
+.btn-voll:hover{filter:brightness(1.09)}
+.btn-rand{background:transparent; color:var(--tinte); border-color:var(--linie)}
+.btn-rand:hover{border-color:var(--tinte-weich)}
+.btn-weiss{background:var(--weiss); color:var(--tinte)}
+.btn-weiss:hover{filter:brightness(.96)}
+
+/* ═══ Entwurfsleiste + Kopf ═══ */
+.oben{position:fixed; inset:0 0 auto; z-index:50}
+.entwurf{
+  background:var(--tinte); color:var(--papier); font-size:.76rem; line-height:1.4;
+  padding:.5rem 1rem; display:flex; flex-wrap:wrap; gap:.3rem 1rem; align-items:center; justify-content:center;
+}
+.farbwahl{display:inline-flex; gap:.35rem; align-items:center}
+.farbwahl button{
+  width:20px; height:20px; border-radius:50%; border:2px solid transparent; cursor:pointer; padding:0;
+  outline-offset:2px; transition:transform .15s var(--ease), border-color .15s var(--ease);
+}
+.farbwahl button:hover{transform:scale(1.14)}
+.farbwahl button[aria-pressed="true"]{border-color:var(--papier)}
+.f-rot{background:#c2192a} .f-blau{background:#1e4e8c} .f-sand{background:#a8541f}
+
+.kopf{background:color-mix(in oklab, var(--papier) 84%, transparent); backdrop-filter:blur(16px); border-bottom:1px solid transparent; transition:border-color .25s var(--ease), background-color .25s var(--ease)}
+.kopf.fest{border-bottom-color:var(--linie); background:color-mix(in oklab, var(--papier) 95%, transparent)}
+.kopf-innen{display:flex; align-items:center; gap:1.4rem; padding-block:.8rem}
+.marke{display:inline-flex; flex-direction:column; gap:.14em; line-height:1; text-decoration:none; margin-right:auto}
+.marke .balken{background:var(--akzent); color:var(--auf-akzent); font-family:var(--disp); font-weight:700; letter-spacing:.06em; font-size:.6em; padding:.28em .5em .3em; align-self:flex-start}
+.marke .name{display:flex; align-items:center; gap:.36em; font-family:var(--disp); font-weight:800; font-size:1.3rem; letter-spacing:-.02em}
+.marke .name svg{height:.72em; width:auto; flex:none; color:var(--tinte-weich)}
+.kopf-nav{display:flex; gap:1.6rem; font-size:.94rem; font-weight:500}
+.kopf-nav a{color:var(--tinte-weich); text-decoration:none; display:inline-flex; align-items:center; min-height:44px; padding-block:.3rem; border-bottom:2px solid transparent; transition:color .18s, border-color .18s}
+.kopf-nav a:hover{color:var(--tinte); border-bottom-color:var(--akzent)}
+.sprachwahl{display:flex; border:1px solid var(--linie); border-radius:6px; overflow:hidden; flex:none}
+.sprachwahl a{
+  text-decoration:none; display:inline-flex; align-items:center; justify-content:center; min-height:44px; min-width:44px;
+  background:transparent; border:0; padding:.4rem .7rem; cursor:pointer; font-family:var(--sans);
+  font-weight:700; font-size:.82rem; letter-spacing:.04em; color:var(--tinte-weich);
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.sprachwahl a:hover{color:var(--tinte)}
+.sprachwahl a[aria-current="page"]{background:var(--akzent); color:var(--auf-akzent)}
+.kopf-tel svg{width:20px; height:20px; flex:none}
+@media (max-width:1000px){.kopf-nav{display:none} .marke .name{font-size:1.12rem}}
+@media (max-width:640px){
+  .kopf-innen{gap:.7rem}
+  .kopf-tel{padding-inline:.85rem}
+  .kopf-tel .tel-nr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  .sprachwahl a{padding-inline:.55rem}
+}
+
+/* ══════════ 1 · EINSTIEG — ein Bild, eine Aussage, zwei Wege ══════════ */
+.einstieg{padding-top:calc(var(--kopf-hoehe, 8.5rem) + clamp(1.5rem,4vh,3rem)); padding-bottom:clamp(3rem,7vw,5rem)}
+.einstieg-raster{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media (min-width:60rem){.einstieg-raster{grid-template-columns:1.02fr .98fr}}
+.einstieg h1{margin-block:.5rem 0}
+.einstieg h1 span{color:var(--akzent)}
+.einstieg-cta{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2rem}
+.bildrahmen{position:relative; border-radius:12px; overflow:hidden; background:var(--sand); aspect-ratio:4/3}
+.bildrahmen img{width:100%; height:100%; object-fit:cover}
+@media (max-width:60rem){.bildrahmen{aspect-ratio:16/10}}
+
+.band{border-block:1px solid var(--linie); background:var(--weiss)}
+.band-innen{display:grid; grid-template-columns:repeat(2,1fr)}
+@media (min-width:56rem){.band-innen{grid-template-columns:repeat(4,1fr)}}
+.band-zelle{padding:clamp(1.4rem,3vw,2.1rem) 1.2rem; border-left:1px solid var(--linie-zart); text-align:center}
+.band-zelle:first-child{border-left:0}
+@media (max-width:56rem){
+  .band-zelle:nth-child(-n+2){border-bottom:1px solid var(--linie-zart)}
+  .band-zelle:nth-child(odd){border-left:0}
+}
+.band-zelle .w{font-family:var(--disp); font-weight:800; font-size:clamp(1.7rem,3.4vw,2.4rem); letter-spacing:-.035em; line-height:1}
+.band-zelle .w em{font-style:normal; font-size:.5em; color:var(--akzent); vertical-align:.32em; margin-right:.12em; letter-spacing:0}
+.band-zelle .b{font-size:.86rem; color:var(--tinte-weich); margin-top:.5rem; line-height:1.35}
+
+/* ══════════ Abschnitte ══════════ */
+.abs{padding-block:clamp(3.5rem,8vw,6.5rem)}
+.abs.weiss{background:var(--weiss); border-block:1px solid var(--linie)}
+.abs.sand{background:var(--sand)}
+section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
+.kopfzeile{max-width:44rem; margin-bottom:clamp(2rem,4vw,3rem)}
+
+.fragen{display:grid; grid-template-columns:minmax(0,1fr); gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:10px; overflow:hidden}
+@media (min-width:46rem){.fragen{grid-template-columns:1fr 1fr}}
+.frage{background:var(--weiss); padding:clamp(1.3rem,2.8vw,1.9rem)}
+.frage h3{margin-bottom:.55rem; display:flex; gap:.6rem; align-items:baseline}
+.frage h3::before{content:"?"; color:var(--akzent); font-weight:800; font-size:1.1em; line-height:1}
+.frage p{font-size:.97rem; color:var(--tinte-weich)}
+.frage b{color:var(--tinte); font-weight:600}
+
+.wege{display:grid; gap:1.3rem}
+@media (min-width:56rem){.wege{grid-template-columns:1.2fr 1fr; align-items:stretch}}
+.weg{border:1px solid var(--linie); border-radius:12px; padding:clamp(1.5rem,3.2vw,2.3rem); display:flex; flex-direction:column; gap:.9rem; background:var(--weiss)}
+.weg.haupt{background:var(--akzent); border-color:var(--akzent); color:var(--auf-akzent)}
+.weg.haupt .kicker{color:var(--auf-akzent)}
+.weg.haupt li{color:color-mix(in oklab, var(--auf-akzent) 92%, transparent)}
+.weg ul{margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:.5rem; font-size:.97rem; color:var(--tinte-weich)}
+.weg .btn{align-self:flex-start; margin-top:auto}
+
+/* ══════════ Die Frist ══════════ */
+.zwei-spalten{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media (min-width:60rem){.zwei-spalten{grid-template-columns:1fr 1.1fr}}
+.flotte{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(.7rem,2vw,1.4rem); align-items:end}
+.fzg{display:flex; flex-direction:column; align-items:center; gap:.6rem}
+.fzg svg{width:100%; height:auto}
+.fzg .korpus{fill:var(--tinte-weich); transition:fill .5s var(--ease)}
+.fzg .glas{fill:var(--sand)}
+.fzg .rad{fill:var(--tinte)}
+.fzg .band-rot{fill:var(--akzent)}
+.fzg .marke-frist{
+  font-size:.72rem; font-weight:600; padding:.26rem .55rem; border-radius:99px; white-space:nowrap;
+  background:var(--gruen-zart); color:var(--gruen); border:1px solid color-mix(in oklab, var(--gruen) 30%, transparent);
+  transition:background-color .45s var(--ease), color .45s var(--ease), border-color .45s var(--ease);
+}
+.fzg[data-frist="weg"] .korpus{fill:color-mix(in oklab, var(--akzent) 24%, var(--linie))}
+.fzg[data-frist="weg"] .marke-frist{background:var(--akzent-zart); color:var(--akzent-tief); border-color:color-mix(in oklab, var(--akzent) 34%, transparent)}
+.frist-satz{font-size:clamp(1.05rem,2vw,1.3rem); font-weight:600; margin-top:1.8rem; min-height:2.8em; line-height:1.45}
+.frist-satz b{color:var(--akzent)}
+
+/* ══════════ Termine ══════════ */
+.plan{border:1px solid var(--linie); border-radius:12px; overflow:hidden; background:var(--weiss)}
+.plan-zeile{display:grid; grid-template-columns:auto 1fr auto auto; gap:1rem; align-items:center; padding:1.05rem clamp(1rem,2.4vw,1.5rem); border-top:1px solid var(--linie-zart)}
+.plan-zeile:first-child{border-top:0}
+.plan-zeile:hover{background:var(--akzent-zart)}
+.mod{width:2.5rem; height:2.5rem; flex:none; border-radius:7px; display:grid; place-items:center; background:var(--akzent-zart); color:var(--akzent-tief); font-family:var(--disp); font-weight:800; font-size:1.02rem}
+.plan-titel{font-weight:600}
+.plan-was{display:block; font-size:.85rem; color:var(--tinte-weich); margin-top:.12rem}
+.plan-datum{text-align:right; font-weight:600; font-variant-numeric:tabular-nums}
+.plan-datum small{display:block; color:var(--tinte-weich); font-size:.79rem; font-weight:400}
+.plan-status{font-size:.74rem; font-weight:600; padding:.24rem .55rem; border-radius:99px; white-space:nowrap}
+.st-frei{background:var(--gruen-zart); color:var(--gruen)}
+.st-wenige{background:var(--akzent-zart); color:var(--akzent-tief)}
+.st-voll{background:var(--sand); color:var(--tinte-weich)}
+@media (max-width:48rem){
+  .plan-zeile{grid-template-columns:2.5rem 1fr; gap:.45rem 1rem}
+  .plan-datum{grid-column:2; text-align:left}
+  .plan-status{grid-column:2; justify-self:start}
+  .plan-anmelden{grid-column:2; justify-self:start; margin-top:.2rem}
+}
+
+.plan-anmelden{
+  display:inline-flex; align-items:center; min-height:44px;
+  font-size:.82rem; font-weight:600; white-space:nowrap; text-decoration:none;
+  color:var(--akzent-tief); background:var(--akzent-zart); padding:.3rem .95rem; border-radius:99px;
+  border:1px solid color-mix(in oklab, var(--akzent) 22%, transparent);
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.plan-anmelden:hover{background:var(--akzent); color:var(--auf-akzent, #fff)}
+.plan-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; margin-top:1.4rem}
+
+/* ══════════ Schulungen ══════════ */
+.kurse{display:grid; grid-template-columns:minmax(0,1fr); gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:12px; overflow:hidden}
+@media (min-width:48rem){.kurse{grid-template-columns:1fr 1fr}}
+.kurs{background:var(--weiss); padding:clamp(1.3rem,2.8vw,1.9rem); display:flex; flex-direction:column; gap:.5rem}
+.kurs-kopf{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; min-width:0}
+.kurs-kopf h3{min-width:0}
+.kurs .preis{font-family:var(--disp); font-weight:800; font-size:1.22rem; color:var(--akzent-tief); white-space:nowrap; font-variant-numeric:tabular-nums}
+.kurs .preis small{display:block; font-weight:400; font-size:.72rem; color:var(--tinte-weich); text-align:right; margin-top:.1rem}
+.kurs p{font-size:.94rem; color:var(--tinte-weich)}
+
+/* ══════════ Sprachen ══════════ */
+.sprachen{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.8rem}
+.sprache{font-family:var(--disp); font-weight:700; font-size:clamp(1rem,2.2vw,1.4rem); padding:.42rem .9rem; border:1px solid var(--linie); border-radius:8px; color:var(--tinte-weich); background:var(--weiss)}
+.sprache.stark{color:var(--auf-akzent); background:var(--akzent); border-color:var(--akzent)}
+
+/* ══════════ Ablauf ══════════ */
+.schritte{list-style:none; margin:clamp(2rem,4vw,3rem) 0 0; padding:0; max-width:52rem; border-top:1px solid var(--linie)}
+.schritt{display:grid; grid-template-columns:3.2rem 1fr; gap:1rem; align-items:baseline; padding-block:1.2rem; border-bottom:1px solid var(--linie)}
+.schritt .nr{font-family:var(--disp); font-weight:800; font-size:1.7rem; line-height:1; letter-spacing:-.03em; color:var(--akzent)}
+.schritt h3{font-size:1.1rem; margin-bottom:.3rem}
+.schritt p{font-size:.96rem; color:var(--tinte-weich); max-width:44em}
+.inkl{margin-top:1.8rem; font-size:.95rem; color:var(--tinte-weich); max-width:52rem; line-height:1.7}
+.inkl-k{display:block; font-size:.75rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--tinte); margin-bottom:.25rem}
+
+/* ══════════ Kontakt ══════════ */
+.kontakt-raster{display:grid; grid-template-columns:minmax(0,1fr); gap:2.2rem}
+@media (min-width:56rem){.kontakt-raster{grid-template-columns:1fr 1fr; align-items:start}}
+.kontakt-zeile{display:flex; gap:1rem; padding-block:1rem; border-top:1px solid var(--linie)}
+.kontakt-zeile:first-child{border-top:0; padding-top:0}
+.kontakt-zeile .k{font-size:.8rem; color:var(--tinte-weich); width:6.5rem; flex:none; padding-top:.2rem}
+.kontakt-zeile .v{font-weight:600; min-width:0; overflow-wrap:anywhere}
+.kontakt-zeile .v small{display:block; font-weight:400; color:var(--tinte-weich); font-size:.86rem; margin-top:.12rem}
+.formular{background:var(--weiss); border:1px solid var(--linie); border-radius:12px; padding:clamp(1.4rem,3vw,2rem); display:flex; flex-direction:column; gap:.9rem}
+.formular label{display:block; font-size:.84rem; font-weight:600; margin-bottom:.35rem}
+.formular input,.formular textarea,.formular select{
+  width:100%; font:inherit; font-size:16px; color:var(--tinte); background:var(--papier);
+  border:1px solid var(--linie); border-radius:7px; padding:.72rem .85rem;
+  transition:border-color .18s, box-shadow .18s;
+}
+.formular textarea{min-height:5rem; resize:vertical}
+.formular input:focus,.formular textarea:focus,.formular select:focus{
+  outline:none; border-color:var(--akzent); box-shadow:0 0 0 3px color-mix(in oklab, var(--akzent) 20%, transparent);
+}
+.formular .hinweis{font-size:.8rem; color:var(--tinte-weich); line-height:1.45}
+
+/* ══════════ Fußzeile ══════════ */
+.fuss{background:var(--tinte); color:var(--papier); padding-block:3rem 2.2rem}
+.fuss a{color:color-mix(in oklab, var(--papier) 78%, transparent); text-decoration:none}
+.fuss a:hover{color:var(--papier)}
+.fuss-raster{display:grid; gap:2rem}
+@media (min-width:52rem){.fuss-raster{grid-template-columns:1.4fr 1fr 1fr}}
+.fuss h4{font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:color-mix(in oklab, var(--papier) 62%, transparent); margin:0 0 .8rem; font-weight:700}
+.fuss ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.45rem; font-size:.93rem}
+.fuss .marke .name{color:var(--papier)}
+.fuss .marke .name svg{color:color-mix(in oklab, var(--papier) 62%, transparent)}
+.fuss-unten{margin-top:2.4rem; padding-top:1.4rem; border-top:1px solid color-mix(in oklab, var(--papier) 18%, transparent); font-size:.82rem; color:color-mix(in oklab, var(--papier) 68%, transparent); display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; justify-content:space-between}
+
+
+/* ══════════ Fristen-Rechner ══════════ */
+.rechner{
+  background:var(--weiss); border:1px solid var(--linie); border-radius:12px;
+  padding:clamp(1.4rem,3vw,2rem); margin-top:clamp(1.8rem,4vw,2.6rem);
+}
+.rechner h3{margin-bottom:.5rem}
+.rechner > p{color:var(--tinte-weich); font-size:.95rem}
+.rechner-feld{display:flex; flex-wrap:wrap; gap:.7rem; align-items:flex-end; margin-top:1.2rem}
+.rechner-feld > div{flex:1 1 14rem}
+.rechner label{display:block; font-size:.84rem; font-weight:600; margin-bottom:.4rem}
+.rechner input{
+  width:100%; font:inherit; font-size:16px; font-variant-numeric:tabular-nums;
+  color:var(--tinte); background:var(--papier); border:1px solid var(--linie);
+  border-radius:7px; padding:.72rem .85rem; transition:border-color .18s, box-shadow .18s;
+}
+.rechner input:focus{outline:none; border-color:var(--akzent); box-shadow:0 0 0 3px color-mix(in oklab, var(--akzent) 20%, transparent)}
+.rechner .hilfe{font-size:.82rem; color:var(--tinte-weich); margin-top:.5rem; line-height:1.45}
+.rechner-ergebnis{display:none; margin-top:1.2rem; border-radius:9px; padding:1.1rem 1.2rem}
+.rechner-ergebnis.an{display:block}
+.rechner-ergebnis .lage{font-weight:700; font-size:1.06rem}
+.rechner-ergebnis .tage{font-size:2.1rem; font-weight:800; letter-spacing:-.035em; line-height:1.1; margin-block:.25rem; font-variant-numeric:tabular-nums}
+.rechner-ergebnis .rat{font-size:.94rem; margin-top:.45rem}
+.re-eng{background:var(--akzent-zart); color:var(--akzent-tief); border:1px solid color-mix(in oklab,var(--akzent) 28%,transparent)}
+.re-ok{background:var(--gruen-zart); color:var(--gruen); border:1px solid color-mix(in oklab,var(--gruen) 26%,transparent)}
+.rechner-ergebnis .rat{color:var(--tinte-weich)}
+.rechner .btn{margin-top:1rem}
+.rechner .gewaehr{font-size:.78rem; color:var(--tinte-weich); margin-top:1rem; line-height:1.45}
+
+/* ══════════ Anfahrt ══════════ */
+.anfahrt{margin-top:clamp(2rem,4vw,3rem); border:1px solid var(--linie); border-radius:12px; overflow:hidden; background:var(--weiss)}
+.anfahrt img{width:100%; height:auto; display:block}
+.anfahrt-fuss{
+  display:flex; flex-wrap:wrap; gap:.8rem 1.4rem; align-items:center; justify-content:space-between;
+  padding:1rem 1.2rem; border-top:1px solid var(--linie); font-size:.88rem; color:var(--tinte-weich);
+}
+.anfahrt-fuss a{color:var(--akzent); font-weight:600; text-decoration:none}
+.anfahrt-fuss a:hover{text-decoration:underline}
+
+
+/* ══════════ Muster-Zertifikat ══════════ */
+.nachweis-raster{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media (min-width:60rem){.nachweis-raster{grid-template-columns:1fr 1.05fr}}
+.blatt-buehne{perspective:1400px}
+.blatt{
+  background:var(--weiss); border:1px solid var(--linie); border-radius:3px;
+  padding:clamp(1.5rem,3.5vw,2.4rem) clamp(1.3rem,3vw,2rem);
+  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 18px 40px -18px rgba(0,0,0,.28);
+  position:relative; transform:rotate(-1.1deg);
+}
+.blatt-kopf{text-align:center; padding-bottom:.9rem; border-bottom:1px solid var(--linie)}
+.blatt-kopf .bz{font-weight:800; font-size:1.02rem; letter-spacing:-.02em}
+.blatt-kopf .adr{font-size:.72rem; color:var(--tinte-weich); margin-top:.15rem; line-height:1.4}
+.blatt h4{
+  font-size:clamp(1.25rem,2.6vw,1.65rem); font-weight:800; letter-spacing:-.03em;
+  text-align:center; margin:1.2rem 0 .35rem;
+}
+.blatt .anlass{text-align:center; font-size:.86rem; color:var(--tinte-weich); margin-bottom:1.1rem}
+.blatt .firma{
+  text-align:center; font-weight:700; font-size:1.06rem; padding:.55rem .8rem;
+  background:var(--sand); border-radius:4px; margin-bottom:1.1rem;
+}
+.blatt .satz{font-size:.83rem; color:var(--tinte-weich); line-height:1.55}
+.blatt .norm{font-weight:700; font-size:.95rem; margin:.9rem 0 .5rem; color:var(--tinte)}
+.blatt ul{margin:0; padding-left:1.05rem; display:flex; flex-direction:column; gap:.22rem; font-size:.79rem; color:var(--tinte-weich)}
+.blatt-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:flex-end; margin-top:1.5rem; padding-top:.9rem; border-top:1px solid var(--linie)}
+.blatt-fuss div{font-size:.76rem; color:var(--tinte-weich)}
+.blatt-fuss .unterschrift{
+  font-family:"Segoe Script","Bradley Hand",cursive; font-size:1.15rem; color:var(--tinte);
+  border-bottom:1px solid var(--linie); padding:0 1.2rem .1rem 0; margin-bottom:.3rem; display:inline-block;
+}
+.blatt .muster{
+  position:absolute; top:.7rem; right:.7rem; font-size:.62rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--akzent);
+  border:1px solid currentColor; padding:.2rem .45rem; border-radius:3px; background:var(--weiss);
+}
+@media (prefers-reduced-motion:reduce){.blatt{transform:none}}
+
+
+/* ══════════ Dozenten-Hinweis ══════════ */
+.dozent{
+  display:flex; flex-wrap:wrap; gap:1.1rem; align-items:flex-start;
+  background:var(--akzent-zart); border:1px solid color-mix(in oklab, var(--akzent) 24%, transparent);
+  border-radius:10px; padding:clamp(1.2rem,2.6vw,1.7rem); margin-top:clamp(1.6rem,3.5vw,2.4rem);
+}
+.dozent svg{width:26px; height:26px; flex:none; stroke:var(--akzent); stroke-width:1.7; fill:none; margin-top:.15rem}
+.dozent-text{flex:1 1 18rem}
+.dozent-text b{display:block; font-size:1.05rem; font-weight:700; letter-spacing:-.015em; margin-bottom:.3rem}
+.dozent-text p{font-size:.94rem; color:var(--tinte-weich)}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important; transition-duration:.001ms !important}}
+
+/* Schmale Handys (bis 380 px): Kopfzeile enger, damit Marke · DE/TR/EN · Telefon nebeneinander bleiben */
+@media (max-width:380px){
+  .kopf-innen{gap:.5rem}
+  .sprachwahl a{padding:.5rem .45rem; font-size:.76rem}
+  .marke .name{font-size:1rem}
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MEHRSEITIGE STRUKTUR (ab 24.09.2026)
+   Startseite = Überblick. Unterseiten = konkret, schlicht, eigene Vorlage
+   (Seitenkopf mit Steckbrief statt Hero mit Bild), damit man sofort sieht,
+   dass man woanders ist.
+   ══════════════════════════════════════════════════════════════════ */
+
+.nur-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.btn-dunkel{background:var(--tinte); color:var(--papier)}
+.btn-dunkel:hover{filter:brightness(1.25)}
+
+/* ─── Navigation: sechs Punkte am Rechner, Menü-Knopf darunter ─── */
+.kopf{position:relative}
+.kopf-nav{gap:1.35rem}
+.kopf-nav a[aria-current="page"]{color:var(--tinte); border-bottom-color:var(--akzent)}
+.menue-knopf{
+  display:none; width:44px; height:44px; flex:none; padding:0; cursor:pointer;
+  border:1px solid var(--linie); border-radius:6px; background:transparent; color:var(--tinte); place-items:center;
+}
+.menue-knopf svg{width:22px; height:22px; stroke:currentColor; stroke-width:2; fill:none; stroke-linecap:round}
+.menue-knopf .ico-zu{display:none}
+.menue-knopf[aria-expanded="true"] .ico-auf{display:none}
+.menue-knopf[aria-expanded="true"] .ico-zu{display:block}
+@media (max-width:1179px){
+  .kopf-nav{display:none}
+  .menue-knopf{display:grid}
+  .kopf.offen .kopf-nav{
+    display:flex; flex-direction:column; gap:0; position:absolute; top:100%; left:0; right:0;
+    padding:.3rem max(1.3rem, calc((100vw - var(--maxw)) / 2)) 1rem;
+    background:var(--papier); border-bottom:1px solid var(--linie);
+    box-shadow:0 22px 34px -26px rgba(0,0,0,.4);
+  }
+  .kopf.offen .kopf-nav a{min-height:52px; border-bottom:1px solid var(--linie-zart); color:var(--tinte); font-size:1.06rem}
+  .kopf.offen .kopf-nav a:last-child{border-bottom:0}
+  .kopf.offen .kopf-nav a[aria-current="page"]{color:var(--akzent-tief); border-bottom-color:var(--linie-zart)}
+}
+@media (max-width:380px){ .sprachwahl a{min-width:38px} }
+
+/* ─── Aktionsleiste unten (nur Handy): Anrufen · WhatsApp ───
+   Ersetzt auf dem Handy den Telefon-Knopf im Kopf, damit dort Platz für
+   das Menü ist — und legt die zwei wichtigsten Wege in die Daumenzone. */
+.aktionsleiste{display:none}
+@media (max-width:699px){
+  .aktionsleiste{
+    display:grid; grid-template-columns:1fr 1fr; gap:.6rem; position:fixed; left:0; right:0; bottom:0; z-index:45;
+    padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom));
+    background:color-mix(in oklab, var(--papier) 94%, transparent); backdrop-filter:blur(14px);
+    border-top:1px solid var(--linie);
+  }
+  .aktionsleiste .btn{min-height:48px; padding:0 .7rem; font-size:.96rem}
+  .aktionsleiste svg{width:18px; height:18px; flex:none}
+  body{padding-bottom:calc(4.4rem + env(safe-area-inset-bottom))}
+  .kopf-tel{display:none}
+}
+
+/* ─── Startseite: Leiste „Nächster Kurstag" + Einstieg in den Rechner ─── */
+.leiste{background:var(--akzent-zart); border-top:1px solid color-mix(in oklab, var(--akzent) 16%, transparent)}
+.leiste-innen{display:flex; flex-wrap:wrap; gap:.6rem 2rem; align-items:center; justify-content:space-between; padding-block:.95rem}
+.leiste-termin{display:flex; flex-wrap:wrap; align-items:baseline; gap:.2rem .6rem; font-size:.97rem}
+.leiste-termin .punkt{width:9px; height:9px; border-radius:50%; background:var(--akzent); align-self:center; flex:none; animation:puls 2.4s ease-in-out infinite}
+@keyframes puls{50%{opacity:.35}}
+.leiste-k{font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--akzent-tief)}
+.leiste-v{font-weight:600}
+.leiste-link{font-weight:600; font-size:.95rem; color:var(--akzent-tief); text-decoration:none; border-bottom:1.5px solid currentColor; padding-block:.3rem}
+.leiste-link:hover{color:var(--tinte)}
+
+/* ─── Unterseiten: Seitenkopf mit Brotkrumen und Steckbrief ─── */
+.seitenkopf{
+  padding-top:calc(var(--kopf-hoehe, 8.5rem) + clamp(1.4rem,3.5vh,2.4rem));
+  padding-bottom:clamp(2.4rem,5vw,3.6rem); background:var(--sand); border-bottom:1px solid var(--linie);
+}
+.brotkrumen{display:flex; flex-wrap:wrap; gap:.45rem; font-size:.84rem; color:var(--tinte-weich); margin:0 0 1.5rem; padding:0; list-style:none}
+.brotkrumen li + li::before{content:"›"; margin-right:.45rem; color:var(--tinte-weich)}
+.brotkrumen a{color:var(--tinte-weich); text-decoration:none}
+.brotkrumen a:hover{color:var(--tinte); text-decoration:underline}
+.seitenkopf-raster{display:grid; gap:clamp(1.8rem,4vw,3rem); align-items:start}
+@media (min-width:60rem){.seitenkopf-raster{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}}
+.seitenkopf h1{font-size:clamp(1.95rem,4.4vw,3.1rem)}
+.seitenkopf .fuehrt{margin-top:.9rem}
+.seitenkopf-cta{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.6rem}
+
+.steckbrief{background:var(--weiss); border:1px solid var(--linie); border-radius:12px; padding:clamp(1.2rem,2.6vw,1.6rem)}
+.steckbrief-titel{font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--tinte-weich); margin-bottom:.9rem}
+.steckbrief dl{margin:0}
+.steckbrief dl > div{display:grid; grid-template-columns:minmax(0,8rem) minmax(0,1fr); gap:.2rem 1rem; padding-block:.7rem; border-top:1px solid var(--linie-zart)}
+.steckbrief dl > div:first-child{border-top:0; padding-top:0}
+.steckbrief dt{font-size:.82rem; color:var(--tinte-weich); padding-top:.1rem}
+.steckbrief dd{margin:0; font-weight:600; font-size:.96rem; line-height:1.45}
+.steckbrief dd small{display:block; font-weight:400; color:var(--tinte-weich); font-size:.84rem}
+@media (max-width:30rem){.steckbrief dl > div{grid-template-columns:minmax(0,1fr)}}
+.steckbrief-links{list-style:none; margin:0; padding:0}
+.steckbrief-links li{border-top:1px solid var(--linie-zart)}
+.steckbrief-links li:first-child{border-top:0}
+.steckbrief-links a{display:flex; justify-content:space-between; align-items:center; min-height:48px; text-decoration:none; font-weight:600}
+.steckbrief-links a:hover{color:var(--akzent-tief)}
+
+/* ─── Fahrer: Karte „Nächster Kurstag" ─── */
+.termin-karte{background:var(--weiss); border:1px solid var(--linie); border-top:4px solid var(--akzent); border-radius:12px; padding:clamp(1.3rem,2.8vw,1.8rem)}
+.termin-karte .tk-label{font-size:.72rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--akzent-tief)}
+.termin-karte .tk-datum{font-family:var(--disp); font-weight:800; font-size:clamp(2.2rem,5vw,3rem); letter-spacing:-.04em; line-height:1; margin-top:.6rem; font-variant-numeric:tabular-nums}
+.termin-karte .tk-modul{font-weight:700; font-size:1.06rem; margin-top:.8rem}
+.termin-karte .tk-was{color:var(--tinte-weich); font-size:.93rem}
+.termin-karte .tk-zeit{margin-top:.7rem; font-size:.93rem; color:var(--tinte-weich)}
+.termin-karte .btn{width:100%; margin-top:1.3rem}
+
+/* ─── Preistabelle (Speditionen) ─── */
+.preistabelle{width:100%; border-collapse:collapse; font-size:.98rem}
+.preistabelle th{text-align:left; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tinte-weich); font-weight:700; padding:0 0 .75rem; border-bottom:2px solid var(--tinte)}
+.preistabelle th.r{text-align:right}
+.preistabelle td{padding:1.05rem 0; border-bottom:1px solid var(--linie); vertical-align:baseline}
+.preistabelle td + td{padding-left:1.4rem}
+.preistabelle .name{font-weight:700}
+.preistabelle .umfang{color:var(--tinte-weich); font-size:.93rem}
+.preistabelle .preis{text-align:right; font-family:var(--disp); font-weight:800; white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--akzent-tief); font-size:1.08rem}
+.preistabelle .preis small{display:block; font-family:var(--sans); font-weight:400; font-size:.78rem; color:var(--tinte-weich)}
+@media (max-width:40rem){
+  .preistabelle thead{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+  .preistabelle, .preistabelle tbody{display:block}
+  .preistabelle tr{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.25rem 1rem; padding-block:1rem; border-bottom:1px solid var(--linie)}
+  .preistabelle tbody tr:first-child{border-top:2px solid var(--tinte)}
+  .preistabelle td{padding:0; border:0}
+  .preistabelle td + td{padding-left:0}
+  .preistabelle td.name{grid-column:1; grid-row:1}
+  .preistabelle td.preis{grid-column:2; grid-row:1}
+  .preistabelle td.umfang{grid-column:1 / -1; grid-row:2}
+}
+
+/* ─── „Gut zu wissen": Begriff links, Antwort rechts ─── */
+.wissen{margin:0; border-top:1px solid var(--linie); max-width:58rem}
+.wissen > div{display:grid; gap:.3rem 2rem; padding-block:1.1rem; border-bottom:1px solid var(--linie)}
+@media (min-width:44rem){.wissen > div{grid-template-columns:11rem minmax(0,1fr)}}
+.wissen dt{font-weight:700}
+.wissen dd{margin:0; color:var(--tinte-weich)}
+.wissen dd a{color:var(--akzent-tief); font-weight:600}
+
+/* ─── Ansprechpartner ─── */
+.person{display:flex; gap:1rem; align-items:center; margin-bottom:1.4rem}
+.person .initialen{width:64px; height:64px; border-radius:50%; flex:none; display:grid; place-items:center; background:var(--akzent); color:var(--auf-akzent); font-family:var(--disp); font-weight:800; font-size:1.3rem; letter-spacing:-.02em}
+.person b{display:block; font-size:1.08rem}
+.person span{font-size:.9rem; color:var(--tinte-weich)}
+.kontakt-kompakt{display:grid; gap:2rem}
+@media (min-width:56rem){.kontakt-kompakt{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); align-items:start}}
+
+/* ─── Zweispalter für Unterseiten: Text links, Inhalt rechts ─── */
+.teil{display:grid; gap:clamp(1.6rem,3.5vw,2.6rem)}
+@media (min-width:62rem){.teil{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); align-items:start}}
+.teil .kopfzeile{margin-bottom:0}
+.teil-text p + p{margin-top:.9rem}
+.teil-text p{color:var(--tinte-weich)}
+
+/* ─── Fotos: Platzhalter bis zum Fototermin, danach echte Bilder ─── */
+.galerie{display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(1rem,2.2vw,1.5rem)}
+@media (min-width:44rem){.galerie{grid-template-columns:repeat(2,minmax(0,1fr))} .galerie .breit{grid-column:1 / -1}}
+.foto{margin:0}
+.foto figcaption{font-size:.88rem; color:var(--tinte-weich); margin-top:.6rem}
+.foto .bildflaeche{aspect-ratio:4/3; border-radius:10px; overflow:hidden; background:var(--sand)}
+.foto.breit .bildflaeche{aspect-ratio:16/8}
+.foto.hoch .bildflaeche{aspect-ratio:4/5}
+@media (max-width:43.99rem){.foto.breit .bildflaeche{aspect-ratio:4/3}}
+.foto .bildflaeche img{width:100%; height:100%; object-fit:cover}
+.foto a.gross{display:block; cursor:zoom-in; border-radius:10px}
+.platzhalter{
+  height:100%; display:grid; place-items:center; align-content:center; gap:.45rem; text-align:center; padding:1rem;
+  color:var(--tinte-weich); border:1.5px dashed color-mix(in oklab, var(--tinte-weich) 40%, transparent); border-radius:10px;
+  background:repeating-linear-gradient(135deg, var(--sand) 0 16px, color-mix(in oklab, var(--sand) 72%, var(--linie)) 16px 17px);
+}
+.platzhalter svg{width:30px; height:30px; stroke:currentColor; fill:none; stroke-width:1.6}
+.platzhalter b{font-size:.98rem; color:var(--tinte); font-weight:600; max-width:22em}
+.platzhalter span{font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; font-weight:700}
+.bild-dialog{border:0; padding:0; background:transparent; max-width:min(94vw,1400px); max-height:94vh; overflow:visible}
+.bild-dialog::backdrop{background:color-mix(in oklab, var(--tinte) 90%, transparent)}
+.bild-dialog img{max-width:100%; max-height:84vh; display:block; border-radius:6px; margin-inline:auto}
+.bild-dialog p{color:var(--papier); font-size:.92rem; margin-top:.7rem; text-align:center}
+.bild-dialog button{position:absolute; top:-3rem; right:0; min-height:44px; padding:0 1rem; border-radius:6px; border:1px solid color-mix(in oklab, var(--papier) 40%, transparent); background:transparent; color:var(--papier); font:inherit; font-weight:600; cursor:pointer}
+.sprungliste{display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; margin:0; padding:0}
+.sprungliste a{display:inline-flex; align-items:center; min-height:44px; padding:0 1rem; border:1px solid var(--linie); border-radius:99px; background:var(--weiss); text-decoration:none; font-weight:600; font-size:.93rem}
+.sprungliste a:hover{border-color:var(--tinte-weich)}
+
+/* ─── Weiterführende Links am Seitenende ─── */
+.weiter{display:grid; gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:12px; overflow:hidden; grid-template-columns:minmax(0,1fr)}
+@media (min-width:48rem){.weiter{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.weiter a{display:flex; flex-direction:column; gap:.3rem; background:var(--weiss); padding:1.3rem 1.4rem; text-decoration:none; transition:background-color .18s var(--ease)}
+.weiter a:hover{background:var(--akzent-zart)}
+.weiter b{font-size:1.05rem; display:flex; justify-content:space-between; gap:1rem}
+.weiter span{font-size:.9rem; color:var(--tinte-weich)}
+
+/* ─── Fußzeile: vierte Spalte „Seiten" ─── */
+@media (min-width:52rem){.fuss-raster{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+
+/* ══════════ Fuhrpark-Planer (aus Entwurf D übernommen, --grund → --papier) ══════════ */
+.planer{background:var(--weiss); border:1px solid var(--tinte); border-radius:0; padding:clamp(1.2rem, 2.6vw, 2rem)}
+.p-kopf{display:none; gap:.8rem; font-size:.74rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--tinte-weich); padding-bottom:.5rem; border-bottom:1px solid var(--tinte)}
+.p-zeile{display:grid; gap:.6rem .8rem; padding:.9rem 0; border-bottom:1px solid var(--linie); align-items:center; position:relative}
+@media (max-width:51.99rem){.p-zeile{padding-top:1rem} .p-zeile .p-weg{position:absolute; top:.6rem; right:0} .p-zeile > div:first-child input{padding-right:3rem}}
+.p-zeile .p-monat{display:grid; grid-template-columns:1fr auto; gap:.4rem}
+.p-zeile label{font-size:.8rem; font-weight:600; color:var(--tinte-weich); display:block; margin-bottom:.25rem}
+@media (min-width:52rem){
+  .p-kopf{display:grid; grid-template-columns:1.1fr 1.7fr .8fr 2.75rem}
+  .p-zeile{grid-template-columns:1.1fr 1.7fr .8fr 2.75rem}
+  .p-zeile label{display:none}
+  .p-zeile .p-monat{grid-template-columns:1.35fr 1fr}
+}
+.planer input,.planer select{
+  width:100%; font:inherit; font-size:16px; color:var(--tinte); background:var(--papier);
+  border:1px solid var(--linie); border-radius:0; padding:.6rem .7rem; min-height:44px;
+  transition:border-color .18s, box-shadow .18s;
+}
+.planer select{appearance:none; -webkit-appearance:none; padding-right:2rem;
+  background-image:linear-gradient(45deg, transparent 50%, var(--tinte) 50%), linear-gradient(135deg, var(--tinte) 50%, transparent 50%);
+  background-position:calc(100% - 1rem) 50%, calc(100% - .68rem) 50%; background-size:.34rem .34rem; background-repeat:no-repeat}
+.planer input:focus,.planer select:focus{outline:none; border-color:var(--tinte); box-shadow:0 0 0 3px color-mix(in oklab, var(--tinte) 18%, transparent)}
+.p-weg{width:44px; height:44px; border:1px solid var(--linie); background:none; cursor:pointer; color:var(--tinte-weich); font-size:1.3rem; line-height:1; display:grid; place-items:center; justify-self:end}
+.p-weg:hover{color:var(--tinte); border-color:var(--tinte)}
+.p-aktion{display:flex; flex-wrap:wrap; gap:.8rem; align-items:center; margin-top:1.2rem}
+.p-aktion .hinweis{font-size:.86rem; color:var(--tinte-weich); flex-basis:100%}
+.p-ergebnis{margin-top:1.8rem; border-top:1px solid var(--tinte); padding-top:1.2rem}
+.p-ergebnis h3{margin-bottom:.4rem}
+.p-ergebnis .p-satz{font-size:1rem; color:var(--tinte-weich); max-width:60ch}
+.vorschlag{list-style:none; margin:1rem 0 0; padding:0}
+.vorschlag li{display:grid; gap:.2rem 1.2rem; padding:.85rem 0; border-bottom:1px solid var(--linie)}
+@media (min-width:52rem){.vorschlag li{grid-template-columns:12rem 1fr}}
+.vorschlag .v-name{font-weight:700}
+.vorschlag .v-termine{display:flex; flex-wrap:wrap; gap:.3rem .9rem; font-variant-numeric:tabular-nums; font-size:1rem}
+.vorschlag .v-termine span{white-space:nowrap}
+.vorschlag li.knapp .v-name{color:var(--akzent-tief)}
+.vorschlag li.knapp .v-name::before{content:""; display:inline-block; width:.6rem; height:.6rem; background:var(--akzent); margin-right:.5rem}
+.vorschlag .v-knapp{color:var(--akzent-tief); font-size:.95rem}
+.p-senden{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.4rem}
+.p-fallback{margin-top:1.2rem; font-size:.95rem; color:var(--tinte-weich)}
+.p-fallback a{color:var(--tinte)}
+.schritte.kompakt{margin-top:1.6rem; max-width:none}
+.schritte.kompakt .schritt{grid-template-columns:2.4rem 1fr; padding-block:.9rem}
+.schritte.kompakt .schritt .nr{font-size:1.35rem}
+.schritte.kompakt .schritt h3{font-size:1rem}
+.schritte.kompakt .schritt p{font-size:.92rem}

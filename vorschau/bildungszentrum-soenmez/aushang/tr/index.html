@@ -245,12 +245,12 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .inkl span:first-child{color:var(--tinte); font-weight:600}
 
 /* Kontakt */
-.kontakt-raster{display:grid; gap:2.4rem}
+.kontakt-raster{display:grid; grid-template-columns:minmax(0,1fr); gap:2.4rem}
 @media (min-width:56rem){.kontakt-raster{grid-template-columns:1fr 1fr; align-items:start}}
 .kontakt-zeile{display:flex; gap:1rem; padding-block:.95rem; border-bottom:1px solid var(--linie)}
 .kontakt-zeile:first-child{border-top:2px solid var(--tinte)}
 .kontakt-zeile .k{font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tinte-weich); width:7rem; flex:none; padding-top:.25rem}
-.kontakt-zeile .v{font-weight:600}
+.kontakt-zeile .v{font-weight:600; min-width:0; overflow-wrap:anywhere}
 .kontakt-zeile .v small{display:block; font-weight:400; color:var(--tinte-weich); font-size:.86rem; margin-top:.1rem}
 .formular{border:2px solid var(--tinte); padding:clamp(1.4rem,3vw,2rem); display:flex; flex-direction:column; gap:.9rem; background:var(--weiss)}
 .formular label{display:block; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--tinte-weich); margin-bottom:.35rem}

@@ -597,7 +597,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
 .fragen .antwort b{color:var(--tinte); font-weight:600}
 
 /* Kontakt */
-.kontakt-raster{display:grid; gap:clamp(2rem,4vw,3rem)}
+.kontakt-raster{display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(2rem,4vw,3rem)}
 @media (min-width:900px){.kontakt-raster{grid-template-columns:1fr 1fr; align-items:start}}
 .kontakt-zeilen .zeile{grid-template-columns:1fr}
 @media (min-width:480px){.kontakt-zeilen .zeile{grid-template-columns:7rem 1fr}}

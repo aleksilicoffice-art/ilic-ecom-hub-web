@@ -70,6 +70,20 @@ window.BZS = (function () {
       en: "Hello, I would like to register for module {nr} ({titel}) on {datum}."
     },
 
+    /* Du-Fassung der Rechner-Texte für Seiten, die Fahrer duzen
+       (<html data-anrede="du">). Nur Deutsch — Türkisch bleibt siz, Englisch you. */
+    rechnerDu: {
+      de: {
+        abgelaufen: "Abgelaufen.", knapp: "Es wird knapp.",
+        bald: "Zeit genug, aber nicht mehr viel.", ruhig: "Alles im Rahmen.",
+        tage: "Tage", ueberfaellig: "Tage überfällig",
+        textAb: "Ohne gültige 95 darfst du nicht gewerblich fahren. Die fünf Module lassen sich jederzeit nachholen — melde dich, wir setzen dich in die nächste Gruppe.",
+        textKnapp: "Fünf Module brauchen fünf Termine. Mit Puffer für Urlaub und Krankheit solltest du jetzt anfangen.",
+        textBald: "Am besten meldest du dich etwa ein halbes Jahr vorher an. Dann suchst du dir die Termine aus, statt zu nehmen, was übrig ist.",
+        textRuhig: "Merk dir {monat} — dann ist der richtige Moment, die Termine zu planen."
+      }
+    },
+
     rechner: {
       de: {
         abgelaufen: "Abgelaufen.", knapp: "Es wird knapp.",
@@ -183,7 +197,8 @@ window.BZS = (function () {
       var ziel = new Date(feld.value + "T00:00:00");
       var heute = new Date(); heute.setHours(0, 0, 0, 0);
       var tage = Math.round((ziel - heute) / 86400000);
-      var W = DATEN.rechner[sprache()], ort = DATEN.locale[sprache()];
+      var du = docEl.getAttribute("data-anrede") === "du";
+      var W = (du && DATEN.rechnerDu[sprache()]) || DATEN.rechner[sprache()], ort = DATEN.locale[sprache()];
       var art, kopf, zahl, txt;
       if (tage < 0) {
         art = "re-eng"; kopf = W.abgelaufen; zahl = Math.abs(tage).toLocaleString(ort) + " " + W.ueberfaellig; txt = W.textAb;
@@ -214,7 +229,7 @@ window.BZS = (function () {
      und ein alter ?lang=-Link auf die richtige Fassung umgeleitet.       */
   function sprachen() {
     var alt = (location.search.match(/[?&]lang=(tr|en)/) || [])[1];
-    if (alt && sprache() !== alt) {
+    if (alt && sprache() !== alt && document.querySelector('link[rel="alternate"][hreflang="' + alt + '"]')) {
       try { location.replace(alt + "/" + location.hash); } catch (e) {}
       return;
     }
@@ -254,6 +269,21 @@ window.BZS = (function () {
       var setzen = function () { k.classList.toggle("fest", window.scrollY > 40); };
       window.addEventListener("scroll", setzen, { passive: true });
       setzen();
+    }
+
+    /* Menü auf dem Handy: ein Knopf klappt die Navigation auf.
+       Schließt bei Klick auf einen Link, bei Escape und bei Klick daneben. */
+    var knopf = document.querySelector(".menue-knopf");
+    if (k && knopf) {
+      var zu = function () { k.classList.remove("offen"); knopf.setAttribute("aria-expanded", "false"); };
+      knopf.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var offen = k.classList.toggle("offen");
+        knopf.setAttribute("aria-expanded", String(offen));
+      });
+      k.querySelectorAll(".kopf-nav a").forEach(function (a) { a.addEventListener("click", zu); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") zu(); });
+      document.addEventListener("click", function (e) { if (!k.contains(e.target)) zu(); });
     }
   }
 
