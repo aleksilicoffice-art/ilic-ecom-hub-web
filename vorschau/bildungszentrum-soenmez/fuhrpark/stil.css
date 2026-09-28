@@ -17,7 +17,8 @@
   --tinte-weich: oklch(0.47 0.012 258);
   --linie:       oklch(0.90 0.006 255);
   --linie-zart:  oklch(0.945 0.004 255);
-  --akzent:      oklch(0.52 0.196 27);
+  --akzent:      oklch(0.577 0.234 28);   /* = Logo-Rot #e30613 (sRGB aus dem Original-PDF) */
+  --akzent-text: oklch(0.52 0.196 27);    /* kleiner roter Text: ≥ 4,5:1 auch auf Sand */
   --akzent-tief: oklch(0.42 0.17 27);
   --akzent-zart: oklch(0.965 0.018 27);
   --gruen:       oklch(0.50 0.11 155);
@@ -61,7 +62,7 @@ img{max-width:100%; display:block}
 :focus-visible{outline:3px solid var(--akzent); outline-offset:3px; border-radius:3px}
 ::selection{background:var(--akzent); color:var(--auf-akzent)}
 
-.kicker{font-size:.75rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--akzent); margin-bottom:.9rem}
+.kicker{font-size:.75rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--akzent-text, var(--akzent)); margin-bottom:.9rem}
 .fuehrt{font-size:clamp(1.02rem,1.5vw,1.16rem); color:var(--tinte-weich); max-width:38em; margin-top:1.1rem}
 .weich{color:var(--tinte-weich)}
 
@@ -97,6 +98,9 @@ img{max-width:100%; display:block}
 .kopf.fest{border-bottom-color:var(--linie); background:color-mix(in oklab, var(--papier) 95%, transparent)}
 .kopf-innen{display:flex; align-items:center; gap:1.4rem; padding-block:.8rem}
 .marke{display:inline-flex; flex-direction:column; gap:.14em; line-height:1; text-decoration:none; margin-right:auto}
+.marke .logo{display:block; height:46px; width:auto}
+@media (max-width:380px){.marke .logo{height:38px}}
+.fuss .marke .logo{height:54px}
 .marke .balken{background:var(--akzent); color:var(--auf-akzent); font-family:var(--disp); font-weight:700; letter-spacing:.06em; font-size:.6em; padding:.28em .5em .3em; align-self:flex-start}
 .marke .name{display:flex; align-items:center; gap:.36em; font-family:var(--disp); font-weight:800; font-size:1.3rem; letter-spacing:-.02em}
 .marke .name svg{height:.72em; width:auto; flex:none; color:var(--tinte-weich)}
@@ -142,7 +146,7 @@ img{max-width:100%; display:block}
   .band-zelle:nth-child(odd){border-left:0}
 }
 .band-zelle .w{font-family:var(--disp); font-weight:800; font-size:clamp(1.7rem,3.4vw,2.4rem); letter-spacing:-.035em; line-height:1}
-.band-zelle .w em{font-style:normal; font-size:.5em; color:var(--akzent); vertical-align:.32em; margin-right:.12em; letter-spacing:0}
+.band-zelle .w em{font-style:normal; font-size:.5em; color:var(--akzent-text, var(--akzent)); vertical-align:.32em; margin-right:.12em; letter-spacing:0}
 .band-zelle .b{font-size:.86rem; color:var(--tinte-weich); margin-top:.5rem; line-height:1.35}
 
 /* ══════════ Abschnitte ══════════ */
@@ -187,7 +191,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .fzg[data-frist="weg"] .korpus{fill:color-mix(in oklab, var(--akzent) 24%, var(--linie))}
 .fzg[data-frist="weg"] .marke-frist{background:var(--akzent-zart); color:var(--akzent-tief); border-color:color-mix(in oklab, var(--akzent) 34%, transparent)}
 .frist-satz{font-size:clamp(1.05rem,2vw,1.3rem); font-weight:600; margin-top:1.8rem; min-height:2.8em; line-height:1.45}
-.frist-satz b{color:var(--akzent)}
+.frist-satz b{color:var(--akzent-text, var(--akzent))}
 
 /* ══════════ Termine ══════════ */
 .plan{border:1px solid var(--linie); border-radius:12px; overflow:hidden; background:var(--weiss)}
@@ -313,7 +317,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   display:flex; flex-wrap:wrap; gap:.8rem 1.4rem; align-items:center; justify-content:space-between;
   padding:1rem 1.2rem; border-top:1px solid var(--linie); font-size:.88rem; color:var(--tinte-weich);
 }
-.anfahrt-fuss a{color:var(--akzent); font-weight:600; text-decoration:none}
+.anfahrt-fuss a{color:var(--akzent-text, var(--akzent)); font-weight:600; text-decoration:none}
 .anfahrt-fuss a:hover{text-decoration:underline}
 
 

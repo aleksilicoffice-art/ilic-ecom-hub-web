@@ -9,17 +9,24 @@
 <link rel="stylesheet" href="schriften/fonts.css">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/rechtstexte.css">
+<link rel="icon" href="bilder/logo/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="bilder/logo/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="bilder/logo/apple-touch-icon.png">
 <style>
 /* Sönmez: Rollen der Rechtstext-Vorlage auf die Markenwerte der Entwürfe gelegt (Rot / Anthrazit / Off-White, Archivo) */
 :root{
   --sans:"Archivo",-apple-system,"Segoe UI",sans-serif; --disp:"Archivo",-apple-system,"Segoe UI",sans-serif;
-  --akzent:oklch(0.52 0.196 27); --akzent-tief:oklch(0.42 0.17 27); --akzent-hell:oklch(0.965 0.018 27);
+  --akzent:oklch(0.52 0.196 27); /* Text-Rot (kleine Schrift) — Logo-Rot wäre auf Off-White unter 4,5:1 */ --akzent-tief:oklch(0.42 0.17 27); --akzent-hell:oklch(0.965 0.018 27);
   /* Die Vorlage setzt body{background:var(--gegen); color:var(--flaeche)} — also: --gegen = Off-White, --flaeche = Anthrazit */
   --gegen:oklch(0.99 0.001 250); --gegen-tief:oklch(0.962 0.003 250);
   --flaeche:oklch(0.19 0.012 258); --flaeche-hell:oklch(0.24 0.012 258); --flaeche-tief:oklch(0.14 0.01 258);
   --text:oklch(0.19 0.012 258); --text-weich:oklch(0.46 0.012 258);
   --linie:oklch(0.88 0.006 255); --linie-gegen:oklch(0.88 0.006 255);
 }
+/* Kopfleiste hell: das farbige Logo braucht hellen Grund (die Vorlage färbt Bilder sonst weiß) */
+.top{background:var(--gegen);color:var(--text);border-bottom:1px solid var(--linie)}
+.top a{color:var(--text)}
+.top img.logo-voll{filter:none;width:auto;height:34px;object-fit:initial;display:block}
 </style>
 </head>
 <body>
@@ -28,7 +35,7 @@
   <div class="top-in">
     <a href="./">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Bildungszentrum Sönmez
+      <img class="logo-voll" src="bilder/logo/logo.svg" alt="Bildungszentrum Sönmez – zur Startseite" width="104" height="34">
     </a>
   </div>
 </header>
