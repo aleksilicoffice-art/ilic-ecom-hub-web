@@ -24,8 +24,8 @@
   --gruen:       oklch(0.50 0.11 155);
   --gruen-zart:  oklch(0.955 0.025 155);
   --auf-akzent:  oklch(1 0 0);
-  --disp:"Archivo",-apple-system,"Segoe UI",sans-serif;
-  --sans:"Archivo",-apple-system,"Segoe UI",sans-serif;
+  --disp:"Archivo","Onest","Cairo",-apple-system,"Segoe UI",sans-serif;
+  --sans:"Archivo","Onest","Cairo",-apple-system,"Segoe UI",sans-serif;
   --maxw:1140px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
@@ -97,7 +97,7 @@ img{max-width:100%; display:block}
 .kopf{background:color-mix(in oklab, var(--papier) 84%, transparent); backdrop-filter:blur(16px); border-bottom:1px solid transparent; transition:border-color .25s var(--ease), background-color .25s var(--ease)}
 .kopf.fest{border-bottom-color:var(--linie); background:color-mix(in oklab, var(--papier) 95%, transparent)}
 .kopf-innen{display:flex; align-items:center; gap:1.4rem; padding-block:.8rem}
-.marke{display:inline-flex; flex-direction:column; gap:.14em; line-height:1; text-decoration:none; margin-right:auto}
+.marke{display:inline-flex; flex-direction:column; gap:.14em; line-height:1; text-decoration:none; margin-inline-end:auto}
 .marke .logo{display:block; height:46px; width:auto}
 @media (max-width:380px){.marke .logo{height:38px}}
 .fuss .marke .logo{height:54px}
@@ -107,22 +107,12 @@ img{max-width:100%; display:block}
 .kopf-nav{display:flex; gap:1.6rem; font-size:.94rem; font-weight:500}
 .kopf-nav a{color:var(--tinte-weich); text-decoration:none; display:inline-flex; align-items:center; min-height:44px; padding-block:.3rem; border-bottom:2px solid transparent; transition:color .18s, border-color .18s}
 .kopf-nav a:hover{color:var(--tinte); border-bottom-color:var(--akzent)}
-.sprachwahl{display:flex; border:1px solid var(--linie); border-radius:6px; overflow:hidden; flex:none}
-.sprachwahl a{
-  text-decoration:none; display:inline-flex; align-items:center; justify-content:center; min-height:44px; min-width:44px;
-  background:transparent; border:0; padding:.4rem .7rem; cursor:pointer; font-family:var(--sans);
-  font-weight:700; font-size:.82rem; letter-spacing:.04em; color:var(--tinte-weich);
-  transition:background-color .18s var(--ease), color .18s var(--ease);
-}
-.sprachwahl a:hover{color:var(--tinte)}
-.sprachwahl a[aria-current="page"]{background:var(--akzent); color:var(--auf-akzent)}
 .kopf-tel svg{width:20px; height:20px; flex:none}
 @media (max-width:1000px){.kopf-nav{display:none} .marke .name{font-size:1.12rem}}
 @media (max-width:640px){
   .kopf-innen{gap:.7rem}
   .kopf-tel{padding-inline:.85rem}
   .kopf-tel .tel-nr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
-  .sprachwahl a{padding-inline:.55rem}
 }
 
 /* ══════════ 1 · EINSTIEG — ein Bild, eine Aussage, zwei Wege ══════════ */
@@ -139,14 +129,14 @@ img{max-width:100%; display:block}
 .band{border-block:1px solid var(--linie); background:var(--weiss)}
 .band-innen{display:grid; grid-template-columns:repeat(2,1fr)}
 @media (min-width:56rem){.band-innen{grid-template-columns:repeat(4,1fr)}}
-.band-zelle{padding:clamp(1.4rem,3vw,2.1rem) 1.2rem; border-left:1px solid var(--linie-zart); text-align:center}
-.band-zelle:first-child{border-left:0}
+.band-zelle{padding:clamp(1.4rem,3vw,2.1rem) 1.2rem; border-inline-start:1px solid var(--linie-zart); text-align:center}
+.band-zelle:first-child{border-inline-start:0}
 @media (max-width:56rem){
   .band-zelle:nth-child(-n+2){border-bottom:1px solid var(--linie-zart)}
-  .band-zelle:nth-child(odd){border-left:0}
+  .band-zelle:nth-child(odd){border-inline-start:0}
 }
 .band-zelle .w{font-family:var(--disp); font-weight:800; font-size:clamp(1.7rem,3.4vw,2.4rem); letter-spacing:-.035em; line-height:1}
-.band-zelle .w em{font-style:normal; font-size:.5em; color:var(--akzent-text, var(--akzent)); vertical-align:.32em; margin-right:.12em; letter-spacing:0}
+.band-zelle .w em{font-style:normal; font-size:.5em; color:var(--akzent-text, var(--akzent)); vertical-align:.32em; margin-inline-end:.12em; letter-spacing:0}
 .band-zelle .b{font-size:.86rem; color:var(--tinte-weich); margin-top:.5rem; line-height:1.35}
 
 /* ══════════ Abschnitte ══════════ */
@@ -170,7 +160,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .weg.haupt{background:var(--akzent); border-color:var(--akzent); color:var(--auf-akzent)}
 .weg.haupt .kicker{color:var(--auf-akzent)}
 .weg.haupt li{color:color-mix(in oklab, var(--auf-akzent) 92%, transparent)}
-.weg ul{margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:.5rem; font-size:.97rem; color:var(--tinte-weich)}
+.weg ul{margin:0; padding-inline-start:1.1rem; display:flex; flex-direction:column; gap:.5rem; font-size:.97rem; color:var(--tinte-weich)}
 .weg .btn{align-self:flex-start; margin-top:auto}
 
 /* ══════════ Die Frist ══════════ */
@@ -201,7 +191,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .mod{width:2.5rem; height:2.5rem; flex:none; border-radius:7px; display:grid; place-items:center; background:var(--akzent-zart); color:var(--akzent-tief); font-family:var(--disp); font-weight:800; font-size:1.02rem}
 .plan-titel{font-weight:600}
 .plan-was{display:block; font-size:.85rem; color:var(--tinte-weich); margin-top:.12rem}
-.plan-datum{text-align:right; font-weight:600; font-variant-numeric:tabular-nums}
+.plan-datum{text-align:end; font-weight:600; font-variant-numeric:tabular-nums}
 .plan-datum small{display:block; color:var(--tinte-weich); font-size:.79rem; font-weight:400}
 .plan-status{font-size:.74rem; font-weight:600; padding:.24rem .55rem; border-radius:99px; white-space:nowrap}
 .st-frei{background:var(--gruen-zart); color:var(--gruen)}
@@ -209,7 +199,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .st-voll{background:var(--sand); color:var(--tinte-weich)}
 @media (max-width:48rem){
   .plan-zeile{grid-template-columns:2.5rem 1fr; gap:.45rem 1rem}
-  .plan-datum{grid-column:2; text-align:left}
+  .plan-datum{grid-column:2; text-align:start}
   .plan-status{grid-column:2; justify-self:start}
   .plan-anmelden{grid-column:2; justify-self:start; margin-top:.2rem}
 }
@@ -231,7 +221,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .kurs-kopf{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; min-width:0}
 .kurs-kopf h3{min-width:0}
 .kurs .preis{font-family:var(--disp); font-weight:800; font-size:1.22rem; color:var(--akzent-tief); white-space:nowrap; font-variant-numeric:tabular-nums}
-.kurs .preis small{display:block; font-weight:400; font-size:.72rem; color:var(--tinte-weich); text-align:right; margin-top:.1rem}
+.kurs .preis small{display:block; font-weight:400; font-size:.72rem; color:var(--tinte-weich); text-align:end; margin-top:.1rem}
 .kurs p{font-size:.94rem; color:var(--tinte-weich)}
 
 /* ══════════ Sprachen ══════════ */
@@ -322,14 +312,14 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 
 
 /* ══════════ Muster-Zertifikat ══════════ */
-.nachweis-raster{display:grid; gap:clamp(2rem,5vw,3.5rem); align-items:center}
-@media (min-width:60rem){.nachweis-raster{grid-template-columns:1fr 1.05fr}}
+.nachweis-raster{display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(2rem,5vw,3.5rem); align-items:center}
+@media (min-width:60rem){.nachweis-raster{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
 .blatt-buehne{perspective:1400px}
 .blatt{
   background:var(--weiss); border:1px solid var(--linie); border-radius:3px;
   padding:clamp(1.5rem,3.5vw,2.4rem) clamp(1.3rem,3vw,2rem);
   box-shadow:0 1px 2px rgba(0,0,0,.05), 0 18px 40px -18px rgba(0,0,0,.28);
-  position:relative; transform:rotate(-1.1deg);
+  position:relative; transform:rotate(-1.1deg); hyphens:auto; overflow-wrap:break-word;
 }
 .blatt-kopf{text-align:center; padding-bottom:.9rem; border-bottom:1px solid var(--linie)}
 .blatt-kopf .bz{font-weight:800; font-size:1.02rem; letter-spacing:-.02em}
@@ -345,7 +335,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 }
 .blatt .satz{font-size:.83rem; color:var(--tinte-weich); line-height:1.55}
 .blatt .norm{font-weight:700; font-size:.95rem; margin:.9rem 0 .5rem; color:var(--tinte)}
-.blatt ul{margin:0; padding-left:1.05rem; display:flex; flex-direction:column; gap:.22rem; font-size:.79rem; color:var(--tinte-weich)}
+.blatt ul{margin:0; padding-inline-start:1.05rem; display:flex; flex-direction:column; gap:.22rem; font-size:.79rem; color:var(--tinte-weich)}
 .blatt-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:flex-end; margin-top:1.5rem; padding-top:.9rem; border-top:1px solid var(--linie)}
 .blatt-fuss div{font-size:.76rem; color:var(--tinte-weich)}
 .blatt-fuss .unterschrift{
@@ -353,7 +343,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   border-bottom:1px solid var(--linie); padding:0 1.2rem .1rem 0; margin-bottom:.3rem; display:inline-block;
 }
 .blatt .muster{
-  position:absolute; top:.7rem; right:.7rem; font-size:.62rem; font-weight:700;
+  position:absolute; top:.7rem; inset-inline-end:.7rem; font-size:.62rem; font-weight:700;
   letter-spacing:.14em; text-transform:uppercase; color:var(--akzent);
   border:1px solid currentColor; padding:.2rem .45rem; border-radius:3px; background:var(--weiss);
 }
@@ -376,7 +366,6 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 /* Schmale Handys (bis 380 px): Kopfzeile enger, damit Marke · DE/TR/EN · Telefon nebeneinander bleiben */
 @media (max-width:380px){
   .kopf-innen{gap:.5rem}
-  .sprachwahl a{padding:.5rem .45rem; font-size:.76rem}
   .marke .name{font-size:1rem}
 }
 
@@ -417,7 +406,6 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   .kopf.offen .kopf-nav a:last-child{border-bottom:0}
   .kopf.offen .kopf-nav a[aria-current="page"]{color:var(--akzent-tief); border-bottom-color:var(--linie-zart)}
 }
-@media (max-width:380px){ .sprachwahl a{min-width:38px} }
 
 /* ─── Aktionsleiste unten (nur Handy): Anrufen · WhatsApp ───
    Ersetzt auf dem Handy den Telefon-Knopf im Kopf, damit dort Platz für
@@ -453,7 +441,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   padding-bottom:clamp(2.4rem,5vw,3.6rem); background:var(--sand); border-bottom:1px solid var(--linie);
 }
 .brotkrumen{display:flex; flex-wrap:wrap; gap:.45rem; font-size:.84rem; color:var(--tinte-weich); margin:0 0 1.5rem; padding:0; list-style:none}
-.brotkrumen li + li::before{content:"›"; margin-right:.45rem; color:var(--tinte-weich)}
+.brotkrumen li + li::before{content:"›"; margin-inline-end:.45rem; color:var(--tinte-weich)}
 .brotkrumen a{color:var(--tinte-weich); text-decoration:none}
 .brotkrumen a:hover{color:var(--tinte); text-decoration:underline}
 .seitenkopf-raster{display:grid; gap:clamp(1.8rem,4vw,3rem); align-items:start}
@@ -488,13 +476,13 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 
 /* ─── Preistabelle (Speditionen) ─── */
 .preistabelle{width:100%; border-collapse:collapse; font-size:.98rem}
-.preistabelle th{text-align:left; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tinte-weich); font-weight:700; padding:0 0 .75rem; border-bottom:2px solid var(--tinte)}
-.preistabelle th.r{text-align:right}
+.preistabelle th{text-align:start; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tinte-weich); font-weight:700; padding:0 0 .75rem; border-bottom:2px solid var(--tinte)}
+.preistabelle th.r{text-align:end}
 .preistabelle td{padding:1.05rem 0; border-bottom:1px solid var(--linie); vertical-align:baseline}
-.preistabelle td + td{padding-left:1.4rem}
+.preistabelle td + td{padding-inline-start:1.4rem}
 .preistabelle .name{font-weight:700}
 .preistabelle .umfang{color:var(--tinte-weich); font-size:.93rem}
-.preistabelle .preis{text-align:right; font-family:var(--disp); font-weight:800; white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--akzent-tief); font-size:1.08rem}
+.preistabelle .preis{text-align:end; font-family:var(--disp); font-weight:800; white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--akzent-tief); font-size:1.08rem}
 .preistabelle .preis small{display:block; font-family:var(--sans); font-weight:400; font-size:.78rem; color:var(--tinte-weich)}
 @media (max-width:40rem){
   .preistabelle thead{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
@@ -502,7 +490,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   .preistabelle tr{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.25rem 1rem; padding-block:1rem; border-bottom:1px solid var(--linie)}
   .preistabelle tbody tr:first-child{border-top:2px solid var(--tinte)}
   .preistabelle td{padding:0; border:0}
-  .preistabelle td + td{padding-left:0}
+  .preistabelle td + td{padding-inline-start:0}
   .preistabelle td.name{grid-column:1; grid-row:1}
   .preistabelle td.preis{grid-column:2; grid-row:1}
   .preistabelle td.umfang{grid-column:1 / -1; grid-row:2}
@@ -563,7 +551,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .bild-dialog::backdrop{background:color-mix(in oklab, var(--tinte) 90%, transparent)}
 .bild-dialog img{max-width:100%; max-height:84vh; display:block; border-radius:6px; margin-inline:auto}
 .bild-dialog p{color:var(--papier); font-size:.92rem; margin-top:.7rem; text-align:center}
-.bild-dialog button{position:absolute; top:-3rem; right:0; min-height:44px; padding:0 1rem; border-radius:6px; border:1px solid color-mix(in oklab, var(--papier) 40%, transparent); background:transparent; color:var(--papier); font:inherit; font-weight:600; cursor:pointer}
+.bild-dialog button{position:absolute; top:-3rem; inset-inline-end:0; min-height:44px; padding:0 1rem; border-radius:6px; border:1px solid color-mix(in oklab, var(--papier) 40%, transparent); background:transparent; color:var(--papier); font:inherit; font-weight:600; cursor:pointer}
 .sprungliste{display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; margin:0; padding:0}
 .sprungliste a{display:inline-flex; align-items:center; min-height:44px; padding:0 1rem; border:1px solid var(--linie); border-radius:99px; background:var(--weiss); text-decoration:none; font-weight:600; font-size:.93rem}
 .sprungliste a:hover{border-color:var(--tinte-weich)}
@@ -583,7 +571,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .planer{background:var(--weiss); border:1px solid var(--tinte); border-radius:0; padding:clamp(1.2rem, 2.6vw, 2rem)}
 .p-kopf{display:none; gap:.8rem; font-size:.74rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--tinte-weich); padding-bottom:.5rem; border-bottom:1px solid var(--tinte)}
 .p-zeile{display:grid; gap:.6rem .8rem; padding:.9rem 0; border-bottom:1px solid var(--linie); align-items:center; position:relative}
-@media (max-width:51.99rem){.p-zeile{padding-top:1rem} .p-zeile .p-weg{position:absolute; top:.6rem; right:0} .p-zeile > div:first-child input{padding-right:3rem}}
+@media (max-width:51.99rem){.p-zeile{padding-top:1rem} .p-zeile .p-weg{position:absolute; top:.6rem; inset-inline-end:0} .p-zeile > div:first-child input{padding-inline-end:3rem}}
 .p-zeile .p-monat{display:grid; grid-template-columns:1fr auto; gap:.4rem}
 .p-zeile label{font-size:.8rem; font-weight:600; color:var(--tinte-weich); display:block; margin-bottom:.25rem}
 @media (min-width:52rem){
@@ -597,7 +585,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   border:1px solid var(--linie); border-radius:0; padding:.6rem .7rem; min-height:44px;
   transition:border-color .18s, box-shadow .18s;
 }
-.planer select{appearance:none; -webkit-appearance:none; padding-right:2rem;
+.planer select{appearance:none; -webkit-appearance:none; padding-inline-end:2rem;
   background-image:linear-gradient(45deg, transparent 50%, var(--tinte) 50%), linear-gradient(135deg, var(--tinte) 50%, transparent 50%);
   background-position:calc(100% - 1rem) 50%, calc(100% - .68rem) 50%; background-size:.34rem .34rem; background-repeat:no-repeat}
 .planer input:focus,.planer select:focus{outline:none; border-color:var(--tinte); box-shadow:0 0 0 3px color-mix(in oklab, var(--tinte) 18%, transparent)}
@@ -615,7 +603,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .vorschlag .v-termine{display:flex; flex-wrap:wrap; gap:.3rem .9rem; font-variant-numeric:tabular-nums; font-size:1rem}
 .vorschlag .v-termine span{white-space:nowrap}
 .vorschlag li.knapp .v-name{color:var(--akzent-tief)}
-.vorschlag li.knapp .v-name::before{content:""; display:inline-block; width:.6rem; height:.6rem; background:var(--akzent); margin-right:.5rem}
+.vorschlag li.knapp .v-name::before{content:""; display:inline-block; width:.6rem; height:.6rem; background:var(--akzent); margin-inline-end:.5rem}
 .vorschlag .v-knapp{color:var(--akzent-tief); font-size:.95rem}
 .p-senden{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.4rem}
 .p-fallback{margin-top:1.2rem; font-size:.95rem; color:var(--tinte-weich)}
@@ -641,3 +629,32 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 
 /* Live: Abschnitt ohne Bild (Platzhalter beim Live-Bau entfernt) */
 .teil.teil-einzeln{grid-template-columns:minmax(0,1fr)} .teil.teil-einzeln .teil-text{max-width:46rem}
+
+/* ══════════ Sprach-Klappmenü (28.09.2026): Weltkugel + Kürzel, sechs Sprachen ══════════ */
+.sprachmenue{position:relative; flex:none}
+.sprachmenue > summary{list-style:none; display:flex; align-items:center; gap:.38rem; min-height:44px; padding:0 .7rem; border:1px solid var(--linie); border-radius:6px; background:var(--weiss); color:var(--tinte); font-weight:700; font-size:.82rem; letter-spacing:.05em; cursor:pointer; user-select:none; transition:border-color .18s}
+.sprachmenue > summary::-webkit-details-marker{display:none}
+.sprachmenue > summary:hover, .sprachmenue[open] > summary{border-color:var(--tinte-weich)}
+.sprachmenue > summary:focus-visible{outline:2px solid var(--akzent); outline-offset:2px}
+.sprachmenue .globus{width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6}
+.sprachmenue .pfeil{width:11px; height:11px; flex:none; fill:none; stroke:currentColor; stroke-width:2; transition:transform .2s var(--ease)}
+.sprachmenue[open] .pfeil{transform:rotate(180deg)}
+.sprachliste{position:absolute; top:calc(100% + .45rem); inset-inline-end:0; z-index:60; min-width:17.5rem; margin:0; padding:.35rem; list-style:none;
+  background:var(--weiss); border:1px solid var(--linie); border-radius:10px; box-shadow:0 14px 34px -14px color-mix(in oklab, var(--tinte) 40%, transparent)}
+.sprachliste a{display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:44px; padding:.5rem .75rem; border-radius:6px; color:var(--tinte); text-decoration:none; font-size:.95rem; font-weight:500}
+.sprachliste a:hover{background:var(--sand)}
+.sprachliste a[aria-current="page"]{background:var(--akzent-zart); font-weight:700}
+.sprachliste .kurz{font-size:.7rem; font-weight:700; letter-spacing:.08em; color:var(--tinte-weich)}
+.sprachliste a[aria-current="page"] .kurz{color:var(--akzent-text, var(--akzent))}
+@media (prefers-reduced-motion:reduce){.sprachmenue .pfeil{transition:none}}
+@media (max-width:380px){.sprachmenue > summary{padding:0 .5rem; gap:.3rem} .sprachliste{min-width:13.5rem}}
+
+/* ══════════ Arabisch (rechts nach links) und Schriftbesonderheiten ══════════ */
+html[lang="ar"] body, html[lang="ar"] body *{letter-spacing:0 !important}     /* Sperrung zerreißt die verbundene arabische Schrift */
+html[lang="ar"] .kicker{text-transform:none; font-size:.86rem}
+html[lang="ar"] body{line-height:1.75}
+html[dir="rtl"] .brotkrumen li + li::before{content:"‹"}
+html[dir="rtl"] .planer select{background-position:.68rem 50%, 1.02rem 50%}
+html[dir="rtl"] .einstieg-raster, html[dir="rtl"] .seitenkopf-raster{direction:rtl}
+.formular-status{margin:1rem 0 0; font-size:.92rem; line-height:1.55; color:var(--tinte)}
+.formular-status a{color:var(--akzent-text, var(--akzent)); font-weight:600}
