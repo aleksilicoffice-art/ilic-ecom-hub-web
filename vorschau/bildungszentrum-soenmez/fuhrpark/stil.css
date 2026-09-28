@@ -636,7 +636,6 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .sprachmenue > summary::-webkit-details-marker{display:none}
 .sprachmenue > summary:hover, .sprachmenue[open] > summary{border-color:var(--tinte-weich)}
 .sprachmenue > summary:focus-visible{outline:2px solid var(--akzent); outline-offset:2px}
-.sprachmenue .globus{width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6}
 .sprachmenue .pfeil{width:11px; height:11px; flex:none; fill:none; stroke:currentColor; stroke-width:2; transition:transform .2s var(--ease)}
 .sprachmenue[open] .pfeil{transform:rotate(180deg)}
 .sprachliste{position:absolute; top:calc(100% + .45rem); inset-inline-end:0; z-index:60; min-width:17.5rem; margin:0; padding:.35rem; list-style:none;
