@@ -634,3 +634,6 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .einblick figcaption{font-size:.88rem; color:var(--tinte-weich); margin-top:.55rem}
 @media (min-width:48rem){.einblick{grid-template-columns:repeat(3,minmax(0,1fr))} .einblick figure:first-child{grid-column:auto} .einblick figure:first-child a{aspect-ratio:4/5}}
 .einblick-link{margin-top:1.6rem}
+
+/* Live: Abschnitt ohne Bild (Platzhalter beim Live-Bau entfernt) */
+.teil.teil-einzeln{grid-template-columns:minmax(0,1fr)} .teil.teil-einzeln .teil-text{max-width:46rem}
