@@ -158,6 +158,8 @@
   .demo-card .txt p{color:var(--ink-soft); font-size:.98rem; margin-bottom:10px;}
   .demo-card .txt .fiktiv{font-size:.85rem; color:var(--ink-faint);}
   .demo-card .txt .btn{margin-top:18px; align-self:flex-start;}
+  .demo-card .txt .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;}
+  .demo-card .txt .cta-row .btn{margin-top:0;}
 
   /* ---- Vertrauen ---- */
   .trust-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
@@ -372,7 +374,9 @@
       <!-- Live-Muster: die fertige Objekt-Webseite zum Anklicken.
            Der Link zeigt bereits aufs Endziel und greift, sobald das Schaufenster-Objekt
            über `node akquise/host-demo.mjs muster/parkblick-wohnung` im public Repo liegt.
-           Beides gehört zusammen live — sonst laeuft der Knopf ins Leere. -->
+           Beides gehört zusammen live — sonst laeuft der Knopf ins Leere.
+           Der zweite Knopf führt in den begehbaren 3D-Rundgang (rundgang/), den dasselbe
+           Skript als Unterseite mitnimmt. -->
       <div class="demo-card reveal">
         <div class="shot">
           <img src="bilder/leer-wohnzimmer-moebliert.jpg" alt="Vorschau des Musterobjekts „Parkblick-Wohnung“: virtuell möbliertes Wohnzimmer" loading="lazy">
@@ -387,7 +391,10 @@
             setzen, beim Einzelobjekt-Paket zusätzlich mit Bildergalerie und Lead-Formular,
             über das Interessenten Sie direkt erreichen.</p>
           <p class="fiktiv">Musterobjekt — die „Parkblick-Wohnung“ ist ein fiktives Objekt zu Demonstrationszwecken, kein reales Inserat.</p>
-          <a class="btn" href="../vorschau/parkblick-wohnung/">Musterobjekt ansehen →</a>
+          <div class="cta-row">
+            <a class="btn" href="../vorschau/parkblick-wohnung/">Musterobjekt ansehen →</a>
+            <a class="btn ghost" href="../vorschau/parkblick-wohnung/rundgang/">3D-Rundgang ansehen →</a>
+          </div>
         </div>
       </div>
     </div>
