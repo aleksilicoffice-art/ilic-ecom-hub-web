@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="robots" content="noindex, nofollow">
+  <title>3D-Rundgang — Musterwohnung Parkblick | Exposé Boost</title>
+  <meta name="description" content="Begehbarer 3D-Rundgang durch die fiktive Musterwohnung Parkblick: alle Räume frei begehbar, auf Handy und Desktop — so zeigt Exposé Boost eine Immobilie von innen.">
+  <meta name="theme-color" content="#F7F5F1">
+  <meta property="og:title" content="3D-Rundgang — Musterwohnung Parkblick">
+  <meta property="og:description" content="Fiktives Musterobjekt: Wohnung in 3D betreten und frei durch alle Räume gehen.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:image" content="https://ilic-ecomhub.de/vorschau/parkblick-wohnung/rundgang/bilder/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23A47B3C'/><text x='50' y='70' font-size='62' text-anchor='middle' fill='%23F7F5F1' font-family='Georgia'>P</text></svg>">
+  <link rel="stylesheet" href="css/fonts.css?v=78d62e8832">
+  <link rel="stylesheet" href="css/rundgang.css?v=78d62e8832">
+  <script type="importmap">
+    {"imports":{"three":"./js/vendor/three-0.186.1/three.module.js","three/addons/":"./js/vendor/three-0.186.1/addons/"}}
+  </script>
+  <script>
+    // Ohne WebGL2 oder Importmap bleibt die Seite als Poster + Hinweis nutzbar (Inhalt hängt nie am 3D).
+    (function () {
+      var gl = null; try { gl = document.createElement('canvas').getContext('webgl2'); } catch (e) {}
+      var map = !!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'));
+      if (!gl || !map) document.documentElement.classList.add('kein-3d');
+    })();
+  </script>
+</head>
+<body>
+  <canvas id="buehne" aria-label="3D-Ansicht der Musterwohnung Parkblick"></canvas>
+
+  <!-- Ladebildschirm: liegt im HTML, damit sofort etwas Sinnvolles steht -->
+  <div id="lade" class="lade" role="dialog" aria-labelledby="lade-titel" aria-live="polite">
+    <div class="lade-karte">
+      <p class="eyebrow">Exposé Boost · 3D-Rundgang</p>
+      <h1 id="lade-titel">Musterwohnung <em>Parkblick</em></h1>
+      <p class="lade-sub">Fiktives Musterobjekt — ca. 84 m², 3 Zimmer, 3. OG, Balkon mit Parkblick. Betreten Sie die Wohnung und gehen Sie frei durch alle Räume.</p>
+      <div class="lade-balken" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Ladefortschritt"><span id="lade-fuellung"></span></div>
+      <p id="lade-status" class="lade-status">Modelle und Materialien werden geladen …</p>
+      <button id="lade-start" class="btn" type="button" disabled>Rundgang starten</button>
+      <p class="lade-hinweis kein-3d-hinweis">Ihr Browser unterstützt die 3D-Ansicht nicht. <a href="../">Zur Objektseite mit Fotos</a></p>
+    </div>
+  </div>
+
+  <!-- Kopfzeile -->
+  <header id="kopf" class="kopf" hidden>
+    <a class="marke" href="../" title="Zur Objektseite">
+      <span class="mk" aria-hidden="true">P</span>
+      <span class="mt"><strong>Musterwohnung Parkblick</strong><small>Exposé Boost · fiktives Musterobjekt</small></span>
+    </a>
+    <div class="kopf-rechts">
+      <span id="raum-anzeige" class="raum-anzeige" role="status" aria-live="polite">Flur</span>
+      <a id="cta" class="btn klein cta" href="../#kontakt">Besichtigung anfragen</a>
+      <a class="btn klein cta-mobil" href="../#kontakt" aria-label="Besichtigung anfragen">Anfragen</a>
+      <button id="btn-hilfe" class="ikon" type="button" aria-label="Hilfe und Steuerung (Taste H)" title="Hilfe (H)" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="16.8" r="1" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Untere Leiste: Räume + Werkzeuge -->
+  <nav id="leiste" class="leiste" aria-label="Räume und Funktionen" hidden>
+    <div class="chips" role="group" aria-label="Zu einem Raum gehen">
+      <button class="chip" type="button" data-raum="flur">Flur</button>
+      <button class="chip" type="button" data-raum="kueche">Küche</button>
+      <button class="chip" type="button" data-raum="essen">Essen</button>
+      <button class="chip" type="button" data-raum="wohnen">Wohnen</button>
+      <button class="chip" type="button" data-raum="balkon">Balkon</button>
+      <button class="chip" type="button" data-raum="schlafen">Schlafen</button>
+      <button class="chip" type="button" data-raum="bad">Bad</button>
+      <button class="chip tour" type="button" id="btn-tour" aria-pressed="false">▶ Führung</button>
+    </div>
+    <div class="werkzeuge">
+      <div class="gruppe tageszeit" role="group" aria-label="Tageszeit">
+        <button class="wz" type="button" data-zeit="morgen" aria-pressed="true" title="Morgen (1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16M6 13a6 6 0 0 1 12 0M12 4v2M5.6 7.6l1.4 1.4M18.4 7.6 17 9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Morgen</span></button>
+        <button class="wz" type="button" data-zeit="mittag" aria-pressed="false" title="Mittag (2)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Mittag</span></button>
+        <button class="wz" type="button" data-zeit="abend" aria-pressed="false" title="Abend (3)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16h16M7 16a5 5 0 0 1 10 0M12 6v2M3 20h18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Abend</span></button>
+        <button class="wz" type="button" data-zeit="nacht" aria-pressed="false" title="Nacht (4)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5a8 8 0 1 0 5 13.6A9 9 0 0 1 15.5 3.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>Nacht</span></button>
+      </div>
+      <button class="wz" type="button" id="btn-licht" aria-pressed="false" title="Alle Lichter an/aus (L)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1.1 2.2h5a3.5 3.5 0 0 1 1.1-2.2A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>Licht</span></button>
+      <button class="wz" type="button" id="btn-plan" aria-pressed="false" title="Grundriss ein/aus (M)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 12h8M12 4v8M12 12v8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>Grundriss</span></button>
+      <button class="wz" type="button" id="btn-puppenhaus" aria-pressed="false" title="Übersicht von oben (V)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-6h4v6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>Übersicht</span></button>
+      <button class="wz" type="button" id="btn-foto" title="Foto speichern (P)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span>Foto</span></button>
+      <button class="wz" type="button" id="btn-voll" title="Vollbild (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Vollbild</span></button>
+      <button class="wz" type="button" id="btn-qualitaet" title="Bildqualität" aria-haspopup="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h12M20 17h0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="18" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span>Qualität</span></button>
+    </div>
+  </nav>
+
+  <canvas id="minimap" class="minimap" hidden aria-label="Grundriss mit Standort; Tippen bewegt Sie dorthin" role="img"></canvas>
+  <div id="hotspots" class="hotspots" aria-hidden="false"></div>
+  <aside id="info" class="info" hidden role="dialog" aria-labelledby="info-titel">
+    <button class="schliessen" type="button" aria-label="Schließen">×</button>
+    <p class="info-meta" id="info-eyebrow">Raum</p>
+    <h2 id="info-titel"></h2>
+    <p id="info-text"></p>
+  </aside>
+  <div id="qualitaet-menue" class="menue" hidden role="menu" aria-label="Bildqualität">
+    <p class="menue-titel">Bildqualität</p>
+    <button type="button" role="menuitemradio" data-stufe="hoch">Hoch <small>Schatten, Umgebungsverdeckung, volle Auflösung</small></button>
+    <button type="button" role="menuitemradio" data-stufe="mittel">Mittel <small>Weniger Effekte, flüssig auf Laptops</small></button>
+    <button type="button" role="menuitemradio" data-stufe="niedrig">Niedrig <small>Für Handys und ältere Geräte</small></button>
+    <p class="menue-hinweis">Die Seite lädt mit der neuen Stufe neu.</p>
+  </div>
+
+  <dialog id="hilfe" class="hilfe" aria-labelledby="hilfe-titel">
+    <form method="dialog">
+      <h2 id="hilfe-titel">So bewegen Sie sich</h2>
+      <div class="hilfe-spalten">
+        <section>
+          <h3>Am Computer</h3>
+          <ul>
+            <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> oder Pfeiltasten: gehen · <kbd>Shift</kbd>: schneller</li>
+            <li>Klick ins Bild: Maus fängt den Blick · <kbd>Esc</kbd>: Maus frei</li>
+            <li>Mit gedrückter Maustaste ziehen: umsehen · Klick auf den Boden: dorthin gehen</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Am Handy</h3>
+          <ul>
+            <li>Linke Bildhälfte: Finger aufsetzen und ziehen = gehen (Joystick)</li>
+            <li>Rechte Bildhälfte: wischen = umsehen</li>
+            <li>Kurz auf den Boden tippen: dorthin gehen</li>
+          </ul>
+        </section>
+      </div>
+      <h3>Tasten</h3>
+      <p class="tasten"><kbd>1</kbd>–<kbd>4</kbd> Tageszeit · <kbd>L</kbd> Licht · <kbd>M</kbd> Grundriss · <kbd>V</kbd> Übersicht · <kbd>P</kbd> Foto · <kbd>F</kbd> Vollbild · <kbd>H</kbd> Hilfe</p>
+      <p class="hinweis">Fiktives Musterobjekt: Grundriss, Maße und Einrichtung sind frei erfunden und zeigen, wie Exposé Boost eine echte Immobilie in 3D präsentiert.</p>
+      <button class="btn" value="zu">Verstanden</button>
+    </form>
+  </dialog>
+
+  <div id="joystick" class="joystick" hidden aria-hidden="true"><span></span></div>
+  <div id="fps" class="fps" hidden aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js?v=78d62e8832"></script>
+</body>
+</html>

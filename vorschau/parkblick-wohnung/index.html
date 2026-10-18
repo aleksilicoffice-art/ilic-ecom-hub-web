@@ -250,6 +250,18 @@
     /* =========================================================================
        7) GALERIE (Spaltensatz)
        ========================================================================= */
+    /* 3D-Rundgang (optional) */
+    .rundgang3d { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); align-items: center; }
+    @media (min-width: 900px) { .rundgang3d { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 52px; } }
+    .rundgang3d-bild { position: relative; display: block; border-radius: var(--radius); overflow: hidden; box-shadow: var(--schatten); background: var(--grund-3); }
+    .rundgang3d-bild img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform .6s ease; }
+    .rundgang3d-bild:hover img { transform: scale(1.03); }
+    .rundgang3d-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 14px 24px; border-radius: 999px; background: rgba(247, 245, 241, .94); color: var(--tinte); font-weight: 700; font-size: 16px; box-shadow: 0 10px 30px rgba(34, 32, 29, .28); white-space: nowrap; }
+    .rundgang3d-text h2 { font-size: clamp(30px, 4.6vw, 46px); margin: 12px 0 14px; }
+    .rundgang3d-text p { color: var(--tinte-soft); font-size: 17px; }
+    .rundgang3d-liste { list-style: none; padding: 0; margin: 20px 0 26px; display: grid; gap: 10px; color: var(--tinte-soft); }
+    .rundgang3d-liste li { display: flex; gap: 10px; align-items: flex-start; }
+    .rundgang3d-liste li::before { content: "✓"; color: var(--akzent); font-weight: 700; flex: 0 0 auto; }
     .galerie { columns: 1; column-gap: 14px; }
     .galerie img { width: 100%; border-radius: var(--radius-sm); margin-bottom: 14px; break-inside: avoid; }
     @media (min-width: 620px) { .galerie { columns: 2; } }
@@ -369,6 +381,7 @@
       <div class="header-marke">ILIC ECOM HUB</div>
       <nav class="header-nav" aria-label="Seitennavigation">
         <a href="#vergleich">Vorher / Nachher</a>
+        <a href="#rundgang-3d">3D-Rundgang</a>
         <a href="#lage">Lage</a>
       </nav>
       <a href="#kontakt" class="btn btn-primary header-cta">Besichtigung anfragen</a>
@@ -389,6 +402,7 @@
       <div class="hero-aktionen">
         <a href="#kontakt" class="btn btn-primary">Besichtigung anfragen</a>
         <a href="#vergleich" class="btn btn-hell">Möbliert ansehen</a>
+        <a href="rundgang/" class="btn btn-hell btn-3d">In 3D betreten</a>
       </div>
     </div>
     <span class="hero-hinweis">Visualisierungen teils virtuell möbliert</span>
@@ -500,6 +514,27 @@
   <!-- =====================================================================
        GALERIE
        ===================================================================== -->
+  <section class="section" id="rundgang-3d" style="padding-top:0;">
+    <div class="wrap">
+      <div class="rundgang3d reveal">
+        <a class="rundgang3d-bild" href="rundgang/" aria-label="3D-Rundgang starten">
+          <img src="rundgang/bilder/poster.jpg" alt="Blick in den 3D-Rundgang: Musterwohnung Parkblick" loading="lazy" />
+          <span class="rundgang3d-play">▶&nbsp; 3D-Rundgang starten</span>
+        </a>
+        <div class="rundgang3d-text">
+          <span class="eyebrow">In 3D begehbar</span>
+          <h2>Betreten Sie die Wohnung</h2>
+          <p>Die Musterwohnung als begehbares 3D-Modell: vom Flur in Küche, Wohnzimmer, Schlafzimmer und Bad, raus auf den Balkon mit Parkblick. Sie bewegen sich frei, sehen sich um und wechseln die Tageszeit — so bekommt ein Interessent in zwei Minuten ein Gefühl für Schnitt und Licht.</p>
+          <ul class="rundgang3d-liste">
+            <li>Alle Räume frei begehbar — am Handy wie am Computer</li>
+            <li>Tageszeiten, Licht und Grundriss auf Knopfdruck</li>
+            <li>Keine App, kein Download — direkt im Browser</li>
+          </ul>
+          <a href="rundgang/" class="btn btn-primary">3D-Rundgang starten</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- =====================================================================
        360°-RUNDGANG (optional — wird ohne Panoramen komplett entfernt).
