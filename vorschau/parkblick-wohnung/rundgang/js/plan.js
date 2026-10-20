@@ -17,7 +17,7 @@ export const PLAN = {
       kamera: { pos: [4.36, 1.6, 1.3], yaw: S, pitch: 0 },
       hotspot: { pos: [4.36, 1.45, 3.2], titel: "Flur", text: "Langer Flur mit Garderobe und Spiegel — von hier gehen alle Räume ab. Türen in Weiß, durchgehendes Eichenparkett." } },
     { id: "kueche",   name: "Küche",        rect: [0,    0,    3.40, 3.00], boden: "parkett", flaeche: "10,2 m²",
-      kamera: { pos: [2.6, 1.6, 2.1], yaw: W + 0.5, pitch: 0 },
+      kamera: { pos: [2.5, 1.6, 1.9], yaw: W + 0.5, pitch: 0 },
       hotspot: { pos: [1.4, 1.3, 1.5], titel: "Küche", text: "Einbauküche in L-Form mit Halbinsel und zwei Barhockern, Fenster über der Spüle nach Norden, Steinarbeitsplatte, Eichenfronten." } },
     { id: "essen",    name: "Essbereich",   rect: [0,    3.00, 3.40, 5.72], boden: "parkett", flaeche: "9,0 m²",
       kamera: { pos: [2.9, 1.6, 5.2], yaw: W + 0.35, pitch: 0 },
@@ -26,10 +26,10 @@ export const PLAN = {
       kamera: { pos: [4.6, 1.6, 6.3], yaw: S, pitch: 0 },
       hotspot: { pos: [5.0, 1.3, 7.3], titel: "Wohnzimmer", text: "Rund 33 m² nach Süden mit zwei Fenstern und Balkontür. Sofa als Raumteiler zum Essbereich, TV-Wand, Leseecke am Regal." } },
     { id: "balkon",   name: "Balkon",       rect: [5.60, 9.70, 9.00, 11.20], boden: "beton", flaeche: "5,1 m²", aussen: true,
-      kamera: { pos: [7.3, 1.6, 10.3], yaw: S, pitch: -0.1 },
+      kamera: { pos: [6.6, 1.6, 10.35], yaw: S, pitch: -0.1 },
       hotspot: { pos: [6.3, 1.5, 10.4], titel: "Balkon", text: "Südbalkon mit Glasbrüstung und freiem Blick über den Park. Platz für Bistrotisch und zwei Stühle." } },
     { id: "schlafen", name: "Schlafzimmer", rect: [5.32, 0,    9.00, 3.60], boden: "parkett", flaeche: "13,2 m²",
-      kamera: { pos: [5.9, 1.6, 2.6], yaw: O + 0.6, pitch: 0 },
+      kamera: { pos: [6.4, 1.6, 2.6], yaw: O + 0.6, pitch: 0 },
       hotspot: { pos: [7.1, 1.4, 2.5], titel: "Schlafzimmer", text: "Ostfenster für die Morgensonne, Platz für ein 1,80-m-Bett mit Nachttischen und einen Kleiderschrank über die ganze Südwand." } },
     { id: "bad",      name: "Bad",          rect: [5.32, 3.72, 9.00, 5.60], boden: "terrazzo", flaeche: "6,9 m²",
       kamera: { pos: [5.8, 1.6, 4.75], yaw: O, pitch: 0 },
@@ -38,7 +38,7 @@ export const PLAN = {
 
   // Offene Übergänge ohne Wand (für Raumgraph/Minimap): Linie [[x,z],[x,z]]
   portale: [
-    { von: "kueche", nach: "essen",  linie: [[0.6, 3.0], [3.4, 3.0]] },
+    { von: "kueche", nach: "essen",  linie: [[2.62, 3.0], [3.38, 3.0]] },   // Lücke östlich der Halbinsel
     { von: "essen",  nach: "wohnen", linie: [[0, 5.72], [3.4, 5.72]] },
     { von: "flur",   nach: "wohnen", linie: [[3.52, 5.72], [5.2, 5.72]] },
   ],
@@ -60,8 +60,8 @@ export const PLAN = {
       { typ: "tuer",      von: 1.0, bis: 1.9, unten: 0, oben: 2.08, von_raum: "flur", nach: "kueche", anschlag: "anfang" },
       { typ: "durchgang", von: 3.7, bis: 5.3, unten: 0, oben: 2.2 } ] },
     { id: "flur-o", von: [5.26, 0], bis: [5.26, 5.72], dicke: WI, oeffnungen: [
-      { typ: "tuer", von: 1.4, bis: 2.3, unten: 0, oben: 2.08, von_raum: "flur", nach: "schlafen", anschlag: "ende" },
-      { typ: "tuer", von: 4.3, bis: 5.2, unten: 0, oben: 2.08, von_raum: "flur", nach: "bad", anschlag: "anfang" } ] },
+      { typ: "tuer", von: 1.4, bis: 2.3, unten: 0, oben: 2.08, von_raum: "flur", nach: "schlafen", anschlag: "anfang" },   // schlägt zur Nordwand auf, Weg am Bett vorbei bleibt frei
+      { typ: "tuer", von: 4.3, bis: 5.2, unten: 0, oben: 2.08, von_raum: "flur", nach: "bad", anschlag: "ende" } ] },   // Bad-Tür schlägt zur Südwand auf, nicht gegen den Waschtisch
     { id: "schlafen-bad", von: [5.32, 3.66], bis: [9.0, 3.66], dicke: WI, oeffnungen: [] },
     { id: "bad-wohnen",   von: [5.32, 5.66], bis: [9.0, 5.66], dicke: WI, oeffnungen: [] },
   ],
@@ -127,15 +127,15 @@ export const PLAN = {
     { id: "vorhang-w2",  typ: "param", art: "vorhang", pos: [4.4, 0, 9.33], rotY: 0, b: 1.6, raum: "wohnen" },
     { id: "vorhang-bt",  typ: "param", art: "vorhang", pos: [7.2, 0, 9.33], rotY: 0, b: 1.8, raum: "wohnen" },
     // --- Schlafzimmer
-    { id: "bett",        typ: "param", art: "bett", pos: [7.16, 0, 0.06], rotY: 0, raum: "schlafen" },
-    { id: "kissen-bett", typ: "gltf",  modell: "throw_pillows_01", pos: [6.75, 0.56, 0.75], rotY: 0, raum: "schlafen", kollision: false, farbe: 0xd8cfc0 },
-    { id: "nacht-1",     typ: "param", art: "nachttisch", pos: [5.85, 0, 0.3], raum: "schlafen", licht: { id: "nacht-1", gruppe: "schlafen", cd: 1.8 } },
-    { id: "nacht-2",     typ: "param", art: "nachttisch", pos: [8.47, 0, 0.3], raum: "schlafen", licht: { id: "nacht-2", gruppe: "schlafen" } },
+    { id: "bett",        typ: "param", art: "bett", pos: [7.41, 0, 0.06], rotY: 0, raum: "schlafen" },   // 25 cm nach Osten: Durchgang Kommode–Bettende ≥ 0,7 m
+    { id: "kissen-bett", typ: "gltf",  modell: "throw_pillows_01", pos: [7.0, 0.56, 0.75], rotY: 0, raum: "schlafen", kollision: false, farbe: 0xd8cfc0 },
+    { id: "nacht-1",     typ: "param", art: "nachttisch", pos: [6.1, 0, 0.3], raum: "schlafen", licht: { id: "nacht-1", gruppe: "schlafen", cd: 1.8 } },
+    { id: "nacht-2",     typ: "param", art: "nachttisch", pos: [8.72, 0, 0.3], raum: "schlafen", licht: { id: "nacht-2", gruppe: "schlafen" } },
     { id: "schrank",     typ: "param", art: "schrank", pos: [7.5, 0, 3.3], rotY: 180, b: 2.6, h: 2.3, t: 0.6, raum: "schlafen" },
     { id: "kommode",     typ: "gltf",  modell: "drawer_cabinet", pos: [5.58, 0, 2.98], rotY: 90, raum: "schlafen" },
-    { id: "teppich-schl",typ: "param", art: "teppich", pos: [7.16, 0, 2.3], b: 2.4, t: 1.3, farbe: 0xc9bfae, raum: "schlafen" },
-    { id: "pflanze-schl",typ: "gltf",  modell: "potted_plant_02", pos: [8.45, 0, 2.5], rotY: 220, raum: "schlafen", skal: 0.9 },
-    { id: "bild-schl",   typ: "gltf",  modell: "hanging_picture_frame_01", pos: [7.16, 1.75, 0.02], rotY: 0, raum: "schlafen", kollision: false, skal: 1.6 },
+    { id: "teppich-schl",typ: "param", art: "teppich", pos: [7.41, 0, 2.3], b: 2.4, t: 1.3, farbe: 0xc9bfae, raum: "schlafen" },
+    { id: "pflanze-schl",typ: "gltf",  modell: "potted_plant_02", pos: [8.6, 0, 2.62], rotY: 220, raum: "schlafen", skal: 0.8 },
+    { id: "bild-schl",   typ: "gltf",  modell: "hanging_picture_frame_01", pos: [7.41, 1.75, 0.02], rotY: 0, raum: "schlafen", kollision: false, skal: 1.6 },
     { id: "vorhang-schl",typ: "param", art: "vorhang", pos: [8.93, 0, 1.8], rotY: 90, b: 1.6, raum: "schlafen" },
     // --- Bad
     { id: "waschtisch",  typ: "param", art: "waschtisch", pos: [6.2, 0, 3.72], rotY: 0, raum: "bad", licht: { id: "spiegel-licht", gruppe: "bad", cd: 1.5 } },
@@ -145,7 +145,7 @@ export const PLAN = {
     { id: "badematte",   typ: "param", art: "teppich", pos: [7.5, 0, 5.05], b: 0.8, t: 0.5, farbe: 0xe6e1d7, raum: "bad" },
     { id: "pflanze-bad", typ: "gltf",  modell: "potted_plant_04", pos: [5.55, 0.9, 3.95], rotY: 0, raum: "bad", kollision: false },
     // --- Balkon
-    { id: "bistro",      typ: "gltf",  modell: "outdoor_table_chair_set_01", pos: [7.9, -0.02, 10.5], rotY: 90, raum: "balkon" },
+    { id: "bistro",      typ: "gltf",  modell: "outdoor_table_chair_set_01", pos: [8.15, -0.02, 10.75], rotY: 90, skal: 0.85, raum: "balkon" },
     { id: "pflanze-balk",typ: "gltf",  modell: "potted_plant_02", pos: [6.0, -0.02, 10.9], rotY: 90, raum: "balkon", skal: 1.1 },
     { id: "kuebel",      typ: "param", art: "kuebel", pos: [6.0, -0.02, 10.1], raum: "balkon" },
   ],
@@ -161,7 +161,7 @@ export const PLAN = {
     { id: "essen-1",    typ: "pendel", pos: [1.7, 4.7],   raum: "essen",    gruppe: "essen",    cd: 4, hoehe: 1.85, radius: 0.18 },
     { id: "wohnen-1",   typ: "decke",  pos: [2.2, 7.6],   raum: "wohnen",   gruppe: "wohnen",   cd: 5 },
     { id: "wohnen-2",   typ: "decke",  pos: [6.2, 7.6],   raum: "wohnen",   gruppe: "wohnen",   licht: false },
-    { id: "schlafen-1", typ: "decke",  pos: [7.16, 1.9],  raum: "schlafen", gruppe: "schlafen", cd: 4 },
+    { id: "schlafen-1", typ: "decke",  pos: [7.41, 1.9],  raum: "schlafen", gruppe: "schlafen", cd: 4 },
     { id: "bad-1",      typ: "decke",  pos: [7.0, 4.65],  raum: "bad",      gruppe: "bad",      cd: 3.5 },
     { id: "balkon-1",   typ: "wand",   pos: [8.9, 9.76],  raum: "balkon",   gruppe: "balkon",   licht: false, hoehe: 2.1 },
   ],
@@ -170,13 +170,13 @@ export const PLAN = {
   tour: [
     { raum: "flur",     pos: [4.36, 1.2],  yaw: S,        pitch: 0,     dauer: 3, text: "Willkommen — wir starten im Flur." },
     { raum: "kueche",   pos: [2.4, 1.8],   yaw: W + 0.4,  pitch: -0.05, dauer: 4, text: "Küche mit Halbinsel und Nordfenster." },
-    { raum: "essen",    pos: [2.6, 4.9],   yaw: W + 0.5,  pitch: 0,     dauer: 4, text: "Essbereich mit Abendsonne von Westen." },
+    { raum: "essen",    pos: [2.8, 4.85],  yaw: W + 0.5,  pitch: 0,     dauer: 4, text: "Essbereich mit Abendsonne von Westen." },
     { raum: "wohnen",   pos: [4.8, 6.9],   yaw: S + 0.25, pitch: 0,     dauer: 4, text: "Wohnzimmer nach Süden." },
-    { raum: "balkon",   pos: [7.3, 10.5],  yaw: S,        pitch: -0.15, dauer: 5, text: "Balkon mit Parkblick." },
-    { raum: "wohnen",   pos: [5.4, 8.0],   yaw: W + 0.15, pitch: 0,     dauer: 4, text: "Sofa, TV-Wand und Essbereich dahinter." },
-    { raum: "schlafen", pos: [6.3, 2.7],   yaw: O + 0.7,  pitch: 0,     dauer: 4, text: "Schlafzimmer mit Morgensonne." },
-    { raum: "bad",      pos: [6.2, 4.7],   yaw: O,        pitch: 0,     dauer: 4, text: "Tageslichtbad mit bodengleicher Dusche." },
-    { raum: "wohnen",   pos: [5.2, 8.5],   yaw: N,        pitch: 0,     dauer: 3, text: "Ende der Führung — gehen Sie jetzt frei weiter." },
+    { raum: "balkon",   pos: [6.6, 10.35], yaw: S,        pitch: -0.15, dauer: 5, text: "Balkon mit Parkblick." },
+    { raum: "wohnen",   pos: [5.7, 7.6],   yaw: W + 0.15, pitch: 0,     dauer: 4, text: "Sofa, TV-Wand und Essbereich dahinter." },
+    { raum: "schlafen", pos: [6.3, 2.55],  yaw: O + 0.7,  pitch: 0,     dauer: 4, text: "Schlafzimmer mit Morgensonne." },
+    { raum: "bad",      pos: [6.35, 4.85], yaw: O,        pitch: 0,     dauer: 4, text: "Tageslichtbad mit bodengleicher Dusche." },
+    { raum: "wohnen",   pos: [5.9, 8.2],   yaw: N,        pitch: 0,     dauer: 3, text: "Ende der Führung — gehen Sie jetzt frei weiter." },
   ],
 };
 

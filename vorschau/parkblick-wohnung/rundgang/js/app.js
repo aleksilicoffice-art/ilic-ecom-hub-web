@@ -125,7 +125,7 @@ renderer.setAnimationLoop(() => {
   steuerung.update(dt); nav.update(dt);
   licht.update(dt); ui.update(dt);
   post.render();
-  const info = renderer.info.render; stats.calls = info.calls; stats.tris = info.triangles; renderer.info.reset();
+  const info = renderer.info.render; stats.calls = info.calls; stats.tris = info.triangles; stats.blockaden = nav.blockaden; renderer.info.reset();
   const sig = steuerung.aktiv ? fps.tick(dt) : null; stats.fps = Math.round(fps.fps); stats.low1 = Math.round(fps.low1);
   if (sig === "langsam" && !PARAMS.has("stufe")) { const i = STUFEN_REIHE.indexOf(aktStufe); if (i < STUFEN_REIHE.length - 1) { wendeStufeAn(STUFEN_REIHE[i + 1]); ui.toast(`Bildqualität automatisch auf „${STUFEN_REIHE[i + 1]}" gesetzt, damit es flüssig bleibt`, 3500); fps.ausgeloest = false; fps.langsamSeit = 0; fps.zeit = 0; } }
   if (!fpsBox.hidden) fpsBox.textContent = `${stats.fps} fps · low1 ${stats.low1} · ${stats.calls} calls · ${(stats.tris / 1000).toFixed(0)}k tris\n${stats.stufe} · dpr ${stats.dpr} · ${innerWidth}×${innerHeight} · touch ${istTouch()}`;

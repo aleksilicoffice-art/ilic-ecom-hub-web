@@ -3,12 +3,12 @@
 import * as THREE from "three";
 import { raumAn } from "./plan.js";
 
-const TEMPO = 1.9, ANKUNFT = 0.08;
+const TEMPO = 1.9, ANKUNFT = 0.15, BLOCKADE_S = 0.8;   // Blockade: kein Fortschritt mehr → Wegpunkt gilt als erreicht
 
 export class Navigation {
   constructor({ PLAN, steuerung, boeden, kamera }) {
     Object.assign(this, { PLAN, steuerung, boeden, kamera });
-    this.ray = new THREE.Raycaster(); this.fahrt = null; this.hoerer = { ankunft: [], start: [], abbruch: [], puppenhausAus: [] };
+    this.ray = new THREE.Raycaster(); this.fahrt = null; this.blockaden = 0; this.hoerer = { ankunft: [], start: [], abbruch: [], puppenhausAus: [] };
     this.graph = this._baueGraph();
     steuerung.an("eingabe", () => { if (this.fahrt && this.steuerung.eingabeAktiv) this.abbrechen(); });
     steuerung.an("tipp", (x, y) => this.tipp(x, y));
@@ -34,7 +34,10 @@ export class Navigation {
       const [[ax, az], [bx, bz]] = p.linie; const m = [(ax + bx) / 2, (az + bz) / 2];
       const x = Math.abs(bz - az) < 1e-4; const p1 = x ? [m[0], m[1] - 0.4] : [m[0] - 0.4, m[1]], p2 = x ? [m[0], m[1] + 0.4] : [m[0] + 0.4, m[1]];
       const r1 = raumAn(...p1), r2 = raumAn(...p2); if (!r1 || !r2) continue;
-      kanten.push({ a: r1.id, b: r2.id, punkte: [p1, p2], breit: true }, { a: r2.id, b: r1.id, punkte: [p2, p1], breit: true });
+      // Schmale Portale (≤ 1,2 m, z. B. Lücke neben der Halbinsel) wie Türen: Vorpunkt → Mitte → Nachpunkt.
+      // Breite Portale: Durchgangspunkt wird je Fahrt auf der Linie gewählt (_wegpunkte).
+      const breit = Math.hypot(bx - ax, bz - az) > 1.2;
+      kanten.push({ a: r1.id, b: r2.id, punkte: breit ? [p1, p2] : [p1, m, p2], breit }, { a: r2.id, b: r1.id, punkte: breit ? [p2, p1] : [p2, m, p1], breit });
     }
     return kanten;
   }
@@ -71,7 +74,7 @@ export class Navigation {
     if (!nach) return false;
     const kanten = this._pfad(von.id, nach.id); if (kanten === null) return false;
     const punkte = this._wegpunkte(kanten, [pos.x, pos.z], [x, z]);
-    this.fahrt = { punkte, i: 0, yawEnde: yaw, pitchEnde: pitch, ziel: nach, meldung };
+    this.fahrt = { punkte, i: 0, yawEnde: yaw, pitchEnde: pitch, ziel: nach, meldung, besteD: Infinity, stillstand: 0 };
     this._melde("start", this.fahrt);
     return true;
   }
@@ -99,9 +102,14 @@ export class Navigation {
     const tempo = letzter ? Math.min(TEMPO, 0.6 + d * 1.6) : TEMPO;
     const schritt = Math.min(d, tempo * dt);
     if (d > 1e-6) { pos.x += dx / d * schritt; pos.z += dz / d * schritt; this.steuerung._kollidiere(pos); }
-    if (d - schritt <= ANKUNFT) {
+    // Blockade-Erkennung: kommt die Fahrt (z. B. an einer Möbelkante) nicht mehr näher, gilt der Wegpunkt als erreicht
+    const dNeu = Math.hypot(zx - pos.x, zz - pos.z);
+    if (dNeu < f.besteD - 0.005) { f.besteD = dNeu; f.stillstand = 0; } else f.stillstand += dt;
+    const blockiert = f.stillstand >= BLOCKADE_S;
+    if (blockiert) { f.besteD = Infinity; f.stillstand = 0; this.blockaden++; console.info(`[nav] Blockade bei Wegpunkt ${f.i + 1}/${f.punkte.length} (${zx.toFixed(2)} | ${zz.toFixed(2)}), Position ${pos.x.toFixed(2)} | ${pos.z.toFixed(2)}`); }
+    if (d - schritt <= ANKUNFT || blockiert) {
       if (letzter) { if (f.yawEnde !== null) this.steuerung.setzeBlick(this._naechsterYaw(f.yawEnde), f.pitchEnde ?? this.steuerung.pitchZiel); this.fahrt = null; this._melde("ankunft", f); }
-      else f.i++;
+      else { f.i++; f.besteD = Infinity; f.stillstand = 0; }
     }
   }
   // Kürzeste Drehrichtung: Ziel-Yaw in die Nähe des aktuellen Yaw holen
