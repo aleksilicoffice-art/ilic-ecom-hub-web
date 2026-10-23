@@ -9,12 +9,16 @@ Dieses Repo dient ausschließlich dem Hosting über **GitHub Pages**.
 ## Inhalt
 
 ```
-/index.html                  → Weiterleitung auf die Agentur-Website
-/agency-website/index.html   → Agentur-Website
-/demos/<branche>/index.html  → Demo-Websites (Referenzen)
+/index.html                    → Weiterleitung auf die Agentur-Website
+/agency-website/index.html     → Agentur-Website (Arbeiten: echte Kundenseiten + Entwürfe)
+/bestellen/index.html          → Bestellseite mit Konfigurator
+/expose-boost/index.html       → Produktseite Exposé Boost (Makler)
+/vorschau/<slug>/index.html    → Entwürfe und Vorschauen für einzelne Betriebe (noindex)
 ```
+
+Die früheren Branchen-Demos unter `/demos/` wurden am 23.10.2026 entfernt: Gezeigt werden nur noch
+Websites und Entwürfe für echte Betriebe.
 
 ## Live
 
-Nach Aktivierung von GitHub Pages erreichbar unter:
-`https://aleksilicoffice-art.github.io/ilic-ecom-hub-web/`
+GitHub Pages mit eigener Domain (CNAME): `https://ilic-ecomhub.de/`

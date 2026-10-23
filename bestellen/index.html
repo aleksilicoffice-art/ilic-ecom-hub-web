@@ -247,21 +247,15 @@
   .refs{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
   .ref{display:flex; flex-direction:column; text-decoration:none; color:inherit; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;}
   .ref:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:var(--oxblood);}
-  .ref .top{height:118px; display:flex; align-items:flex-start; padding:14px;}
-  .ref .top .tg{background:rgba(246,241,233,.92); color:var(--oxblood); font-size:.7rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:4px 11px; border-radius:999px;}
+  .ref .top{position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--cream-deep);}
+  .ref .top img{display:block; width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .5s ease;}
+  .ref:hover .top img{transform:scale(1.03);}
+  .ref .top .tg{position:absolute; top:12px; left:12px; background:rgba(246,241,233,.92); color:var(--oxblood); font-size:.7rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:4px 11px; border-radius:999px;}
   .ref .bd{padding:15px 16px 18px; flex:1; display:flex; flex-direction:column;}
   .ref .bd h4{font-family:'Fraunces',serif; font-size:1.12rem; font-weight:600; margin-bottom:4px;}
   .ref .bd p{font-size:.85rem; color:var(--ink-soft); margin-bottom:12px; flex:1;}
   .ref .bd .go{font-size:.86rem; font-weight:700; color:var(--oxblood);}
-  .ref.hidden{display:none;}
-  .ref-more{margin-top:28px; text-align:center;}
-  .r1 .top{background:linear-gradient(135deg,#3a2a1c,#53170F);}
-  .r2 .top{background:linear-gradient(135deg,#b06a86,#7a3550);}
-  .r3 .top{background:linear-gradient(135deg,#4a6b7c,#2c4955);}
-  .r4 .top{background:linear-gradient(135deg,#5a8a72,#356049);}
-  .r5 .top{background:linear-gradient(135deg,#9a6a3a,#6b4420);}
-  .r6 .top{background:linear-gradient(135deg,#3a3a44,#1a1a22);}
-  .r7 .top{background:linear-gradient(135deg,#a88a5a,#6b5430);}
+  @media(prefers-reduced-motion:reduce){ .ref .top img{transition:none;} .ref:hover .top img{transform:none;} }
 
   /* ---- Responsive ---- */
   @media(max-width:900px){ .g3,.steps,.plans,.refs{grid-template-columns:1fr 1fr;} }
@@ -370,26 +364,22 @@
     </div>
   </section>
 
-  <!-- ================= REFERENZEN ================= -->
+  <!-- ================= REFERENZEN (echte Kundenseiten, Thumbnails aus ../agency-website/arbeiten/) ================= -->
   <section class="pad alt" id="referenzen">
     <div class="wrap">
       <div class="sec-head center">
         <span class="eyebrow">Arbeiten</span>
-        <h2>So sehen meine Websites aus</h2>
-        <p>Echte Demo-Seiten — anklicken und live ansehen. Jede mit eigener Identität, nicht von der Stange.
-          Vom lokalen Laden bis zum Coach ohne Ladengeschäft.</p>
+        <h2>Echte Betriebe, echte Websites.</h2>
+        <p>Keine Vorlagen: Diese vier Seiten arbeiten heute für ihre Inhaber. Anklicken und live ansehen.</p>
       </div>
-      <!-- Klick öffnet die Live-Demo in neuem Tab → Kunde bleibt auf der Bestellseite -->
+      <!-- Klick öffnet die Live-Seite in neuem Tab → Kunde bleibt auf der Bestellseite -->
       <div class="refs" id="refGrid">
-        <a class="ref r1" href="../demos/friseur/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Friseur</span></div><div class="bd"><h4>Klinge &amp; Kamm</h4><p>Barbershop · Buchung, Galerie, Team</p><span class="go">Live-Demo ansehen →</span></div></a>
-        <a class="ref r2" href="../demos/nagelstudio/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Nagelstudio</span></div><div class="bd"><h4>Studio Rosé</h4><p>Beauty · Vorher-Nachher, Menü, Buchung</p><span class="go">Live-Demo ansehen →</span></div></a>
-        <a class="ref r3" href="../demos/handwerk/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Handwerk</span></div><div class="bd"><h4>Frisch &amp; Farbe</h4><p>Malermeister · Projekte, Einzugsgebiet, Anfrage</p><span class="go">Live-Demo ansehen →</span></div></a>
-        <a class="ref r4" href="../demos/physio/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Physio</span></div><div class="bd"><h4>Praxis Balance</h4><p>Physiotherapie · Leistungen, Ablauf, Termin</p><span class="go">Live-Demo ansehen →</span></div></a>
-        <a class="ref r5 hidden" href="../demos/gastro/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Gastro</span></div><div class="bd"><h4>Esszimmer</h4><p>Bistro &amp; Bar · Karte, Galerie, Reservierung</p><span class="go">Live-Demo ansehen →</span></div></a>
-        <a class="ref r6 hidden" href="../demos/tattoo/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Tattoo</span></div><div class="bd"><h4>Inkhaus</h4><p>Tattoo-Studio · Portfolio-Filter, Artists, Anfrage</p><span class="go">Live-Demo ansehen →</span></div></a>
-        <a class="ref r7 hidden" href="../demos/hundesalon/index.html" target="_blank" rel="noopener"><div class="top"><span class="tg">Hundesalon</span></div><div class="bd"><h4>Pfote &amp; Schere</h4><p>Hundesalon · Preise nach Größe, Vorher-Nachher</p><span class="go">Live-Demo ansehen →</span></div></a>
+        <a class="ref" href="https://bptrockenbaugarten.de/" target="_blank" rel="noopener"><div class="top"><img src="../agency-website/arbeiten/bp-garten-bau-800.webp" srcset="../agency-website/arbeiten/bp-garten-bau-800.webp 800w, ../agency-website/arbeiten/bp-garten-bau-1600.webp 1600w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" width="1600" height="1000" loading="lazy" decoding="async" alt="Startseite von bptrockenbaugarten.de: Garten und Trockenbau in Gelsenkirchen"><span class="tg">Garten- &amp; Trockenbau</span></div><div class="bd"><h4>BP Garten &amp; Bau</h4><p>Gelsenkirchen · Website und Erlebnis-Rundgang, live seit Juli 2026</p><span class="go">Website ansehen →</span></div></a>
+        <a class="ref" href="https://bildungszentrum-soenmez.de/" target="_blank" rel="noopener"><div class="top"><img src="../agency-website/arbeiten/bildungszentrum-soenmez-800.webp" srcset="../agency-website/arbeiten/bildungszentrum-soenmez-800.webp 800w, ../agency-website/arbeiten/bildungszentrum-soenmez-1600.webp 1600w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" width="1600" height="1000" loading="lazy" decoding="async" alt="Startseite von bildungszentrum-soenmez.de: Weiterbildung für Berufskraftfahrer"><span class="tg">Weiterbildung</span></div><div class="bd"><h4>Bildungszentrum Sönmez</h4><p>Dortmund · Mehrseitig in sechs Sprachen, live seit September 2026</p><span class="go">Website ansehen →</span></div></a>
+        <a class="ref" href="https://zur-langst-ahlen.de/" target="_blank" rel="noopener"><div class="top"><img src="../agency-website/arbeiten/zur-langst-800.webp" srcset="../agency-website/arbeiten/zur-langst-800.webp 800w, ../agency-website/arbeiten/zur-langst-1600.webp 1600w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" width="1600" height="1000" loading="lazy" decoding="async" alt="Startseite von zur-langst-ahlen.de: das Landrestaurant am Teich"><span class="tg">Gastronomie</span></div><div class="bd"><h4>Landrestaurant Zur Langst</h4><p>Ahlen · Speisekarte, Fotos, Öffnungszeiten, live seit Juli 2026</p><span class="go">Website ansehen →</span></div></a>
+        <a class="ref" href="https://mutic-marketing.de/" target="_blank" rel="noopener"><div class="top"><img src="../agency-website/arbeiten/mutic-marketing-800.webp" srcset="../agency-website/arbeiten/mutic-marketing-800.webp 800w, ../agency-website/arbeiten/mutic-marketing-1600.webp 1600w" sizes="(max-width:600px) 92vw, (max-width:900px) 45vw, 270px" width="1600" height="1000" loading="lazy" decoding="async" alt="Startseite von mutic-marketing.de: Marketing, das Menschen erreicht"><span class="tg">Marketing-Beratung</span></div><div class="bd"><h4>NM Marketing · Nikolina Mutić</h4><p>Haltern am See · Zweisprachig Deutsch und Serbisch, live seit Juli 2026</p><span class="go">Website ansehen →</span></div></a>
       </div>
-      <div class="ref-more" id="refMore"><button class="btn ghost big" id="refMoreBtn" type="button">Mehr Branchen anzeigen ↓</button></div>
+      <div class="center" style="margin-top:30px;"><a class="btn ghost big" href="../agency-website/index.html#arbeiten">Alle Arbeiten und Entwürfe ansehen →</a></div>
     </div>
   </section>
 
