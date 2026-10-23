@@ -191,35 +191,42 @@ section{position:relative}
   .leiste{scroll-behavior:auto}
 }
 
-/* ---------- PRICING ---------- */
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
-.plan{background:var(--surface);border:1px solid var(--line-soft);border-radius:4px;padding:38px 32px;display:flex;flex-direction:column;transition:all .4s;position:relative}
-.plan:hover{transform:translateY(-6px);box-shadow:0 24px 50px -30px rgba(83,23,15,.3)}
-.plan.feat{background:var(--ink);color:var(--cream);border-color:var(--ink)}
-.plan.feat .price,.plan.feat h3{color:var(--cream)}
-.plan.feat .pdesc,.plan.feat li{color:rgba(246,241,233,.72)}
-.plan.feat .badge{position:absolute;top:-13px;left:32px;background:var(--oxblood);color:var(--cream);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:2px}
-.plan h3{font-size:1.5rem;margin-bottom:4px}
-.plan .pdesc{font-size:.9rem;color:var(--ink-faint);margin-bottom:24px;min-height:40px}
-.plan .price{font-family:'Fraunces',serif;font-size:2.6rem;color:var(--oxblood);font-weight:600;line-height:1}
-.plan .price small{font-size:.95rem;font-family:'Hanken Grotesk';color:var(--ink-faint);font-weight:500}
-.plan ul{list-style:none;margin:26px 0 30px;display:flex;flex-direction:column;gap:12px;flex-grow:1}
-.plan li{font-size:.94rem;color:var(--ink-soft);padding-left:26px;position:relative}
-.plan li::before{content:"✓";position:absolute;left:0;color:var(--oxblood);font-weight:700}
-.plan.feat li::before{color:#d98a7a}
-.sub-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
-.sub{border:1px dashed var(--line);border-radius:4px;padding:26px 28px;background:var(--cream-deep)}
-.sub h4{font-size:1.15rem;margin-bottom:4px}
-.sub .p{font-family:'Fraunces',serif;color:var(--oxblood);font-size:1.5rem;font-weight:600;margin-bottom:10px}
-.sub .p small{font-size:.8rem;font-family:'Hanken Grotesk';color:var(--ink-faint);font-weight:500}
-.sub p{font-size:.88rem;color:var(--ink-soft)}
-/* Laufzeit-Staffel: kleine Preistabelle 3/6/12 Monate je Abo */
-.sub .terms{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
-.sub .terms .row{display:flex;justify-content:space-between;align-items:baseline;font-size:.82rem;padding:3px 0;color:var(--ink-soft)}
-.sub .terms .row .dur{letter-spacing:.02em}
-.sub .terms .row .amt{font-family:'Fraunces',serif;color:var(--oxblood);font-weight:600}
-.sub .terms .row.best .dur{color:var(--ink);font-weight:600}
-.price-foot{text-align:center;margin-top:38px;color:var(--ink-soft);font-size:.98rem}
+/* ---------- PREISE (Festpreis-Logik, keine Zahlen) ---------- */
+.stufen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.stufe{border-top:1px solid var(--line);padding-top:24px}
+.stufe h4{font-size:1.45rem;margin-bottom:8px}
+.stufe .wen{font-family:'Fraunces',serif;font-style:italic;color:var(--oxblood);font-size:1.02rem;line-height:1.45;margin-bottom:16px;text-wrap:pretty}
+.stufe ul,.dabei ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.stufe li,.dabei li{font-size:.95rem;color:var(--ink-soft);padding-left:18px;position:relative}
+.stufe li::before,.dabei li::before{content:"—";position:absolute;left:0;color:var(--oxblood)}
+.stufe .bsp{margin-top:16px;font-size:.84rem;color:var(--ink-faint)}
+.stufe .bsp a{color:var(--oxblood);border-bottom:1px solid var(--line);transition:border-color .3s}
+.stufe .bsp a:hover{border-color:var(--oxblood)}
+.preis-logik{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;margin-top:84px;padding-top:56px;border-top:1px solid var(--line)}
+.preis-logik h3{font-size:1.5rem;margin-bottom:18px}
+.preis-logik dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 22px;font-size:.97rem;margin:0}
+.preis-logik dt{font-weight:600;color:var(--ink)}
+.preis-logik dd{color:var(--ink-soft);margin:0}
+.preis-logik .weg{margin-top:24px;font-size:1rem;color:var(--ink-soft);max-width:60ch;text-wrap:pretty}
+.dabei .zahlung{margin-top:22px;padding:18px 20px;background:var(--cream-deep);border-radius:4px;font-size:.95rem;color:var(--ink-soft)}
+.dabei .zahlung strong{color:var(--ink);font-weight:600}
+.pflege{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.pfl{border-top:1px solid var(--line);padding-top:18px}
+.pfl h4{font-size:1.12rem;margin-bottom:6px}
+.pfl p{font-size:.92rem;color:var(--ink-soft)}
+.pflege-note{margin-top:20px;font-size:.86rem;color:var(--ink-faint)}
+.preis-schluss{margin-top:84px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center;padding:34px 38px;background:var(--ink);color:var(--cream);border-radius:4px}
+.preis-schluss p{font-family:'Fraunces',serif;font-size:1.25rem;line-height:1.45;color:var(--cream);max-width:48ch;text-wrap:pretty}
+.preis-schluss .sub{font-family:'Hanken Grotesk';font-size:.86rem;color:rgba(246,241,233,.72);margin-top:10px}
+.preis-schluss .btn{background:var(--cream);color:var(--oxblood);border-color:var(--cream);white-space:nowrap}
+.preis-schluss .btn:hover{background:#fff;color:var(--oxblood);border-color:#fff}
+@media(max-width:920px){
+  .stufen,.pflege{grid-template-columns:1fr;gap:30px}
+  .preis-logik{grid-template-columns:1fr;gap:36px;margin-top:60px;padding-top:40px}
+  .preis-logik dl{grid-template-columns:1fr;gap:4px}
+  .preis-logik dd{margin-bottom:8px}
+  .preis-schluss{grid-template-columns:1fr;padding:28px 24px;gap:22px}
+}
 
 /* ---------- ABOUT ---------- */
 .about{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:center}
@@ -277,7 +284,7 @@ footer .legal span{display:block}
 #mob .x{align-self:flex-end;font-size:2rem;cursor:pointer;color:var(--oxblood);font-family:'Fraunces',serif}
 #mob a{font-family:'Fraunces',serif;font-size:1.8rem;padding:14px 0;border-bottom:1px solid var(--line-soft);color:var(--ink)}
 @media(max-width:920px){
-  .svc-grid,.price-grid,.steps,.sub-row{grid-template-columns:1fr}
+  .svc-grid,.steps{grid-template-columns:1fr}
   .steps{gap:36px}
   .about{grid-template-columns:1fr;gap:36px}
   nav.desk,header .btn{display:none}
@@ -391,7 +398,7 @@ footer .legal span{display:block}
     <div class="meta">
       <div class="m"><div class="n">48 h</div><div class="t">erster Entwurf</div></div>
       <div class="m"><div class="n">100 %</div><div class="t">mobil-optimiert</div></div>
-      <div class="m"><div class="n">ab 499 €</div><div class="t">komplette Website</div></div>
+      <div class="m"><div class="n">Festpreis</div><div class="t">bevor es losgeht</div></div>
     </div>
   </div>
 </section>
@@ -587,79 +594,85 @@ footer .legal span{display:block}
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">Preise</span>
-      <h2>Faire Pakete. Klarer Mehrwert.</h2>
-      <p>Transparente Einstiegspreise. Jedes Projekt ist individuell — der endgültige Preis hängt vom Umfang ab.</p>
+      <h2>Ein Preis, bevor es losgeht.</h2>
+      <p>Jedes Projekt bekommt nach dem Erstgespräch ein Festpreis-Angebot. Keine Stundensätze, keine Nachforderungen. Was Ihre Website kostet, hängt davon ab, was sie leisten soll.</p>
     </div>
-    <div class="price-grid">
-      <div class="plan reveal">
-        <h3>Basic</h3>
-        <div class="pdesc">Für den schnellen, professionellen Start.</div>
-        <div class="price">ab 499 €</div>
+
+    <div class="werk-kopf reveal"><h3>Drei Projektgrößen</h3><span class="zahl">zum Einordnen, nicht zum Abhaken</span></div>
+    <div class="stufen">
+      <div class="stufe reveal">
+        <h4>Die Visitenkarte</h4>
+        <p class="wen">Für Betriebe, die online gefunden werden und erreichbar sein wollen.</p>
         <ul>
-          <li>Moderne One-Page Website</li>
-          <li>Voll mobil-optimiert</li>
-          <li>Kontaktformular & Klick-to-Call</li>
-          <li>Google Maps & Öffnungszeiten</li>
+          <li>Eine Seite mit allem Wichtigen</li>
+          <li>Kontakt, Anfahrt, Öffnungszeiten</li>
+          <li>Anruf und WhatsApp mit einem Tipp</li>
+          <li>Google Maps eingebunden</li>
         </ul>
-        <a href="#kontakt" class="btn ghost">Anfragen</a>
       </div>
-      <div class="plan feat reveal">
-        <span class="badge">Beliebt</span>
-        <h3>Standard</h3>
-        <div class="pdesc">Die komplette Präsenz für mehr Anfragen.</div>
-        <div class="price">ab 999 €</div>
+      <div class="stufe reveal">
+        <h4>Die komplette Website</h4>
+        <p class="wen">Für Betriebe, die über die Website Anfragen gewinnen wollen.</p>
         <ul>
-          <li>3–5 Seiten, voll ausgebaut</li>
-          <li>Galerie & Leistungsübersicht</li>
-          <li>Online-Buchung & WhatsApp</li>
+          <li>Mehrere Seiten: Leistungen, Galerie, Über uns</li>
+          <li>Anfrageformular oder Online-Buchung</li>
           <li>Bewertungen eingebunden</li>
-          <li>SEO-Grundlagen für Google</li>
+          <li>Grundlagen für Google</li>
         </ul>
-        <a href="#kontakt" class="btn">Anfragen</a>
+        <p class="bsp">So gebaut für <a href="https://bptrockenbaugarten.de/" target="_blank" rel="noopener">BP Garten &amp; Bau</a> und <a href="https://zur-langst-ahlen.de/" target="_blank" rel="noopener">Zur Langst</a>.</p>
       </div>
-      <div class="plan reveal">
-        <h3>Premium</h3>
-        <div class="pdesc">Maximale Wirkung mit KI-Features.</div>
-        <div class="price">ab 1.799 €</div>
+      <div class="stufe reveal">
+        <h4>Website plus System</h4>
+        <p class="wen">Für Betriebe mit mehreren Zielgruppen, Sprachen oder Abläufen, die die Website übernehmen soll.</p>
         <ul>
-          <li>Individuelle Website</li>
-          <li>KI-Chatbot & Buchungssystem</li>
-          <li>Google Business Setup</li>
-          <li>Analytics & Auswertung</li>
-          <li>Texte & Bilder per KI</li>
+          <li>Mehrsprachig</li>
+          <li>Rechner, Planer oder Buchungssystem</li>
+          <li>Erlebnis-Rundgang oder KI-Assistent</li>
+          <li>Auswertung und laufende Pflege</li>
         </ul>
-        <a href="#kontakt" class="btn ghost">Anfragen</a>
+        <p class="bsp">So gebaut für <a href="https://bildungszentrum-soenmez.de/" target="_blank" rel="noopener">Bildungszentrum Sönmez</a>: sechs Sprachen, Fristen-Rechner.</p>
       </div>
     </div>
 
-    <div class="sec-head reveal" style="margin-top:78px;margin-bottom:32px">
-      <span class="eyebrow" style="display:block;margin-bottom:14px">Pflege-Abo</span>
-      <h2 style="font-size:clamp(1.6rem,3vw,2.2rem)">Damit Ihre Seite nie veraltet.</h2>
-    </div>
-    <div class="sub-row">
-      <div class="sub reveal"><h4>Basic Care</h4><div class="p">ab 63 €<small> / Monat</small></div><p>Hosting, Domain, technische Wartung, 1 Inhaltsupdate pro Monat.</p>
-        <div class="terms">
-          <div class="row"><span class="dur">3 Monate</span><span class="amt">79 € / Mon</span></div>
-          <div class="row"><span class="dur">6 Monate</span><span class="amt">71 € / Mon</span></div>
-          <div class="row best"><span class="dur">12 Monate</span><span class="amt">63 € / Mon</span></div>
-        </div>
+    <div class="preis-logik">
+      <div class="reveal">
+        <h3>So entsteht Ihr Preis</h3>
+        <dl>
+          <dt>Umfang</dt><dd>Wie viele Seiten und Bereiche die Website braucht.</dd>
+          <dt>Inhalte</dt><dd>Ob Texte und Fotos vorhanden sind oder erst entstehen.</dd>
+          <dt>Funktionen</dt><dd>Buchung, Sprachen, Rechner, Rundgang, Anbindungen.</dd>
+          <dt>Pflege</dt><dd>Ob ich die Seite nach dem Livegang weiter betreue.</dd>
+        </dl>
+        <p class="weg">Nach einem Erstgespräch von etwa 20 Minuten bekommen Sie innerhalb von zwei Werktagen ein Angebot auf einer Seite: Leistungen, Festpreis, Zahlungsplan. Es gilt zwei Wochen. Der Preis im Angebot ist der Preis.</p>
       </div>
-      <div class="sub reveal"><h4>Active Care</h4><div class="p">ab 119 €<small> / Monat</small></div><p>Alles aus Basic + mehrere Updates, Google-Business-Pflege, saisonale Anpassungen.</p>
-        <div class="terms">
-          <div class="row"><span class="dur">3 Monate</span><span class="amt">149 € / Mon</span></div>
-          <div class="row"><span class="dur">6 Monate</span><span class="amt">134 € / Mon</span></div>
-          <div class="row best"><span class="dur">12 Monate</span><span class="amt">119 € / Mon</span></div>
-        </div>
-      </div>
-      <div class="sub reveal"><h4>Growth Care</h4><div class="p">ab 199 €<small> / Monat</small></div><p>Alles aus Active + Monatsreport, neue Unterseite pro Quartal, KI-Content.</p>
-        <div class="terms">
-          <div class="row"><span class="dur">3 Monate</span><span class="amt">249 € / Mon</span></div>
-          <div class="row"><span class="dur">6 Monate</span><span class="amt">224 € / Mon</span></div>
-          <div class="row best"><span class="dur">12 Monate</span><span class="amt">199 € / Mon</span></div>
-        </div>
+      <div class="dabei reveal">
+        <h3>Immer dabei</h3>
+        <ul>
+          <li>Domain und Hosting eingerichtet, die Zugänge gehören Ihnen</li>
+          <li>Impressum und Datenschutz eingerichtet</li>
+          <li>Gebaut für Handy, Tablet und Desktop</li>
+          <li>Google Maps, Öffnungszeiten und Kontaktwege eingebunden</li>
+          <li>Übergabe mit Einweisung</li>
+        </ul>
+        <p class="zahlung"><strong>Zahlung in zwei Schritten:</strong> Anzahlung bei Auftrag, der Rest nach Abnahme. Danach fallen nur Domain und Hosting an, beides steht im Angebot.</p>
       </div>
     </div>
-    <p class="price-foot reveal"><strong>Tipp:</strong> Angezeigt ist der günstigste Monatspreis (12-Monats-Laufzeit). Kürzere Laufzeiten von 3 oder 6 Monaten sind möglich — je länger die Laufzeit, desto günstiger pro Monat. Im Erstgespräch finden wir das passende Paket.</p>
+
+    <div class="werk-kopf reveal" style="margin-top:84px"><h3>Pflege nach dem Livegang</h3><span class="zahl">auf Wunsch, nicht Pflicht</span></div>
+    <div class="pflege">
+      <div class="pfl reveal"><h4>Basic Care</h4><p>Hosting, Domain, technische Wartung und ein Inhaltsupdate im Monat.</p></div>
+      <div class="pfl reveal"><h4>Active Care</h4><p>Dazu mehrere Updates, Pflege des Google-Profils und saisonale Anpassungen.</p></div>
+      <div class="pfl reveal"><h4>Growth Care</h4><p>Dazu ein Monatsbericht, eine neue Unterseite pro Quartal und neue Inhalte.</p></div>
+    </div>
+    <p class="pflege-note reveal">Preis und Laufzeit stehen im Angebot. Ohne Pflege läuft Ihre Seite genauso weiter, nur ohne Updates von mir.</p>
+
+    <div class="preis-schluss reveal">
+      <div>
+        <p>Wer nur eine schnelle Vorlage sucht, ist mit einem Baukasten günstiger bedient. Ich baue Seiten, die für den Betrieb arbeiten sollen.</p>
+        <p class="sub">Erstgespräch: 20 Minuten, kostenlos, danach das Angebot.</p>
+      </div>
+      <a href="#kontakt" class="btn">Erstgespräch vereinbaren</a>
+    </div>
   </div>
 </section>
 
@@ -699,9 +712,9 @@ footer .legal span{display:block}
     <div class="faq">
       <div class="q reveal"><div class="qh"><h4>Ich habe schon eine Website. Lohnt sich das trotzdem?</h4><span class="pl">+</span></div><div class="a">Oft ja. Viele bestehende Seiten sind nicht mobil-optimiert, langsam oder veraltet — und verlieren dadurch Anfragen. Im Erstgespräch schaue ich mir Ihre Seite ehrlich an und sage Ihnen, ob sich ein Update lohnt.</div></div>
       <div class="q reveal"><div class="qh"><h4>Wie viel Aufwand habe ich als Inhaber?</h4><span class="pl">+</span></div><div class="a">So gut wie keinen. Ein kurzes Gespräch, ein paar Infos und Fotos — den Rest übernehme ich komplett. Genau dafür bin ich da.</div></div>
-      <div class="q reveal"><div class="qh"><h4>Was kostet es am Ende wirklich?</h4><span class="pl">+</span></div><div class="a">Die Einstiegspreise sehen Sie oben. Der endgültige Preis hängt vom Umfang ab — Sie bekommen vorher ein klares, transparentes Angebot. Keine versteckten Kosten.</div></div>
+      <div class="q reveal"><div class="qh"><h4>Was kostet es am Ende wirklich?</h4><span class="pl">+</span></div><div class="a">Das sagt Ihnen das Angebot, bevor Sie sich entscheiden: ein Festpreis für den vereinbarten Umfang, dazu der Zahlungsplan. Es gibt keine Stundensätze und keine Nachforderungen. Was den Preis bestimmt, steht oben unter „So entsteht Ihr Preis“.</div></div>
       <div class="q reveal"><div class="qh"><h4>Wie schnell ist meine Seite fertig?</h4><span class="pl">+</span></div><div class="a">Einen ersten Entwurf sehen Sie meist innerhalb von 48 Stunden. Die fertige Seite ist je nach Umfang in wenigen Tagen bis zwei Wochen online.</div></div>
-      <div class="q reveal"><div class="qh"><h4>Was ist das Pflege-Abo und brauche ich es?</h4><span class="pl">+</span></div><div class="a">Das Abo hält Ihre Seite technisch aktuell und inhaltlich frisch — Updates, neue Fotos, Öffnungszeiten, saisonale Angebote. Es ist optional, aber so verstaubt Ihre Seite nicht nach ein paar Monaten.</div></div>
+      <div class="q reveal"><div class="qh"><h4>Was ist das Pflege-Abo und brauche ich es?</h4><span class="pl">+</span></div><div class="a">Die Pflege hält Ihre Seite technisch aktuell und übernimmt Änderungen, Google-Profil und saisonale Anpassungen, je nach Stufe. Sie ist freiwillig: Ohne Pflege läuft Ihre Seite genauso weiter. Preis und Laufzeit stehen im Angebot.</div></div>
     </div>
   </div>
 </section>
