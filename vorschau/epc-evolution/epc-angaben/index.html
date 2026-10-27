@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Angaben für Ihre neue Website · EPC Evolution</title>
+<meta name="description" content="Fragebogen zur Vorbereitung der neuen Website von EPC Evolution.">
+<meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1f1c" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="schriften/fonts.css">
+<style>
+:root{
+  --bg:#f5f5f2;
+  --surface:#ffffff;
+  --sunk:#ecece6;
+  --ink:#0b1f1c;
+  --muted:#5f6f6d;
+  --line:#dcdcd4;
+  --marke:#1c4b49;
+  --marke-hell:#e4ecea;
+  --auf-marke:#f5f5f2;
+  --gold:#c7b299;
+  --ok:#2f6b4f;
+  --warn:#9b3b2b;
+
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem;
+  --r:.375rem;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-kopf:10; --z-fuss:20;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1f1c; --surface:#112a26; --sunk:#16332e; --ink:#eef0ea; --muted:#a3b2ae;
+    --line:#244540; --marke:#9ccbc2; --marke-hell:#173a35; --auf-marke:#0b1f1c;
+    --gold:#c7b299; --ok:#8fcfa9; --warn:#e79a8a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1f1c; --surface:#112a26; --sunk:#16332e; --ink:#eef0ea; --muted:#a3b2ae;
+  --line:#244540; --marke:#9ccbc2; --marke-hell:#173a35; --auf-marke:#0b1f1c;
+  --gold:#c7b299; --ok:#8fcfa9; --warn:#e79a8a;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+}
+h1,h2,h3{margin:0; text-wrap:balance}
+h1,h2{font-family:var(--serif); font-weight:400; letter-spacing:-.012em; line-height:1.15}
+h1{font-size:clamp(2rem,1.6rem + 2vw,2.6rem)}
+h2{font-size:1.625rem}
+h3{font-size:1rem; font-weight:600; line-height:1.3}
+p{margin:0}
+a{color:inherit}
+button{font:inherit; color:inherit}
+.spalte{width:min(36rem,100% - 2rem); margin-inline:auto}
+.zahl{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--marke); outline-offset:3px; border-radius:3px}
+
+/* ══════ Kopf ══════ */
+.kopf{
+  position:sticky; top:0; z-index:var(--z-kopf); background:var(--bg);
+  border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top);
+}
+.kopf-innen{display:flex; align-items:center; gap:var(--s4); padding-block:var(--s3)}
+.kopf .logo{width:64px; height:auto; flex:none; color:var(--marke)}
+.kopf-titel{flex:1; min-width:0; border-left:1px solid var(--line); padding-left:var(--s4)}
+.kopf-titel b{display:block; font-size:.9375rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kopf-titel > span{display:block; font-size:.78rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kopf-titel .kopf-notiz{display:none}
+@media (min-width:30rem){.kopf-titel .kopf-notiz{display:inline}}
+.balken{height:3px; background:var(--line)}
+.balken i{display:block; height:100%; background:var(--marke); transform-origin:left center; transform:scaleX(0); transition:transform .25s var(--ease)}
+
+/* ══════ Bühne ══════ */
+main{padding-block:var(--s6) 9rem}
+.etappe{animation:auf .22s var(--ease) both}
+@keyframes auf{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+.etappe-kopf{margin-bottom:var(--s6)}
+.etappe-kopf .nummer{
+  display:block; font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:var(--s3);
+}
+.etappe-kopf h2{margin-bottom:var(--s3)}
+.etappe-kopf p{color:var(--muted); font-size:.9688rem; max-width:34rem}
+
+/* ══════ Frage ══════ */
+.frage{padding-block:var(--s5); border-top:1px solid var(--line)}
+.etappe-kopf + .frage{border-top:0; padding-top:0}
+.frage > label, .frage-titel{display:block; font-weight:600; font-size:1rem; line-height:1.4; margin-bottom:var(--s1)}
+.warum{display:block; color:var(--muted); font-size:.875rem; margin-bottom:var(--s3); line-height:1.5}
+.wichtig{
+  display:inline-flex; align-items:center; gap:.35rem; font-size:.7rem; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  margin-left:var(--s2); vertical-align:2px; white-space:nowrap;
+}
+.wichtig::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); flex:none}
+
+input[type=text], input[type=tel], input[type=email], textarea{
+  width:100%; font:inherit; font-size:16px; color:var(--ink); background:var(--surface);
+  border:1px solid var(--line); border-radius:var(--r); padding:.7rem .8rem;
+  transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+textarea{min-height:6rem; resize:vertical; line-height:1.5}
+textarea.gross{min-height:9.5rem}
+input::placeholder, textarea::placeholder{color:var(--muted); opacity:.85}
+input:hover, textarea:hover{border-color:var(--muted)}
+input:focus, textarea:focus{
+  outline:none; border-color:var(--marke); box-shadow:0 0 0 3px color-mix(in oklab,var(--marke) 20%,transparent);
+}
+
+/* Auswahl (eine Antwort) */
+.wahl{display:flex; flex-direction:column; gap:var(--s2)}
+.wahl button{
+  display:flex; align-items:center; gap:var(--s3); min-height:48px; width:100%; text-align:left;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.6rem .85rem; cursor:pointer; font-size:.9375rem; line-height:1.35;
+  transition:border-color .18s var(--ease), background-color .18s var(--ease);
+}
+.wahl button::before{
+  content:""; width:18px; height:18px; flex:none; border-radius:50%;
+  border:1.5px solid var(--muted); transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.wahl button:hover{border-color:var(--muted)}
+.wahl button[aria-pressed="true"]{border-color:var(--marke); background:var(--marke-hell)}
+.wahl button[aria-pressed="true"]::before{
+  border-color:var(--marke); box-shadow:inset 0 0 0 4px var(--surface), inset 0 0 0 20px var(--marke);
+}
+
+/* Mehrfachauswahl */
+.mehrfach{display:flex; flex-direction:column; gap:var(--s2)}
+.mehrfach label{
+  display:flex; align-items:center; gap:var(--s3); min-height:46px; cursor:pointer;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.5rem .85rem; font-size:.9375rem; line-height:1.35;
+  transition:border-color .18s var(--ease), background-color .18s var(--ease), opacity .18s var(--ease);
+}
+.mehrfach label:hover{border-color:var(--muted)}
+.mehrfach input, .zeile-check{
+  appearance:none; width:18px; height:18px; flex:none; margin:0; cursor:pointer;
+  border:1.5px solid var(--muted); border-radius:4px; background:var(--surface); position:relative;
+  transition:background-color .18s var(--ease), border-color .18s var(--ease);
+}
+.mehrfach input:checked{background:var(--marke); border-color:var(--marke)}
+.mehrfach input:checked::after{
+  content:""; position:absolute; left:4.5px; top:1px; width:5px; height:10px;
+  border:solid var(--auf-marke); border-width:0 2px 2px 0; transform:rotate(43deg);
+}
+.mehrfach label:has(input:checked){border-color:var(--marke); background:var(--marke-hell)}
+.mehrfach.voll label:not(:has(input:checked)){opacity:.5}
+.grenze{font-size:.8125rem; color:var(--muted); margin-top:var(--s2)}
+
+/* Raster: je Zeile eine Einordnung */
+.raster{display:flex; flex-direction:column; gap:var(--s3)}
+.raster-zeile{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.75rem .85rem .85rem; transition:border-color .18s var(--ease);
+}
+.raster-zeile.gesetzt{border-color:color-mix(in oklab,var(--marke) 45%,var(--line))}
+.raster-zeile > b{display:block; font-size:.9375rem; font-weight:500; line-height:1.4; margin-bottom:var(--s2)}
+.segmente{display:grid; grid-template-columns:repeat(var(--n),1fr); gap:3px; background:var(--sunk); border-radius:var(--r); padding:3px}
+.segmente button{
+  min-height:40px; border:0; border-radius:calc(var(--r) - 2px); background:transparent; cursor:pointer;
+  font-size:.8438rem; font-weight:500; color:var(--muted); line-height:1.2; padding:.35rem .3rem;
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.segmente button:hover{color:var(--ink)}
+.segmente button[aria-pressed="true"]{background:var(--marke); color:var(--auf-marke); font-weight:600; box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+.raster-notiz{margin-top:var(--s2)}
+.raster-notiz input{font-size:16px; padding:.55rem .7rem}
+
+/* Personen */
+.personen{display:flex; flex-direction:column; gap:var(--s3)}
+.person{
+  display:grid; gap:var(--s2); background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--r); padding:.85rem;
+}
+.person-kopf{display:flex; justify-content:space-between; align-items:center}
+.person-kopf span{font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.person-kopf button{border:0; background:none; color:var(--muted); font-size:.8125rem; cursor:pointer; padding:.25rem; min-height:32px; text-decoration:underline; text-underline-offset:2px}
+.person-kopf button:hover{color:var(--ink)}
+.person .paar{display:grid; gap:var(--s2)}
+@media (min-width:30rem){.person .paar{grid-template-columns:1fr 1fr}}
+.person textarea{min-height:4.5rem}
+.knopf-plus{
+  display:flex; align-items:center; justify-content:center; gap:var(--s2); min-height:46px;
+  border:1px dashed var(--muted); border-radius:var(--r); background:transparent; cursor:pointer;
+  color:var(--muted); font-weight:600; font-size:.9375rem; transition:color .18s var(--ease), border-color .18s var(--ease);
+}
+.knopf-plus:hover{color:var(--ink); border-color:var(--ink)}
+
+/* Folgefeld */
+.folge{margin-top:var(--s3); padding-left:var(--s4); border-left:2px solid var(--gold)}
+.folge label{display:block; font-size:.875rem; font-weight:600; margin-bottom:var(--s2)}
+
+/* ══════ Fuß ══════ */
+.fuss{
+  position:fixed; left:0; right:0; bottom:0; z-index:var(--z-fuss); background:var(--bg);
+  border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom);
+}
+.fuss-innen{display:flex; gap:var(--s3); align-items:center; padding-block:var(--s3)}
+.knopf{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s2);
+  min-height:48px; padding:0 1.2rem; border-radius:var(--r); border:1px solid var(--line);
+  background:var(--surface); color:var(--ink); cursor:pointer; font-weight:600; font-size:1rem; text-decoration:none;
+  transition:background-color .18s var(--ease), border-color .18s var(--ease), opacity .18s var(--ease), transform .12s var(--ease);
+}
+.knopf:hover{border-color:var(--muted)}
+.knopf:active{transform:scale(.985)}
+.knopf-haupt{background:var(--marke); border-color:var(--marke); color:var(--auf-marke); flex:1}
+.knopf-haupt:hover{border-color:var(--marke); filter:brightness(1.1)}
+.knopf[disabled]{opacity:.4; cursor:default}
+.gespeichert{
+  font-size:.8125rem; color:var(--ok); text-align:center; height:1.1rem; padding-bottom:var(--s1);
+  opacity:0; transition:opacity .18s var(--ease);
+}
+.gespeichert.an{opacity:1}
+
+/* ══════ Start & Ende ══════ */
+.start .logo{display:block; width:min(220px,62%); height:auto; color:var(--marke)}
+.start .linie{display:block; width:48px; height:1px; background:var(--gold); margin:var(--s6) 0 var(--s5)}
+.oberzeile{display:block; font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:var(--s3)}
+.start h1{margin-bottom:var(--s5)}
+.start .fuehrt{font-size:1.0625rem; line-height:1.6}
+.start .fuehrt + .fuehrt{margin-top:var(--s4)}
+.ablauf{margin:var(--s6) 0 0; padding:var(--s5); background:var(--surface); border:1px solid var(--line); border-radius:var(--r)}
+.ablauf h3{font-family:var(--serif); font-weight:400; font-size:1.25rem; margin-bottom:var(--s4)}
+.punkte{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s3)}
+.punkte li{display:flex; gap:var(--s3); align-items:flex-start; font-size:.9375rem}
+.punkte svg{width:19px; height:19px; flex:none; margin-top:.2rem; color:var(--marke)}
+.hinweis{font-size:.875rem; color:var(--muted); background:var(--sunk); border-radius:var(--r); padding:var(--s3) var(--s4); margin-top:var(--s4)}
+
+.uebersicht{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:var(--s5); margin-block:var(--s6)}
+.uebersicht > h3{font-family:var(--serif); font-weight:400; font-size:1.25rem; margin-bottom:var(--s4)}
+.uebersicht h4{margin:var(--s5) 0 var(--s3); font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.uebersicht dl{margin:0; display:flex; flex-direction:column; gap:var(--s3)}
+.uebersicht dt{font-size:.8125rem; color:var(--muted)}
+.uebersicht dd{margin:0; font-size:.9375rem; white-space:pre-wrap}
+.uebersicht .leer{color:var(--muted); font-style:italic}
+.schritt{display:flex; gap:var(--s3); align-items:flex-start; margin-bottom:var(--s4)}
+.schritt .nr{
+  width:28px; height:28px; flex:none; border-radius:50%; border:1px solid var(--marke); color:var(--marke);
+  display:grid; place-items:center; font-family:var(--serif); font-size:.9375rem;
+}
+.schritt p{font-size:.9375rem}
+.schritt b{display:block; margin-bottom:.1rem}
+.zwei-wege{display:grid; gap:var(--s2)}
+@media (min-width:30rem){.zwei-wege{grid-template-columns:1fr 1fr}}
+
+details.notweg{margin-top:var(--s4); border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+details.notweg summary{
+  padding:.75rem .9rem; cursor:pointer; font-size:.875rem; font-weight:600; color:var(--muted);
+  list-style:none; display:flex; align-items:center; gap:var(--s2); min-height:44px;
+}
+details.notweg summary::-webkit-details-marker{display:none}
+details.notweg summary::before{content:"+"; font-size:1.1rem; line-height:1; width:1rem; text-align:center}
+details.notweg[open] summary::before{content:"–"}
+details.notweg summary:hover{color:var(--ink)}
+details.notweg textarea{
+  width:calc(100% - 1.8rem); margin:0 .9rem .9rem; min-height:11rem; font-size:14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; line-height:1.45;
+}
+.aufraeumen{margin-top:var(--s6); padding-top:var(--s5); border-top:1px solid var(--line)}
+.aufraeumen p{font-size:.875rem; color:var(--muted); margin-bottom:var(--s3)}
+.fertig-hinweis{
+  display:none; align-items:flex-start; gap:var(--s3); background:var(--marke-hell);
+  border-radius:var(--r); padding:var(--s4); margin-top:var(--s4); font-size:.9375rem;
+}
+.fertig-hinweis.an{display:flex}
+.fertig-hinweis svg{width:20px; height:20px; flex:none; margin-top:.15rem; color:var(--marke)}
+.fussnote{border-top:1px solid var(--line); margin-top:var(--s7); padding-top:var(--s4); font-size:.8125rem; color:var(--muted); line-height:1.6}
+.fussnote a{text-decoration:none; border-bottom:1px solid var(--line)}
+.fussnote a:hover{border-color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:0s !important; animation-duration:0s !important}
+}
+</style>
+</head>
+<body>
+
+<template id="logoVorlage"><svg class="logo" viewBox="0 0 63.255 23.05" role="img" aria-label="EPC Evolution"><g fill="currentColor"><path transform="matrix(1,0,0,-1,0,23.05)" d="M22.215 4.047H22.968V18.953999H22.215Z"/><path transform="matrix(1,0,0,-1,0,23.05)" d="M4.271 4.303H19.369999V18.786H4.271ZM4.08 18.954H19.553V4.1H4.079V18.954Z"/><path transform="matrix(1,0,0,-1,12.004,14.794)" d="M0 0C0-.309 .251-.539 .521-.538 1.218-.537 1.896-.563 2.577-.499 3.173-.443 3.475 .236 3.58 .73L3.635 .99C3.649 1.058 3.848 1.057 3.956 1.036L3.747-1.284H-3.377L-3.394-.964C-2.542-.93-1.722-.942-1.721-.199L-1.719 6.042C-1.719 6.326-1.877 6.607-2.126 6.725-3.25 7.258-4.205 6.547-4.962 5.616-5.311 5.187-5.302 4.731-5.079 4.198-5.573 4.3-5.884 4.589-6.008 4.905-6.162 5.298-6.176 5.832-5.931 6.158-5.102 7.26-3.757 7.437-2.502 7.121-.574 6.636 1.309 6.752 3.262 7.289L3.409 5.099 3.157 5.042C3.109 5.031 3.073 5.167 3.061 5.216L2.877 5.985C2.804 6.292 2.415 6.496 2.119 6.495L.003 6.484-.001 3.472 1.853 3.461C2.674 3.456 2.603 4.457 2.659 4.454L2.943 4.438V1.593L2.683 1.598C2.591 1.6 2.658 2.703 1.932 2.707L.003 2.719V.003Z"/><path transform="matrix(1,0,0,-1,33.115,12.8612)" d="M0 0C0-.332 .284-.599 .587-.603 1.414-.616 2.245-.655 3.057-.568 3.817-.486 4.095 .359 4.289 .976L4.393 1.307C4.416 1.378 4.724 1.296 4.716 1.212L4.477-1.507-4.03-1.513-4.068-1.102-2.746-1.009C-2.374-.983-2.041-.581-2.041-.193L-2.046 6.74C-2.046 7.113-1.992 7.659-2.29 7.914-2.865 8.406-3.755 8.411-4.416 8.08-5.096 7.741-5.645 7.171-6.056 6.555-6.364 6.092-6.299 5.608-6.038 5.085-6.725 5.14-7.117 5.638-7.261 6.168-7.407 6.705-7.294 7.321-6.826 7.739-6.027 8.452-4.852 8.96-3.751 8.698-1.203 8.092 1.3 7.98 3.898 8.782L4.075 6.124C4.007 6.098 3.721 6.056 3.701 6.136L3.605 6.513C3.498 6.931 3.396 7.727 2.804 7.776 1.886 7.852 .981 7.822 .003 7.82L.002 4.183 2.127 4.173C3.237 4.167 3.092 5.372 3.187 5.369L3.53 5.359V1.973L3.175 1.952C3.14 1.95 3.125 3.266 2.332 3.271L.003 3.288 0 .001Z"/><path transform="matrix(1,0,0,-1,46.3072,5.8045)" d="M0 0C-.182 .621-.699 1.142-1.371 1.135L-2.663 1.121-2.654-3.695-1.466-3.72C-.275-3.745 .526-1.795 0 .001ZM-5.905-8.128C-5.422-8.118-4.714-7.843-4.713-7.286L-4.704 .316C-4.704 .875-5.121 1.159-5.621 1.16-6.194 1.162-6.693 .992-7.078 .629-7.52 .212-7.711-.701-7.356-.968-7.31-1.002-7.113-.97-7.12-.914L-7.161-.6-6.898-.605C-6.821-.607-6.789-.906-6.825-.977-6.924-1.17-7.3-1.27-7.516-1.221-7.702-1.179-7.976-.959-8.079-.759-8.378-.177-8.216 .417-7.918 .89-7.57 1.442-6.997 1.639-6.315 1.637L-4.236 1.63C-2.999 1.625-1.811 1.732-.589 1.681 1.187 1.607 2.432 .148 2.224-1.629 2.073-2.92 1.046-4.131-.288-4.381-1.04-4.521-1.782-4.358-2.645-4.359-2.664-5.354-2.698-6.358-2.615-7.361-2.568-7.917-1.714-8.081-1.305-8.107L-.944-8.129C-.864-8.134-.874-8.333-.88-8.557L-5.913-8.562-5.907-8.128Z"/><path transform="matrix(1,0,0,-1,52.6562,6.683)" d="M0 0C-.656-2.09-.403-5.543 1.419-6.48 3.166-7.378 5.112-6.562 6.374-5.003L6.385-5.868C4.824-7.533 2.706-7.883 .524-7.264-1.441-6.706-2.752-5.081-2.983-3.051-3.186-1.268-2.458 .459-1.181 1.588 .207 2.813 2.084 3.265 3.877 2.794L5.363 2.301C5.752 2.172 6.116 2.346 6.191 2.745 6.199 2.789 6.208 2.941 6.247 2.943L6.544 2.961 6.54-.527C6.1-.647 6.202 .224 5.524 1.077 4.751 2.052 3.575 2.488 2.346 2.227 1.277 2 .365 1.163 0 .001Z"/><path transform="matrix(1,0,0,-1,58.654,19.004)" d="M0 0-1.435 1.905C-1.464 1.939-1.491 1.974-1.516 2.01-1.542 2.046-1.569 2.083-1.597 2.121H-1.601L-1.59 .621C-1.59 .557-1.591 .493-1.592 .428-1.593 .364-1.596 .305-1.601 .251-1.558 .256-1.51 .259-1.457 .26-1.404 .261-1.358 .263-1.32 .266V.054H-2.083V.224C-2.011 .224-1.956 .238-1.919 .266-1.882 .295-1.856 .332-1.842 .378-1.828 .424-1.821 .478-1.821 .54V2.268C-1.821 2.319-1.821 2.371-1.821 2.422-1.821 2.473-1.82 2.518-1.817 2.557-1.858 2.554-1.904 2.552-1.954 2.55-2.004 2.547-2.048 2.545-2.087 2.542V2.754H-1.578L-.22 .968C-.177 .911-.138 .859-.103 .81-.068 .761-.034 .715 0 .671H.003L.007 2.256C.007 2.313 .008 2.367 .011 2.42 .014 2.473 .016 2.518 .019 2.557-.028 2.554-.077 2.552-.128 2.55-.179 2.547-.224 2.545-.263 2.542V2.754H.501V2.584C.419 2.581 .359 2.564 .322 2.532 .285 2.5 .261 2.454 .252 2.393 .243 2.333 .239 2.254 .239 2.156L.235 0ZM-5.117 .193C-4.968 .193-4.839 .226-4.73 .293-4.621 .36-4.531 .449-4.46 .561-4.389 .673-4.337 .796-4.303 .931-4.27 1.066-4.253 1.201-4.253 1.335-4.253 1.499-4.272 1.658-4.311 1.811-4.35 1.964-4.408 2.101-4.487 2.224-4.565 2.346-4.662 2.442-4.778 2.513-4.893 2.584-5.027 2.619-5.179 2.619-5.328 2.619-5.458 2.584-5.569 2.515-5.679 2.446-5.769 2.355-5.839 2.243-5.908 2.131-5.96 2.008-5.995 1.873-6.03 1.738-6.047 1.602-6.047 1.466-6.047 1.332-6.029 1.19-5.993 1.041-5.957 .892-5.902 .754-5.827 .625-5.752 .496-5.657 .392-5.54 .312-5.423 .233-5.282 .193-5.117 .193M-5.137-.008C-5.381-.008-5.59 .033-5.763 .116-5.937 .198-6.078 .308-6.186 .446-6.294 .583-6.374 .736-6.425 .903-6.476 1.07-6.502 1.237-6.502 1.404-6.502 1.566-6.474 1.73-6.419 1.896-6.364 2.062-6.28 2.214-6.168 2.353-6.057 2.492-5.917 2.603-5.748 2.688-5.579 2.773-5.382 2.816-5.156 2.816-4.919 2.816-4.715 2.773-4.544 2.688-4.373 2.603-4.233 2.491-4.122 2.351-4.011 2.211-3.928 2.059-3.873 1.894-3.818 1.729-3.79 1.566-3.79 1.404-3.79 1.245-3.818 1.082-3.873 .916-3.928 .75-4.012 .597-4.124 .457-4.236 .317-4.376 .205-4.543 .12-4.71 .035-4.908-.008-5.137-.008M-8.205 2.584C-8.288 2.581-8.348 2.564-8.386 2.532-8.425 2.5-8.449 2.454-8.46 2.393-8.47 2.333-8.475 2.254-8.475 2.156V.571C-8.475 .502-8.476 .439-8.477 .384-8.478 .329-8.482 .284-8.487 .251-8.443 .256-8.395 .259-8.342 .26-8.289 .261-8.244 .263-8.205 .266V.054H-9.154V.224C-9.069 .229-9.008 .247-8.971 .278-8.934 .309-8.91 .355-8.899 .417-8.889 .478-8.884 .557-8.884 .652V2.256C-8.884 2.313-8.883 2.367-8.88 2.42-8.877 2.473-8.875 2.518-8.872 2.557-8.916 2.554-8.964 2.552-9.015 2.55-9.066 2.547-9.113 2.545-9.154 2.542V2.754H-8.205ZM-10.958 1.921C-10.96 2.068-10.977 2.19-11.008 2.287-11.039 2.385-11.089 2.458-11.16 2.507-11.231 2.556-11.328 2.579-11.451 2.577H-11.729L-11.733 .571C-11.733 .502-11.734 .439-11.735 .384-11.736 .329-11.739 .284-11.744 .251-11.695 .256-11.642 .259-11.584 .26-11.527 .261-11.475 .263-11.428 .266V.054H-12.408V.224C-12.323 .229-12.263 .247-12.227 .278-12.191 .309-12.168 .356-12.157 .419-12.147 .482-12.142 .559-12.142 .652V2.573L-12.466 2.569C-12.623 2.569-12.737 2.516-12.809 2.411-12.881 2.306-12.917 2.142-12.917 1.921H-13.098L-13.075 2.754H-10.799L-10.776 1.921ZM-16.367 2.584C-16.442 2.584-16.498 2.57-16.537 2.542-16.576 2.513-16.601 2.475-16.614 2.428-16.627 2.381-16.634 2.327-16.634 2.268V1.269C-16.634 1.117-16.622 .979-16.597 .854-16.572 .729-16.532 .621-16.477 .53-16.422 .439-16.346 .367-16.25 .316-16.153 .265-16.036 .238-15.897 .235-15.724 .235-15.583 .274-15.473 .351-15.362 .428-15.279 .539-15.224 .683-15.169 .827-15.14 .998-15.137 1.196L-15.129 2.256C-15.129 2.313-15.128 2.367-15.125 2.42-15.123 2.473-15.121 2.518-15.118 2.557-15.161 2.554-15.209 2.552-15.26 2.55-15.312 2.547-15.358 2.545-15.399 2.542V2.754H-14.62V2.584C-14.705 2.581-14.766 2.564-14.803 2.532-14.84 2.5-14.864 2.454-14.875 2.393-14.885 2.333-14.891 2.254-14.894 2.156L-14.898 1.238C-14.898 1.053-14.919 .884-14.962 .731-15.004 .578-15.068 .446-15.154 .336-15.241 .225-15.35 .14-15.482 .081-15.615 .022-15.771-.008-15.951-.008-16.159-.008-16.334 .02-16.475 .077-16.617 .134-16.73 .218-16.813 .33-16.896 .442-16.956 .579-16.992 .742-17.028 .905-17.046 1.094-17.046 1.308V2.141C-17.046 2.21-17.044 2.286-17.041 2.368-17.037 2.451-17.034 2.514-17.031 2.557-17.074 2.554-17.122 2.553-17.174 2.552-17.225 2.551-17.271 2.549-17.312 2.546V2.754H-16.367ZM-20.821 .054V.224C-20.736 .229-20.675 .247-20.638 .278-20.601 .309-20.577 .355-20.566 .417-20.556 .478-20.551 .557-20.551 .652V2.256C-20.551 2.313-20.55 2.367-20.547 2.42-20.544 2.473-20.542 2.518-20.539 2.557-20.583 2.554-20.631 2.552-20.682 2.55-20.733 2.547-20.78 2.545-20.821 2.542V2.754H-19.872V2.584C-19.954 2.581-20.014 2.564-20.053 2.532-20.092 2.5-20.116 2.454-20.127 2.393-20.137 2.333-20.142 2.254-20.142 2.156V.559C-20.142 .49-20.143 .429-20.144 .376-20.145 .323-20.149 .28-20.154 .247L-19.502 .255C-19.342 .257-19.22 .309-19.135 .411-19.05 .512-19.008 .674-19.008 .895H-18.834L-18.858 .054ZM-23.847 .193C-23.698 .193-23.568 .226-23.459 .293-23.35 .36-23.26 .449-23.189 .561-23.118 .673-23.066 .796-23.033 .931-23 1.066-22.983 1.201-22.983 1.335-22.983 1.499-23.002 1.658-23.041 1.811-23.08 1.964-23.138 2.101-23.216 2.224-23.295 2.346-23.392 2.442-23.508 2.513-23.623 2.584-23.757 2.619-23.909 2.619-24.058 2.619-24.187 2.584-24.298 2.515-24.409 2.446-24.499 2.355-24.568 2.243-24.637 2.131-24.689 2.008-24.724 1.873-24.759 1.738-24.777 1.602-24.777 1.466-24.777 1.332-24.759 1.19-24.723 1.041-24.687 .892-24.632 .754-24.557 .625-24.482 .496-24.386 .392-24.269 .312-24.152 .233-24.012 .193-23.847 .193M-23.866-.008C-24.111-.008-24.32 .033-24.493 .116-24.666 .198-24.807 .308-24.915 .446-25.023 .583-25.103 .736-25.155 .903-25.206 1.07-25.232 1.237-25.232 1.404-25.232 1.566-25.204 1.73-25.149 1.896-25.094 2.062-25.01 2.214-24.898 2.353-24.786 2.492-24.646 2.603-24.478 2.688-24.309 2.773-24.112 2.816-23.886 2.816-23.649 2.816-23.445 2.773-23.274 2.688-23.103 2.603-22.963 2.491-22.852 2.351-22.741 2.211-22.658 2.059-22.603 1.894-22.548 1.729-22.52 1.566-22.52 1.404-22.52 1.245-22.548 1.082-22.603 .916-22.658 .75-22.742 .597-22.854 .457-22.966 .317-23.105 .205-23.272 .12-23.439 .035-23.637-.008-23.866-.008M-28.08 .019-28.96 2.079C-29.006 2.187-29.041 2.28-29.064 2.357-29.087 2.434-29.101 2.498-29.106 2.55-29.142 2.547-29.178 2.546-29.214 2.546-29.25 2.546-29.285 2.545-29.319 2.542V2.754H-28.343L-28.347 2.58C-28.462 2.578-28.537 2.546-28.572 2.484-28.607 2.422-28.598 2.329-28.547 2.206-28.488 2.057-28.429 1.911-28.372 1.767-28.314 1.623-28.252 1.472-28.185 1.315-28.131 1.184-28.079 1.061-28.03 .945-27.981 .829-27.939 .726-27.903 .636H-27.899C-27.871 .721-27.842 .807-27.811 .893-27.78 .979-27.745 1.075-27.706 1.18-27.645 1.355-27.591 1.507-27.544 1.635-27.498 1.764-27.457 1.878-27.421 1.979-27.385 2.079-27.353 2.169-27.324 2.249-27.304 2.308-27.283 2.365-27.261 2.42-27.239 2.475-27.218 2.521-27.197 2.557-27.244 2.554-27.294 2.552-27.348 2.55-27.402 2.547-27.451 2.545-27.494 2.542V2.754H-26.684V2.584C-26.787 2.579-26.869 2.549-26.931 2.492-26.993 2.435-27.05 2.336-27.101 2.195-27.119 2.148-27.138 2.099-27.157 2.046-27.176 1.993-27.199 1.932-27.226 1.861-27.253 1.79-27.285 1.705-27.321 1.605-27.357 1.504-27.401 1.381-27.454 1.236-27.507 1.091-27.57 .919-27.643 .721-27.716 .523-27.803 .289-27.903 .019ZM-31.519 1.03C-31.519 1.141-31.535 1.22-31.568 1.269-31.6 1.318-31.648 1.348-31.712 1.36-31.777 1.371-31.856 1.374-31.951 1.369L-32.175 1.362V.559C-32.175 .49-32.176 .429-32.177 .376-32.178 .323-32.182 .28-32.187 .247L-31.523 .255C-31.423 .257-31.333 .276-31.253 .311-31.174 .346-31.111 .405-31.064 .49-31.018 .575-30.995 .69-30.995 .837H-30.825L-30.848 .054H-32.854V.224C-32.769 .229-32.708 .247-32.671 .278-32.634 .309-32.61 .355-32.599 .417-32.589 .478-32.584 .557-32.584 .652V2.256C-32.584 2.313-32.583 2.367-32.58 2.42-32.577 2.473-32.575 2.518-32.572 2.557-32.616 2.554-32.664 2.552-32.715 2.55-32.766 2.547-32.813 2.545-32.854 2.542V2.754H-30.972L-30.952 2.056H-31.122C-31.122 2.203-31.146 2.314-31.194 2.391-31.241 2.468-31.303 2.52-31.379 2.546-31.454 2.571-31.536 2.583-31.624 2.58L-31.894 2.573C-31.973 2.573-32.034 2.559-32.075 2.532-32.116 2.505-32.143 2.462-32.156 2.401-32.169 2.34-32.175 2.259-32.175 2.156V1.551H-31.539L-31.562 1.882H-31.35V1.03Z"/></g></svg></template>
+
+<header class="kopf" id="kopf" hidden>
+  <div class="spalte kopf-innen">
+    <span id="kopfLogo"></span>
+    <div class="kopf-titel">
+      <b id="kopfTitel">—</b>
+      <span><span class="zahl" id="kopfZahl">1 von 8</span><span class="kopf-notiz"> · wird automatisch gespeichert</span></span>
+    </div>
+  </div>
+  <div class="balken"><i id="balken"></i></div>
+</header>
+
+<main>
+  <div class="spalte" id="buehne"></div>
+</main>
+
+<footer class="fuss" id="fuss" hidden>
+  <div class="spalte">
+    <p class="gespeichert" id="gespeichert">gespeichert</p>
+    <div class="fuss-innen">
+      <button type="button" class="knopf" id="zurueck">Zurück</button>
+      <button type="button" class="knopf knopf-haupt" id="weiter">Weiter</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var WA_ALEKS = "4917643478923";
+  var TEL_ALEKS = "0176 43478923";
+  var MAIL_ALEKS = "kontakt@ilic-ecomhub.de";
+  var SPEICHER = "epc-angaben-v1";
+
+  /* ══════════════════════════════════════════════════════════
+     Die Fragen. Alles hier drin ist Inhalt, kein Layout —
+     Änderungen an der Erhebung passieren nur in diesem Block.
+     Typen: text · tel · email · textarea · wahl · mehrfach · raster · personen
+     ══════════════════════════════════════════════════════════ */
+  var ETAPPEN = [
+    {
+      titel:"Sie und Ihr Team",
+      intro:"Beratung kauft man bei Menschen. Deshalb fange ich bei Ihnen und Ihrem Team an.",
+      felder:[
+        {id:"rolle", typ:"text", frage:"Welche Rolle haben Sie bei EPC Evolution?", noetig:true,
+         platzhalter:"z. B. Gründer und geschäftsführender Gesellschafter"},
+        {id:"werdegang", typ:"textarea", gross:true, frage:"Was haben Sie vor EPC gemacht, und was können Sie besonders gut?", noetig:true,
+         warum:"Stationen, Branchen, Projekte, auf die Sie stolz sind. Daraus entsteht Ihr Profil auf der Seite.",
+         platzhalter:"z. B. zehn Jahre Projektleitung bei …, Schwerpunkt öffentliche Ausschreibungen …"},
+        {id:"team", typ:"personen", frage:"Wer gehört zum Kernteam?", noetig:true,
+         warum:"Name, Funktion und wofür die Person steht. Laut Handelsregister ist Mark Wisbar Geschäftsführer der EPC Academy GmbH. Nehmen Sie ihn bitte mit auf, falls er auf die Seite soll."},
+        {id:"groesse", typ:"text", frage:"Wie viele Menschen arbeiten insgesamt für EPC, freie Fachleute eingeschlossen?",
+         platzhalter:"z. B. sechs fest angestellt, dazu vier freie Fachleute"},
+        {id:"gesichter", typ:"wahl", frage:"Sollen Personen mit Namen und Foto auf die Website?", noetig:true,
+         warum:"Meine Empfehlung: ja. Ein Gesicht mit Werdegang schafft mehr Vertrauen als jeder Werbetext.",
+         optionen:["Ja, das Kernteam mit Foto","Nur ich als Ansprechpartner","Namen ja, Fotos nach einem Shooting","Lieber ganz ohne Personen"]},
+        {id:"geschichte", typ:"textarea", gross:true, frage:"Wie ist EPC entstanden, und wofür steht „Evolution“?",
+         warum:"Wer hat wann und warum gegründet, und was hat sich mit dem neuen Namen verändert? Solche Geschichten werden auf Beratungsseiten am längsten gelesen."}
+      ]
+    },
+    {
+      titel:"Die Gruppe und das Impressum",
+      intro:"Unter EPC Evolution laufen mehrere Firmen. Hier klären wir, wie die Seite die Gruppe zeigt und was rechtlich ins Impressum gehört.",
+      felder:[
+        {id:"firmen", typ:"textarea", gross:true, frage:"Welche Firmen gehören zu EPC Evolution, und was macht jede davon?", noetig:true,
+         warum:"Bitte mit vollem Namen und Rechtsform. Mir bekannt ist bisher nur die EPC Academy GmbH in Burgdorf.",
+         platzhalter:"EPC Academy GmbH: …\n… GmbH: …"},
+        {id:"aufbau", typ:"wahl", frage:"Wie soll die Website die Firmen zeigen?",
+         optionen:["Eine Marke EPC Evolution, die Firmen als Bereiche darunter","Eine Dachseite und je Firma eine eigene Unterseite","Nur die Dachmarke, die Firmen stehen im Impressum","Weiß ich noch nicht, ich hätte gern Ihre Empfehlung"]},
+        {id:"name_alt", typ:"textarea", frage:"Warum heißt es nicht mehr „EPC Group“?",
+         warum:"Damit der alte Name nirgends mehr auftaucht und die Seite keine fremden Namensrechte berührt. Es gibt zum Beispiel eine bekannte EPC Group aus dem Anlagenbau in Thüringen."},
+        {id:"betreiber", typ:"text", frage:"Welche Firma betreibt die Website und steht im Impressum?", noetig:true,
+         warum:"Im bisherigen Impressum steht die EPC Academy GmbH mit „Amtsgericht Recklinghausen“. Laut Handelsregister ist die HRB 210542 aber beim Amtsgericht Hildesheim eingetragen. Fehler im Impressum sind ein häufiger Abmahngrund, deshalb frage ich lieber nach.",
+         platzhalter:"z. B. EPC Academy GmbH"},
+        {id:"vertreten", typ:"text", frage:"Wer vertritt diese Firma als Geschäftsführer?",
+         platzhalter:"Vor- und Nachname, bei mehreren alle"},
+        {id:"adresse", typ:"text", frage:"Unter welcher Anschrift erreicht man Sie?", noetig:true,
+         warum:"Im Impressum steht Ramlinger Straße 95a, 31303 Burgdorf. Ist das auch das Büro, in dem Sie Kunden empfangen?",
+         platzhalter:"Straße, Hausnummer, PLZ, Ort"},
+        {id:"standorte", typ:"text", frage:"Gibt es weitere Büros oder Standorte?",
+         platzhalter:"z. B. Besprechungsraum in Hannover, Büro in Dubai …"},
+        {id:"telefon", typ:"tel", frage:"Welche Telefonnummer soll auf die Website?", noetig:true,
+         platzhalter:"z. B. 05136 …"},
+        {id:"email", typ:"email", frage:"Welche E-Mail-Adresse soll auf die Website?", noetig:true,
+         platzhalter:"z. B. info@…"},
+        {id:"erlaubnis", typ:"mehrfach", frage:"Hat EPC eine dieser Gewerbeerlaubnisse?",
+         warum:"Wer Immobilien, Versicherungen oder Geldanlagen vermittelt, muss die Erlaubnis und die zuständige Aufsichtsbehörde im Impressum nennen, bei Versicherungen auch die Registernummer. Machen das ausschließlich Ihre Partner, reicht ein klarer Hinweis.",
+         optionen:["§ 34c GewO (Immobilien)","§ 34d GewO (Versicherungen)","§ 34f GewO (Finanzanlagen)","Keine davon, das machen nur unsere Partner","Weiß ich nicht"],
+         allein:["Keine davon, das machen nur unsere Partner","Weiß ich nicht"]}
+      ]
+    },
+    {
+      titel:"Leistungen: was wirklich zählt",
+      intro:"Im Entwurf stehen zwölf Leistungen gleichrangig nebeneinander. Hier legen wir fest, wofür EPC in erster Linie steht.",
+      felder:[
+        {id:"leistungen", typ:"raster", frage:"Wie wichtig ist jede Leistung für Sie?", noetig:true,
+         warum:"Ihr Kerngeschäft kommt nach vorn. Was Sie nebenbei anbieten, bekommt weniger Platz. Was raus soll, streiche ich.",
+         wahlen:["Kerngeschäft","Machen wir auch","Raus"],
+         zeilen:[
+           "Firmengründung",
+           "Gründungszuschuss",
+           "Strategieberatung",
+           "Präqualifikation nach Vergaberecht",
+           "Managementsysteme (ISO 9001, 14001, 45001, 27001)",
+           "Auditierung und Lieferantenaudits",
+           "Nachhaltigkeit, ESG und EcoVadis",
+           "Förderungen",
+           "Finanzierungen",
+           "Versicherungen (über Partner)",
+           "Strategische Begleitung Recht und Steuern (über Partner)",
+           "Immobilieninvestments"
+         ]},
+        {id:"top3", typ:"textarea", frage:"Mit welchen drei Leistungen verdienen Sie heute das meiste Geld?", noetig:true,
+         platzhalter:"1. …\n2. …\n3. …"},
+        {id:"ausbauen", typ:"textarea", frage:"Was wollen Sie in den nächsten zwölf Monaten am stärksten ausbauen?",
+         warum:"Die Website soll dorthin führen, wo Sie hinwollen, und nicht nur den heutigen Stand zeigen."},
+        {id:"fehlt", typ:"textarea", frage:"Fehlt etwas, das Sie anbieten?",
+         platzhalter:"z. B. Schulungen über die EPC Academy, Nachfolgeplanung, Unternehmenskauf …"},
+        {id:"ablauf", typ:"textarea", gross:true, frage:"Wie läuft ein typischer Auftrag ab, zum Beispiel eine Präqualifikation oder eine ISO-Zertifizierung?", noetig:true,
+         warum:"Schritte, ungefähre Dauer, was der Kunde liefern muss und was er am Ende in der Hand hat. Daraus baue ich eine Ablaufgrafik. Sie nimmt Interessenten die Unsicherheit vor dem ersten Anruf.",
+         platzhalter:"1. Erstgespräch … 2. Unterlagen sichten … 3. … Dauer insgesamt etwa …"},
+        {id:"einstieg", typ:"wahl", frage:"Wie beginnt die Zusammenarbeit?",
+         optionen:["Mit einem kostenlosen Erstgespräch","Mit einer bezahlten Erstanalyse","Je nach Leistung unterschiedlich"],
+         folge:{wenn:["Mit einem kostenlosen Erstgespräch","Je nach Leistung unterschiedlich"], id:"einstieg_wie", typ:"text",
+                frage:"Wie lange dauert das Erstgespräch, und wo findet es statt?", platzhalter:"z. B. 30 Minuten per Video oder vor Ort in Burgdorf"}},
+        {id:"abrechnung", typ:"mehrfach", frage:"Wie rechnen Sie ab?",
+         warum:"Preise müssen nicht auf die Seite. Ich möchte nur wissen, wie Sie arbeiten, damit die Texte dazu passen.",
+         optionen:["Festpreis je Projekt","Tages- oder Stundensatz","Monatliche Betreuung","Erfolgsabhängig","Je nach Leistung unterschiedlich"]},
+        {id:"foerderbar", typ:"wahl", frage:"Können Kunden Ihre Beratung selbst fördern lassen?",
+         warum:"Zum Beispiel über Förderprogramme für Unternehmensberatung. Wenn ja, ist das für viele Mittelständler ein starkes Argument, weil sie dann nur einen Teil selbst zahlen.",
+         optionen:["Ja","Teilweise","Nein","Weiß ich nicht"]}
+      ]
+    },
+    {
+      titel:"Ihre Kunden",
+      intro:"Je genauer ich Ihre Kunden kenne, desto besser trifft die Seite ihre Sprache und ihre Sorgen.",
+      felder:[
+        {id:"branchen", typ:"mehrfach", frage:"Aus welchen Branchen kommen Ihre Kunden?", noetig:true,
+         warum:"Auf Ihren bisherigen Bildern sind oft Bahn und Baustelle zu sehen. Stimmt dieser Schwerpunkt?",
+         optionen:["Bahn und Schieneninfrastruktur","Bau und Tiefbau","Energie und Versorgung","Industrie und Produktion","Logistik und Transport","Handwerk","Dienstleistung und IT","Gründerinnen und Gründer","Private Investoren"]},
+        {id:"kundengroesse", typ:"mehrfach", frage:"Wie groß sind Ihre Kunden meistens?",
+         optionen:["Gründungen und Kleinstfirmen","Kleine Betriebe bis 20 Mitarbeitende","Mittelstand mit 20 bis 250 Mitarbeitenden","Größere Unternehmen ab 250 Mitarbeitenden"]},
+        {id:"region", typ:"wahl", frage:"Wo sitzen Ihre Kunden?",
+         optionen:["Vor allem in der Region Hannover und in Niedersachsen","Vor allem in Nordrhein-Westfalen","In ganz Deutschland","In Deutschland und im Ausland"]},
+        {id:"auftraggeber", typ:"textarea", frage:"Für welche großen Auftraggeber arbeiten Ihre Kunden?",
+         warum:"Zum Beispiel Deutsche Bahn, Autobahn GmbH, Kommunen oder Konzerne. Deren Anforderungen sind oft der Grund, warum jemand zu Ihnen kommt."},
+        {id:"ausloeser", typ:"textarea", gross:true, frage:"Was ist meistens der Auslöser, dass sich ein Kunde bei Ihnen meldet?", noetig:true,
+         warum:"Zum Beispiel eine Ausschreibung mit Frist, ein Auftraggeber verlangt ISO 9001 oder ein EcoVadis-Rating, eine Gründung steht an. Genau diese Momente greift die Startseite auf."},
+        {id:"wunschkunde", typ:"textarea", gross:true, frage:"Beschreiben Sie einen Kunden, der genau richtig für Sie ist.",
+         warum:"Wer ist er, welches Problem hatte er, und wie geht es ihm nach der Zusammenarbeit? Ein Beispiel ohne Namen reicht völlig."},
+        {id:"herkunft", typ:"mehrfach", frage:"Wie finden Kunden heute zu Ihnen?",
+         optionen:["Empfehlung","Persönliches Netzwerk","Partner wie Kanzleien oder Steuerberater","LinkedIn","Google","Veranstaltungen und Messen","Eigene Akquise"]},
+        {id:"fragen", typ:"textarea", frage:"Welche Fragen stellen Interessenten im ersten Gespräch immer wieder?",
+         warum:"Die beantworte ich direkt auf der Seite. Das spart Ihnen Zeit und hilft bei Google.",
+         platzhalter:"z. B. „Wie lange dauert eine Präqualifikation?“, „Was kostet das ungefähr?“ …"},
+        {id:"zweifel", typ:"textarea", frage:"Woran scheitert es, wenn jemand am Ende nicht beauftragt?",
+         warum:"Zu teuer, zu unbekannt, „das machen wir selbst“? Was die Seite schon ausräumt, müssen Sie im Gespräch nicht mehr ausräumen."}
+      ]
+    },
+    {
+      titel:"Belege und Vertrauen",
+      intro:"Ihre Kunden prüfen genau, bevor sie anrufen. Deshalb zählen hier Belege.",
+      felder:[
+        {id:"zahlen", typ:"raster", frage:"Diese Zahlen stehen auf Ihrem Entwurf. Was davon können Sie belegen?", noetig:true,
+         warum:"Die EPC Academy GmbH gibt es seit Januar 2026. Stammen die Zahlen aus der Erfahrung Ihres Teams, schreibe ich genau das dazu. So bleiben sie glaubwürdig und rechtlich sauber.",
+         wahlen:["Stimmt so","Anpassen","Weglassen"],
+         notiz:"Quelle, Zeitraum oder richtige Zahl",
+         zeilen:[
+           "587 begleitete Nachhaltigkeits- und ESG-Projekte",
+           "778 begleitete Firmengründungen",
+           "326 Lieferantenaudits",
+           "73 Mio. € Gewinne aus Immobilieninvestments",
+           "2,8 Mrd. € jährlicher Umsatz durch Vergaben",
+           "100 % Erfolgsquote bei begleiteten Präqualifikationen"
+         ]},
+        {id:"erfahrung", typ:"text", frage:"Wie viele Jahre Berufserfahrung bringt Ihr Kernteam zusammen mit?",
+         platzhalter:"z. B. über 40 Jahre"},
+        {id:"projekt", typ:"textarea", gross:true, frage:"Erzählen Sie von einem Projekt, auf das Sie stolz sind.", noetig:true,
+         warum:"Ausgangslage, was Sie getan haben, Ergebnis. Am besten mit einer Zahl, etwa „Präqualifikation in neun Wochen, danach der erste Auftrag über 1,2 Mio. €“. Gern auch zwei oder drei Beispiele. Ohne Namen ist völlig in Ordnung."},
+        {id:"referenzen", typ:"wahl", frage:"Dürfen Kunden mit Namen oder Logo auf die Seite?",
+         optionen:["Ja, einige haben zugestimmt","Nur anonym, z. B. „Bahnzulieferer mit 120 Mitarbeitenden“","Nein"],
+         folge:{wenn:"Ja, einige haben zugestimmt", id:"referenzen_welche", typ:"text", frage:"Welche Kunden?", platzhalter:"Namen, gern mit Branche"}},
+        {id:"stimmen", typ:"textarea", frage:"Gibt es Rückmeldungen von Kunden, die auf die Seite dürfen?",
+         warum:"E-Mails, LinkedIn-Empfehlungen, Google-Bewertungen. Kundenstimmen im Originalton sind das Glaubwürdigste auf einer Beratungsseite.",
+         platzhalter:"Gern auch als Screenshot hinterher."},
+        {id:"partner", typ:"textarea", gross:true, frage:"Mit welchen Kanzleien, Steuerberatern, Zertifizierern und Versicherern arbeiten Sie zusammen, und dürfen sie genannt werden?", noetig:true,
+         warum:"Ihr Versprechen lautet: ein Ansprechpartner, dahinter die Fachleute. Bekannte Partnernamen machen das sofort glaubwürdig."},
+        {id:"nachweise", typ:"mehrfach", frage:"Welche Qualifikationen gibt es in Ihrem Team?",
+         optionen:["Zertifizierte Auditorinnen und Auditoren (z. B. ISO 9001, 14001, 45001)","Erfahrung mit EcoVadis-Bewertungen","Zulassung als Fördermittel- oder Unternehmensberatung","Eigene ISO-Zertifizierung von EPC","Mitgliedschaft in Kammern oder Verbänden","Fachabschlüsse (z. B. Betriebswirtschaft, Ingenieurwesen, Jura)"]},
+        {id:"nachweise_detail", typ:"text", frage:"Welche Qualifikationen genau?",
+         platzhalter:"z. B. Lead Auditor ISO 9001 (TÜV), Mitglied im …"},
+        {id:"wettbewerb", typ:"textarea", frage:"Wen sehen Sie als Wettbewerber, und was machen Sie anders?",
+         warum:"Gern ganz offen. Das steht so nicht auf der Seite, hilft mir aber beim Schärfen."}
+      ]
+    },
+    {
+      titel:"Immobilien und Investments",
+      intro:"Ich habe die Broschüre zu HADO auf Dubai Islands und den Film zu The Yards Plaza vom Bauträger BEYOND gesehen. Dieser Bereich braucht eine klare Einordnung, damit er zur Beratung passt und rechtlich sauber beschrieben ist.",
+      felder:[
+        {id:"immo_rolle", typ:"wahl", frage:"Welche Rolle spielen Immobilieninvestments bei EPC?", noetig:true,
+         optionen:["Eigener Geschäftsbereich, soll deutlich auf die Seite","Zusatzangebot für bestehende Kunden","Läuft über einen Partner, nur kurz erwähnen","Soll gar nicht auf die Website"]},
+        {id:"immo_was", typ:"textarea", gross:true, frage:"Was genau bieten Sie in diesem Bereich an, und für wen?",
+         warum:"Beraten Sie zur Strategie, vermitteln Sie Objekte, oder stellen Sie den Kontakt zu einem Partner her? Und wer kauft: Unternehmer aus Ihrem Kundenstamm, Privatanleger, Firmen?"},
+        {id:"immo_maerkte", typ:"mehrfach", frage:"In welchen Märkten?",
+         optionen:["Dubai und Vereinigte Arabische Emirate","Deutschland","Weitere Länder"]},
+        {id:"immo_vertrag", typ:"wahl", frage:"Mit wem schließt ein Investor am Ende den Kaufvertrag?",
+         warum:"Davon hängt ab, wie wir den Bereich rechtssicher beschreiben.",
+         optionen:["Direkt mit dem Bauträger","Über einen lizenzierten Makler oder Partner","Mit EPC","Weiß ich nicht"]},
+        {id:"immo_bilder", typ:"wahl", frage:"Dürfen Bilder und Filme des Bauträgers auf die Seite?",
+         warum:"Renderings sind urheberrechtlich geschützt. Ohne Freigabe nutze ich sie nicht.",
+         optionen:["Ja, die Freigabe liegt schriftlich vor","Kann ich anfragen","Nein","Weiß ich nicht"]}
+      ]
+    },
+    {
+      titel:"Auftritt und Bilder",
+      intro:"Jetzt geht es darum, wie EPC wirken soll. Ehrliche Antworten helfen mir hier mehr als höfliche.",
+      felder:[
+        {id:"entwurf", typ:"textarea", gross:true, frage:"Was gefällt Ihnen am bisherigen Entwurf, und was stört Sie?", noetig:true},
+        {id:"meine_seiten", typ:"textarea", frage:"Frau Mutić hat Ihnen einige meiner Seiten gezeigt. Was hat Sie daran angesprochen?",
+         warum:"Konkrete Beobachtungen wie „die Bewegung beim Scrollen“ oder „wie ruhig das wirkt“ helfen mir am meisten."},
+        {id:"wirkung", typ:"mehrfach", max:3, frage:"Wie soll EPC auf Besucher wirken?", noetig:true,
+         warum:"Bitte höchstens drei auswählen.",
+         optionen:["Seriös und diskret","Exklusiv und hochwertig","Modern und dynamisch","Nahbar und persönlich","Präzise und technisch","International","Bodenständig und mittelständisch"]},
+        {id:"cd", typ:"wahl", frage:"Wie streng sind Farben und Schriften vorgegeben?",
+         warum:"Ihr Logo ist in Petrol gehalten, das Gestaltungsdokument nennt ein dunkleres Tannengrün mit Gold-Akzent. Die Schriften darin sind nur geschätzt. Ich würde beides zu einem stimmigen System zusammenführen.",
+         optionen:["Logo und Farben bleiben, der Rest ist frei","Alles bleibt so, wie es im Dokument steht","Gern auch die Farben weiterentwickeln","Ihre Empfehlung reicht mir"]},
+        {id:"logo_von", typ:"text", frage:"Wer hat das Logo gestaltet, und gibt es ein Gestaltungshandbuch?",
+         platzhalter:"z. B. Agentur …, Handbuch als PDF vorhanden"},
+        {id:"fotos", typ:"wahl", frage:"Gibt es eigene Fotos von Team, Büro oder Projekten?", noetig:true,
+         warum:"Bis Ihre eigenen Fotos da sind, setze ich passende Fotos aus Bilddatenbanken ein und tausche sie später aus.",
+         optionen:["Ja, Fotos sind vorhanden","Ein Shooting ist geplant","Noch nicht, bitte passende Fotos als Übergang"],
+         folge:{wenn:"Ein Shooting ist geplant", id:"fotos_wann", typ:"text", frage:"Wann ungefähr?", platzhalter:"z. B. Mitte November"}},
+        {id:"vorbilder", typ:"textarea", frage:"Gibt es Websites, gern auch von Wettbewerbern, die Ihnen gefallen oder gar nicht gefallen?",
+         platzhalter:"Adresse genügt, gern mit einem Satz dazu."},
+        {id:"gendern", typ:"wahl", frage:"Wie soll die Seite mit dem Gendern umgehen?",
+         warum:"Ihr Entwurf mischt beides. Meine Empfehlung: neutral formulieren, zum Beispiel „Fachleute“ statt „Expertinnen und Experten“. Das liest sich flüssig und schließt niemanden aus.",
+         optionen:["Neutral formulieren","Mit Doppelpunkt (Berater:innen)","Beide Formen ausschreiben","Nicht gendern"]},
+        {id:"sprachen", typ:"mehrfach", frage:"In welchen Sprachen soll die Website erscheinen?",
+         optionen:["Deutsch","Englisch","Weitere Sprachen später"]},
+        {id:"tabu", typ:"textarea", frage:"Was soll auf keinen Fall auf die Seite?",
+         platzhalter:"z. B. bestimmte Leistungen, Preise, Namen …"}
+      ]
+    },
+    {
+      titel:"Ziele, Technik und Ablauf",
+      intro:"Zum Schluss: Wofür soll die Seite arbeiten, und was muss ich technisch wissen?",
+      felder:[
+        {id:"ziele", typ:"mehrfach", frage:"Was soll die Website vor allem leisten?", noetig:true,
+         optionen:["Neue Anfragen gewinnen","Vertrauen schaffen, wenn jemand nach einer Empfehlung nachsieht","Bei Ausschreibungen und Konzernen professionell auftreten","Investoren für Immobilienprojekte erreichen","Mitarbeitende und Partner gewinnen"]},
+        {id:"erfolg", typ:"textarea", frage:"Woran würden Sie in einem halben Jahr merken, dass sich die Website gelohnt hat?",
+         platzhalter:"z. B. zwei passende Anfragen im Monat, Kunden sprechen uns auf die Seite an …"},
+        {id:"kontaktwege", typ:"mehrfach", frage:"Wie sollen Interessenten Kontakt aufnehmen?",
+         optionen:["Kontaktformular","Termin direkt online buchen","Telefon","E-Mail","WhatsApp","LinkedIn"]},
+        {id:"anfragen_an", typ:"text", frage:"An wen sollen Anfragen gehen?",
+         platzhalter:"Name und E-Mail-Adresse"},
+        {id:"extras", typ:"mehrfach", frage:"Was soll die Seite zusätzlich können?",
+         warum:"Ein kurzer Selbst-Check holt Besucher ab, die noch nicht anrufen wollen, und gibt Ihnen vor dem Gespräch schon die wichtigsten Eckdaten.",
+         optionen:["Selbst-Check, z. B. „Sind Sie bereit für die Präqualifikation?“","Fördermittel-Schnellcheck","Downloads wie Checklisten","Fachbeiträge und Neuigkeiten","Karriere und offene Stellen","Newsletter"]},
+        {id:"domain", typ:"text", frage:"Unter welcher Internetadresse soll die Seite laufen, und wo ist sie registriert?", noetig:true,
+         warum:"Den Umzug übernehme ich. Ich muss nur wissen, wo die Adresse liegt und wer Zugang hat.",
+         platzhalter:"z. B. epc-evolution.de, registriert bei …"},
+        {id:"mails", typ:"wahl", frage:"Laufen Ihre E-Mail-Adressen über dieselbe Internetadresse?",
+         warum:"Dann sorge ich dafür, dass beim Umzug kein Postfach ausfällt.",
+         optionen:["Ja","Nein","Weiß ich nicht"]},
+        {id:"wordpress", typ:"wahl", frage:"Was soll mit der bisherigen WordPress-Seite passieren?",
+         optionen:["Kann weg, sobald die neue Seite steht","Soll erhalten bleiben","Weiß ich nicht"]},
+        {id:"kanaele", typ:"textarea", frage:"Wo ist EPC sonst online zu finden?",
+         platzhalter:"LinkedIn, Instagram, Google-Unternehmensprofil …"},
+        {id:"pflege", typ:"wahl", frage:"Wer soll Inhalte später ändern?",
+         optionen:["Ich oder mein Team","Frau Mutić","Das übernehmen Sie für uns","Weiß ich noch nicht"]},
+        {id:"termin", typ:"text", frage:"Bis wann muss die Seite online sein, und gibt es dafür einen Anlass?", noetig:true,
+         platzhalter:"z. B. Anfang November, wegen …"},
+        {id:"freigabe", typ:"wahl", frage:"Wer gibt die Entwürfe frei?",
+         optionen:["Ich allein","Ich gemeinsam mit Frau Mutić","Mehrere Gesellschafter","Eine andere Person"],
+         folge:{wenn:["Mehrere Gesellschafter","Eine andere Person"], id:"freigabe_wer", typ:"text", frage:"Wer genau?", platzhalter:"Namen"}},
+        {id:"ausgefuellt", typ:"text", frage:"Wer hat diesen Bogen ausgefüllt?",
+         platzhalter:"z. B. Ihr Name, Abschnitt 7 gemeinsam mit Frau Mutić"},
+        {id:"sonstiges", typ:"textarea", gross:true, frage:"Gibt es noch etwas, das ich wissen sollte?",
+         warum:"Alles, was Ihnen wichtig ist und oben nicht vorkam, auch Pläne für die nächsten Monate."}
+      ]
+    }
+  ];
+
+  /* ══════════════════════════════════════════════════════════
+     Zustand
+     ══════════════════════════════════════════════════════════ */
+  var daten = {};
+  try { daten = JSON.parse(localStorage.getItem(SPEICHER) || "{}"); } catch(e){ daten = {}; }
+  var ansicht = typeof daten.__ansicht === "number" ? daten.__ansicht : -1;   // -1 = Start, ETAPPEN.length = Ende
+  if(ansicht > ETAPPEN.length) ansicht = -1;
+
+  var buehne = document.getElementById("buehne");
+  var kopf = document.getElementById("kopf");
+  var fuss = document.getElementById("fuss");
+  var kopfTitel = document.getElementById("kopfTitel");
+  var kopfZahl = document.getElementById("kopfZahl");
+  var balken = document.getElementById("balken");
+  var gespeichert = document.getElementById("gespeichert");
+  var bZurueck = document.getElementById("zurueck");
+  var bWeiter = document.getElementById("weiter");
+  var LOGO = document.getElementById("logoVorlage").innerHTML;
+  document.getElementById("kopfLogo").innerHTML = LOGO;
+  var speicherUhr;
+
+  function sichern(){
+    daten.__ansicht = ansicht;
+    try {
+      localStorage.setItem(SPEICHER, JSON.stringify(daten));
+      gespeichert.textContent = "gespeichert";
+      gespeichert.style.color = "";
+      clearTimeout(speicherUhr);
+      gespeichert.classList.add("an");
+      speicherUhr = setTimeout(function(){ gespeichert.classList.remove("an"); }, 1600);
+    } catch(e){
+      gespeichert.textContent = "Konnte nicht gespeichert werden. Bitte in einem Zug ausfüllen.";
+      gespeichert.style.color = "var(--warn)";
+      gespeichert.classList.add("an");
+    }
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function trifft(wenn, wert){
+    return Array.isArray(wenn) ? wenn.indexOf(wert) > -1 : wenn === wert;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     Aufbau der Felder
+     ══════════════════════════════════════════════════════════ */
+  function kopfZeilen(f, titelId, alsLabel){
+    var wichtig = f.noetig ? '<span class="wichtig">wichtig</span>' : "";
+    return (alsLabel
+        ? '<label for="'+titelId+'">'+esc(f.frage)+wichtig+'</label>'
+        : '<span class="frage-titel" id="'+titelId+'">'+esc(f.frage)+wichtig+'</span>') +
+      (f.warum ? '<span class="warum">'+esc(f.warum)+'</span>' : "");
+  }
+
+  function feldBauen(f){
+    var w = document.createElement("div");
+    w.className = "frage";
+    var titelId = "f-" + f.id;
+
+    if(f.typ === "text" || f.typ === "tel" || f.typ === "email" || f.typ === "textarea"){
+      var istLang = f.typ === "textarea";
+      w.innerHTML = kopfZeilen(f, titelId, true) +
+        (istLang
+          ? '<textarea id="'+titelId+'"'+(f.gross ? ' class="gross"' : '')+' placeholder="'+esc(f.platzhalter||"")+'"></textarea>'
+          : '<input type="'+f.typ+'" id="'+titelId+'" placeholder="'+esc(f.platzhalter||"")+'"' +
+            (f.typ === "email" ? ' autocomplete="email"' : f.typ === "tel" ? ' autocomplete="tel"' : '') + '>');
+      var eingabe = w.querySelector("#"+CSS.escape(titelId));
+      eingabe.value = daten[f.id] || "";
+      eingabe.addEventListener("input", function(){ daten[f.id] = eingabe.value; sichern(); });
+      return w;
+    }
+
+    if(f.typ === "wahl"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="wahl" role="group" aria-labelledby="'+titelId+'"></div>' +
+        '<div class="folge-halter"></div>';
+      var box = w.querySelector(".wahl");
+      var halter = w.querySelector(".folge-halter");
+
+      f.optionen.forEach(function(o){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = o;
+        b.setAttribute("aria-pressed", String(daten[f.id] === o));
+        b.addEventListener("click", function(){
+          daten[f.id] = o;
+          box.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+          b.setAttribute("aria-pressed","true");
+          folgeZeigen();
+          sichern();
+        });
+        box.appendChild(b);
+      });
+
+      function folgeZeigen(){
+        halter.innerHTML = "";
+        if(!f.folge || !trifft(f.folge.wenn, daten[f.id])) return;
+        var fo = f.folge, foId = "f-" + fo.id;
+        var d = document.createElement("div");
+        d.className = "folge";
+        d.innerHTML = '<label for="'+foId+'">'+esc(fo.frage)+'</label>' +
+                      '<input type="text" id="'+foId+'" placeholder="'+esc(fo.platzhalter||"")+'">';
+        var ein = d.querySelector("input");
+        ein.value = daten[fo.id] || "";
+        ein.addEventListener("input", function(){ daten[fo.id] = ein.value; sichern(); });
+        halter.appendChild(d);
+      }
+      folgeZeigen();
+      return w;
+    }
+
+    if(f.typ === "mehrfach"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="mehrfach" role="group" aria-labelledby="'+titelId+'"></div>';
+      var mbox = w.querySelector(".mehrfach");
+
+      function grenzeAnzeigen(){
+        if(!f.max) return;
+        var n = Array.isArray(daten[f.id]) ? daten[f.id].length : 0;
+        mbox.classList.toggle("voll", n >= f.max);
+      }
+
+      f.optionen.forEach(function(o){
+        var l = document.createElement("label");
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = Array.isArray(daten[f.id]) && daten[f.id].indexOf(o) > -1;
+        cb.addEventListener("change", function(){
+          var liste = Array.isArray(daten[f.id]) ? daten[f.id] : [];
+          if(cb.checked){
+            if(f.max && liste.length >= f.max){ cb.checked = false; return; }
+            if(f.allein){
+              // „Keine davon“ / „Weiß ich nicht“ schließen alle anderen Antworten aus und umgekehrt
+              var exklusiv = f.allein.indexOf(o) > -1;
+              liste = liste.filter(function(x){ return exklusiv ? false : f.allein.indexOf(x) < 0; });
+              mbox.querySelectorAll("label").forEach(function(lb){
+                if(liste.indexOf(lb.textContent) < 0 && lb.textContent !== o) lb.querySelector("input").checked = false;
+              });
+            }
+            if(liste.indexOf(o) < 0) liste.push(o);
+          } else {
+            liste = liste.filter(function(x){ return x !== o; });
+          }
+          daten[f.id] = liste;
+          grenzeAnzeigen();
+          sichern();
+        });
+        l.appendChild(cb);
+        l.appendChild(document.createTextNode(o));
+        mbox.appendChild(l);
+      });
+      grenzeAnzeigen();
+      return w;
+    }
+
+    if(f.typ === "raster"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="raster" role="group" aria-labelledby="'+titelId+'"></div>';
+      var rbox = w.querySelector(".raster");
+      var stand = (daten[f.id] && typeof daten[f.id] === "object" && !Array.isArray(daten[f.id])) ? daten[f.id] : {};
+      daten[f.id] = stand;
+
+      f.zeilen.forEach(function(z, i){
+        var eintrag = stand[z] || {};
+        var zeile = document.createElement("div");
+        zeile.className = "raster-zeile" + (eintrag.wahl ? " gesetzt" : "");
+        var zid = "r-" + f.id + "-" + i;
+        zeile.innerHTML = '<b id="'+zid+'">'+esc(z)+'</b>' +
+          '<div class="segmente" role="group" aria-labelledby="'+zid+'" style="--n:'+f.wahlen.length+'"></div>' +
+          (f.notiz ? '<div class="raster-notiz"><input type="text" aria-label="Anmerkung zu: '+esc(z)+'" placeholder="'+esc(f.notiz)+'"></div>' : '');
+        var seg = zeile.querySelector(".segmente");
+        f.wahlen.forEach(function(wa){
+          var b = document.createElement("button");
+          b.type = "button";
+          b.textContent = wa;
+          b.setAttribute("aria-pressed", String(eintrag.wahl === wa));
+          b.addEventListener("click", function(){
+            var e = stand[z] || {};
+            e.wahl = (e.wahl === wa) ? "" : wa;   // zweiter Tipp hebt die Auswahl wieder auf
+            stand[z] = e;
+            seg.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x.textContent === e.wahl)); });
+            zeile.classList.toggle("gesetzt", !!e.wahl);
+            sichern();
+          });
+          seg.appendChild(b);
+        });
+        if(f.notiz){
+          var ni = zeile.querySelector(".raster-notiz input");
+          ni.value = eintrag.notiz || "";
+          ni.addEventListener("input", function(){
+            var e = stand[z] || {};
+            e.notiz = ni.value;
+            stand[z] = e;
+            sichern();
+          });
+        }
+        rbox.appendChild(zeile);
+      });
+      return w;
+    }
+
+    if(f.typ === "personen"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="personen" role="group" aria-labelledby="'+titelId+'"></div>' +
+        '<button type="button" class="knopf-plus" style="width:100%; margin-top:.75rem">+ Weitere Person</button>';
+      var pbox = w.querySelector(".personen");
+      var liste = Array.isArray(daten[f.id]) ? daten[f.id] : [];
+      if(!liste.length) liste.push({}, {});
+      daten[f.id] = liste;
+
+      function zeichnen(){
+        pbox.innerHTML = "";
+        liste.forEach(function(p, i){
+          var k = document.createElement("div");
+          k.className = "person";
+          var pid = "p-" + f.id + "-" + i;
+          k.innerHTML =
+            '<div class="person-kopf"><span>Person ' + (i + 1) + '</span>' +
+              (liste.length > 1 ? '<button type="button">Entfernen</button>' : '') + '</div>' +
+            '<div class="paar">' +
+              '<input type="text" id="'+pid+'-n" data-feld="name" aria-label="Name von Person '+(i+1)+'" placeholder="Vor- und Nachname">' +
+              '<input type="text" data-feld="rolle" aria-label="Funktion von Person '+(i+1)+'" placeholder="Funktion, z. B. Geschäftsführer">' +
+            '</div>' +
+            '<textarea data-feld="info" aria-label="Fachgebiet und Werdegang von Person '+(i+1)+'" placeholder="Fachgebiet, Werdegang, wofür die Person bei Kunden steht"></textarea>';
+          k.querySelectorAll("[data-feld]").forEach(function(el){
+            el.value = p[el.dataset.feld] || "";
+            el.addEventListener("input", function(){ p[el.dataset.feld] = el.value; sichern(); });
+          });
+          var weg = k.querySelector(".person-kopf button");
+          if(weg) weg.addEventListener("click", function(){
+            var leer = !p.name && !p.rolle && !p.info;
+            if(!leer && !confirm("Diese Person mit allen Angaben entfernen?")) return;
+            liste.splice(i, 1);
+            sichern();
+            zeichnen();
+          });
+          pbox.appendChild(k);
+        });
+      }
+      w.querySelector(".knopf-plus").addEventListener("click", function(){
+        liste.push({});
+        sichern();
+        zeichnen();
+        var neu = document.getElementById("p-" + f.id + "-" + (liste.length - 1) + "-n");
+        if(neu) neu.focus();
+      });
+      zeichnen();
+      return w;
+    }
+
+    return w;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     Ansichten
+     ══════════════════════════════════════════════════════════ */
+  function symbol(pfad){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+pfad+'</svg>';
+  }
+
+  function hatAntworten(){
+    return Object.keys(daten).some(function(k){
+      if(k.charAt(0) === "_") return false;
+      var v = daten[k];
+      if(Array.isArray(v)) return v.some(function(x){ return typeof x === "string" ? x : x && (x.name || x.rolle || x.info); });
+      if(v && typeof v === "object") return Object.keys(v).some(function(z){ return v[z] && (v[z].wahl || v[z].notiz); });
+      return !!v;
+    });
+  }
+
+  function startZeigen(){
+    kopf.hidden = true; fuss.hidden = true;
+    var begonnen = hatAntworten();
+    buehne.innerHTML =
+      '<div class="etappe start">' +
+        LOGO +
+        '<span class="linie" aria-hidden="true"></span>' +
+        '<span class="oberzeile">Ihre neue Website · Vorbereitung</span>' +
+        '<h1>Guten Tag, Herr Erbeck.</h1>' +
+        '<p class="fuehrt">Frau Mutić hat mir Ihren bisherigen Entwurf, Ihr Logo und Ihre Unterlagen gegeben. Ich habe mir alles genau angesehen.</p>' +
+        '<p class="fuehrt">Damit die neue Website zeigt, was EPC Evolution wirklich ausmacht, brauche ich Antworten, die nur Sie geben können. Ich sammle sie hier an einem Ort, statt Sie mit vielen einzelnen Anrufen aufzuhalten.</p>' +
+        '<div class="ablauf">' +
+          '<h3>So funktioniert es</h3>' +
+          '<ul class="punkte">' +
+            '<li>'+symbol('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')+'<span>Acht Abschnitte, etwa 45 bis 60 Minuten. Gern in mehreren Etappen.</span></li>' +
+            '<li>'+symbol('<path d="M5 13l4 4L19 7"/>')+'<span>Alles speichert sich automatisch. Sie können jederzeit pausieren und später am selben Gerät weitermachen.</span></li>' +
+            '<li>'+symbol('<path d="M4 6h16M4 12h16M4 18h10"/>')+'<span>Je ausführlicher Sie antworten, desto genauer passt die Seite. Stichworte sind aber in Ordnung, und was Sie nicht wissen, lassen Sie einfach frei.</span></li>' +
+            '<li>'+symbol('<path d="M4 4h16v12H7l-3 3z"/>')+'<span>Am Ende schicken Sie mir alles mit zwei Klicks, per WhatsApp oder E&#8209;Mail.</span></li>' +
+          '</ul>' +
+        '</div>' +
+        '<p class="hinweis">Einzelne Abschnitte kann Frau Mutić gern mit Ihnen gemeinsam ausfüllen. Ihre Antworten bleiben auf Ihrem Gerät, bis Sie sie selbst abschicken.</p>' +
+        '<div style="margin-top:2rem; display:flex; flex-direction:column; gap:.75rem">' +
+          '<button type="button" class="knopf knopf-haupt" id="losGehts">'+(begonnen ? "Weitermachen" : "Los geht’s")+'</button>' +
+          (begonnen ? '<button type="button" class="knopf" id="neuStart">Von vorn anfangen</button>' : "") +
+        '</div>' +
+        '<p class="fussnote">Aleksandar Ilic · ILIC ECOM HUB<br>Lieber direkt sprechen? <a href="tel:+'+WA_ALEKS+'">'+TEL_ALEKS+'</a> · <a href="mailto:'+MAIL_ALEKS+'">'+MAIL_ALEKS+'</a></p>' +
+      '</div>';
+
+    document.getElementById("losGehts").addEventListener("click", function(){
+      ansicht = (typeof daten.__letzte === "number" && begonnen) ? daten.__letzte : 0;
+      zeigen();
+    });
+    var nb = document.getElementById("neuStart");
+    if(nb) nb.addEventListener("click", function(){
+      if(!confirm("Alle bisherigen Eingaben löschen und von vorn anfangen?")) return;
+      daten = {};
+      try { localStorage.removeItem(SPEICHER); } catch(e){}
+      ansicht = 0; zeigen();
+    });
+  }
+
+  function etappeZeigen(){
+    var e = ETAPPEN[ansicht];
+    kopf.hidden = false; fuss.hidden = false;
+    kopfTitel.textContent = e.titel;
+    kopfZahl.textContent = "Abschnitt " + (ansicht + 1) + " von " + ETAPPEN.length;
+    balken.style.transform = "scaleX(" + (ansicht / ETAPPEN.length) + ")";
+    requestAnimationFrame(function(){
+      balken.style.transform = "scaleX(" + ((ansicht + 1) / ETAPPEN.length) + ")";
+    });
+
+    var d = document.createElement("div");
+    d.className = "etappe";
+    var k = document.createElement("div");
+    k.className = "etappe-kopf";
+    k.innerHTML = '<span class="nummer">Abschnitt ' + (ansicht + 1) + ' von ' + ETAPPEN.length + '</span>' +
+                  "<h2>" + esc(e.titel) + "</h2>" + (e.intro ? "<p>" + esc(e.intro) + "</p>" : "");
+    d.appendChild(k);
+    e.felder.forEach(function(f){ d.appendChild(feldBauen(f)); });
+    buehne.innerHTML = "";
+    buehne.appendChild(d);
+
+    bZurueck.disabled = false;
+    bZurueck.textContent = "Zurück";
+    bWeiter.textContent = (ansicht === ETAPPEN.length - 1) ? "Fertig" : "Weiter";
+    daten.__letzte = ansicht;
+    window.scrollTo(0, 0);
+  }
+
+  function endeZeigen(){
+    kopf.hidden = true; fuss.hidden = true;
+    var text = textBauen();
+
+    var liste = "";
+    ETAPPEN.forEach(function(e){
+      liste += '<h4>' + esc(e.titel) + '</h4><dl>';
+      e.felder.forEach(function(f){
+        var wert = wertLesbar(f);
+        liste += '<dt>' + esc(f.frage) + '</dt><dd' + (wert ? '' : ' class="leer"') + '>' + esc(wert || "offen gelassen") + '</dd>';
+        if(f.folge && daten[f.folge.id] && trifft(f.folge.wenn, daten[f.id])){
+          liste += '<dt>' + esc(f.folge.frage) + '</dt><dd>' + esc(daten[f.folge.id]) + '</dd>';
+        }
+      });
+      liste += '</dl>';
+    });
+
+    var betreff = encodeURIComponent("Angaben für die neue Website · EPC Evolution");
+
+    buehne.innerHTML =
+      '<div class="etappe">' +
+        '<span class="oberzeile">Geschafft</span>' +
+        '<h1>Vielen Dank, Herr Erbeck.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Das war alles. Schicken Sie mir Ihre Antworten jetzt in zwei Schritten.</p>' +
+        '<div style="margin-top:2rem">' +
+          '<div class="schritt"><span class="nr">1</span><p><b>Antworten kopieren</b>Ein Klick, dann liegt der gesamte Text in der Zwischenablage.</p></div>' +
+          '<button type="button" class="knopf knopf-haupt" id="kopieren" style="width:100%">Antworten kopieren</button>' +
+          '<div class="schritt" style="margin-top:2rem"><span class="nr">2</span><p><b>Einfügen und senden</b>Öffnen Sie den Chat oder die E-Mail an mich, fügen Sie den Text ein und senden Sie ihn ab.</p></div>' +
+          '<div class="zwei-wege">' +
+            '<a class="knopf" id="perWhatsapp" href="https://wa.me/' + WA_ALEKS + '" target="_blank" rel="noopener">Per WhatsApp</a>' +
+            '<a class="knopf" id="perMail" href="mailto:' + MAIL_ALEKS + '?subject=' + betreff + '">Per E-Mail</a>' +
+          '</div>' +
+        '</div>' +
+        '<div class="fertig-hinweis" id="fertigHinweis">' +
+          symbol('<path d="M5 13l4 4L19 7"/>') +
+          '<span>Sobald die Nachricht abgeschickt ist, sind Sie fertig. Hier müssen Sie nichts weiter tun.</span>' +
+        '</div>' +
+        '<details class="notweg"><summary>Klappt das Kopieren nicht? Text hier von Hand markieren</summary>' +
+          '<textarea id="rohText" readonly aria-label="Antworten als Text"></textarea></details>' +
+        '<p class="hinweis">Fotos, Präsentationen, Zertifikate oder ein Organigramm schicken Sie gern direkt hinterher, in denselben Chat oder per E-Mail.</p>' +
+        '<p class="hinweis" style="margin-top:.75rem">Sobald Ihre Antworten da sind, baue ich den ersten Entwurf. Sie bekommen ihn als Link, sehen ihn sich in Ruhe an und sagen mir, was passt und was nicht.</p>' +
+        '<div class="uebersicht">' +
+          '<h3>Ihre Angaben zum Nachlesen</h3>' + liste +
+        '</div>' +
+        '<div class="aufraeumen">' +
+          '<p>Ihre Antworten sind noch in diesem Browser gespeichert, damit Sie jederzeit zurückkönnen. Wenn alles abgeschickt ist, können Sie sie hier entfernen. Das ist vor allem sinnvoll, wenn andere denselben Rechner benutzen.</p>' +
+          '<div style="display:flex; gap:.75rem; flex-wrap:wrap">' +
+            '<button type="button" class="knopf" id="zurueckEnde">Noch einmal durchgehen</button>' +
+            '<button type="button" class="knopf" id="loeschen">Antworten vom Gerät löschen</button>' +
+          '</div>' +
+        '</div>' +
+        '<p class="fussnote">Aleksandar Ilic · ILIC ECOM HUB · <a href="tel:+'+WA_ALEKS+'">'+TEL_ALEKS+'</a></p>' +
+      '</div>';
+
+    var kn = document.getElementById("kopieren");
+    kn.addEventListener("click", function(){
+      function erfolg(){
+        kn.textContent = "Kopiert. Weiter mit Schritt 2";
+        setTimeout(function(){ kn.textContent = "Antworten kopieren"; }, 3200);
+      }
+      function ersatzKopie(){
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy") ? erfolg() : (kn.textContent = "Bitte den Text unten von Hand kopieren"); }
+        catch(e){ kn.textContent = "Bitte den Text unten von Hand kopieren"; }
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(erfolg, ersatzKopie);
+      } else { ersatzKopie(); }
+    });
+    document.getElementById("rohText").value = text;
+    ["perWhatsapp","perMail"].forEach(function(id){
+      document.getElementById(id).addEventListener("click", function(){
+        document.getElementById("fertigHinweis").classList.add("an");
+      });
+    });
+    document.getElementById("zurueckEnde").addEventListener("click", function(){
+      ansicht = 0; zeigen();
+    });
+    document.getElementById("loeschen").addEventListener("click", function(){
+      if(!confirm("Alle Antworten von diesem Gerät löschen? Das lässt sich nicht rückgängig machen. Schicken Sie sie vorher ab.")) return;
+      try { localStorage.removeItem(SPEICHER); } catch(e){}
+      daten = {};
+      buehne.innerHTML = '<div class="etappe"><h1>Gelöscht.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Auf diesem Gerät ist nichts mehr gespeichert. Falls Sie noch etwas nachreichen möchten, schreiben Sie mir einfach direkt.</p>' +
+        '<p class="fussnote">Aleksandar Ilic · ILIC ECOM HUB · <a href="tel:+'+WA_ALEKS+'">'+TEL_ALEKS+'</a></p></div>';
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function wertLesbar(f){
+    var v = daten[f.id];
+    if(v === undefined || v === null || v === "") return "";
+    if(f.typ === "raster"){
+      if(f.notiz){
+        return f.zeilen.filter(function(z){ return v[z] && (v[z].wahl || v[z].notiz); }).map(function(z){
+          return "· " + z + ": " + (v[z].wahl || "ohne Einordnung") + (v[z].notiz ? " (" + v[z].notiz.trim() + ")" : "");
+        }).join("\n");
+      }
+      var gruppen = f.wahlen.map(function(wa){
+        var treffer = f.zeilen.filter(function(z){ return v[z] && v[z].wahl === wa; });
+        return treffer.length ? wa + ": " + treffer.join(", ") : "";
+      }).filter(Boolean);
+      var offen = f.zeilen.filter(function(z){ return !v[z] || !v[z].wahl; });
+      if(gruppen.length && offen.length) gruppen.push("Nicht eingeordnet: " + offen.join(", "));
+      return gruppen.join("\n");
+    }
+    if(f.typ === "personen"){
+      return v.filter(function(p){ return p && (p.name || p.rolle || p.info); }).map(function(p){
+        return "· " + [p.name, p.rolle].filter(Boolean).join(", ") + (p.info ? "\n  " + p.info.trim().replace(/\n/g, "\n  ") : "");
+      }).join("\n");
+    }
+    if(Array.isArray(v)){
+      if(f.optionen) v = v.slice().sort(function(a, b){ return f.optionen.indexOf(a) - f.optionen.indexOf(b); });
+      return v.length ? v.join(", ") : "";
+    }
+    return String(v).trim();
+  }
+
+  function textBauen(){
+    var heute = new Date().toLocaleDateString("de-DE", {day:"2-digit", month:"2-digit", year:"numeric"});
+    var z = ["ANGABEN FÜR DIE NEUE WEBSITE", "EPC Evolution · Stand " + heute, ""];
+    ETAPPEN.forEach(function(e){
+      var block = [];
+      e.felder.forEach(function(f){
+        var w = wertLesbar(f);
+        if(w) block.push(f.frage + "\n" + w);
+        if(f.folge && daten[f.folge.id] && trifft(f.folge.wenn, daten[f.id])) block.push(f.folge.frage + "\n" + daten[f.folge.id]);
+      });
+      if(block.length){
+        z.push("— " + e.titel.toUpperCase() + " —");
+        z.push(block.join("\n\n"));
+        z.push("");
+      }
+    });
+    if(z.length === 3) z.push("(Noch keine Antworten eingetragen.)");
+    return z.join("\n").trim();
+  }
+
+  function zeigen(){
+    if(ansicht < 0) startZeigen();
+    else if(ansicht >= ETAPPEN.length) endeZeigen();
+    else etappeZeigen();
+    sichern();
+  }
+
+  bZurueck.addEventListener("click", function(){ ansicht--; zeigen(); });
+  bWeiter.addEventListener("click", function(){ ansicht++; zeigen(); });
+
+  zeigen();
+})();
+</script>
+</body>
+</html>

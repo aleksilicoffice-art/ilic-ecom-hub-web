@@ -1,0 +1,342 @@
+/* ============================================================
+   EPC Evolution · Variante B „Kinoreifes Scroll-Erlebnis“
+   Welt: Filmvorspann. Fast schwarzes Tannengrün, warmes Gold als
+   einziges Licht, Fotos grünschwarz eingefärbt, Bodoni als Filmtitel.
+   Grundzustand = vollständig lesbare Seite. Erst .kino (JS + Bewegung
+   erlaubt + breiter Bildschirm) baut gepinnte Szenen.
+   ============================================================ */
+
+:root{
+  --nacht:       oklch(0.155 0.022 182);
+  --nacht-tief:  oklch(0.118 0.018 182);
+  --nacht-hell:  oklch(0.205 0.026 183);
+  --licht:       oklch(0.952 0.008 95);
+  --licht-weich: oklch(0.80 0.02 150);
+  --licht-leise: oklch(0.68 0.022 160);
+  --gold:        oklch(0.80 0.06 78);
+  --gold-hell:   oklch(0.88 0.05 82);
+  --gold-tief:   oklch(0.64 0.06 74);
+  --linie:       oklch(0.30 0.025 183);
+  --fehler:      oklch(0.70 0.14 30);
+
+  --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --sans:  "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --rand: clamp(1.25rem, 0.4rem + 3.4vw, 3.25rem);
+  --max: 1360px;
+  --ease: cubic-bezier(.16,1,.3,1);
+  --entwurf-h: 2.25rem;
+  --z-szene: 1; --z-kopf: 30; --z-fortschritt: 35; --z-menue: 40; --z-entwurf: 45; --z-loader: 60;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--nacht)}
+body{margin:0;background:var(--nacht);color:var(--licht);font-family:var(--sans);
+  font-size:clamp(1.0625rem,1.02rem + .18vw,1.1875rem);line-height:1.72;font-variant-numeric:lining-nums;
+  -webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--gold)}
+::selection{background:var(--gold);color:var(--nacht-tief)}
+img{display:block;max-width:100%;height:auto}
+figure{margin:0}
+a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;letter-spacing:-.018em;text-wrap:balance}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.spalte{width:min(100% - 2*var(--rand), var(--max));margin-inline:auto}
+.nur-vorlesen{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+html.laden{overflow:hidden}
+
+/* ---------- Entwurfsleiste ---------- */
+.entwurf{position:fixed;inset:0 0 auto 0;height:var(--entwurf-h);z-index:var(--z-entwurf);background:var(--nacht-tief);
+  border-bottom:1px solid var(--linie);font-size:.78rem;color:var(--licht-leise);display:flex;align-items:center}
+.entwurf .spalte{display:flex;gap:1rem;align-items:center;justify-content:space-between;white-space:nowrap;overflow:hidden}
+.entwurf b{color:var(--licht-weich);font-weight:500}
+.entwurf nav{display:flex;gap:1.1rem}
+.entwurf a{color:var(--gold);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--gold) 40%,transparent)}
+.platzhalter{display:inline-block;padding:0 .35em;border:1px dashed var(--gold-tief);color:var(--gold-hell);font-family:var(--sans);
+  font-size:.8em;line-height:1.5;vertical-align:.08em;white-space:nowrap}
+
+/* ---------- Ladebild ---------- */
+#loader{position:fixed;inset:0;z-index:var(--z-loader);background:var(--nacht-tief);display:grid;place-items:center;cursor:pointer}
+#loader svg{width:min(62vw,22rem);height:auto;color:var(--licht);overflow:visible}
+#loader .rahmen{fill:none;stroke:var(--gold);stroke-width:.22}
+html:not(.laden) #loader,html.statisch #loader{display:none}
+
+/* ---------- Fortschritt ---------- */
+#fortschritt{position:fixed;left:0;right:0;top:var(--entwurf-h);height:2px;z-index:var(--z-fortschritt);background:var(--gold);
+  transform:scaleX(0);transform-origin:left;pointer-events:none}
+html:not(.kino) #fortschritt{display:none}
+
+/* ---------- Kopf ---------- */
+.kopf{position:fixed;left:0;right:0;top:var(--entwurf-h);z-index:var(--z-kopf);pointer-events:none;
+  transition:background-color .5s var(--ease)}
+.kopf.gescrollt{background:linear-gradient(to bottom,color-mix(in oklab,var(--nacht-tief) 88%,transparent),transparent)}
+.kopf .spalte{display:flex;align-items:center;gap:1.5rem;min-height:5.5rem}
+.kopf a,.kopf button{pointer-events:auto}
+.marke{display:block;line-height:0;color:var(--licht)}
+.marke .logo{width:clamp(8rem,6rem + 4vw,10.25rem);height:auto}
+.kopf-rechts{margin-left:auto;display:flex;align-items:center;gap:1.25rem}
+.menue-knopf{display:inline-flex;align-items:center;gap:.7rem;min-height:2.75rem;padding:.5rem 0;background:none;border:0;
+  font:inherit;font-size:.9375rem;font-weight:600;color:var(--licht);cursor:pointer}
+.menue-knopf i{display:grid;gap:6px;width:24px}
+.menue-knopf i::before,.menue-knopf i::after{content:"";height:1px;background:currentColor;transition:transform .45s var(--ease)}
+.menue-knopf[aria-expanded="true"] i::before{transform:translateY(3.5px) rotate(45deg)}
+.menue-knopf[aria-expanded="true"] i::after{transform:translateY(-3.5px) rotate(-45deg)}
+
+/* Menü-Vorhang */
+.menue{position:fixed;inset:0;z-index:var(--z-menue);background:var(--nacht-tief);display:grid;align-content:center;
+  padding:7rem var(--rand) 3rem;opacity:0;visibility:hidden;transition:opacity .25s var(--ease),visibility 0s .25s}
+.menue.offen{opacity:1;visibility:visible;transition:opacity .5s var(--ease)}
+.menue .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem;row-gap:2.5rem}
+.menue ul{grid-column:1 / span 7;list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.menue ul a{font-family:var(--serif);font-size:clamp(2.2rem,1.4rem + 3vw,4.4rem);line-height:1.12;text-decoration:none;color:var(--licht);
+  display:inline-block;transition:color .4s var(--ease),transform .6s var(--ease)}
+@media (hover:hover) and (pointer:fine){.menue ul a:hover{color:var(--gold-hell);transform:translateX(.5rem)}}
+.menue-neben{grid-column:9 / -1;align-self:end;display:grid;gap:1rem;color:var(--licht-weich);font-size:.9375rem}
+.kopf.menue-auf .marke{color:var(--licht)}
+.kopf.menue-auf{z-index:calc(var(--z-menue) + 1)}
+
+/* ---------- Knöpfe ---------- */
+.knopf{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:3.25rem;padding:.8rem 1.6rem;
+  font-family:var(--sans);font-size:.9375rem;font-weight:600;letter-spacing:.01em;text-decoration:none;cursor:pointer;border-radius:0;
+  border:1px solid var(--gold);color:var(--gold-hell);background:transparent;
+  transition:background-color .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease),transform .16s var(--ease)}
+.knopf svg{width:1.125rem;height:1.125rem;flex:none;transition:transform .5s var(--ease)}
+.knopf:active{transform:scale(.97)}
+.knopf-voll{background:var(--gold);color:var(--nacht-tief)}
+@media (hover:hover) and (pointer:fine){
+  .knopf:hover{background:var(--gold);color:var(--nacht-tief)}
+  .knopf:hover svg{transform:translateX(4px)}
+  .knopf-voll:hover{background:var(--gold-hell);border-color:var(--gold-hell)}
+}
+.kopf .knopf{min-height:2.75rem;padding:.55rem 1.15rem}
+
+/* ---------- Szenen allgemein ---------- */
+.szene{position:relative;overflow:clip}
+.szene-bild{position:absolute;inset:0;z-index:0}
+.szene-bild img{width:100%;height:100%;object-fit:cover}
+.szene-bild::after{content:"";position:absolute;inset:0;pointer-events:none}
+.szene-inhalt{position:relative;z-index:var(--z-szene)}
+.titel-gross{font-size:clamp(2.7rem,1.2rem + 5.2vw,6rem);line-height:1.02}
+.titel-mittel{font-size:clamp(2.2rem,1.3rem + 3.2vw,4.4rem);line-height:1.06}
+.leise{color:var(--licht-weich)}
+
+/* 1 · Auftakt */
+.auftakt{min-height:100svh;display:grid;align-items:end}
+.auftakt .szene-bild::after{background:
+  linear-gradient(90deg,color-mix(in oklab,var(--nacht-tief) 92%,transparent) 0%,color-mix(in oklab,var(--nacht-tief) 70%,transparent) 42%,transparent 78%),
+  linear-gradient(0deg,var(--nacht) 0%,transparent 38%)}
+.auftakt img{object-position:65% 50%}
+.auftakt .szene-inhalt{padding-block:calc(var(--entwurf-h) + 8rem) clamp(3rem,2rem + 4vw,6rem)}
+.auftakt h1{max-width:11.5em}
+.auftakt .lead{margin-top:1.75rem;max-width:46ch;color:var(--licht-weich)}
+.auftakt-aktion{margin-top:2.25rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center}
+.weiter-hinweis{display:inline-flex;align-items:center;gap:.75rem;font-size:.8125rem;color:var(--licht-leise);text-decoration:none}
+.weiter-hinweis i{display:block;width:1px;height:2.25rem;background:linear-gradient(var(--gold),transparent);transform-origin:top}
+
+/* 2 · Prinzip */
+.prinzip{padding-block:clamp(5rem,3rem + 7vw,10rem)}
+.prinzip .szene-bild{opacity:.28}
+.prinzip .szene-bild::after{background:radial-gradient(ellipse at 60% 50%,transparent 0%,var(--nacht) 72%)}
+.prinzip .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem;align-items:center;row-gap:2.5rem}
+.prinzip-kopf{grid-column:1 / span 5}
+.prinzip-kopf p{margin-top:1.75rem;color:var(--licht-weich);max-width:44ch}
+.netz{grid-column:6 / -1}
+.netz svg{width:100%;height:auto;overflow:visible}
+.netz .linie{fill:none;stroke:var(--gold);stroke-width:1}
+.netz .linie.pruef{stroke-dasharray:4 5}
+.netz .linie.sie{stroke-width:2}
+.netz .knoten-eigen{fill:var(--gold)}
+.netz .knoten-partner{fill:var(--nacht);stroke:var(--gold);stroke-width:1}
+.netz .mitte-rahmen{fill:var(--nacht-hell);stroke:var(--gold);stroke-width:1}
+.netz .mitte-innen{fill:none;stroke:color-mix(in oklab,var(--gold) 50%,transparent);stroke-width:1}
+.netz text{font-family:var(--sans);font-size:15px;fill:var(--licht)}
+.netz .mitte-text{font-weight:600}
+.netz .sie-text{font-family:var(--serif);font-size:30px;fill:var(--gold-hell)}
+.legende{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;margin:2rem 0 0;padding:0;list-style:none;font-size:.8125rem;color:var(--licht-weich)}
+.legende li{display:flex;align-items:center;gap:.55rem}
+.legende i{display:inline-block;width:.7rem;height:.7rem;border:1px solid var(--gold)}
+.legende .eigen i{background:var(--gold)}
+.legende .pruef i{border-style:dashed}
+.netz-liste{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 3 · Bereiche: Grundzustand = Stapel; .kino = horizontale Fahrt */
+.bereiche-kopf{padding-block:clamp(4.5rem,3rem + 5vw,8rem) clamp(2rem,1.4rem + 2vw,3.5rem)}
+.bereiche-kopf p{margin-top:1.25rem;color:var(--licht-weich);max-width:48ch}
+.bahn{display:grid;gap:1px;background:var(--linie)}
+.tafel{position:relative;min-height:88svh;display:grid;align-items:end;background:var(--nacht);overflow:hidden}
+.tafel .szene-bild::after{background:linear-gradient(0deg,color-mix(in oklab,var(--nacht-tief) 96%,transparent) 0%,color-mix(in oklab,var(--nacht-tief) 55%,transparent) 48%,color-mix(in oklab,var(--nacht-tief) 20%,transparent) 100%)}
+.tafel-inhalt{position:relative;z-index:1;padding:clamp(2rem,1.5rem + 3vw,4.5rem) var(--rand);max-width:46rem}
+.tafel .zaehler{display:block;font-family:var(--sans);font-size:.875rem;font-weight:600;letter-spacing:.06em;color:var(--gold-hell);margin-bottom:1rem;font-variant-numeric:tabular-nums}
+.tafel h3{font-size:clamp(2.2rem,1.4rem + 3vw,4.25rem);line-height:1.05}
+.tafel p{margin-top:1.25rem;color:var(--licht-weich);max-width:44ch}
+.tafel .mehr{margin-top:1.75rem;display:inline-flex;align-items:center;gap:.6rem;font-weight:600;font-size:.9375rem;color:var(--gold-hell);text-decoration:none}
+.tafel .mehr svg{width:1.05rem;height:1.05rem;transition:transform .5s var(--ease)}
+@media (hover:hover) and (pointer:fine){.tafel .mehr:hover svg{transform:translateX(4px)}}
+.tafel .mehr.folgt{color:var(--licht-leise);font-weight:500}
+
+/* 4 · Mandat: Grundzustand = Liste; .kino = gepinnte Filmrolle */
+.mandat{padding-block:clamp(5rem,3rem + 7vw,10rem)}
+.mandat .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem}
+.mandat-kopf{grid-column:1 / span 5}
+.mandat-kopf p{margin-top:1.5rem;color:var(--licht-weich);max-width:40ch}
+.mandat-bild{margin-top:2.5rem;aspect-ratio:4 / 3;position:relative;overflow:hidden}
+.mandat-bild img{width:100%;height:100%;object-fit:cover;filter:saturate(.75)}
+.mandat-bild::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,color-mix(in oklab,var(--nacht) 55%,transparent),transparent 60%)}
+.rolle{grid-column:7 / -1;list-style:none;margin:0;padding:0;position:relative}
+.rolle li{position:relative;padding:0 0 2.5rem 4.75rem;border-left:1px solid var(--linie);margin-left:1.75rem}
+.rolle li:last-child{padding-bottom:0}
+.rolle .nr{position:absolute;left:-1.75rem;top:-.3rem;width:3.5rem;text-align:center;background:var(--nacht);font-family:var(--serif);font-size:2.6rem;line-height:1;color:var(--gold)}
+.rolle h3{font-family:var(--sans);font-weight:600;font-size:1.125rem;letter-spacing:0;line-height:1.35}
+.rolle p{margin-top:.45rem;color:var(--licht-weich);max-width:46ch}
+.rolle-anzeige{display:none}
+
+/* 5 · Evolution */
+.evolution{padding-block:clamp(5rem,3rem + 7vw,10rem);border-top:1px solid var(--linie)}
+.evolution .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem;align-items:center;row-gap:3rem}
+.spirale{grid-column:1 / span 5;aspect-ratio:1;border-radius:50%;overflow:hidden;position:relative}
+.spirale img{width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
+.spirale::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--gold) 60%,transparent);
+  background:radial-gradient(circle,transparent 55%,color-mix(in oklab,var(--nacht) 70%,transparent) 100%)}
+.evolution-text{grid-column:7 / -1}
+.evolution-text h2{font-family:var(--sans);font-size:1.0625rem;font-weight:600;letter-spacing:0;color:var(--gold)}
+.evolution-text blockquote{margin:1.25rem 0 0;font-family:var(--serif);font-size:clamp(2rem,1.2rem + 2.8vw,3.6rem);line-height:1.1;letter-spacing:-.015em;text-wrap:balance}
+.evolution-text p{margin-top:1.5rem;color:var(--licht-weich);max-width:52ch}
+.evolution-text .erfahrung{color:var(--licht)}
+
+/* 6 · Finale / Kontakt */
+.finale{padding-block:clamp(5rem,3rem + 7vw,10rem);background:var(--nacht-tief);border-top:1px solid var(--linie)}
+.finale .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem;row-gap:3rem}
+.finale-text{grid-column:1 / span 5}
+.finale-text > p{margin-top:1.5rem;color:var(--licht-weich);max-width:40ch}
+.anschrift{margin-top:2.5rem;font-style:normal;display:grid;gap:.35rem;font-size:.9375rem;color:var(--licht-weich)}
+.anschrift strong{color:var(--licht);font-weight:600}
+.formular{grid-column:7 / -1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 1.5rem}
+.feld{display:grid;gap:.45rem}
+.feld.breit{grid-column:1 / -1}
+.feld label{font-size:.875rem;font-weight:600;color:var(--licht)}
+.feld label span{font-weight:400;color:var(--licht-leise)}
+.feld input,.feld select,.feld textarea{width:100%;font:inherit;font-size:1rem;color:var(--licht);background:transparent;border:0;
+  border-bottom:1px solid var(--linie);border-radius:0;padding:.65rem 0;transition:border-color .3s var(--ease)}
+.feld select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);
+  background-position:calc(100% - 9px) 55%,calc(100% - 4px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:1.5rem}
+.feld select option{color:var(--nacht-tief);background:var(--licht)}
+.feld textarea{min-height:7.5rem;resize:vertical;line-height:1.55}
+.feld input:focus,.feld select:focus,.feld textarea:focus{outline:none;border-bottom-color:var(--gold)}
+.feld input:focus-visible,.feld select:focus-visible,.feld textarea:focus-visible{box-shadow:0 1px 0 0 var(--gold)}
+.feld input[aria-invalid="true"]{border-bottom-color:var(--fehler)}
+.formular .hinweis{grid-column:1 / -1;font-size:.8125rem;color:var(--licht-leise)}
+.formular .aktion{grid-column:1 / -1}
+.formular-meldung{grid-column:1 / -1;font-size:.9375rem;color:var(--gold-hell);min-height:1.5em}
+
+/* ---------- Fuß ---------- */
+.fuss{background:var(--nacht-tief);border-top:1px solid var(--linie);color:var(--licht-leise);padding-block:3.5rem 2rem;font-size:.9375rem}
+.fuss .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem;row-gap:2.5rem}
+.fuss .marke{grid-column:1 / span 4}
+.fuss .marke .logo{width:10rem}
+.fuss nav{grid-column:6 / span 3}
+.fuss ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.fuss h2{font-family:var(--sans);font-size:.875rem;font-weight:600;letter-spacing:0;color:var(--licht);margin-bottom:1rem}
+.fuss a{text-decoration:none;color:var(--licht-leise)}
+.fuss a:hover{color:var(--gold-hell)}
+.fuss .fuss-kontakt-block{grid-column:9 / -1}
+.fuss .recht{grid-column:1 / -1;padding-top:2rem;border-top:1px solid var(--linie)}
+.fuss .disclaimer{font-size:.8125rem;line-height:1.55;max-width:80ch}
+.fuss .leiste{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.8125rem}
+.fuss .leiste .urheber{margin-left:auto}
+
+/* ---------- Bereichsseite ---------- */
+.kapitel-kopf{min-height:86svh;display:grid;align-items:end}
+.kapitel-kopf .szene-bild::after{background:linear-gradient(0deg,var(--nacht) 0%,color-mix(in oklab,var(--nacht-tief) 60%,transparent) 55%,color-mix(in oklab,var(--nacht-tief) 35%,transparent) 100%)}
+.kapitel-kopf .szene-inhalt{padding-block:calc(var(--entwurf-h) + 8rem) clamp(3rem,2rem + 4vw,6rem)}
+.pfad{font-size:.875rem;color:var(--licht-weich);margin-bottom:1.5rem;text-shadow:0 1px 14px var(--nacht-tief)}
+.pfad a{color:var(--licht-weich)}
+.kapitel-kopf .lead{margin-top:1.75rem;max-width:52ch;color:var(--licht-weich)}
+.leistungen{padding-block:clamp(4rem,3rem + 5vw,8rem)}
+.leistungen .spalte{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:2rem}
+.leistungen-bild{grid-column:1 / span 5;position:sticky;top:9rem;align-self:start;aspect-ratio:4 / 5;overflow:hidden}
+.leistungen-bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);
+  transition:opacity .9s var(--ease),transform 1.8s var(--ease);filter:saturate(.8)}
+.leistungen-bild img.aktiv{opacity:1;transform:scale(1)}
+.leistungen-bild::after{content:"";position:absolute;inset:.75rem;border:1px solid color-mix(in oklab,var(--gold) 55%,transparent);pointer-events:none}
+.leistungen-text{grid-column:7 / -1}
+.leistung{padding-block:clamp(2.5rem,2rem + 3vw,5rem);border-top:1px solid var(--linie);min-height:52svh}
+.leistung:first-child{border-top:0;padding-top:0}
+.leistung h2{font-size:clamp(2rem,1.3rem + 2.4vw,3.4rem);line-height:1.08}
+.leistung p{margin-top:1.25rem;color:var(--licht-weich);max-width:52ch}
+.titelkarte{min-height:80svh;display:grid;place-items:center;text-align:center;padding:5rem var(--rand);background:var(--nacht-tief);border-block:1px solid var(--linie)}
+.titelkarte p{font-family:var(--serif);font-size:clamp(2rem,1.2rem + 3vw,4rem);line-height:1.12;max-width:20em;color:var(--licht);text-wrap:balance}
+.ablauf-kurz-b{padding-block:clamp(4rem,3rem + 5vw,8rem)}
+.ablauf-kurz-b ol{list-style:none;margin:2.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--linie)}
+.ablauf-kurz-b li{padding:1.25rem 1rem 0 0}
+.ablauf-kurz-b .nr{display:block;font-family:var(--serif);font-size:2.2rem;line-height:1;color:var(--gold)}
+.ablauf-kurz-b b{display:block;margin-top:.75rem;font-weight:600;font-size:1rem}
+.ablauf-kurz-b .verweis{margin-top:1.25rem;color:var(--licht-weich)}
+.ablauf-kurz-b .verweis a{color:var(--gold-hell)}
+
+/* ============================================================
+   .kino — gepinnte Szenen, nur mit JS + erlaubter Bewegung + ≥ 900 px
+   ============================================================ */
+.kino .bahn{display:flex;flex-wrap:nowrap;gap:0;background:none;width:max-content;will-change:transform}
+.kino .tafel{width:100vw;height:100svh;min-height:0;flex:none;border-right:1px solid var(--linie)}
+.kino .bereiche-wrap{height:100svh;overflow:hidden}
+.kino .mandat .rolle{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.kino .rolle-anzeige{display:grid;grid-column:7 / -1;align-content:center;min-height:62svh;position:relative}
+.rolle-anzeige .gross-nr{font-family:var(--serif);font-size:clamp(7rem,4rem + 9vw,13rem);line-height:.85;color:var(--gold);
+  font-variant-numeric:lining-nums tabular-nums}
+.rolle-anzeige .schritt-text{margin-top:1.5rem;min-height:9.5rem}
+.rolle-anzeige h3{font-family:var(--sans);font-weight:600;font-size:1.375rem;letter-spacing:0}
+.rolle-anzeige p{margin-top:.6rem;color:var(--licht-weich);max-width:42ch}
+.rolle-anzeige .skala{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;margin-top:2.5rem;max-width:30rem}
+.rolle-anzeige .skala i{height:2px;background:var(--linie);position:relative;overflow:hidden}
+.rolle-anzeige .skala i::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.rolle-anzeige .skala i.an::after{transform:scaleX(1)}
+.rolle-anzeige .wechsel{transition:opacity .45s var(--ease),transform .6s var(--ease),filter .45s var(--ease)}
+.rolle-anzeige .wechsel.raus{opacity:0;transform:translateY(10px);filter:blur(2px)}
+
+/* ---------- Responsiv ---------- */
+@media (max-width:1100px){
+  .netz svg{display:none}
+  .netz-liste{position:relative;width:auto;height:auto;margin:2.75rem 0 0;overflow:visible;clip:auto;white-space:normal;padding-left:1.75rem}
+  .netz-liste::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--gold)}
+  .netz-liste .ebene{position:relative;margin:0 0 1.6rem}
+  .netz-liste .ebene > b{display:block;font-family:var(--serif);font-weight:400;font-size:1.45rem;color:var(--gold-hell);line-height:1.2}
+  .netz-liste .ebene::before{content:"";position:absolute;left:-1.75rem;top:.6rem;width:.65rem;height:.65rem;border:1px solid var(--gold);background:var(--nacht)}
+  .netz-liste .ebene.eigen::before{background:var(--gold)}
+  .netz-liste .ebene.pruef::before{border-style:dashed}
+  .netz-liste ul{list-style:none;margin:.5rem 0 0;padding:0;display:grid;gap:.3rem;color:var(--licht)}
+}
+@media (max-width:900px){
+  :root{--entwurf-h:2.1rem}
+  html{scroll-padding-top:6.75rem}
+  .fuss .spalte,.menue .spalte{display:block}
+  .fuss .spalte > * + *{margin-top:2.25rem}
+  .menue-neben{margin-top:2.5rem}
+  .auftakt .szene-bild::after{background:linear-gradient(0deg,var(--nacht) 0%,color-mix(in oklab,var(--nacht-tief) 88%,transparent) 48%,color-mix(in oklab,var(--nacht-tief) 45%,transparent) 100%)}
+  .auftakt img{object-position:72% 50%}
+  .kapitel-kopf .szene-bild::after{background:linear-gradient(0deg,var(--nacht) 0%,color-mix(in oklab,var(--nacht-tief) 85%,transparent) 55%,color-mix(in oklab,var(--nacht-tief) 60%,transparent) 100%)}
+  .kopf .knopf{display:none}
+  .kopf.gescrollt{background:color-mix(in oklab,var(--nacht-tief) 94%,transparent)}
+  .kopf .spalte{min-height:4.5rem}
+  .prinzip .spalte{display:block}
+  .mandat .spalte,.evolution .spalte,.finale .spalte,.leistungen .spalte{display:block}
+  .mandat-bild{display:none}
+  .rolle{margin-top:3rem}
+  .spirale{max-width:22rem;margin-inline:auto}
+  .evolution-text{margin-top:3rem}
+  .formular{margin-top:3rem;grid-template-columns:minmax(0,1fr)}
+  .feld{grid-column:1 / -1}
+  .fuss .marke,.fuss nav,.fuss .fuss-kontakt-block{grid-column:1 / -1}
+  .fuss .leiste .urheber{margin-left:0}
+  .menue ul,.menue-neben{grid-column:1 / -1}
+  .leistungen-bild{display:none}
+  .leistung{min-height:0}
+  .ablauf-kurz-b ol{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:1.5rem}
+}
+@media (max-width:560px){
+  .entwurf .lang{display:none}
+  h1,h2,h3,.titelkarte p,.evolution-text blockquote{hyphens:auto;-webkit-hyphens:auto}
+  .auftakt-aktion .knopf{width:100%}
+  .tafel{min-height:78svh}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
