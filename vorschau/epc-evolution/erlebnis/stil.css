@@ -140,7 +140,8 @@ html:not(.kino) #fortschritt{display:none}
 .prinzip-kopf{grid-column:1 / span 5}
 .prinzip-kopf p{margin-top:1.75rem;color:var(--licht-weich);max-width:44ch}
 .netz{grid-column:6 / -1}
-.netz svg{width:100%;height:auto;overflow:visible}
+.netz svg{display:block;width:100%;height:auto;overflow:visible}
+.netz .netz-hoch{display:none}
 .netz .linie{fill:none;stroke:var(--gold);stroke-width:1}
 .netz .linie.pruef{stroke-dasharray:4 5}
 .netz .linie.sie{stroke-width:2}
@@ -151,6 +152,8 @@ html:not(.kino) #fortschritt{display:none}
 .netz text{font-family:var(--sans);font-size:15px;fill:var(--licht)}
 .netz .mitte-text{font-weight:600}
 .netz .sie-text{font-family:var(--serif);font-size:30px;fill:var(--gold-hell)}
+.netz-hoch text{font-size:13px}
+.netz-hoch .sie-text{font-size:28px}
 .legende{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;margin:2rem 0 0;padding:0;list-style:none;font-size:.8125rem;color:var(--licht-weich)}
 .legende li{display:flex;align-items:center;gap:.55rem}
 .legende i{display:inline-block;width:.7rem;height:.7rem;border:1px solid var(--gold)}
@@ -294,15 +297,8 @@ html:not(.kino) #fortschritt{display:none}
 
 /* ---------- Responsiv ---------- */
 @media (max-width:1100px){
-  .netz svg{display:none}
-  .netz-liste{position:relative;width:auto;height:auto;margin:2.75rem 0 0;overflow:visible;clip:auto;white-space:normal;padding-left:1.75rem}
-  .netz-liste::before{content:"";position:absolute;left:.3rem;top:.5rem;bottom:.5rem;width:1px;background:var(--gold)}
-  .netz-liste .ebene{position:relative;margin:0 0 1.6rem}
-  .netz-liste .ebene > b{display:block;font-family:var(--serif);font-weight:400;font-size:1.45rem;color:var(--gold-hell);line-height:1.2}
-  .netz-liste .ebene::before{content:"";position:absolute;left:-1.75rem;top:.6rem;width:.65rem;height:.65rem;border:1px solid var(--gold);background:var(--nacht)}
-  .netz-liste .ebene.eigen::before{background:var(--gold)}
-  .netz-liste .ebene.pruef::before{border-style:dashed}
-  .netz-liste ul{list-style:none;margin:.5rem 0 0;padding:0;display:grid;gap:.3rem;color:var(--licht)}
+  .netz .netz-breit{display:none}
+  .netz .netz-hoch{display:block;max-width:24rem;margin-inline:auto}
 }
 @media (max-width:900px){
   :root{--entwurf-h:2.1rem}
@@ -317,6 +313,7 @@ html:not(.kino) #fortschritt{display:none}
   .kopf.gescrollt{background:color-mix(in oklab,var(--nacht-tief) 94%,transparent)}
   .kopf .spalte{min-height:4.5rem}
   .prinzip .spalte{display:block}
+  .prinzip .netz{margin-top:3rem}
   .mandat .spalte,.evolution .spalte,.finale .spalte,.leistungen .spalte{display:block}
   .mandat-bild{display:none}
   .rolle{margin-top:3rem}

@@ -128,9 +128,9 @@
 
   /* ---------- Kino-Szenen nur auf breiten Bildschirmen ---------- */
   var mm = gsap.matchMedia();
-  /* Prinzip-Szene erst ab 1101 px: darunter wäre die Netzgrafik zu klein, dort steht die Liste */
+  /* Prinzip-Szene erst ab 1101 px: darunter steht die Netzgrafik hochkant */
   mm.add("(min-width: 1101px)", function () {
-    var prinzip = q(".prinzip"), netz = q(".prinzip .netz svg");
+    var prinzip = q(".prinzip"), netz = q(".prinzip .netz-breit");
     if (prinzip && netz && window.DrawSVGPlugin) {
       var tp = gsap.timeline({ scrollTrigger: { trigger: prinzip, start: "top top", end: "+=140%", scrub: .8, pin: true, anticipatePin: 1 } });
       tp.from(qa(".mitte-rahmen, .mitte-innen", netz), { drawSVG: 0, duration: 1 })
@@ -203,11 +203,18 @@
     return function () { doc.classList.remove("kino"); };
   });
 
+  /* Bis 1100 px zeichnet sich die Hochkant-Grafik einmal beim Hineinscrollen */
   mm.add("(max-width: 1100px)", function () {
-    qa(".netz-liste .ebene").forEach(function (e, i) {
-      gsap.from(e, { opacity: 0, x: -10, duration: .7, ease: "power2.out", delay: i * .08,
-        scrollTrigger: { trigger: e, start: "top 88%", once: true } });
-    });
+    var netz = q(".prinzip .netz-hoch");
+    if (!netz || !window.DrawSVGPlugin) return;
+    gsap.timeline({ scrollTrigger: { trigger: netz, start: "top 78%", once: true } })
+      .from(qa(".mitte-rahmen, .mitte-innen", netz), { drawSVG: 0, duration: 1.1, ease: "power2.inOut" })
+      .from(qa(".mitte-text", netz), { opacity: 0, duration: .6 }, "-=.4")
+      .from(q(".linie.sie", netz), { drawSVG: 0, duration: .8, ease: "power2.out" }, "-=.2")
+      .from(q(".sie-text", netz), { opacity: 0, y: -8, duration: .6, ease: "power2.out" }, "-=.4")
+      .from(qa(".linie.zu", netz), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
+      .from(qa(".knoten", netz), { opacity: 0, scale: .7, transformOrigin: "50% 50%", duration: .5, ease: "power3.out", stagger: .12 }, "-=.9")
+      .from(qa(".knoten-text", netz), { opacity: 0, y: 6, duration: .6, ease: "power2.out", stagger: .12 }, "-=1.1");
   });
 
   /* ---------- Spirale (nach den Pins anlegen, sonst stimmen die Positionen nicht) dreht sich mit dem Lesen ---------- */

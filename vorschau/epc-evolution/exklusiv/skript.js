@@ -114,24 +114,21 @@
   var h1 = document.querySelector(".einstieg h1");
   if (h1) gsap.from(h1, { y: 18, opacity: 0, duration: 1.2, ease: "expo.out", delay: .25 });
 
-  /* Das Netz zeichnet sich: erst die Linie zu „Sie“, dann die Fachleute, dann die Partner */
-  var netz = document.querySelector(".netz svg");
-  if (netz && window.DrawSVGPlugin) {
-    var tl = gsap.timeline({ scrollTrigger: { trigger: netz, start: "top 78%", once: true } });
-    tl.from(netz.querySelectorAll(".mitte-rahmen, .mitte-innen"), { drawSVG: 0, duration: 1.1, ease: "power2.inOut" })
-      .from(netz.querySelectorAll(".mitte-text"), { opacity: 0, duration: .6 }, "-=.4")
-      .from(netz.querySelector(".linie.sie"), { drawSVG: 0, duration: .8, ease: "power2.out" }, "-=.2")
-      .from(netz.querySelector(".sie-text"), { opacity: 0, x: -10, duration: .6, ease: "power2.out" }, "-=.4")
-      .from(netz.querySelectorAll(".linie.zu"), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
-      .from(netz.querySelectorAll(".knoten"), { opacity: 0, scale: .7, transformOrigin: "50% 50%", duration: .5, ease: "power3.out", stagger: .12 }, "-=.9")
-      .from(netz.querySelectorAll(".knoten-text"), { opacity: 0, y: 6, duration: .6, ease: "power2.out", stagger: .12 }, "-=1.1");
-  }
-  /* Mobil: der Faden der Netzliste zieht sich nach unten */
-  var netzListe = document.querySelector(".netz-liste");
-  if (netzListe && window.matchMedia("(max-width: 1100px)").matches) {
-    gsap.from(netzListe.querySelectorAll(".ebene"), {
-      opacity: 0, x: -8, duration: .7, ease: "power2.out", stagger: .12,
-      scrollTrigger: { trigger: netzListe, start: "top 80%", once: true }
+  /* Das Netz zeichnet sich: erst die Mitte, dann die Linie zu „Sie“, dann Fachleute und Partner.
+     Breit und hochkant (bis 1100 px) gibt es je eine eigene Grafik, gezeichnet wird die sichtbare. */
+  if (window.DrawSVGPlugin) {
+    gsap.matchMedia().add({ breit: "(min-width: 1101px)", hoch: "(max-width: 1100px)" }, function (ctx) {
+      var breit = ctx.conditions.breit;
+      var netz = document.querySelector(breit ? ".netz-breit" : ".netz-hoch");
+      if (!netz) return;
+      var tl = gsap.timeline({ scrollTrigger: { trigger: netz, start: "top 78%", once: true } });
+      tl.from(netz.querySelectorAll(".mitte-rahmen, .mitte-innen"), { drawSVG: 0, duration: 1.1, ease: "power2.inOut" })
+        .from(netz.querySelectorAll(".mitte-text"), { opacity: 0, duration: .6 }, "-=.4")
+        .from(netz.querySelector(".linie.sie"), { drawSVG: 0, duration: .8, ease: "power2.out" }, "-=.2")
+        .from(netz.querySelector(".sie-text"), { opacity: 0, x: breit ? -10 : 0, y: breit ? 0 : -8, duration: .6, ease: "power2.out" }, "-=.4")
+        .from(netz.querySelectorAll(".linie.zu"), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
+        .from(netz.querySelectorAll(".knoten"), { opacity: 0, scale: .7, transformOrigin: "50% 50%", duration: .5, ease: "power3.out", stagger: .12 }, "-=.9")
+        .from(netz.querySelectorAll(".knoten-text"), { opacity: 0, y: 6, duration: .6, ease: "power2.out", stagger: .12 }, "-=1.1");
     });
   }
 
