@@ -126,7 +126,9 @@
         .from(netz.querySelectorAll(".mitte-text"), { opacity: 0, duration: .6 }, "-=.4")
         .from(netz.querySelector(".linie.sie"), { drawSVG: 0, duration: .8, ease: "power2.out" }, "-=.2")
         .from(netz.querySelector(".sie-text"), { opacity: 0, x: breit ? -10 : 0, y: breit ? 0 : -8, duration: .6, ease: "power2.out" }, "-=.4")
-        .from(netz.querySelectorAll(".linie.zu"), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
+        .from(netz.querySelectorAll(".linie.zu:not(.pruef)"), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
+        /* gestrichelt: einblenden, denn drawSVG würde das Strichmuster überschreiben */
+        .from(netz.querySelector(".linie.pruef"), { opacity: 0, duration: .6, ease: "power2.out" }, "<.24")
         .from(netz.querySelectorAll(".knoten"), { opacity: 0, scale: .7, transformOrigin: "50% 50%", duration: .5, ease: "power3.out", stagger: .12 }, "-=.9")
         .from(netz.querySelectorAll(".knoten-text"), { opacity: 0, y: 6, duration: .6, ease: "power2.out", stagger: .12 }, "-=1.1");
     });

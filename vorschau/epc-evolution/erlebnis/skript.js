@@ -137,7 +137,9 @@
         .from(qa(".mitte-text", netz), { opacity: 0, duration: .5 }, "-=.3")
         .from(q(".linie.sie", netz), { drawSVG: 0, duration: .8 })
         .from(q(".sie-text", netz), { opacity: 0, duration: .4 }, "-=.4")
-        .from(qa(".linie.zu", netz), { drawSVG: 0, duration: .8, stagger: .16 })
+        .from(qa(".linie.zu:not(.pruef)", netz), { drawSVG: 0, duration: .8, stagger: .16 })
+        /* gestrichelt: einblenden, denn drawSVG würde das Strichmuster überschreiben */
+        .from(q(".linie.pruef", netz), { opacity: 0, duration: .5 }, "<.48")
         .from(qa(".knoten", netz), { opacity: 0, scale: .7, transformOrigin: "50% 50%", duration: .4, stagger: .16 }, "-=1.2")
         .from(qa(".knoten-text", netz), { opacity: 0, duration: .4, stagger: .16 }, "-=1.2")
         .from(qa(".prinzip-kopf p, .prinzip-kopf .legende"), { opacity: 0, y: 16, duration: .7, stagger: .15 }, "-=.4")
@@ -212,7 +214,8 @@
       .from(qa(".mitte-text", netz), { opacity: 0, duration: .6 }, "-=.4")
       .from(q(".linie.sie", netz), { drawSVG: 0, duration: .8, ease: "power2.out" }, "-=.2")
       .from(q(".sie-text", netz), { opacity: 0, y: -8, duration: .6, ease: "power2.out" }, "-=.4")
-      .from(qa(".linie.zu", netz), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
+      .from(qa(".linie.zu:not(.pruef)", netz), { drawSVG: 0, duration: .8, ease: "power2.out", stagger: .08 }, "-=.1")
+      .from(q(".linie.pruef", netz), { opacity: 0, duration: .6, ease: "power2.out" }, "<.24")
       .from(qa(".knoten", netz), { opacity: 0, scale: .7, transformOrigin: "50% 50%", duration: .5, ease: "power3.out", stagger: .12 }, "-=.9")
       .from(qa(".knoten-text", netz), { opacity: 0, y: 6, duration: .6, ease: "power2.out", stagger: .12 }, "-=1.1");
   });
