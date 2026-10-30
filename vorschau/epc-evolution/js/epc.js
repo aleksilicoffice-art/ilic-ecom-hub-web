@@ -1,4 +1,4 @@
-/* EPC Evolution · Variante B — Szenenregie
+/* EPC Evolution · Website (Entwurf B) — Szenenregie
    Grundsatz: Die Seite ist ohne JS, mit ?statisch und mit reduzierter Bewegung
    vollständig lesbar. Kino-Szenen (Pinning, horizontale Fahrt, Filmrolle)
    entstehen nur mit GSAP, erlaubter Bewegung und ab 901 px Breite. */
@@ -22,10 +22,12 @@
   var menueKnopf = q(".menue-knopf"), menue = q("#menue");
   function menueSetzen(offen) {
     menueKnopf.setAttribute("aria-expanded", String(offen));
-    menueKnopf.querySelector("span").textContent = offen ? "Schließen" : "Menü";
+    menueKnopf.querySelector("span").textContent = offen ? (menueKnopf.dataset.zu || "Schließen") : (menueKnopf.dataset.auf || "Menü");
     menue.classList.toggle("offen", offen);
     kopf.classList.toggle("menue-auf", offen);
     document.body.style.overflow = offen ? "hidden" : "";
+    /* verdeckte Seite für Tastatur und Vorlesen sperren, solange das Menü offen ist */
+    qa("main, footer").forEach(function (el) { el.inert = offen; });
     if (offen) { var a = menue.querySelector("a"); if (a) a.focus(); }
   }
   if (menueKnopf && menue) {
@@ -36,7 +38,9 @@
     });
   }
 
-  /* ---------- Anliegen vorbelegen (?thema=…) + Formular (Entwurf) ---------- */
+  /* ---------- Anliegen vorbelegen (?thema=…) + Formular ----------
+     Texte kommen aus data-* am Formular (Deutsch/Englisch). Ohne action-Adresse
+     (Vorschau) wird nur geprüft; mit Adresse (Formspree) per fetch gesendet. */
   var auswahl = q("#formAnliegen");
   var thema = (location.search.match(/thema=([a-z-]+)/) || [])[1];
   if (auswahl && thema) {
@@ -45,20 +49,28 @@
   var formular = q("#anfrage");
   if (formular) formular.addEventListener("submit", function (e) {
     e.preventDefault();
-    var meldung = q("#formMeldung"), ok = true;
+    var t = formular.dataset, meldung = q("#formMeldung"), ok = true;
     qa("[required]", formular).forEach(function (f) {
       var leer = !f.value.trim();
       f.setAttribute("aria-invalid", leer ? "true" : "false");
       if (leer && ok) { f.focus(); ok = false; }
     });
-    if (!ok) { meldung.textContent = "Bitte füllen Sie die markierten Felder aus."; return; }
+    if (!ok) { meldung.textContent = t.pflicht; return; }
     var mail = q('input[type="email"]', formular);
     if (mail && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim())) {
       mail.setAttribute("aria-invalid", "true"); mail.focus();
-      meldung.textContent = "Bitte prüfen Sie die E-Mail-Adresse.";
+      meldung.textContent = t.mail;
       return;
     }
-    meldung.textContent = "Im Entwurf noch ohne Versand. In der fertigen Seite geht Ihre Anfrage direkt an EPC.";
+    var ziel = formular.getAttribute("action");
+    if (!ziel) { meldung.textContent = t.entwurf; return; }
+    var knopf = q('button[type="submit"]', formular);
+    knopf.disabled = true;
+    meldung.textContent = t.sendet;
+    fetch(ziel, { method: "POST", body: new FormData(formular), headers: { Accept: "application/json" } })
+      .then(function (r) { if (!r.ok) throw new Error(String(r.status)); formular.reset(); meldung.textContent = t.ok; })
+      .catch(function () { meldung.textContent = t.fehler; })
+      .then(function () { knopf.disabled = false; });
   });
 
   /* ---------- Bereichsseite: Bild folgt der Leistung (auch ohne Bewegung) ---------- */
@@ -76,8 +88,9 @@
   }
 
   /* ---------- ohne Bewegung: hier ist Schluss ---------- */
+  /* Das Ladebild erscheint nur beim Betreten der Seite von außen (document.referrer, siehe Kopf);
+     dafür wird nichts im Browser gespeichert */
   function ladenBeenden() {
-    if (doc.classList.contains("laden")) { try { sessionStorage.setItem("epc-ladebild", "1"); } catch (e) {} }
     doc.classList.remove("laden");
     var l = q("#loader"); if (l) l.style.display = "none";
   }
