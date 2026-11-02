@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Lucy einrichten · Fragebogen</title>
+<meta name="description" content="Fragebogen für den Start mit Claude Code: Angaben für Lucy sammeln und als Text in die erste Sitzung geben.">
+<meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15131d" media="(prefers-color-scheme: dark)">
+<link rel="stylesheet" href="schriften/fonts.css">
+<style>
+:root{
+  --bg:#f6f4ef;
+  --surface:#ffffff;
+  --sunk:#ece9e1;
+  --ink:#1d1b26;
+  --muted:#635f6e;
+  --line:#dedad0;
+  --marke:#4a3f8c;
+  --marke-hell:#ebe8f6;
+  --auf-marke:#f6f4ef;
+  --gold:#d9825b;
+  --ok:#2f6b4f;
+  --warn:#9b3b2b;
+
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem;
+  --r:.375rem;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --z-kopf:10; --z-fuss:20;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#15131d; --surface:#1e1b29; --sunk:#25212f; --ink:#efedf5; --muted:#aaa5b8;
+    --line:#332f42; --marke:#b8aef2; --marke-hell:#2a2540; --auf-marke:#15131d;
+    --gold:#e39a76; --ok:#8fcfa9; --warn:#e79a8a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15131d; --surface:#1e1b29; --sunk:#25212f; --ink:#efedf5; --muted:#aaa5b8;
+  --line:#332f42; --marke:#b8aef2; --marke-hell:#2a2540; --auf-marke:#15131d;
+  --gold:#e39a76; --ok:#8fcfa9; --warn:#e79a8a;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; overflow-wrap:break-word;
+}
+h1,h2,h3{margin:0; text-wrap:balance}
+h1,h2{font-family:var(--serif); font-weight:400; letter-spacing:-.012em; line-height:1.15}
+h1{font-size:clamp(2rem,1.6rem + 2vw,2.6rem)}
+h2{font-size:1.625rem}
+h3{font-size:1rem; font-weight:600; line-height:1.3}
+p{margin:0}
+a{color:inherit}
+button{font:inherit; color:inherit}
+.spalte{width:min(36rem,100% - 2rem); margin-inline:auto}
+.zahl{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--marke); outline-offset:3px; border-radius:3px}
+
+/* ══════ Kopf ══════ */
+.kopf{
+  position:sticky; top:0; z-index:var(--z-kopf); background:var(--bg);
+  border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top);
+}
+.kopf-innen{display:flex; align-items:center; gap:var(--s4); padding-block:var(--s3)}
+.kopf .logo{width:56px; height:auto; flex:none; color:var(--marke)}
+.kopf-titel{flex:1; min-width:0; border-left:1px solid var(--line); padding-left:var(--s4)}
+.kopf-titel b{display:block; font-size:.9375rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kopf-titel > span{display:block; font-size:.78rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kopf-titel .kopf-notiz{display:none}
+@media (min-width:30rem){.kopf-titel .kopf-notiz{display:inline}}
+.balken{height:3px; background:var(--line)}
+.balken i{display:block; height:100%; background:var(--marke); transform-origin:left center; transform:scaleX(0); transition:transform .25s var(--ease)}
+
+/* ══════ Bühne ══════ */
+main{padding-block:var(--s6) 9rem}
+.etappe{animation:auf .22s var(--ease) both}
+@keyframes auf{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+.etappe-kopf{margin-bottom:var(--s6)}
+.etappe-kopf .nummer{
+  display:block; font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:var(--s3);
+}
+.etappe-kopf h2{margin-bottom:var(--s3)}
+.etappe-kopf p{color:var(--muted); font-size:.9688rem; max-width:34rem}
+
+/* ══════ Frage ══════ */
+.frage{padding-block:var(--s5); border-top:1px solid var(--line)}
+.etappe-kopf + .frage{border-top:0; padding-top:0}
+.frage > label, .frage-titel{display:block; font-weight:600; font-size:1rem; line-height:1.4; margin-bottom:var(--s1)}
+.warum{display:block; color:var(--muted); font-size:.875rem; margin-bottom:var(--s3); line-height:1.5}
+.wichtig{
+  display:inline-flex; align-items:center; gap:.35rem; font-size:.7rem; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  margin-left:var(--s2); vertical-align:2px; white-space:nowrap;
+}
+.wichtig::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); flex:none}
+
+input[type=text], input[type=tel], input[type=email], textarea{
+  width:100%; font:inherit; font-size:16px; color:var(--ink); background:var(--surface);
+  border:1px solid var(--line); border-radius:var(--r); padding:.7rem .8rem;
+  transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+textarea{min-height:6rem; resize:vertical; line-height:1.5}
+textarea.gross{min-height:9.5rem}
+input::placeholder, textarea::placeholder{color:var(--muted); opacity:.85}
+input:hover, textarea:hover{border-color:var(--muted)}
+input:focus, textarea:focus{
+  outline:none; border-color:var(--marke); box-shadow:0 0 0 3px color-mix(in oklab,var(--marke) 20%,transparent);
+}
+
+/* Auswahl (eine Antwort) */
+.wahl{display:flex; flex-direction:column; gap:var(--s2)}
+.wahl button{
+  display:flex; align-items:center; gap:var(--s3); min-height:48px; width:100%; text-align:left;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.6rem .85rem; cursor:pointer; font-size:.9375rem; line-height:1.35;
+  transition:border-color .18s var(--ease), background-color .18s var(--ease);
+}
+.wahl button::before{
+  content:""; width:18px; height:18px; flex:none; border-radius:50%;
+  border:1.5px solid var(--muted); transition:border-color .18s var(--ease), box-shadow .18s var(--ease);
+}
+.wahl button:hover{border-color:var(--muted)}
+.wahl button[aria-pressed="true"]{border-color:var(--marke); background:var(--marke-hell)}
+.wahl button[aria-pressed="true"]::before{
+  border-color:var(--marke); box-shadow:inset 0 0 0 4px var(--surface), inset 0 0 0 20px var(--marke);
+}
+
+/* Mehrfachauswahl */
+.mehrfach{display:flex; flex-direction:column; gap:var(--s2)}
+.mehrfach label{
+  display:flex; align-items:center; gap:var(--s3); min-height:46px; cursor:pointer;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.5rem .85rem; font-size:.9375rem; line-height:1.35;
+  transition:border-color .18s var(--ease), background-color .18s var(--ease), opacity .18s var(--ease);
+}
+.mehrfach label:hover{border-color:var(--muted)}
+.mehrfach input, .zeile-check{
+  appearance:none; width:18px; height:18px; flex:none; margin:0; cursor:pointer;
+  border:1.5px solid var(--muted); border-radius:4px; background:var(--surface); position:relative;
+  transition:background-color .18s var(--ease), border-color .18s var(--ease);
+}
+.mehrfach input:checked{background:var(--marke); border-color:var(--marke)}
+.mehrfach input:checked::after{
+  content:""; position:absolute; left:4.5px; top:1px; width:5px; height:10px;
+  border:solid var(--auf-marke); border-width:0 2px 2px 0; transform:rotate(43deg);
+}
+.mehrfach label:has(input:checked){border-color:var(--marke); background:var(--marke-hell)}
+.mehrfach.voll label:not(:has(input:checked)){opacity:.5}
+.grenze{font-size:.8125rem; color:var(--muted); margin-top:var(--s2)}
+
+/* Raster: je Zeile eine Einordnung */
+.raster{display:flex; flex-direction:column; gap:var(--s3)}
+.raster-zeile{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:.75rem .85rem .85rem; transition:border-color .18s var(--ease);
+}
+.raster-zeile.gesetzt{border-color:color-mix(in oklab,var(--marke) 45%,var(--line))}
+.raster-zeile > b{display:block; font-size:.9375rem; font-weight:500; line-height:1.4; margin-bottom:var(--s2)}
+.segmente{display:grid; grid-template-columns:repeat(var(--n),1fr); gap:3px; background:var(--sunk); border-radius:var(--r); padding:3px}
+.segmente button{
+  min-height:40px; border:0; border-radius:calc(var(--r) - 2px); background:transparent; cursor:pointer;
+  font-size:.8438rem; font-weight:500; color:var(--muted); line-height:1.2; padding:.35rem .3rem;
+  transition:background-color .18s var(--ease), color .18s var(--ease);
+}
+.segmente button:hover{color:var(--ink)}
+.segmente button[aria-pressed="true"]{background:var(--marke); color:var(--auf-marke); font-weight:600; box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+.raster-notiz{margin-top:var(--s2)}
+.raster-notiz input{font-size:16px; padding:.55rem .7rem}
+
+/* Personen */
+.personen{display:flex; flex-direction:column; gap:var(--s3)}
+.person{
+  display:grid; gap:var(--s2); background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--r); padding:.85rem;
+}
+.person-kopf{display:flex; justify-content:space-between; align-items:center}
+.person-kopf span{font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.person-kopf button{border:0; background:none; color:var(--muted); font-size:.8125rem; cursor:pointer; padding:.25rem; min-height:32px; text-decoration:underline; text-underline-offset:2px}
+.person-kopf button:hover{color:var(--ink)}
+.person .paar{display:grid; gap:var(--s2)}
+@media (min-width:30rem){.person .paar{grid-template-columns:1fr 1fr}}
+.person textarea{min-height:4.5rem}
+.knopf-plus{
+  display:flex; align-items:center; justify-content:center; gap:var(--s2); min-height:46px;
+  border:1px dashed var(--muted); border-radius:var(--r); background:transparent; cursor:pointer;
+  color:var(--muted); font-weight:600; font-size:.9375rem; transition:color .18s var(--ease), border-color .18s var(--ease);
+}
+.knopf-plus:hover{color:var(--ink); border-color:var(--ink)}
+
+/* Folgefeld */
+.folge{margin-top:var(--s3); padding-left:var(--s4); border-left:2px solid var(--gold)}
+.folge label{display:block; font-size:.875rem; font-weight:600; margin-bottom:var(--s2)}
+
+/* ══════ Fuß ══════ */
+.fuss{
+  position:fixed; left:0; right:0; bottom:0; z-index:var(--z-fuss); background:var(--bg);
+  border-top:1px solid var(--line); padding-bottom:env(safe-area-inset-bottom);
+}
+.fuss-innen{display:flex; gap:var(--s3); align-items:center; padding-block:var(--s3)}
+.knopf{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s2);
+  min-height:48px; padding:0 1.2rem; border-radius:var(--r); border:1px solid var(--line);
+  background:var(--surface); color:var(--ink); cursor:pointer; font-weight:600; font-size:1rem; text-decoration:none;
+  transition:background-color .18s var(--ease), border-color .18s var(--ease), opacity .18s var(--ease), transform .12s var(--ease);
+}
+.knopf:hover{border-color:var(--muted)}
+.knopf:active{transform:scale(.985)}
+.knopf-haupt{background:var(--marke); border-color:var(--marke); color:var(--auf-marke); flex:1}
+.knopf-haupt:hover{border-color:var(--marke); filter:brightness(1.1)}
+.knopf[disabled]{opacity:.4; cursor:default}
+.gespeichert{
+  font-size:.8125rem; color:var(--ok); text-align:center; height:1.1rem; padding-bottom:var(--s1);
+  opacity:0; transition:opacity .18s var(--ease);
+}
+.gespeichert.an{opacity:1}
+
+/* ══════ Start & Ende ══════ */
+.start .logo{display:block; width:min(150px,44%); height:auto; color:var(--marke)}
+.start .linie{display:block; width:48px; height:1px; background:var(--gold); margin:var(--s6) 0 var(--s5)}
+.oberzeile{display:block; font-size:.75rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:var(--s3)}
+.start h1{margin-bottom:var(--s5)}
+.start .fuehrt{font-size:1.0625rem; line-height:1.6}
+.start .fuehrt + .fuehrt{margin-top:var(--s4)}
+.ablauf{margin:var(--s6) 0 0; padding:var(--s5); background:var(--surface); border:1px solid var(--line); border-radius:var(--r)}
+.ablauf h3{font-family:var(--serif); font-weight:400; font-size:1.25rem; margin-bottom:var(--s4)}
+.punkte{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s3)}
+.punkte li{display:flex; gap:var(--s3); align-items:flex-start; font-size:.9375rem}
+.punkte svg{width:19px; height:19px; flex:none; margin-top:.2rem; color:var(--marke)}
+.hinweis{font-size:.875rem; color:var(--muted); background:var(--sunk); border-radius:var(--r); padding:var(--s3) var(--s4); margin-top:var(--s4)}
+
+.uebersicht{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:var(--s5); margin-block:var(--s6)}
+.uebersicht > h3{font-family:var(--serif); font-weight:400; font-size:1.25rem; margin-bottom:var(--s4)}
+.uebersicht h4{margin:var(--s5) 0 var(--s3); font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.uebersicht dl{margin:0; display:flex; flex-direction:column; gap:var(--s3)}
+.uebersicht dt{font-size:.8125rem; color:var(--muted)}
+.uebersicht dd{margin:0; font-size:.9375rem; white-space:pre-wrap}
+.uebersicht .leer{color:var(--muted); font-style:italic}
+.schritt{display:flex; gap:var(--s3); align-items:flex-start; margin-bottom:var(--s4)}
+.schritt .nr{
+  width:28px; height:28px; flex:none; border-radius:50%; border:1px solid var(--marke); color:var(--marke);
+  display:grid; place-items:center; font-family:var(--serif); font-size:.9375rem;
+}
+.schritt p{font-size:.9375rem}
+.schritt b{display:block; margin-bottom:.1rem}
+.zwei-wege{display:grid; gap:var(--s2)}
+@media (min-width:30rem){.zwei-wege{grid-template-columns:1fr 1fr}}
+
+details.notweg{margin-top:var(--s4); border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+details.notweg summary{
+  padding:.75rem .9rem; cursor:pointer; font-size:.875rem; font-weight:600; color:var(--muted);
+  list-style:none; display:flex; align-items:center; gap:var(--s2); min-height:44px;
+}
+details.notweg summary::-webkit-details-marker{display:none}
+details.notweg summary::before{content:"+"; font-size:1.1rem; line-height:1; width:1rem; text-align:center}
+details.notweg[open] summary::before{content:"–"}
+details.notweg summary:hover{color:var(--ink)}
+details.notweg textarea{
+  width:calc(100% - 1.8rem); margin:0 .9rem .9rem; min-height:11rem; font-size:14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; line-height:1.45;
+}
+.aufraeumen{margin-top:var(--s6); padding-top:var(--s5); border-top:1px solid var(--line)}
+.aufraeumen p{font-size:.875rem; color:var(--muted); margin-bottom:var(--s3)}
+.fertig-hinweis{
+  display:none; align-items:flex-start; gap:var(--s3); background:var(--marke-hell);
+  border-radius:var(--r); padding:var(--s4); margin-top:var(--s4); font-size:.9375rem;
+}
+.fertig-hinweis.an{display:flex}
+.fertig-hinweis svg{width:20px; height:20px; flex:none; margin-top:.15rem; color:var(--marke)}
+.fussnote{border-top:1px solid var(--line); margin-top:var(--s7); padding-top:var(--s4); font-size:.8125rem; color:var(--muted); line-height:1.6}
+.fussnote a{text-decoration:none; border-bottom:1px solid var(--line)}
+.fussnote a:hover{border-color:var(--muted)}
+
+kbd, .befehl{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.85em;
+  background:var(--sunk); border:1px solid var(--line); border-radius:4px; padding:.05em .4em; white-space:nowrap;
+}
+.optional{margin-top:var(--s6); padding-top:var(--s5); border-top:1px solid var(--line)}
+.optional p{font-size:.875rem; color:var(--muted); margin-bottom:var(--s3)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:0s !important; animation-duration:0s !important}
+}
+</style>
+</head>
+<body>
+
+<template id="logoVorlage"><svg class="logo" viewBox="0 0 100 44" role="img" aria-label="Lucy"><text x="0" y="34" fill="currentColor" font-family="Fraunces, Georgia, serif" font-size="40" letter-spacing="-1">Lucy</text><circle cx="93" cy="31" r="4.5" fill="var(--gold)"/></svg></template>
+
+<header class="kopf" id="kopf" hidden>
+  <div class="spalte kopf-innen">
+    <span id="kopfLogo"></span>
+    <div class="kopf-titel">
+      <b id="kopfTitel">—</b>
+      <span><span class="zahl" id="kopfZahl">1 von 7</span><span class="kopf-notiz"> · wird automatisch gespeichert</span></span>
+    </div>
+  </div>
+  <div class="balken"><i id="balken"></i></div>
+</header>
+
+<main>
+  <div class="spalte" id="buehne"></div>
+</main>
+
+<footer class="fuss" id="fuss" hidden>
+  <div class="spalte">
+    <p class="gespeichert" id="gespeichert">gespeichert</p>
+    <div class="fuss-innen">
+      <button type="button" class="knopf" id="zurueck">Zurück</button>
+      <button type="button" class="knopf knopf-haupt" id="weiter">Weiter</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var WA_ALEKS = "4917643478923";
+  var SPEICHER = "lucy-start-v1";
+
+  /* ══════════════════════════════════════════════════════════
+     Die Fragen. Alles hier drin ist Inhalt, kein Layout —
+     Änderungen an der Erhebung passieren nur in diesem Block.
+     Typen: text · tel · email · textarea · wahl · mehrfach · raster · personen
+     ══════════════════════════════════════════════════════════ */
+  var ETAPPEN = [
+    {
+      titel:"Du",
+      intro:"Damit Lucy dich nicht jedes Mal neu kennenlernen muss: ein paar Eckdaten zu dir und deinem Alltag.",
+      felder:[
+        {id:"name", typ:"text", frage:"Wie soll Lucy dich nennen?", noetig:true, platzhalter:"z. B. Eryk"},
+        {id:"alter", typ:"wahl", frage:"Wie alt bist du?",
+         warum:"Wichtig für später: Wer unter 18 ist, braucht für ein eigenes Gewerbe und Verträge mit Kunden besondere Zustimmungen.",
+         optionen:["Unter 18","18 bis 20","21 bis 25","Über 25"]},
+        {id:"wohnort", typ:"text", frage:"Wo wohnst du?",
+         warum:"Stadt oder Region genügt. Hilft bei lokalen Kunden, Schule und Terminen.", platzhalter:"z. B. Köln"},
+        {id:"situation", typ:"wahl", frage:"Was machst du gerade hauptsächlich?", noetig:true,
+         optionen:["Schule","Ausbildung (Betrieb und Berufsschule)","Studium","Arbeit","Etwas anderes"],
+         folge:{wenn:["Schule","Ausbildung (Betrieb und Berufsschule)","Studium","Arbeit","Etwas anderes"], id:"situation_was", typ:"text",
+                frage:"Genauer: welche Schule, welcher Beruf, welches Fach?", platzhalter:"z. B. Ausbildung zum Kaufmann im Einzelhandel, 1. Lehrjahr"}},
+        {id:"woche", typ:"textarea", frage:"Wie sieht eine normale Woche bei dir aus?",
+         warum:"Feste Zeiten (Schule, Arbeit, Training) und wann du frei hast. Daraus plant Lucy realistisch.",
+         platzhalter:"z. B. Mo–Mi Betrieb 8–16:30 Uhr, Do und Fr Schule, Di und Do abends Gym, Wochenende meist frei"},
+        {id:"zeit", typ:"wahl", frage:"Wie viel Zeit hast du realistisch pro Woche für Lucy und deine Projekte?", noetig:true,
+         optionen:["Unter 3 Stunden","3 bis 6 Stunden","6 bis 10 Stunden","Mehr als 10 Stunden"]},
+        {id:"tageszeit", typ:"mehrfach", frage:"Wann arbeitest du am liebsten am Rechner?",
+         optionen:["Morgens","Nachmittags","Abends","Spät nachts","Am Wochenende"]},
+        {id:"staerken", typ:"textarea", frage:"Was kannst du gut, und was fällt dir schwer?",
+         warum:"Ehrlich hilft am meisten. Lucy setzt bei deinen Stärken an und fängt deine Schwächen auf.",
+         platzhalter:"z. B. gut: schnell verstehen, mit Leuten reden. Schwer: dranbleiben, Ordnung halten"},
+        {id:"antrieb", typ:"textarea", gross:true, frage:"Warum machst du das alles? Was soll in einem Jahr anders sein?", noetig:true,
+         warum:"Das wird Lucys Kompass. Wenn sie dir etwas empfiehlt, misst sie es daran.", platzhalter:"In deinen eigenen Worten"}
+      ]
+    },
+    {
+      titel:"Lucy",
+      intro:"Hier legst du fest, wer Lucy sein soll und wie sie mit dir redet. Du kannst das später jederzeit ändern.",
+      felder:[
+        {id:"rolle", typ:"mehrfach", max:2, frage:"Was soll Lucy für dich vor allem sein?", noetig:true,
+         warum:"Höchstens zwei. Meine Empfehlung, solange du lernst: Partnerin und Lehrerin.",
+         optionen:["Partnerin auf Augenhöhe, die mitdenkt und widerspricht","Coach, der mich fordert und dranbleibt","Lehrerin, die mir alles erklärt","Assistentin, die einfach erledigt, was ich sage"]},
+        {id:"ton", typ:"wahl", frage:"Wie soll Lucy mit dir reden?", noetig:true,
+         optionen:["Direkt und kurz","Locker, wie unter Freunden","Ruhig und ausführlich","Je nach Thema mal so, mal so"]},
+        {id:"humor", typ:"wahl", frage:"Humor?",
+         optionen:["Gar nicht, nur die Sache","Ein bisschen, wenn es passt","Gern viel"]},
+        {id:"kritik", typ:"wahl", frage:"Wenn du eine schlechte Idee hast, soll Lucy …", noetig:true,
+         warum:"Meine Empfehlung: klar sagen. Eine KI, die zu allem Ja sagt, macht dich nicht besser.",
+         optionen:["es klar sagen und einen besseren Weg zeigen","vorsichtig nachfragen","es einfach machen, wie ich es sage"]},
+        {id:"erklaeren", typ:"wahl", frage:"Wie viel soll Lucy erklären?", noetig:true,
+         optionen:["Alles Schritt für Schritt, ich fange bei null an","Das Wichtigste, Details nur auf Nachfrage","Kaum, einfach machen"]},
+        {id:"emoji", typ:"wahl", frage:"Emojis in Lucys Antworten?", optionen:["Gern","Sparsam","Keine"]},
+        {id:"sprache", typ:"wahl", frage:"In welcher Sprache soll Lucy schreiben?", optionen:["Deutsch","Englisch","Gemischt"]},
+        {id:"vorbild", typ:"text", frage:"Gibt es eine Figur, die so ist, wie Lucy sein soll?",
+         warum:"Aus Film, Serie, Spiel oder echt. Hilft Lucy, deinen Ton zu treffen.", platzhalter:"z. B. Jarvis aus Iron Man, Donna aus Suits …"},
+        {id:"lucy_nogo", typ:"textarea", frage:"Was nervt dich an KI-Antworten, oder was soll Lucy auf keinen Fall tun?",
+         platzhalter:"z. B. lange Einleitungen, „Gute Frage!“, mich ständig loben …"}
+      ]
+    },
+    {
+      titel:"Webseiten",
+      intro:"Webseiten bauen und verkaufen. Hier geht es um deinen Startpunkt und dein Ziel, nicht darum, schon etwas zu können.",
+      felder:[
+        {id:"web_stand", typ:"wahl", frage:"Wo stehst du gerade?", noetig:true,
+         optionen:["Noch nie eine Webseite gebaut","Schon mit einem Baukasten gearbeitet (Wix, Jimdo …)","Ein bisschen HTML und CSS","Schon Seiten für andere gemacht"]},
+        {id:"web_ziel", typ:"wahl", frage:"Was ist dein Ziel mit Webseiten?", noetig:true,
+         optionen:["Erstmal lernen und eigene Projekte","Nebenbei Geld verdienen","Daraus ein richtiges Geschäft machen"]},
+        {id:"web_kunden", typ:"mehrfach", frage:"Für wen willst du Seiten bauen?",
+         optionen:["Lokale Betriebe (Friseur, Handwerk, Gastro …)","Selbstständige und Coaches","Vereine","Online-Shops","Freunde und Familie zum Üben","Weiß ich noch nicht"],
+         allein:["Weiß ich noch nicht"]},
+        {id:"web_netzwerk", typ:"textarea", frage:"Kennst du Leute oder Betriebe, die eine Seite brauchen könnten?",
+         warum:"Die ersten Kunden kommen fast immer aus dem eigenen Umfeld: Familie, Freunde, Verein, Nebenjob.",
+         platzhalter:"z. B. Onkel hat einen Malerbetrieb ohne Webseite …"},
+        {id:"web_marke", typ:"wahl", frage:"Hast du schon einen Namen für dein Webdesign?",
+         optionen:["Ja","Nein, den will ich mit Lucy finden","Ich arbeite unter meinem eigenen Namen"],
+         folge:{wenn:"Ja", id:"web_marke_name", typ:"text", frage:"Welchen?", platzhalter:"Name"}},
+        {id:"gewerbe", typ:"wahl", frage:"Hast du ein Gewerbe angemeldet?",
+         warum:"Wer regelmäßig gegen Geld Webseiten baut, muss das in Deutschland in der Regel anmelden. Lucy erklärt dir das, wenn es so weit ist.",
+         optionen:["Ja","Nein, noch nicht","Weiß nicht, was das ist"]},
+        {id:"web_vorbilder", typ:"textarea", frage:"Welche Webseiten findest du richtig gut?",
+         platzhalter:"Adressen oder Beschreibung, gern mit einem Satz, warum"},
+        {id:"web_zeitziel", typ:"text", frage:"Bis wann willst du deine erste eigene Seite online haben, und bis wann den ersten zahlenden Kunden?",
+         platzhalter:"z. B. eigene Seite bis Weihnachten, erster Kunde bis März"}
+      ]
+    },
+    {
+      titel:"Schule & Ausbildung",
+      intro:"Lucy kann dir beim Lernen viel abnehmen, nur das Lernen selbst nicht. Hier legst du fest, wie sie dich unterstützt.",
+      felder:[
+        {id:"schule_was", typ:"text", frage:"Welche Schule oder Ausbildung, welche Klasse oder welches Lehrjahr?", noetig:true,
+         platzhalter:"z. B. Berufsschule, Kaufmann im Einzelhandel, 2. Lehrjahr"},
+        {id:"schule_faecher", typ:"textarea", frage:"Welche Fächer oder Lernfelder hast du?",
+         platzhalter:"Gern mit den Kürzeln aus dem Stundenplan"},
+        {id:"schule_hilfe", typ:"mehrfach", frage:"Wobei soll Lucy dir helfen?", noetig:true,
+         optionen:["Stoff verstehen, Erklärungen mit Beispielen","Lernpläne vor Prüfungen","Abfragen und Prüfungen simulieren","Meine Lösungen prüfen (nicht für mich lösen)","Referate und Präsentationen vorbereiten","Termine und Abgaben im Blick behalten","Berichtsheft / Ausbildungsnachweis"]},
+        {id:"schule_pruefungen", typ:"textarea", frage:"Welche Prüfungen oder Arbeiten stehen in den nächsten Monaten an?",
+         platzhalter:"z. B. Mathe-Arbeit am 20.11., Zwischenprüfung im März"},
+        {id:"schule_plattform", typ:"mehrfach", frage:"Welche Schul-Programme nutzt ihr?",
+         optionen:["Moodle","WebUntis","Microsoft Teams / Office 365","IServ","Google Classroom","Andere","Keine"], allein:["Keine"]},
+        {id:"schule_schwer", typ:"textarea", frage:"Was fällt dir in der Schule am schwersten?",
+         platzhalter:"Fächer, Themen, oder Dinge wie Zeitdruck und Motivation"},
+        {id:"schule_strenge", typ:"wahl", frage:"Wie streng soll Lucy beim Lernen sein?", noetig:true,
+         warum:"Wer die KI die Aufgaben lösen lässt, lernt nichts, und in der Prüfung ist sie nicht dabei. Meine Empfehlung: Lernpartnerin.",
+         optionen:["Lernpartnerin: erklärt, fragt nach, prüft meine Lösung, löst aber nicht für mich","Je nach Aufgabe, ich sage es dann","Darf mir auch Lösungen geben"]}
+      ]
+    },
+    {
+      titel:"Fitness & Gesundheit",
+      intro:"Training, Ernährung, Schlaf. Lucy ist keine Ärztin, aber eine gute Partnerin für Plan und Dranbleiben.",
+      felder:[
+        {id:"fit_ziel", typ:"mehrfach", frage:"Was willst du erreichen?", noetig:true,
+         optionen:["Muskeln aufbauen","Abnehmen, Fett verlieren","Fitter und ausdauernder werden","Besser schlafen","Mehr Energie im Alltag","Gesünder essen","Routine und Disziplin","Weniger Stress"]},
+        {id:"fit_stand", typ:"textarea", frage:"Wo stehst du gerade?",
+         platzhalter:"z. B. dreimal pro Woche Gym seit einem halben Jahr, oder: im Moment gar kein Sport"},
+        {id:"fit_training", typ:"mehrfach", frage:"Wie trainierst du, oder wie willst du trainieren?",
+         optionen:["Fitnessstudio","Zuhause / Calisthenics","Laufen","Fußball oder anderer Verein","Kampfsport","Radfahren","Noch nichts davon"], allein:["Noch nichts davon"]},
+        {id:"fit_essen", typ:"wahl", frage:"Ernährung: Wie viel soll Lucy da mitmachen?",
+         optionen:["Gar nicht","Tipps und einfache Rezepte","Mit Plan, Kalorien und Protein grob mitzählen"]},
+        {id:"fit_apps", typ:"mehrfach", frage:"Was nutzt du schon?",
+         optionen:["Apple Health","Apple Watch oder anderer Tracker","Trainings-App (z. B. Hevy, Strong)","Kalorien-App (z. B. Yazio, MyFitnessPal)","Strava","Nichts davon"], allein:["Nichts davon"]},
+        {id:"fit_grenzen", typ:"textarea", frage:"Gibt es Verletzungen, Beschwerden oder Dinge, auf die Lucy achten muss?",
+         warum:"Das speichert Lucy nur in einem privaten Ordner auf deinem Mac, nie bei GitHub. Bei echten Beschwerden schickt sie dich zum Arzt.",
+         platzhalter:"z. B. Knie zwickt bei Kniebeugen, Laktoseintoleranz …"},
+        {id:"fit_checkin", typ:"wahl", frage:"Wie soll Lucy dich begleiten?",
+         optionen:["Wöchentlicher Check-in (Training, Schlaf, Essen kurz durchgehen)","Täglich ganz kurz","Nur, wenn ich frage"]}
+      ]
+    },
+    {
+      titel:"Geräte & Konten",
+      intro:"Was schon da ist und was noch fehlt. Wie du es anlegst, erklärt dir die Anleitung Schritt für Schritt.",
+      felder:[
+        {id:"mac", typ:"text", frage:"Welches MacBook hast du?",
+         warum:"Apfel-Menü oben links → „Über diesen Mac“. Dort stehen der Chip (z. B. M2) und der Arbeitsspeicher (z. B. 8 GB).",
+         platzhalter:"z. B. MacBook Air, M2, 8 GB"},
+        {id:"handy", typ:"wahl", frage:"Welches Handy hast du?", optionen:["iPhone","Android","Anderes"]},
+        {id:"konten", typ:"raster", frage:"Wie ist der Stand bei diesen Konten und Programmen?",
+         warum:"Fehlt etwas, kein Problem: Das sind die ersten Schritte der Anleitung.",
+         wahlen:["Habe ich","Lege ich an","Brauche Hilfe"],
+         zeilen:["Claude Pro","Claude Desktop-App","Gmail-Adresse nur für Lucy","GitHub-Konto","Obsidian"]},
+        {id:"kalender", typ:"wahl", frage:"Welchen Kalender nutzt du?",
+         optionen:["Google Kalender","Apple / iCloud Kalender","Outlook","Keinen, eher Kopf oder Papier"]},
+        {id:"notizen_bisher", typ:"mehrfach", frage:"Wo hast du bisher Notizen, Aufgaben und Pläne?",
+         optionen:["Apple Notizen","Erinnerungen-App","Notion","Google Docs","Papier","Nirgends so richtig"], allein:["Nirgends so richtig"]},
+        {id:"unterwegs", typ:"mehrfach", frage:"Wie willst du später auch unterwegs mit Lucy arbeiten?",
+         warum:"Kommt erst nach der Einrichtung dran, nicht in der ersten Woche.",
+         optionen:["Am Mac reicht mir","Vom iPhone aus (Claude-App)","Per Sprachnachricht","Weiß ich noch nicht"]}
+      ]
+    },
+    {
+      titel:"Arbeitsweise & Grenzen",
+      intro:"Zum Schluss: wie ihr zusammenarbeitet und was Lucy nie ohne dein Ja tun darf.",
+      felder:[
+        {id:"lernstil", typ:"mehrfach", frage:"Wie lernst du am besten?",
+         optionen:["Erklärungen mit Beispielen","Bilder und Skizzen","Selbst ausprobieren","Videos","Abgefragt werden","Kurze Zusammenfassungen"]},
+        {id:"erinnern", typ:"wahl", frage:"Soll Lucy dich von sich aus an offene Sachen erinnern?",
+         optionen:["Ja, beim Start jeder Sitzung kurz","Nur, wenn ich frage"]},
+        {id:"tagebuch", typ:"wahl", frage:"Soll Lucy am Ende eines Arbeitstages ein kurzes Tagebuch schreiben?",
+         warum:"Was gemacht, was gelernt, was offen. Meine Empfehlung: ja. Das ist die Brücke zwischen den Sitzungen, und du siehst, wie viel du dazulernst.",
+         optionen:["Ja","Nein","Weiß ich noch nicht"]},
+        {id:"grenzen", typ:"mehrfach", frage:"Was darf Lucy nie ohne dein ausdrückliches Ja?", noetig:true,
+         warum:"Meine Empfehlung: alles ankreuzen. Lucy fragt dann vorher und wartet auf deine Antwort.",
+         optionen:["Etwas kaufen oder bezahlen","E-Mails oder Nachrichten an andere senden","Etwas veröffentlichen (Webseite live, Post)","Dateien endgültig löschen","Programme installieren","Konten anlegen"]},
+        {id:"sonstiges", typ:"textarea", gross:true, frage:"Gibt es noch etwas, das Lucy über dich wissen sollte?",
+         warum:"Alles, was oben nicht vorkam: Pläne, Ideen, Sorgen, Dinge, die dir wichtig sind."}
+      ]
+    }
+  ];
+
+
+  /* ══════════════════════════════════════════════════════════
+     Zustand
+     ══════════════════════════════════════════════════════════ */
+  var daten = {};
+  try { daten = JSON.parse(localStorage.getItem(SPEICHER) || "{}"); } catch(e){ daten = {}; }
+  var ansicht = typeof daten.__ansicht === "number" ? daten.__ansicht : -1;   // -1 = Start, ETAPPEN.length = Ende
+  if(ansicht > ETAPPEN.length) ansicht = -1;
+
+  var buehne = document.getElementById("buehne");
+  var kopf = document.getElementById("kopf");
+  var fuss = document.getElementById("fuss");
+  var kopfTitel = document.getElementById("kopfTitel");
+  var kopfZahl = document.getElementById("kopfZahl");
+  var balken = document.getElementById("balken");
+  var gespeichert = document.getElementById("gespeichert");
+  var bZurueck = document.getElementById("zurueck");
+  var bWeiter = document.getElementById("weiter");
+  var LOGO = document.getElementById("logoVorlage").innerHTML;
+  document.getElementById("kopfLogo").innerHTML = LOGO;
+  var speicherUhr;
+
+  function sichern(){
+    daten.__ansicht = ansicht;
+    try {
+      localStorage.setItem(SPEICHER, JSON.stringify(daten));
+      gespeichert.textContent = "gespeichert";
+      gespeichert.style.color = "";
+      clearTimeout(speicherUhr);
+      gespeichert.classList.add("an");
+      speicherUhr = setTimeout(function(){ gespeichert.classList.remove("an"); }, 1600);
+    } catch(e){
+      gespeichert.textContent = "Konnte nicht gespeichert werden. Bitte in einem Zug ausfüllen.";
+      gespeichert.style.color = "var(--warn)";
+      gespeichert.classList.add("an");
+    }
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function trifft(wenn, wert){
+    return Array.isArray(wenn) ? wenn.indexOf(wert) > -1 : wenn === wert;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     Aufbau der Felder
+     ══════════════════════════════════════════════════════════ */
+  function kopfZeilen(f, titelId, alsLabel){
+    var wichtig = f.noetig ? '<span class="wichtig">wichtig</span>' : "";
+    return (alsLabel
+        ? '<label for="'+titelId+'">'+esc(f.frage)+wichtig+'</label>'
+        : '<span class="frage-titel" id="'+titelId+'">'+esc(f.frage)+wichtig+'</span>') +
+      (f.warum ? '<span class="warum">'+esc(f.warum)+'</span>' : "");
+  }
+
+  function feldBauen(f){
+    var w = document.createElement("div");
+    w.className = "frage";
+    var titelId = "f-" + f.id;
+
+    if(f.typ === "text" || f.typ === "tel" || f.typ === "email" || f.typ === "textarea"){
+      var istLang = f.typ === "textarea";
+      w.innerHTML = kopfZeilen(f, titelId, true) +
+        (istLang
+          ? '<textarea id="'+titelId+'"'+(f.gross ? ' class="gross"' : '')+' placeholder="'+esc(f.platzhalter||"")+'"></textarea>'
+          : '<input type="'+f.typ+'" id="'+titelId+'" placeholder="'+esc(f.platzhalter||"")+'"' +
+            (f.typ === "email" ? ' autocomplete="email"' : f.typ === "tel" ? ' autocomplete="tel"' : '') + '>');
+      var eingabe = w.querySelector("#"+CSS.escape(titelId));
+      eingabe.value = daten[f.id] || "";
+      eingabe.addEventListener("input", function(){ daten[f.id] = eingabe.value; sichern(); });
+      return w;
+    }
+
+    if(f.typ === "wahl"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="wahl" role="group" aria-labelledby="'+titelId+'"></div>' +
+        '<div class="folge-halter"></div>';
+      var box = w.querySelector(".wahl");
+      var halter = w.querySelector(".folge-halter");
+
+      f.optionen.forEach(function(o){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = o;
+        b.setAttribute("aria-pressed", String(daten[f.id] === o));
+        b.addEventListener("click", function(){
+          daten[f.id] = o;
+          box.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+          b.setAttribute("aria-pressed","true");
+          folgeZeigen();
+          sichern();
+        });
+        box.appendChild(b);
+      });
+
+      function folgeZeigen(){
+        halter.innerHTML = "";
+        if(!f.folge || !trifft(f.folge.wenn, daten[f.id])) return;
+        var fo = f.folge, foId = "f-" + fo.id;
+        var d = document.createElement("div");
+        d.className = "folge";
+        d.innerHTML = '<label for="'+foId+'">'+esc(fo.frage)+'</label>' +
+                      '<input type="text" id="'+foId+'" placeholder="'+esc(fo.platzhalter||"")+'">';
+        var ein = d.querySelector("input");
+        ein.value = daten[fo.id] || "";
+        ein.addEventListener("input", function(){ daten[fo.id] = ein.value; sichern(); });
+        halter.appendChild(d);
+      }
+      folgeZeigen();
+      return w;
+    }
+
+    if(f.typ === "mehrfach"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="mehrfach" role="group" aria-labelledby="'+titelId+'"></div>';
+      var mbox = w.querySelector(".mehrfach");
+
+      function grenzeAnzeigen(){
+        if(!f.max) return;
+        var n = Array.isArray(daten[f.id]) ? daten[f.id].length : 0;
+        mbox.classList.toggle("voll", n >= f.max);
+      }
+
+      f.optionen.forEach(function(o){
+        var l = document.createElement("label");
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = Array.isArray(daten[f.id]) && daten[f.id].indexOf(o) > -1;
+        cb.addEventListener("change", function(){
+          var liste = Array.isArray(daten[f.id]) ? daten[f.id] : [];
+          if(cb.checked){
+            if(f.max && liste.length >= f.max){ cb.checked = false; return; }
+            if(f.allein){
+              // „Keine davon“ / „Weiß ich nicht“ schließen alle anderen Antworten aus und umgekehrt
+              var exklusiv = f.allein.indexOf(o) > -1;
+              liste = liste.filter(function(x){ return exklusiv ? false : f.allein.indexOf(x) < 0; });
+              mbox.querySelectorAll("label").forEach(function(lb){
+                if(liste.indexOf(lb.textContent) < 0 && lb.textContent !== o) lb.querySelector("input").checked = false;
+              });
+            }
+            if(liste.indexOf(o) < 0) liste.push(o);
+          } else {
+            liste = liste.filter(function(x){ return x !== o; });
+          }
+          daten[f.id] = liste;
+          grenzeAnzeigen();
+          sichern();
+        });
+        l.appendChild(cb);
+        l.appendChild(document.createTextNode(o));
+        mbox.appendChild(l);
+      });
+      grenzeAnzeigen();
+      return w;
+    }
+
+    if(f.typ === "raster"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="raster" role="group" aria-labelledby="'+titelId+'"></div>';
+      var rbox = w.querySelector(".raster");
+      var stand = (daten[f.id] && typeof daten[f.id] === "object" && !Array.isArray(daten[f.id])) ? daten[f.id] : {};
+      daten[f.id] = stand;
+
+      f.zeilen.forEach(function(z, i){
+        var eintrag = stand[z] || {};
+        var zeile = document.createElement("div");
+        zeile.className = "raster-zeile" + (eintrag.wahl ? " gesetzt" : "");
+        var zid = "r-" + f.id + "-" + i;
+        zeile.innerHTML = '<b id="'+zid+'">'+esc(z)+'</b>' +
+          '<div class="segmente" role="group" aria-labelledby="'+zid+'" style="--n:'+f.wahlen.length+'"></div>' +
+          (f.notiz ? '<div class="raster-notiz"><input type="text" aria-label="Anmerkung zu: '+esc(z)+'" placeholder="'+esc(f.notiz)+'"></div>' : '');
+        var seg = zeile.querySelector(".segmente");
+        f.wahlen.forEach(function(wa){
+          var b = document.createElement("button");
+          b.type = "button";
+          b.textContent = wa;
+          b.setAttribute("aria-pressed", String(eintrag.wahl === wa));
+          b.addEventListener("click", function(){
+            var e = stand[z] || {};
+            e.wahl = (e.wahl === wa) ? "" : wa;   // zweiter Tipp hebt die Auswahl wieder auf
+            stand[z] = e;
+            seg.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x.textContent === e.wahl)); });
+            zeile.classList.toggle("gesetzt", !!e.wahl);
+            sichern();
+          });
+          seg.appendChild(b);
+        });
+        if(f.notiz){
+          var ni = zeile.querySelector(".raster-notiz input");
+          ni.value = eintrag.notiz || "";
+          ni.addEventListener("input", function(){
+            var e = stand[z] || {};
+            e.notiz = ni.value;
+            stand[z] = e;
+            sichern();
+          });
+        }
+        rbox.appendChild(zeile);
+      });
+      return w;
+    }
+
+    if(f.typ === "personen"){
+      w.innerHTML = kopfZeilen(f, titelId, false) +
+        '<div class="personen" role="group" aria-labelledby="'+titelId+'"></div>' +
+        '<button type="button" class="knopf-plus" style="width:100%; margin-top:.75rem">+ Weitere Person</button>';
+      var pbox = w.querySelector(".personen");
+      var liste = Array.isArray(daten[f.id]) ? daten[f.id] : [];
+      if(!liste.length) liste.push({}, {});
+      daten[f.id] = liste;
+
+      function zeichnen(){
+        pbox.innerHTML = "";
+        liste.forEach(function(p, i){
+          var k = document.createElement("div");
+          k.className = "person";
+          var pid = "p-" + f.id + "-" + i;
+          k.innerHTML =
+            '<div class="person-kopf"><span>Person ' + (i + 1) + '</span>' +
+              (liste.length > 1 ? '<button type="button">Entfernen</button>' : '') + '</div>' +
+            '<div class="paar">' +
+              '<input type="text" id="'+pid+'-n" data-feld="name" aria-label="Name von Person '+(i+1)+'" placeholder="Vor- und Nachname">' +
+              '<input type="text" data-feld="rolle" aria-label="Funktion von Person '+(i+1)+'" placeholder="Funktion, z. B. Geschäftsführer">' +
+            '</div>' +
+            '<textarea data-feld="info" aria-label="Fachgebiet und Werdegang von Person '+(i+1)+'" placeholder="Fachgebiet, Werdegang, wofür die Person bei Kunden steht"></textarea>';
+          k.querySelectorAll("[data-feld]").forEach(function(el){
+            el.value = p[el.dataset.feld] || "";
+            el.addEventListener("input", function(){ p[el.dataset.feld] = el.value; sichern(); });
+          });
+          var weg = k.querySelector(".person-kopf button");
+          if(weg) weg.addEventListener("click", function(){
+            var leer = !p.name && !p.rolle && !p.info;
+            if(!leer && !confirm("Diese Person mit allen Angaben entfernen?")) return;
+            liste.splice(i, 1);
+            sichern();
+            zeichnen();
+          });
+          pbox.appendChild(k);
+        });
+      }
+      w.querySelector(".knopf-plus").addEventListener("click", function(){
+        liste.push({});
+        sichern();
+        zeichnen();
+        var neu = document.getElementById("p-" + f.id + "-" + (liste.length - 1) + "-n");
+        if(neu) neu.focus();
+      });
+      zeichnen();
+      return w;
+    }
+
+    return w;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     Ansichten
+     ══════════════════════════════════════════════════════════ */
+  function symbol(pfad){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+pfad+'</svg>';
+  }
+
+  function hatAntworten(){
+    return Object.keys(daten).some(function(k){
+      if(k.charAt(0) === "_") return false;
+      var v = daten[k];
+      if(Array.isArray(v)) return v.some(function(x){ return typeof x === "string" ? x : x && (x.name || x.rolle || x.info); });
+      if(v && typeof v === "object") return Object.keys(v).some(function(z){ return v[z] && (v[z].wahl || v[z].notiz); });
+      return !!v;
+    });
+  }
+
+  function startZeigen(){
+    kopf.hidden = true; fuss.hidden = true;
+    var begonnen = hatAntworten();
+    buehne.innerHTML =
+      '<div class="etappe start">' +
+        LOGO +
+        '<span class="linie" aria-hidden="true"></span>' +
+        '<span class="oberzeile">Dein Start mit Claude Code</span>' +
+        '<h1>Hey Eryk, lass uns Lucy bauen.</h1>' +
+        '<p class="fuehrt">Lucy wird deine KI-Partnerin für Webseiten, Schule und Fitness. Damit sie dich vom ersten Tag an kennt, beantwortest du hier ein paar Fragen. Daraus wird am Ende ein Text, den du Lucy in eurer ersten Sitzung gibst. Sie richtet dann alles nach deinen Antworten ein.</p>' +
+        '<p class="fuehrt">Es gibt keine falschen Antworten. Stichworte reichen. Was du nicht weißt, lässt du frei, Lucy fragt später nach.</p>' +
+        '<div class="ablauf">' +
+          '<h3>So funktioniert es</h3>' +
+          '<ul class="punkte">' +
+            '<li>'+symbol('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>')+'<span>Sieben Abschnitte, etwa 25 bis 35 Minuten. Gern in mehreren Etappen.</span></li>' +
+            '<li>'+symbol('<path d="M5 13l4 4L19 7"/>')+'<span>Alles speichert sich automatisch, nur auf diesem Gerät. Nichts wird irgendwohin geschickt. Machst du länger als ein paar Tage Pause, speicher am Ende eines Abschnitts lieber zwischendurch als Datei: Safari löscht solche Daten nach etwa einer Woche ohne Besuch.</span></li>' +
+            '<li>'+symbol('<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 19h20"/>')+'<span>Am besten am Mac ausfüllen. Dann kannst du den Text am Ende direkt bei Lucy einfügen.</span></li>' +
+            '<li>'+symbol('<path d="M4 4h16v12H7l-3 3z"/>')+'<span>Zum Schluss kopierst du den Text oder speicherst ihn als Datei. Weiter geht es dann mit Schritt 4 der Anleitung.</span></li>' +
+          '</ul>' +
+        '</div>' +
+        '<p class="hinweis">Deine Antworten bleiben bei dir. Ob du sie mir zusätzlich zeigst, entscheidest du am Ende selbst.</p>' +
+        '<div style="margin-top:2rem; display:flex; flex-direction:column; gap:.75rem">' +
+          '<button type="button" class="knopf knopf-haupt" id="losGehts">'+(begonnen ? "Weitermachen" : "Los geht’s")+'</button>' +
+          (begonnen ? '<button type="button" class="knopf" id="neuStart">Von vorn anfangen</button>' : "") +
+        '</div>' +
+        '<p class="fussnote">Von Aleks für Eryk · Fragen? <a href="https://wa.me/'+WA_ALEKS+'" target="_blank" rel="noopener">Schreib mir auf WhatsApp</a></p>' +
+      '</div>';
+
+    document.getElementById("losGehts").addEventListener("click", function(){
+      ansicht = (typeof daten.__letzte === "number" && begonnen) ? daten.__letzte : 0;
+      zeigen();
+    });
+    var nb = document.getElementById("neuStart");
+    if(nb) nb.addEventListener("click", function(){
+      if(!confirm("Alle bisherigen Eingaben löschen und von vorn anfangen?")) return;
+      daten = {};
+      try { localStorage.removeItem(SPEICHER); } catch(e){}
+      ansicht = 0; zeigen();
+    });
+  }
+
+  function etappeZeigen(){
+    var e = ETAPPEN[ansicht];
+    kopf.hidden = false; fuss.hidden = false;
+    kopfTitel.textContent = e.titel;
+    kopfZahl.textContent = "Abschnitt " + (ansicht + 1) + " von " + ETAPPEN.length;
+    balken.style.transform = "scaleX(" + (ansicht / ETAPPEN.length) + ")";
+    requestAnimationFrame(function(){
+      balken.style.transform = "scaleX(" + ((ansicht + 1) / ETAPPEN.length) + ")";
+    });
+
+    var d = document.createElement("div");
+    d.className = "etappe";
+    var k = document.createElement("div");
+    k.className = "etappe-kopf";
+    k.innerHTML = '<span class="nummer">Abschnitt ' + (ansicht + 1) + ' von ' + ETAPPEN.length + '</span>' +
+                  "<h2>" + esc(e.titel) + "</h2>" + (e.intro ? "<p>" + esc(e.intro) + "</p>" : "");
+    d.appendChild(k);
+    e.felder.forEach(function(f){ d.appendChild(feldBauen(f)); });
+    buehne.innerHTML = "";
+    buehne.appendChild(d);
+
+    bZurueck.disabled = false;
+    bZurueck.textContent = "Zurück";
+    bWeiter.textContent = (ansicht === ETAPPEN.length - 1) ? "Fertig" : "Weiter";
+    daten.__letzte = ansicht;
+    window.scrollTo(0, 0);
+  }
+
+  function endeZeigen(){
+    kopf.hidden = true; fuss.hidden = true;
+    var text = textBauen();
+
+    var liste = "";
+    ETAPPEN.forEach(function(e){
+      liste += '<h4>' + esc(e.titel) + '</h4><dl>';
+      e.felder.forEach(function(f){
+        var wert = wertLesbar(f);
+        liste += '<dt>' + esc(f.frage) + '</dt><dd' + (wert ? '' : ' class="leer"') + '>' + esc(wert || "offen gelassen") + '</dd>';
+        if(f.folge && daten[f.folge.id] && trifft(f.folge.wenn, daten[f.id])){
+          liste += '<dt>' + esc(f.folge.frage) + '</dt><dd>' + esc(daten[f.folge.id]) + '</dd>';
+        }
+      });
+      liste += '</dl>';
+    });
+
+    var name = daten.name ? String(daten.name).trim() : "";
+
+    buehne.innerHTML =
+      '<div class="etappe">' +
+        '<span class="oberzeile">Geschafft</span>' +
+        '<h1>Fertig' + (name ? ', ' + esc(name) : '') + '.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Jetzt bekommt Lucy deine Antworten. Das geht in zwei Schritten.</p>' +
+        '<div style="margin-top:2rem">' +
+          '<div class="schritt"><span class="nr">1</span><p><b>Antworten mitnehmen</b>Kopieren legt den ganzen Text in die Zwischenablage. Als Datei bekommst du <span class="befehl">lucy-grundlage.md</span> in deinen Downloads.</p></div>' +
+          '<div class="zwei-wege">' +
+            '<button type="button" class="knopf knopf-haupt" id="kopieren">Antworten kopieren</button>' +
+            '<button type="button" class="knopf" id="alsDatei">Als Datei speichern</button>' +
+          '</div>' +
+          '<div class="schritt" style="margin-top:2rem"><span class="nr">2</span><p><b>Bei Lucy einfügen</b>Claude-App öffnen → <b style="display:inline">Code</b> → Ordner <span class="befehl">Lucy</span>. Tippe <span class="befehl">/einrichten</span> und drück Enter. Fragt Lucy nach dem Text: <kbd>Cmd</kbd> + <kbd>V</kbd>, Enter. Hast du die Datei gespeichert, leg sie vorher in den Ordner <span class="befehl">Lucy</span>, dann findet Lucy sie selbst.</p></div>' +
+        '</div>' +
+        '<div class="fertig-hinweis" id="fertigHinweis">' +
+          symbol('<path d="M5 13l4 4L19 7"/>') +
+          '<span id="fertigText">Kopiert. Weiter mit Schritt 2, oder in der Anleitung bei Schritt 5.</span>' +
+        '</div>' +
+        '<details class="notweg"><summary>Klappt das Kopieren nicht? Text hier von Hand markieren</summary>' +
+          '<textarea id="rohText" readonly aria-label="Antworten als Text"></textarea></details>' +
+        '<p class="hinweis">Am Handy ausgefüllt? Kopieren und dir selbst schicken, zum Beispiel über die Notizen-App oder AirDrop. Am Mac dann wie in Schritt 2 einfügen.</p>' +
+        '<div class="optional">' +
+          '<p><b style="color:var(--ink)">Optional:</b> Willst du mir die Antworten zeigen, damit ich dir beim Start besser helfen kann? Erst kopieren, dann im Chat einfügen. Der Text enthält auch Persönliches, zum Beispiel zu Fitness. Schick ihn nur, wenn du willst.</p>' +
+          '<a class="knopf" id="perWhatsapp" href="https://wa.me/' + WA_ALEKS + '" target="_blank" rel="noopener">An Aleks per WhatsApp</a>' +
+        '</div>' +
+        '<div class="uebersicht">' +
+          '<h3>Deine Angaben zum Nachlesen</h3>' + liste +
+        '</div>' +
+        '<div class="aufraeumen">' +
+          '<p>Deine Antworten sind noch in diesem Browser gespeichert, damit du jederzeit zurückkannst. Wenn Lucy sie hat, kannst du sie hier löschen.</p>' +
+          '<div style="display:flex; gap:.75rem; flex-wrap:wrap">' +
+            '<button type="button" class="knopf" id="zurueckEnde">Noch einmal durchgehen</button>' +
+            '<button type="button" class="knopf" id="loeschen">Antworten vom Gerät löschen</button>' +
+          '</div>' +
+        '</div>' +
+        '<p class="fussnote">Von Aleks für Eryk · <a href="https://wa.me/'+WA_ALEKS+'" target="_blank" rel="noopener">WhatsApp</a></p>' +
+      '</div>';
+
+    var hinweis = document.getElementById("fertigHinweis");
+    var hinweisText = document.getElementById("fertigText");
+    var kn = document.getElementById("kopieren");
+    kn.addEventListener("click", function(){
+      function erfolg(){
+        kn.textContent = "Kopiert";
+        hinweisText.textContent = "Kopiert. Weiter mit Schritt 2, oder in der Anleitung bei Schritt 5.";
+        hinweis.classList.add("an");
+        setTimeout(function(){ kn.textContent = "Antworten kopieren"; }, 3200);
+      }
+      function ersatzKopie(){
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy") ? erfolg() : (kn.textContent = "Bitte den Text unten von Hand kopieren"); }
+        catch(e){ kn.textContent = "Bitte den Text unten von Hand kopieren"; }
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(erfolg, ersatzKopie);
+      } else { ersatzKopie(); }
+    });
+    document.getElementById("alsDatei").addEventListener("click", function(){
+      try {
+        var blob = new Blob([text + "\n"], {type:"text/markdown;charset=utf-8"});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url; a.download = "lucy-grundlage.md";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+        hinweisText.textContent = "Gespeichert als lucy-grundlage.md (meist im Ordner Downloads). Leg die Datei in deinen Ordner Lucy.";
+        hinweis.classList.add("an");
+      } catch(e){
+        hinweisText.textContent = "Speichern hat nicht geklappt. Nimm stattdessen „Antworten kopieren“.";
+        hinweis.classList.add("an");
+      }
+    });
+    document.getElementById("rohText").value = text;
+    document.getElementById("zurueckEnde").addEventListener("click", function(){
+      ansicht = 0; zeigen();
+    });
+    document.getElementById("loeschen").addEventListener("click", function(){
+      if(!confirm("Alle Antworten von diesem Gerät löschen? Das lässt sich nicht rückgängig machen. Hat Lucy sie schon?")) return;
+      try { localStorage.removeItem(SPEICHER); } catch(e){}
+      daten = {};
+      buehne.innerHTML = '<div class="etappe"><h1>Gelöscht.</h1>' +
+        '<p style="color:var(--muted); margin-top:1rem">Auf diesem Gerät ist nichts mehr gespeichert. Lucy hat ihre Kopie in deinem Ordner.</p>' +
+        '<p class="fussnote">Von Aleks für Eryk · <a href="https://wa.me/'+WA_ALEKS+'" target="_blank" rel="noopener">WhatsApp</a></p></div>';
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function wertLesbar(f){
+    var v = daten[f.id];
+    if(v === undefined || v === null || v === "") return "";
+    if(f.typ === "raster"){
+      if(f.notiz){
+        return f.zeilen.filter(function(z){ return v[z] && (v[z].wahl || v[z].notiz); }).map(function(z){
+          return "· " + z + ": " + (v[z].wahl || "ohne Einordnung") + (v[z].notiz ? " (" + v[z].notiz.trim() + ")" : "");
+        }).join("\n");
+      }
+      var gruppen = f.wahlen.map(function(wa){
+        var treffer = f.zeilen.filter(function(z){ return v[z] && v[z].wahl === wa; });
+        return treffer.length ? wa + ": " + treffer.join(", ") : "";
+      }).filter(Boolean);
+      var offen = f.zeilen.filter(function(z){ return !v[z] || !v[z].wahl; });
+      if(gruppen.length && offen.length) gruppen.push("Nicht eingeordnet: " + offen.join(", "));
+      return gruppen.join("\n");
+    }
+    if(f.typ === "personen"){
+      return v.filter(function(p){ return p && (p.name || p.rolle || p.info); }).map(function(p){
+        return "· " + [p.name, p.rolle].filter(Boolean).join(", ") + (p.info ? "\n  " + p.info.trim().replace(/\n/g, "\n  ") : "");
+      }).join("\n");
+    }
+    if(Array.isArray(v)){
+      if(f.optionen) v = v.slice().sort(function(a, b){ return f.optionen.indexOf(a) - f.optionen.indexOf(b); });
+      return v.length ? "· " + v.join("\n· ") : "";
+    }
+    return String(v).trim();
+  }
+
+  function textBauen(){
+    var heute = new Date().toLocaleDateString("de-DE", {day:"2-digit", month:"2-digit", year:"numeric"});
+    var z = ["LUCY-GRUNDLAGE",
+             "Fragebogen lucy-start · " + (daten.name ? String(daten.name).trim() : "ohne Namen") + " · Stand " + heute,
+             "Lucy: Das sind meine Angaben für die Einrichtung. Lies alles, frag nur nach, was fehlt, und richte uns mit /einrichten ein.",
+             ""];
+    ETAPPEN.forEach(function(e){
+      var block = [];
+      e.felder.forEach(function(f){
+        var w = wertLesbar(f);
+        if(w) block.push(f.frage + "\n" + w);
+        if(f.folge && daten[f.folge.id] && trifft(f.folge.wenn, daten[f.id])) block.push(f.folge.frage + "\n" + daten[f.folge.id]);
+      });
+      if(block.length){
+        z.push("— " + e.titel.toUpperCase() + " —");
+        z.push(block.join("\n\n"));
+        z.push("");
+      }
+    });
+    if(z.length === 4) z.push("(Noch keine Antworten eingetragen.)");
+    return z.join("\n").trim();
+  }
+
+  function zeigen(){
+    if(ansicht < 0) startZeigen();
+    else if(ansicht >= ETAPPEN.length) endeZeigen();
+    else etappeZeigen();
+    sichern();
+  }
+
+  bZurueck.addEventListener("click", function(){ ansicht--; zeigen(); });
+  bWeiter.addEventListener("click", function(){ ansicht++; zeigen(); });
+
+  zeigen();
+})();
+</script>
+</body>
+</html>
