@@ -11,7 +11,7 @@
 <link rel="alternate" hreflang="x-default" href="./">
 <meta name="description" content="Modul 95 für Berufskraftfahrer, samstags in Dortmund-Wickede, 120 € je Modul. Anerkannt nach § 9 BKrFQG, 6 Unterrichtssprachen. Für Fahrer und Speditionen." data-content-de="Modul 95 für Berufskraftfahrer, samstags in Dortmund-Wickede, 120 € je Modul. Anerkannt nach § 9 BKrFQG, 6 Unterrichtssprachen. Für Fahrer und Speditionen." data-content-tr="Dortmund-Wickede'de her cumartesi Kod 95 yenileme eğitimi, modül başına 120 €. Türkçe ders, BKrFQG § 9 onaylı. Sürücüler ve nakliye firmaları için." data-content-en="Code 95 every Saturday in Dortmund, 120 € per module. Taught in English and 5 more languages, approved under Section 9 BKrFQG. For drivers and fleets.">
 <meta name="theme-color" content="#f6f5f2">
-<!-- Strukturierte Daten. Fragen (aus #faq), Kursnamen und -beschreibungen (aus den Zeilen mit data-kurs), inLanguage und Kurszeiten (aus js/bzs.js) trägt _bauen.mjs beim Bauen je Sprachfassung ein — hier nichts von Hand nachziehen, nur Stammdaten und Preise pflegen. -->
+<!-- Strukturierte Daten. Fragen (aus #faq), Kursnamen und -beschreibungen (aus den Zeilen mit data-kurs), inLanguage, Kurs-@id, Kurszeiten und künftige Kurstermine (aus js/termine.js) trägt _bauen.mjs beim Bauen je Sprachfassung ein — hier nichts von Hand nachziehen, nur Stammdaten und Preise pflegen. -->
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -72,6 +72,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-modul95",
    "name": "Weiterbildung Schlüsselzahl 95 (Modul 95)",
    "description": "35 Stunden in fünf Modulen, alle fünf Jahre (BKF-Weiterbildung nach BKrFQG). Samstags, ein Modul je Tag.",
    "educationalCredentialAwarded": "Teilnahmebescheinigung",
@@ -93,23 +94,26 @@
     "price": "120",
     "priceCurrency": "EUR"
    },
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
-    },
-    "courseSchedule": {
-     "@type": "Schedule",
-     "byDay": "https://schema.org/Saturday",
-     "startTime": "08:00",
-     "endTime": "16:00",
-     "repeatFrequency": "P1W"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     },
+     "courseSchedule": {
+      "@type": "Schedule",
+      "byDay": "https://schema.org/Saturday",
+      "startTime": "08:00",
+      "endTime": "16:00",
+      "repeatFrequency": "P1W"
+     }
     }
-   }
+   ]
   },
   {
    "@type": "Course",
+   "@id": "#kurs-grundquali",
    "name": "Beschleunigte Grundqualifikation",
    "description": "Der Einstieg in den Beruf für alle, die neu anfangen.",
    "provider": {
@@ -133,6 +137,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-stapler",
    "name": "Gabelstapler",
    "description": "Staplerschein für den Betrieb.",
    "provider": {
@@ -156,6 +161,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-ladekran",
    "name": "Ladekran",
    "description": "Bedienerschulung für den Ladekran.",
    "provider": {
@@ -179,6 +185,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-bagger",
    "name": "Bagger und Erdbaumaschinen",
    "description": "Bedienerschulung für Erdbaumaschinen.",
    "provider": {
@@ -197,6 +204,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-fachseminar",
    "name": "Fachseminar Unternehmer und Verkehrsleiter",
    "description": "Für alle, die im Betrieb Verantwortung für den Fuhrpark tragen.",
    "provider": {
@@ -960,7 +968,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
         <ul lang="de">
           <li data-de="Rechtliche Grundlagen" data-tr="Rechtliche Grundlagen" data-en="Rechtliche Grundlagen">Rechtliche Grundlagen</li>
           <li data-de="Physikalische Grundlagen" data-tr="Physikalische Grundlagen" data-en="Physikalische Grundlagen">Physikalische Grundlagen</li>
-          <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-tr="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-en="Aufbauten von Fahrzeugarten nach DIN EN 12640">Aufbauten von Fahrzeugarten nach DIN EN 12640</li>
+          <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12642" data-tr="Aufbauten von Fahrzeugarten nach DIN EN 12642" data-en="Aufbauten von Fahrzeugarten nach DIN EN 12642">Aufbauten von Fahrzeugarten nach DIN EN 12642</li>
           <li data-de="Arten der Ladungssicherung" data-tr="Arten der Ladungssicherung" data-en="Arten der Ladungssicherung">Arten der Ladungssicherung</li>
           <li data-de="Ermittlung der erforderlichen Sicherungskräfte" data-tr="Ermittlung der erforderlichen Sicherungskräfte" data-en="Ermittlung der erforderlichen Sicherungskräfte">Ermittlung der erforderlichen Sicherungskräfte</li>
           <li data-de="Zurrmittel und weitere Hilfsmittel" data-tr="Zurrmittel und weitere Hilfsmittel" data-en="Zurrmittel und weitere Hilfsmittel">Zurrmittel und weitere Hilfsmittel</li>
@@ -1088,6 +1096,8 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
   </div>
 </footer>
 
+<script src="../js/termine.js"></script>
+<script src="../js/termine-kern.js"></script>
 <script src="../js/bzs.js"></script>
 <script>
 (function () {
@@ -1176,8 +1186,11 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
   }
 
   /* ─── Muster-Bescheinigung: Beispieldatum = letzter Kurssamstag, nie eingetippt ─ */
-  var letzter = new Date(BZS.terminListe(1)[0].datum); letzter.setDate(letzter.getDate() - 7);
-  document.querySelectorAll("[data-musterdatum]").forEach(function (el) { el.textContent = BZS.datumText(letzter); });
+  var erster = BZS.terminListe(1)[0];   /* ohne Termindaten bleibt das Beispieldatum im HTML stehen */
+  if (erster) {
+    var letzter = new Date(erster.datum); letzter.setDate(letzter.getDate() - 7);
+    document.querySelectorAll("[data-musterdatum]").forEach(function (el) { el.textContent = BZS.datumText(letzter); });
+  }
 
 })();
 </script>

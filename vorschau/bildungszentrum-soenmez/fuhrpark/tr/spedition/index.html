@@ -28,6 +28,8 @@
 <!-- Unterseite von Entwurf A. Stil: ../stil.css (gemeinsam mit der Startseite).
      Vorerst nur Deutsch — TR/EN führen zur übersetzten Startseite. -->
 <div class="oben">
+  <!-- Hinweis-Band (Urlaub, Schließtage): Text aus js/termine.js (hinweise), gesetzt von bzs.js -->
+  <div class="hinweis-band" id="hinweis" role="note" hidden></div>
   <div class="entwurf" translate="no">
     <span>Entwurf A · „Für Speditionen" · unverbindlicher Vorschlag von ILIC ECOM HUB</span>
     <span class="farbwahl" role="group" aria-label="Farbwelt wählen">
@@ -258,7 +260,7 @@
     </div>
     <div class="fuss-unten">
       <span data-de="© 2026 Bildungszentrum Sönmez · Inhaber Zülküf Sönmez">© 2026 Bildungszentrum Sönmez · Sahibi Zülküf Sönmez</span>
-      <span data-de="&lt;a href=&quot;../../impressum.html&quot;&gt;Impressum&lt;/a&gt; · &lt;a href=&quot;../../datenschutz.html&quot;&gt;Datenschutz&lt;/a&gt;"><a href="../../../impressum.html">Künye</a> · <a href="../../../datenschutz.html">Gizlilik politikası</a><span class="rechts-sprache"> · yasal metinler yalnızca Almanca</span></span>
+      <span class="fuss-rechts"><span data-de="&lt;a href=&quot;../../impressum.html&quot;&gt;Impressum&lt;/a&gt; · &lt;a href=&quot;../../datenschutz.html&quot;&gt;Datenschutz&lt;/a&gt;"><a href="../../../impressum.html">Künye</a> · <a href="../../../datenschutz.html">Gizlilik politikası</a><span class="rechts-sprache"> · yasal metinler yalnızca Almanca</span></span> · <a class="urheber" href="https://ilic-ecomhub.de/" target="_blank" rel="nofollow noopener" data-de="Website von Aleksandar Ilic · ILIC ECOM HUB">Web sitesi tasarımı: Aleksandar Ilic · ILIC ECOM HUB</a></span>
     </div>
   </div>
 </footer>
@@ -268,13 +270,18 @@
   <a class="btn btn-dunkel" href="https://wa.me/491739324879" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8.2 19z"/></svg><span data-de="WhatsApp">WhatsApp</span></a>
 </div>
 
+<script src="../../../js/termine.js"></script>
+<script src="../../../js/termine-kern.js"></script>
 <script src="../../../js/bzs.js"></script>
 <script>
 (function () {
   "use strict";
   BZS.start();
 
-  /* ═══ FUHRPARK-PLANER — Logik 1:1 aus Entwurf D „Die Plantafel". Bei Änderungen beide nachziehen. ═══ */
+  /* ═══ FUHRPARK-PLANER — Grundlogik aus Entwurf D „Die Plantafel" (Samstage vor dem Ablaufmonat).
+     Seit 07.11.2026 mit Wochenkursen aus ../../js/termine.js: Reichen die Samstage nicht, wird ein
+     Wochenkurs vor dem Ablauf vorgeschlagen; bei drei und mehr fehlenden Modulen erscheint er als
+     Alternative. Ohne Wochenkurs sieht der Vorschlag aus wie vorher. ═══ */
   var D = BZS.DATEN;
   var T = BZS.text;
   function lang() { return BZS.sprache(); }
@@ -299,8 +306,12 @@
     entfernen:   { de: "Fahrer entfernen", tr: "Sürücüyü kaldırın", en: "Remove driver", ru: "Удалить водителя", ar: "حذف السائق", hr: "Ukloni vozača" },
     voll:        { de: "Zwölf Fahrer sind das Maximum je Anfrage. Für mehr rufen Sie bitte an.", tr: "Bir talepte en fazla on iki sürücü. Daha fazlası için lütfen arayın.", en: "Twelve drivers is the maximum per request. For more, please call us.", ru: "Максимум двенадцать водителей на один запрос. Если водителей больше, пожалуйста, позвоните.", ar: "الحد الأقصى اثنا عشر سائقًا في الطلب الواحد. لعدد أكبر يرجى الاتصال بنا.", hr: "Po upitu je moguće unijeti najviše dvanaest vozača. Za više vozača Vas molimo da nas nazovete." },
     leer:        { de: "Bitte tragen Sie mindestens einen Fahrer mit Ablaufmonat ein.", tr: "Lütfen en az bir sürücü ve son geçerlilik ayını girin.", en: "Please enter at least one driver with an expiry month.", ru: "Пожалуйста, укажите хотя бы одного водителя с месяцем окончания срока.", ar: "يرجى إدخال سائق واحد على الأقل مع شهر انتهاء الصلاحية.", hr: "Unesite najmanje jednog vozača s mjesecom isteka." },
-    satz:        { de: "{n} Fahrer, Samstage im Vorschlag: {s}. Jeder Fahrer steht auf den nächsten Samstagen vor seinem Ablaufmonat, jeder Samstag mit einem anderen Modul. Ob die Plätze frei sind, klären wir mit Ihnen am Telefon.", tr: "{n} sürücü, {s} cumartesi. Her sürücü, son geçerlilik ayından önceki cumartesilere, en yakın tarihten başlayarak yerleştirildi, her cumartesi farklı bir modül. Yerlerin boş olup olmadığını sizinle telefonda netleştiririz.", en: "{n} drivers, {s} Saturdays. Each driver is assigned to the next Saturdays before their expiry month, with a different module each Saturday. We will check with you by phone whether places are available.", ru: "Водителей: {n}, суббот: {s}. Каждый водитель поставлен на ближайшие субботы до месяца окончания срока, каждая суббота — с другим модулем. Есть ли свободные места, мы уточним с вами по телефону.", ar: "عدد السائقين: {n}، عدد أيام السبت: {s}. وُضع كل سائق في أيام السبت القادمة قبل شهر انتهاء صلاحيته، وكل سبت بوحدة مختلفة. أما توفّر المقاعد فنتأكد منه معك هاتفيًا.", hr: "Broj vozača: {n}, broj subota: {s}. Svaki vozač je raspoređen na najbliže subote prije svog mjeseca isteka, svake subote drugi modul. Slobodna mjesta potvrđujemo s Vama telefonom." },
-    satz1:       { de: "1 Fahrer, Samstage im Vorschlag: {s}. Der Fahrer steht auf den nächsten Samstagen vor seinem Ablaufmonat, jeder Samstag mit einem anderen Modul. Ob die Plätze frei sind, klären wir mit Ihnen am Telefon.", tr: "1 sürücü, {s} cumartesi. Sürücü, son geçerlilik ayından önceki cumartesilere, en yakın tarihten başlayarak yerleştirildi, her cumartesi farklı bir modül. Yerlerin boş olup olmadığını sizinle telefonda netleştiririz.", en: "1 driver, {s} Saturdays. The driver is assigned to the next Saturdays before the expiry month, with a different module each Saturday. We will check with you by phone whether places are available.", ru: "1 водитель, суббот: {s}. Водитель поставлен на ближайшие субботы до месяца окончания срока, каждая суббота — с другим модулем. Есть ли свободные места, мы уточним с вами по телефону.", ar: "سائق واحد، عدد أيام السبت: {s}. وُضع السائق في أيام السبت القادمة قبل شهر انتهاء صلاحيته، وكل سبت بوحدة مختلفة. أما توفّر المقاعد فنتأكد منه معك هاتفيًا.", hr: "Broj vozača: 1, broj subota: {s}. Vozač je raspoređen na najbliže subote prije svog mjeseca isteka, svake subote drugi modul. Slobodna mjesta potvrđujemo s Vama telefonom." },
+    /* Zusammenfassung: Kopf + Teile + Schluss (seit 07.11.2026; ohne Wochenkurs ergibt das genau den alten Satz) */
+    satzKopf:    { de: "{n} Fahrer, Samstage im Vorschlag: {s}.", tr: "{n} sürücü, {s} cumartesi.", en: "{n} drivers, {s} Saturdays.", ru: "Водителей: {n}, суббот: {s}.", ar: "عدد السائقين: {n}، عدد أيام السبت: {s}.", hr: "Broj vozača: {n}, broj subota: {s}." },
+    satzKopf1:   { de: "1 Fahrer, Samstage im Vorschlag: {s}.", tr: "1 sürücü, {s} cumartesi.", en: "1 driver, {s} Saturdays.", ru: "1 водитель, суббот: {s}.", ar: "سائق واحد، عدد أيام السبت: {s}.", hr: "Broj vozača: 1, broj subota: {s}." },
+    satzSamstage:{ de: "Jeder Fahrer steht auf den nächsten Samstagen vor seinem Ablaufmonat, jeder Samstag mit einem anderen Modul.", tr: "Her sürücü, son geçerlilik ayından önceki cumartesilere, en yakın tarihten başlayarak yerleştirildi, her cumartesi farklı bir modül.", en: "Each driver is assigned to the next Saturdays before their expiry month, with a different module each Saturday.", ru: "Каждый водитель поставлен на ближайшие субботы до месяца окончания срока, каждая суббота — с другим модулем.", ar: "وُضع كل سائق في أيام السبت القادمة قبل شهر انتهاء صلاحيته، وكل سبت بوحدة مختلفة.", hr: "Svaki vozač je raspoređen na najbliže subote prije svog mjeseca isteka, svake subote drugi modul." },
+    satzSamstage1:{ de: "Der Fahrer steht auf den nächsten Samstagen vor seinem Ablaufmonat, jeder Samstag mit einem anderen Modul.", tr: "Sürücü, son geçerlilik ayından önceki cumartesilere, en yakın tarihten başlayarak yerleştirildi, her cumartesi farklı bir modül.", en: "The driver is assigned to the next Saturdays before the expiry month, with a different module each Saturday.", ru: "Водитель поставлен на ближайшие субботы до месяца окончания срока, каждая суббота — с другим модулем.", ar: "وُضع السائق في أيام السبت القادمة قبل شهر انتهاء صلاحيته، وكل سبت بوحدة مختلفة.", hr: "Vozač je raspoređen na najbliže subote prije svog mjeseca isteka, svake subote drugi modul." },
+    satzSchluss: { de: "Ob die Plätze frei sind, klären wir mit Ihnen am Telefon.", tr: "Yerlerin boş olup olmadığını sizinle telefonda netleştiririz.", en: "We will check with you by phone whether places are available.", ru: "Есть ли свободные места, мы уточним с вами по телефону.", ar: "أما توفّر المقاعد فنتأكد منه معك هاتفيًا.", hr: "Slobodna mjesta potvrđujemo s Vama telefonom." },
     knapp:       { de: "Vor {monat} gibt es nur {frei} von {n} Samstagen. Bitte rufen Sie an, wir finden einen Weg, zum Beispiel eine Woche am Stück.", tr: "{monat} öncesinde gereken {n} cumartesiden yalnızca {frei} tanesi var. Lütfen arayın, bir yol buluruz, örneğin bir hafta boyunca art arda.", en: "Only {frei} of the {n} Saturdays needed fall before {monat}. Please call us and we will find a solution, for example a full week in one block.", ru: "Нужно суббот: {n}, а до месяца окончания срока ({monat}) доступно только {frei}. Пожалуйста, позвоните — мы найдём решение, например целую неделю подряд.", ar: "قبل {monat} لا يتوفر سوى {frei} من أصل {n} من أيام السبت. يرجى الاتصال بنا، وسنجد حلًا، مثل أسبوع كامل متواصل.", hr: "Prije mjeseca isteka ({monat}) odgovarajućih subota ima samo {frei}, a potrebno je {n}. Molimo Vas da nas nazovete, naći ćemo rješenje, na primjer cijelu sedmicu zaredom." },
     abgelaufen:  { de: "Der Ablaufmonat liegt nicht in der Zukunft. Bitte rufen Sie an, die Module lassen sich jederzeit nachholen.", tr: "Son geçerlilik ayı gelecekte değil. Lütfen arayın, modüller her zaman tamamlanabilir.", en: "The expiry month is not in the future. Please call us – the modules can be completed at any time.", ru: "Месяц окончания срока уже наступил или прошёл. Пожалуйста, позвоните: модули можно пройти в любое время.", ar: "شهر انتهاء الصلاحية ليس في المستقبل. يرجى الاتصال بنا، فالوحدات يمكن استكمالها في أي وقت.", hr: "Mjesec isteka nije u budućnosti. Molimo Vas da nas nazovete – module možete završiti bilo kada." },
     ohneName:    { de: "Fahrer {i}", tr: "Sürücü {i}", en: "Driver {i}", ru: "Водитель {i}", ar: "السائق {i}", hr: "Vozač {i}" },
@@ -311,7 +322,16 @@
     modulWort:   { de: "Modul", tr: "Modül", en: "Module", ru: "Модуль", ar: "الوحدة", hr: "Modul" },
     betreff:     { de: "Anfrage Modul 95 für unsere Fahrer", tr: "Sürücülerimiz için Kod 95 talebi", en: "Code 95 request for our drivers", ru: "Запрос на код 95 для наших водителей", ar: "طلب رمز 95 لسائقينا", hr: "Kod 95: upit za naše vozače" },
     listeBetreff:{ de: "Fahrerliste Modul 95", tr: "Kod 95 sürücü listesi", en: "Code 95 driver list", ru: "Список водителей: код 95", ar: "قائمة السائقين لرمز 95", hr: "Lista vozača za kod 95" },
-    listeBody:   { de: "Guten Tag,\n\nbitte schlagen Sie uns Samstage für folgende Fahrer vor (Termine nach Absprache):\n\nName | Ablaufmonat | fehlende Module\n | | \n | | \n | | \n\nFirma:\nAnsprechpartner:\nRückruf unter:", tr: "Merhaba,\n\naşağıdaki sürücüler için cumartesi tarihleri önermenizi rica ederiz (tarihler anlaşmaya göre):\n\nAd | Son geçerlilik ayı | eksik modül\n | | \n | | \n | | \n\nFirma:\nİlgili kişi:\nGeri arama numarası:", en: "Hello,\n\nPlease suggest Saturdays for the following drivers (dates to be agreed):\n\nName | Expiry month | Modules missing\n | | \n | | \n | | \n\nCompany:\nContact person:\nCall back on:", ru: "Здравствуйте,\n\nпросим предложить субботы для следующих водителей (даты по согласованию):\n\nИмя | Месяц окончания срока | недостающие модули\n | | \n | | \n | | \n\nКомпания:\nКонтактное лицо:\nНомер для обратного звонка:", ar: "مرحبًا،\n\nنرجو أن تقترحوا علينا أيام سبت للسائقين التالين (المواعيد حسب الاتفاق):\n\nالاسم | شهر انتهاء الصلاحية | الوحدات الناقصة\n | | \n | | \n | | \n\nالشركة:\nالشخص المسؤول:\nرقم معاودة الاتصال:", hr: "Dobar dan,\n\nmolimo Vas da nam predložite subote za sljedeće vozače (termini po dogovoru):\n\nIme | Mjesec isteka | preostali moduli\n | | \n | | \n | | \n\nFirma:\nKontakt osoba:\nBroj za povratni poziv:" }
+    listeBody:   { de: "Guten Tag,\n\nbitte schlagen Sie uns Samstage für folgende Fahrer vor (Termine nach Absprache):\n\nName | Ablaufmonat | fehlende Module\n | | \n | | \n | | \n\nFirma:\nAnsprechpartner:\nRückruf unter:", tr: "Merhaba,\n\naşağıdaki sürücüler için cumartesi tarihleri önermenizi rica ederiz (tarihler anlaşmaya göre):\n\nAd | Son geçerlilik ayı | eksik modül\n | | \n | | \n | | \n\nFirma:\nİlgili kişi:\nGeri arama numarası:", en: "Hello,\n\nPlease suggest Saturdays for the following drivers (dates to be agreed):\n\nName | Expiry month | Modules missing\n | | \n | | \n | | \n\nCompany:\nContact person:\nCall back on:", ru: "Здравствуйте,\n\nпросим предложить субботы для следующих водителей (даты по согласованию):\n\nИмя | Месяц окончания срока | недостающие модули\n | | \n | | \n | | \n\nКомпания:\nКонтактное лицо:\nНомер для обратного звонка:", ar: "مرحبًا،\n\nنرجو أن تقترحوا علينا أيام سبت للسائقين التالين (المواعيد حسب الاتفاق):\n\nالاسم | شهر انتهاء الصلاحية | الوحدات الناقصة\n | | \n | | \n | | \n\nالشركة:\nالشخص المسؤول:\nرقم معاودة الاتصال:", hr: "Dobar dan,\n\nmolimo Vas da nam predložite subote za sljedeće vozače (termini po dogovoru):\n\nIme | Mjesec isteka | preostali moduli\n | | \n | | \n | | \n\nFirma:\nKontakt osoba:\nBroj za povratni poziv:" },
+    /* Wochenkurs (seit 07.11.2026) */
+    wocheZeile:  { de: "Wochenkurs, {module}", tr: "Bir haftalık kurs, {module}", en: "One-week course, {module}", ru: "Недельный курс, {module}", ar: "دورة لمدة أسبوع، {module}", hr: "Sedmična obuka, {module}" },
+    nachrichtWoche: { de: "Wochenkurs {von} – {bis} ({module})", tr: "Bir haftalık kurs {von} – {bis} ({module})", en: "One-week course {von} – {bis} ({module})", ru: "Недельный курс {von} – {bis} ({module})", ar: "دورة لمدة أسبوع {von} – {bis} ({module})", hr: "Sedmična obuka {von} – {bis} ({module})" },
+    alternativeWoche: { de: "Oder alles am Stück: Wochenkurs {datum}.", tr: "Ya da tüm modüller bir hafta boyunca aralıksız: {datum}.", en: "Or all modules in one week: {datum}.", ru: "Или всё подряд: недельный курс, {datum}.", ar: "أو كل الوحدات دفعة واحدة: دورة لمدة أسبوع، {datum}.", hr: "Ili sve zaredom: sedmična obuka, {datum}." },
+    satzWocheTeil:{ de: "Bei {f} der {n} Fahrer reichen die Samstage vor dem Ablauf nicht, dafür schlagen wir den Wochenkurs vor.", tr: "{n} sürücüden {f} tanesi için son geçerlilik ayından önceki cumartesiler yetmiyor; bu durumda bir haftalık kursu öneriyoruz.", en: "For {f} of the {n} drivers, the Saturdays before expiry are not enough, so we suggest the one-week course instead.", ru: "Для {f} из {n} водителей суббот до окончания срока не хватает — в этом случае мы предлагаем недельный курс.", ar: "بالنسبة إلى {f} من أصل {n} لا تكفي أيام السبت قبل انتهاء الصلاحية، وفي هذه الحالة نقترح الدورة لمدة أسبوع.", hr: "Za {f} od {n} vozača subote prije isteka nisu dovoljne, pa u tom slučaju predlažemo sedmičnu obuku." },
+    satzSonst:   { de: "Sonst planen wir die nächsten Samstage vor dem jeweiligen Ablaufmonat ein, jeder Samstag mit einem anderen Modul.", tr: "Diğer durumlarda son geçerlilik ayından önceki en yakın cumartesileri planlıyoruz; her cumartesi farklı bir modül işlenir.", en: "Otherwise we plan the next Saturdays before each expiry month, with a different module each Saturday.", ru: "В остальном мы планируем ближайшие субботы до месяца окончания срока, каждая суббота — с другим модулем.", ar: "وفيما عدا ذلك نعتمد أيام السبت القادمة قبل شهر انتهاء الصلاحية، وكل سبت بوحدة مختلفة.", hr: "Inače planiramo najbliže subote prije mjeseca isteka, svake subote drugi modul." },
+    satzWocheAlle:{ de: "{n} Fahrer. Vor den Ablaufmonaten reichen die Samstage nicht, deshalb schlagen wir für alle den Wochenkurs vor.", tr: "{n} sürücü. Son geçerlilik aylarından önceki cumartesiler yetmiyor, bu yüzden hepsi için bir haftalık kursu öneriyoruz.", en: "{n} drivers. The Saturdays before the expiry months are not enough, so we suggest the one-week course for all of them.", ru: "Водителей: {n}. Суббот до месяцев окончания срока не хватает, поэтому мы предлагаем всем недельный курс.", ar: "عدد السائقين: {n}. أيام السبت قبل أشهر انتهاء الصلاحية لا تكفي، لذلك نقترح للجميع الدورة لمدة أسبوع.", hr: "Broj vozača: {n}. Subote prije mjeseci isteka nisu dovoljne, zato svima predlažemo sedmičnu obuku." },
+    satzWoche1:  { de: "1 Fahrer. Vor seinem Ablaufmonat reichen die Samstage nicht, deshalb schlagen wir den Wochenkurs vor.", tr: "1 sürücü. Son geçerlilik ayından önceki cumartesiler yetmiyor, bu yüzden bir haftalık kursu öneriyoruz.", en: "1 driver. The Saturdays before the expiry month are not enough, so we suggest the one-week course.", ru: "1 водитель. Суббот до месяца окончания срока не хватает, поэтому мы предлагаем недельный курс.", ar: "سائق واحد. أيام السبت قبل شهر انتهاء الصلاحية لا تكفي، لذلك نقترح الدورة لمدة أسبوع.", hr: "Broj vozača: 1. Subote prije mjeseca isteka nisu dovoljne, zato predlažemo sedmičnu obuku." },
+
   };
   function tpl(obj, map) { var s = T(obj); Object.keys(map).forEach(function (k) { s = s.split("{" + k + "}").join(map[k]); }); return s; }
 
@@ -367,7 +387,20 @@
       if (z) z.querySelector("input").focus(); else alert(T(W.voll));
     });
 
-    var alle = BZS.terminListe(30);
+    /* Termine aus derselben Quelle wie die Startseite: Samstage im Rhythmus (ohne Zusatztermine,
+       die Texte sprechen von Samstagen) und Wochenkurse. Einträge: {von, bis, module[], art, zusatz}.
+       Bewusst anders als die Terminliste der Startseite/fahrer/: Dort stehen Zusatztermine (z. B. ein
+       Mittwoch) und Wochenkurse mit in der Liste, obwohl die Überschriften von Samstagen sprechen —
+       ob die Überschriften neutral werden („Such dir deinen Termin aus."), entscheidet Aleks. */
+    var alle = BZS.termine({ arten: ["modul", "woche"], anzahl: 40 });
+    var samstagListe = alle.filter(function (x) { return x.art === "modul" && !x.zusatz && x.module.length === 1; });
+    var wochen = alle.filter(function (x) { return x.art === "woche"; });
+    function isoAus(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+    /* erster Wochenkurs, der vor dem Ablauf endet und genug Module abdeckt */
+    function wocheVor(grenze, n) {
+      for (var w = 0; w < wochen.length; w++) if (wochen[w].bis < grenze && wochen[w].module.length >= n) return wochen[w];
+      return null;
+    }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -384,34 +417,58 @@
 
       var samstage = {};
       var zeilenHtml = fahrer.map(function (f) {
-        var monatName = monatsname(f.ablauf, true);
+        var monatName = monatsname(f.ablauf, true), grenze = isoAus(f.ablauf);
         var frei = [], gesehen = {};
-        for (var k = 0; k < alle.length && frei.length < f.n; k++) {
-          var tk = alle[k];
-          if (tk.datum >= f.ablauf) break;
-          if (gesehen[tk.modul.nr]) continue;
-          gesehen[tk.modul.nr] = true; frei.push(tk);
+        for (var k = 0; k < samstagListe.length && frei.length < f.n; k++) {
+          var tk = samstagListe[k];
+          if (tk.von >= grenze) break;
+          if (gesehen[tk.module[0]]) continue;
+          gesehen[tk.module[0]] = true; frei.push(tk);
         }
-        frei.forEach(function (t) { samstage[BZS.datumText(t.datum)] = true; });
         var knapp = frei.length < f.n;
         var abgelaufen = f.ablauf <= jetzt;
+        var woche = abgelaufen ? null : wocheVor(grenze, f.n);
+        f.woche = null; f.alternative = null;
+        if (knapp && woche) { f.woche = woche; frei = []; knapp = false; }        /* Wochenkurs statt zu weniger Samstage */
+        else if (!knapp && f.n >= 3 && woche) f.alternative = woche;            /* Samstage reichen, Wochenkurs als Alternative */
+        frei.forEach(function (t) { samstage[t.von] = true; });
         f.termine = frei; f.knapp = knapp; f.abgelaufen = abgelaufen; f.monatName = monatName;
-        var termine = frei.map(function (t) {
-          return '<span><b>' + D.wochentage[lang()][t.datum.getDay()] + ' ' + BZS.datumText(t.datum) + '</b> · ' + T(W.modulKurz) + ' ' + t.modul.nr + ' ' + esc(T(t.modul.titel)) + '</span>';
-        }).join("");
+        var termine;
+        if (f.woche) {
+          var tw = BZS.aufloesen(f.woche);
+          /* {module} steht mitten im Satz („Wochenkurs, модули 1–5") → modulSatz (ru/tr/hr klein), reiner Text: escapen,
+             dann in die escapte Vorlage einsetzen */
+          termine = '<span><b>' + tw.wtag + ' ' + tw.datum + '</b> · ' + esc(T(W.wocheZeile)).split("{module}").join(esc(tw.modulSatz)) + '</span>';
+        } else {
+          termine = frei.map(function (x) {
+            var t = BZS.aufloesen(x);
+            return '<span><b>' + t.wtag + ' ' + t.datum + '</b> · ' + T(W.modulKurz) + ' ' + t.nr + ' ' + t.titel + '</span>';
+          }).join("");
+        }
         var hinweis = abgelaufen ? '<span class="v-knapp">' + esc(T(W.abgelaufen)) + '</span>'
-          : knapp ? '<span class="v-knapp">' + esc(tpl(W.knapp, { monat: monatName, frei: frei.length, n: f.n })) + '</span>' : "";
+          : knapp ? '<span class="v-knapp">' + esc(tpl(W.knapp, { monat: monatName, frei: frei.length, n: f.n })) + '</span>'
+          : f.alternative ? '<span class="v-alt">' + esc(tpl(W.alternativeWoche, { datum: BZS.aufloesen(f.alternative).datumText })) + '</span>' : "";
         return '<li' + (knapp ? ' class="knapp"' : '') + '><span class="v-name">' + esc(f.name) + '</span><span><span class="v-termine">' + termine + '</span>' + hinweis + '</span></li>';
       }).join("");
 
       var anzahlSamstage = Object.keys(samstage).length;
-      document.getElementById("planer-satz").textContent = fahrer.length === 1
-        ? tpl(W.satz1, { s: anzahlSamstage })
-        : tpl(W.satz, { n: fahrer.length, s: anzahlSamstage });
+      var mitWoche = fahrer.filter(function (f) { return f.woche; }).length;
+      /* Satz: Kopf + Teile + Schluss. Ohne Wochenkurs genau der bisherige Satz; alle im Wochenkurs → eigener Satz;
+         gemischt → Wochenkurs-Teil, dann (nur wenn es Samstage gibt) der Samstags-Teil — kein Pronomen, das zur Zahl passen muss. */
+      var n = fahrer.length, teile;
+      if (!mitWoche) teile = n === 1 ? [tpl(W.satzKopf1, { s: anzahlSamstage }), T(W.satzSamstage1)]
+        : [tpl(W.satzKopf, { n: n, s: anzahlSamstage }), T(W.satzSamstage)];
+      else if (mitWoche === n) teile = [n === 1 ? T(W.satzWoche1) : tpl(W.satzWocheAlle, { n: n })];
+      else teile = [tpl(W.satzKopf, { n: n, s: anzahlSamstage }), tpl(W.satzWocheTeil, { f: mitWoche, n: n })].concat(anzahlSamstage ? [T(W.satzSonst)] : []);
+      document.getElementById("planer-satz").textContent = teile.concat([T(W.satzSchluss)]).join(" ");
       document.getElementById("planer-vorschlag").innerHTML = zeilenHtml;
 
       var text = T(W.nachrichtKopf) + "\n\n" + fahrer.map(function (f) {
-        var t = f.termine.map(function (x) { return BZS.datumText(x.datum) + " " + T(W.modulWort) + " " + x.modul.nr; }).join(", ");
+        if (f.woche) {
+          var aw = BZS.aufloesen(f.woche);
+          return "- " + f.name + ": " + tpl(W.nachrichtWoche, { von: BZS.ltrText(BZS.datumText(f.woche.von)), bis: BZS.ltrText(BZS.datumText(f.woche.bis)), module: aw.modulSatz });
+        }
+        var t = f.termine.map(function (x) { return BZS.datumText(x.von) + " " + T(W.modulWort) + " " + x.module[0]; }).join(", ");
         if (f.abgelaufen) t += (t ? "; " : "") + T(W.nachrichtAb);
         else if (f.knapp) t += (t ? "; " : "") + tpl(W.nachrichtKnapp, { monat: f.monatName, frei: f.termine.length, n: f.n });
         return "- " + f.name + ": " + t;

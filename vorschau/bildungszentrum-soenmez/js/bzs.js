@@ -2,17 +2,18 @@
    BZS — gemeinsame Logik aller Entwürfe für das Bildungszentrum Sönmez
 
    Was hier liegt, gilt für jeden Entwurf gleichzeitig:
-   · Termine (aus dem Rhythmus berechnet, nie eingetippt)
+   · Termine anzeigen (Zeilen, Leiste, Karte, Kurstermine, Hinweis-Band)
    · Sprachen Deutsch / Türkisch / Englisch / Russisch / Arabisch /
      Kroatisch-Serbisch-Bosnisch (Texte der drei neuen Sprachen seit 28.09.2026)
    · Fristen-Rechner
    · Farbwelt-Umschalter (Rot / Blau / Sand)
    · Kopfleiste, Anfrageformular
 
-   ÄNDERN muss man hier nur etwas, wenn sich der Kursrhythmus ändert
-   (Wochentag, Uhrzeit), ein Termin ausfällt (Datum in "ausfall") oder
-   ein Text in einer Sprache korrigiert wird. Preise und Termine stehen
-   nur EINMAL — im HTML bzw. hier — und gelten für alle Sprachen.
+   TERMINE stehen NICHT mehr hier, sondern in js/termine.js (Daten, gepflegt
+   mit `node _termine.mjs`) und werden in js/termine-kern.js berechnet.
+   Reihenfolge auf jeder Seite: termine.js → termine-kern.js → bzs.js.
+   Hier ändert man nur noch Texte (eine Sprache korrigieren). Preise stehen
+   nur EINMAL im HTML und gelten für alle Sprachen.
 
    ⚠ Alle Übersetzungen sind noch nicht von Muttersprachlern
    gegengelesen. Von Sönmez' Dozenten prüfen lassen.
@@ -21,22 +22,35 @@ window.BZS = (function () {
   "use strict";
   var docEl = document.documentElement;
 
+  /* Termindaten + Rechenkern (müssen VOR dieser Datei geladen sein) */
+  var TD = window.BZS_TERMINE || null;
+  var KERN = window.BZS_KERN || null;
+  var bereit = !!(TD && KERN);
+  if (!bereit) {
+    try { console.warn("BZS: js/termine.js und js/termine-kern.js fehlen oder stehen nach bzs.js – keine Termine, Ersatztexte bleiben stehen."); } catch (e) {}
+  }
+
+  /* Altes Format DATEN.terminplan — nur noch zum LESEN für ältere Entwürfe
+     (aushang/, plantafel/, typenschild/ lesen beginn/ende). Änderungen hier wirken nicht. */
+  function terminplanKompat(D) {
+    var R = (D && D.rhythmus) || {};
+    var aus = (D && Array.isArray(D.ausfall)) ? D.ausfall : [];
+    return {
+      wochentag: R.wochentag != null ? R.wochentag : null,
+      beginn: R.beginn || null,
+      ende: R.ende || null,
+      anker: R.anker ? { datum: R.anker.datum, modul: R.anker.modul } : null,
+      anzeigen: R.anzeigen || 5,
+      ausfall: aus.map(function (a) { return a && a.datum; }).filter(Boolean)
+    };
+  }
+
   var DATEN = {
     whatsapp: "491739324879",
     email:    "bkfsonmez@gmail.com",
     sprachen: ["de", "tr", "en", "ru", "ar", "hr"],
 
-    terminplan: {
-      wochentag: 6,                                   /* 0 = Sonntag … 6 = Samstag */
-      beginn: "08:00",
-      ende:   "16:00",
-      anker:  { datum: "2026-07-18", modul: 1 },      /* an diesem Samstag lief Modul 1 */
-      anzeigen: 5,                                    /* wie viele Termine die Seite zeigt */
-      ausfall: [                                      /* Tage ohne Kurs, Format JJJJ-MM-TT */
-        "2026-10-03",  /* Tag der Deutschen Einheit — ANNAHME, am 26.09.2026 mit Herrn Sönmez bestätigen */
-        "2026-12-26"   /* Zweiter Weihnachtstag — ANNAHME, ebenfalls bestätigen */
-      ]
-    },
+    terminplan: terminplanKompat(TD),
 
     module: [
       { nr: 1,
@@ -84,6 +98,32 @@ window.BZS = (function () {
       de: "Guten Tag, ich möchte mich für Modul {nr} ({titel}) am {datum} anmelden.",
       tr: "Merhaba, {datum} tarihli {nr}. modül ({titel}) için yer ayırtmak istiyorum.",
       en: "Hello, I would like to register for Module {nr} ({titel}) on {datum}.", ru: "Здравствуйте, хочу записаться на модуль {nr} ({titel}) на {datum}.", ar: "مرحبًا، أودّ التسجيل في الوحدة {nr} ({titel}) بتاريخ {datum}.", hr: "Dobar dan, želim se prijaviti za modul {nr} ({titel}) dana {datum}." },
+    /* Weitere Vorlagen (seit 07.11.2026): Wochenkurs, Kurstermin an einem Tag, Kurstermin über mehrere Tage.
+       Auf Arabisch stehen die Daten in Richtungs-Inseln (U+2066 … U+2069). */
+    anfrageWoche: {
+      de: "Guten Tag, ich möchte mich für den Modul-95-Wochenkurs ({module}) vom {von} bis {bis} anmelden.",
+      tr: "Merhaba, {von} – {bis} tarihleri arasındaki bir haftalık Kod 95 kursu ({module}) için yer ayırtmak istiyorum.",
+      en: "Hello, I would like to register for the one-week Code 95 course ({module}) from {von} to {bis}.",
+      ru: "Здравствуйте, хочу записаться на недельный курс по коду 95 ({module}) с {von} по {bis}.",
+      ar: "مرحبًا، أودّ التسجيل في دورة رمز 95 لمدة أسبوع ({module}) من {von} إلى {bis}.",
+      hr: "Dobar dan, želim se prijaviti na sedmičnu obuku za kod 95 ({module}) od {von} do {bis}."
+    },
+    anfrageKursTag: {
+      de: "Guten Tag, ich möchte mich für die Schulung „{kurs}“ am {datum} anmelden.",
+      tr: "Merhaba, {datum} tarihli “{kurs}” eğitimi için yer ayırtmak istiyorum.",
+      en: "Hello, I would like to register for the “{kurs}” course on {datum}.",
+      ru: "Здравствуйте, хочу записаться на обучение «{kurs}» на {datum}.",
+      ar: "مرحبًا، أودّ التسجيل في دورة «{kurs}» بتاريخ {datum}.",
+      hr: "Dobar dan, želim se prijaviti za obuku „{kurs}“ dana {datum}."
+    },
+    anfrageKursSpanne: {
+      de: "Guten Tag, ich möchte mich für die Schulung „{kurs}“ vom {von} bis {bis} anmelden.",
+      tr: "Merhaba, {von} – {bis} tarihleri arasındaki “{kurs}” eğitimi için yer ayırtmak istiyorum.",
+      en: "Hello, I would like to register for the “{kurs}” course from {von} to {bis}.",
+      ru: "Здравствуйте, хочу записаться на обучение «{kurs}» с {von} по {bis}.",
+      ar: "مرحبًا، أودّ التسجيل في دورة «{kurs}» من {von} إلى {bis}.",
+      hr: "Dobar dan, želim se prijaviti za obuku „{kurs}“ od {von} do {bis}."
+    },
 
     /* Du-Fassung der Rechner-Texte für Seiten, die Fahrer duzen (<html data-anrede="du">).
        Je Sprache nach deren Anrederegel: tr siz, ru вы, en you, hr ti, ar direkt. */
@@ -226,69 +266,265 @@ window.BZS = (function () {
     }
   };
 
+  /* Texte der Terminanzeige (Zeilen, Marken, Leiste, Kurskarten). Platzhalter in allen Sprachen gleich.
+     Bewusst ohne Anrede, damit sie auf Sie- und Du-Seiten passen. */
+  var TERMIN_TEXTE = {
+    modul:       { de: "Modul", tr: "Modül", en: "Module", ru: "Модуль", ar: "الوحدة", hr: "Modul" },
+    /* mehrere Module: Plural (tr: Singular nach Zahlen ist richtig); Listen-Trenner „، " auf Arabisch, sonst „, " */
+    modulSpanne: { de: "Module {von}–{bis}", tr: "Modül {von}–{bis}", en: "Modules {von}–{bis}", ru: "Модули {von}–{bis}", ar: "الوحدات {von}–{bis}", hr: "Moduli {von}–{bis}" },
+    moduleListe: { de: "Module {liste}", tr: "Modül {liste}", en: "Modules {liste}", ru: "Модули {liste}", ar: "الوحدات {liste}", hr: "Moduli {liste}" },
+    woche:       { de: "Wochenkurs", tr: "Bir haftalık kurs", en: "One-week course", ru: "Недельный курс", ar: "دورة لمدة أسبوع", hr: "Sedmična obuka" },
+    wocheTitel:  { de: "{module} am Stück", tr: "{module}, bir hafta boyunca aralıksız", en: "{module} in one week", ru: "{module} подряд", ar: "{module} بشكل متواصل", hr: "{module} zaredom" },
+    wocheWas:    { de: "An aufeinanderfolgenden Tagen statt an einzelnen Samstagen.", tr: "Ayrı ayrı cumartesiler yerine bir hafta boyunca aralıksız.", en: "On consecutive days instead of separate Saturdays.", ru: "Несколько дней подряд, а не по отдельным субботам.", ar: "في أيام متتالية بدلًا من أيام سبت متفرقة.", hr: "Više dana zaredom umjesto pojedinačnih subota." },
+    zusatz:      { de: "Zusatztermin", tr: "Ek tarih", en: "Extra date", ru: "Дополнительная дата", ar: "موعد إضافي", hr: "Dodatni termin" },
+    naechster:   { de: "Nächster Termin", tr: "Bir sonraki tarih", en: "Next date", ru: "Ближайшая дата", ar: "الموعد القادم", hr: "Sljedeći termin" },
+    keinKurs:    { de: "Kein Kurs", tr: "Ders yok", en: "No course", ru: "Занятий нет", ar: "لا توجد دورة", hr: "Nema nastave" },
+    ausfallWas:  { de: "An diesem Tag findet kein Kurs statt.", tr: "Bu tarihte ders yapılmayacak.", en: "There is no course on this day.", ru: "В этот день занятий нет.", ar: "لا تُعقد دورة في هذا اليوم.", hr: "Tog dana nema nastave." }
+  };
+
   /* ─── Hilfen ─────────────────────────────────────────────────────── */
   function sprache() {
     var l = docEl.lang;
     return DATEN.sprachen.indexOf(l) > -1 ? l : "de";
   }
   function text(obj) { var l = sprache(); return obj[l] != null ? obj[l] : obj.de; }
-  function iso(d) {
-    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-  }
+  function zwei(n) { return String(n).padStart(2, "0"); }
+  function iso(d) { return d.getFullYear() + "-" + zwei(d.getMonth() + 1) + "-" + zwei(d.getDate()); }
+  function istIso(s) { return typeof s === "string" && /^\d{4}-\d\d-\d\d$/.test(s); }
+  function lokal(s) { return new Date(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)); }   /* ISO → lokale Mitternacht */
+  /* datumText(Date | "JJJJ-MM-TT") → "07.11.2026" */
   function datumText(d) {
-    return String(d.getDate()).padStart(2, "0") + "." + String(d.getMonth() + 1).padStart(2, "0") + "." + d.getFullYear();
+    if (istIso(d)) return d.slice(8, 10) + "." + d.slice(5, 7) + "." + d.slice(0, 4);
+    return zwei(d.getDate()) + "." + zwei(d.getMonth() + 1) + "." + d.getFullYear();
+  }
+  function tagMonat(s) { return s.slice(8, 10) + "." + s.slice(5, 7) + "."; }   /* "07.11." */
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function escAttr(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/"/g, "&quot;"); }
+  function fuellen(vorlage, werte) {
+    var s = String(vorlage);
+    Object.keys(werte).forEach(function (k) { s = s.split("{" + k + "}").join(werte[k]); });
+    return s;
+  }
+  /* Arabisch: Datumsteile als Links-nach-rechts-Insel, sonst springen Punkte und Zeiträume um */
+  function ltrHtml(h) { return sprache() === "ar" ? '<bdi dir="ltr">' + h + "</bdi>" : h; }
+  function ltrText(s) { return sprache() === "ar" ? "\u2066" + s + "\u2069" : s; }
+  function sicher(f) { try { return f(); } catch (e) { try { console.warn("BZS:", e); } catch (x) {} } }
+
+  /* ─── Termine: berechnen (Rechenkern js/termine-kern.js) ─────────────
+     heute(): Berliner Kalendertag; auf localhost wirkt ?heute=JJJJ-MM-TT zum Testen. */
+  function heute() {
+    if (KERN) return KERN.heuteParameter(window.location) || KERN.heuteBerlin();
+    return iso(new Date());
+  }
+  function abIso(ab) { return ab == null ? heute() : istIso(ab) ? ab : iso(new Date(ab)); }
+
+  /* termine({ab, bis, anzahl, arten, mitAusfall}) → Einträge wie BZS_KERN.termine
+     ({id, art, kurs, von, bis, module[], beginn, ende, zusatz}); ab Standard: heute(). */
+  function termine(opts) {
+    if (!bereit) return [];
+    var o = {}, k;
+    for (k in opts || {}) if (Object.prototype.hasOwnProperty.call(opts, k)) o[k] = opts[k];
+    o.ab = abIso(o.ab);
+    return KERN.termine(TD, o);
+  }
+  /* Erster Eintrag (nie ein Ausfall) oder null. Leiste/Karte: naechster({arten: ["modul", "woche"]}) */
+  function naechster(opts) {
+    if (!bereit) return null;
+    var o = {}, k;
+    for (k in opts || {}) if (Object.prototype.hasOwnProperty.call(opts, k)) o[k] = opts[k];
+    o.ab = abIso(o.ab);
+    return KERN.naechster(TD, o);
   }
 
-  /* ─── Termine: berechnen ─────────────────────────────────────────── */
-  /* terminListe(anzahl, ab) — anzahl: wie viele Termine (Standard: terminplan.anzeigen),
-     ab: frühestes Datum (Standard: heute). Ein Fuhrpark-Planer ruft z. B. terminListe(30). */
+  /* terminListe(anzahl, ab) — ALTES Format für die Entwürfe: nur eintägige Modul-95-Termine,
+     {datum: Date (lokale Mitternacht), modul: DATEN.module[…]}. ab: Date, ms oder "JJJJ-MM-TT". */
   function terminListe(anzahl, ab) {
-    var P = DATEN.terminplan;
-    var anker = new Date(P.anker.datum + "T00:00:00");
-    var heute = ab ? new Date(ab) : new Date(); heute.setHours(0, 0, 0, 0);
-    var d = new Date(heute);
-    while (d.getDay() !== P.wochentag) d.setDate(d.getDate() + 1);
+    return termine({ ab: ab, anzahl: anzahl || DATEN.terminplan.anzeigen, arten: ["modul"] })
+      .filter(function (e) { return e.art === "modul" && e.module.length === 1 && DATEN.module[e.module[0] - 1]; })
+      .map(function (e) { return { datum: lokal(e.von), modul: DATEN.module[e.module[0] - 1] }; });
+  }
 
-    var raus = [], schutz = 0, n = DATEN.module.length, ziel = anzahl || P.anzeigen;
-    while (raus.length < ziel && schutz++ < 800) {
-      if (P.ausfall.indexOf(iso(d)) === -1) {
-        var wochen = Math.round((d - anker) / 604800000);
-        var i = (((wochen + P.anker.modul - 1) % n) + n) % n;
-        raus.push({ datum: new Date(d), modul: DATEN.module[i] });
+  /* ─── Termine: auflösen ──────────────────────────────────────────────
+     aufloesen(e) macht aus einem Eintrag alles, was eine Seite anzeigt.
+     Alle Textfelder sind fertiges HTML (escaped, auf Arabisch mit <bdi>);
+     datumText ist reiner Text, waLink eine URL. Felder der alten Zeilen
+     (nr, titel, was, wtag, datum, iso, zeit, knopf, waLink) bleiben gleich.
+       art       "modul" | "woche" | "kurs" | "ausfall"
+       badge     "3" | "1–5" | "ST"        marke  "Wochenkurs" | "Zusatztermin" | "Kein Kurs" | ""
+       datum     "07.11.2026" | "23.11. – Fr 27.11.2026"   (davor steht wtag; zwischen Wochentag und Datum NBSP)
+       kurz      "Sa 07.11." | "Mo 23.11. – Fr 27.11."
+       lang      "Samstag, 07.11.2026" | "Montag, 23.11. – Freitag, 27.11.2026"
+       datumText "07.11.2026" | "23.11.2026 – 27.11.2026"   isoBis  letzter Tag
+       modulText "Modul 3" | "Module 1–5" | "Module 2, 4" | ""   notiz  Freitext (escaped) | ""
+       modulSatz wie modulText, aber reiner Text für die Satzmitte (ru/hr/tr klein: „модули 1–5") */
+  /* Wochentag und Datum bleiben zusammen („Fr 27.11." bricht bei 375 px nicht um, Prüfung 07.11.2026). Das
+     geschützte Leerzeichen steht außerhalb der <bdi>-Inseln (ltrHtml), die arabische Leserichtung bleibt. */
+  var NBSP = "\u00a0";
+  function spanne(m) {
+    var zus = m.length > 1 && m.every(function (x, i) { return i === 0 || x === m[i - 1] + 1; });
+    return zus ? { von: m[0], bis: m[m.length - 1] } : null;
+  }
+  function wtagKurz(s, l) { var w = DATEN.wochentage[l] || DATEN.wochentage.de; return w[lokal(s).getDay()]; }
+  function wtagLang(s, l) {
+    var d = lokal(s); d.setHours(12);
+    try { return d.toLocaleDateString(DATEN.locale[l], { weekday: "long" }); } catch (e) { return wtagKurz(s, l); }
+  }
+  /* Modul-Beschriftung als reiner Text: eines → „Modul 3", mehrere → Plural („Module 1–5" / „Module 2, 4") */
+  function modulBeschriftung(mod) {
+    var T = TERMIN_TEXTE, sp = spanne(mod);
+    if (mod.length === 1) return text(T.modul) + " " + mod[0];
+    if (sp) return fuellen(text(T.modulSpanne), { von: sp.von, bis: sp.bis });
+    return fuellen(text(T.moduleListe), { liste: mod.join(sprache() === "ar" ? "، " : ", ") });
+  }
+  /* Satzmitte: in ru, hr und tr schreibt man das Wort klein („на модуль 2", „za modul 2", „{nr}. modül") */
+  function imSatz(s) {
+    var l = sprache();
+    if (l !== "ru" && l !== "hr" && l !== "tr") return s;
+    try { return s.charAt(0).toLocaleLowerCase(DATEN.locale[l]) + s.slice(1); } catch (e) { return s.charAt(0).toLowerCase() + s.slice(1); }
+  }
+  function freitext(x) {
+    if (x == null) return "";
+    if (typeof x === "string") return x;
+    return typeof x === "object" ? String(text(x) == null ? "" : text(x)) : "";
+  }
+  function aufloesen(e) {
+    if (!e || !istIso(e.von)) return null;
+    var l = sprache(), T = TERMIN_TEXTE;
+    var von = e.von, bis = istIso(e.bis) && e.bis > e.von ? e.bis : e.von, mehr = bis !== von;
+    var mod = (e.module || []).filter(function (n) { return n >= 1 && n <= DATEN.module.length; });
+    var M = mod.length === 1 ? DATEN.module[mod[0] - 1] : null;
+    var dVon = datumText(von), dBis = datumText(bis), jahrGleich = von.slice(0, 4) === bis.slice(0, 4);
+    var badge, titel, was, marke = "", modulText = "", modulSatz = "", wa = "";
+
+    if (e.art === "modul" || e.art === "ausfall") {
+      if (!M) return null;
+      badge = String(M.nr); titel = text(M.titel); was = text(M.was);
+      modulText = text(T.modul) + " " + M.nr; modulSatz = imSatz(modulText);
+      if (e.art === "modul") {
+        marke = e.zusatz ? text(T.zusatz) : "";
+        /* unverändert zur alten Fassung (Links bleiben byte-gleich) */
+        wa = text(DATEN.anfrage).replace("{nr}", M.nr).replace("{titel}", titel).replace("{datum}", dVon);
+      } else {
+        marke = text(T.keinKurs);
+        was = freitext(e.grund) || text(T.ausfallWas);
       }
-      d.setDate(d.getDate() + 7);
-    }
-    return raus;
+    } else if (e.art === "woche") {
+      if (!mod.length) mod = [1, 2, 3, 4, 5];
+      var sp = spanne(mod);
+      badge = sp ? sp.von + "–" + sp.bis : mod.join(", ");
+      modulText = modulBeschriftung(mod); modulSatz = imSatz(modulText);
+      titel = fuellen(text(T.wocheTitel), { module: modulText });
+      was = text(T.wocheWas);
+      marke = text(T.woche);
+      wa = fuellen(text(DATEN.anfrageWoche), { module: modulSatz, von: ltrText(dVon), bis: ltrText(dBis) });
+    } else if (e.art === "kurs") {
+      var K = TD && TD.kurse && TD.kurse[e.kurs];
+      if (!K || !K.name) return null;
+      badge = String(K.kuerzel || "");
+      titel = freitext(K.name);
+      was = freitext(e.notiz);
+      wa = mehr ? fuellen(text(DATEN.anfrageKursSpanne), { kurs: titel, von: ltrText(dVon), bis: ltrText(dBis) })
+        : fuellen(text(DATEN.anfrageKursTag), { kurs: titel, datum: ltrText(dVon) });
+    } else return null;
+
+    var wt = wtagKurz(von, l), komma = l === "ar" ? "، " : ", ";
+    var zeit = e.beginn && e.ende ? e.beginn + " – " + e.ende + DATEN.uhr[l] : e.beginn ? e.beginn + DATEN.uhr[l] : "";
+    var t = {
+      nr: M ? M.nr : badge,
+      titel: esc(titel),
+      was: esc(was),
+      wtag: esc(wt),
+      datum: mehr ? ltrHtml(jahrGleich ? tagMonat(von) : dVon) + " – " + esc(wtagKurz(bis, l)) + NBSP + ltrHtml(dBis) : ltrHtml(dVon),
+      iso: von,
+      zeit: e.art === "ausfall" ? "" : esc(zeit),
+      knopf: e.art === "ausfall" ? "" : esc(DATEN.knopf[l]),
+      waLink: wa ? "https://wa.me/" + DATEN.whatsapp + "?text=" + encodeURIComponent(wa) : "",
+      art: e.art,
+      badge: esc(badge),
+      datumText: mehr ? ltrText(dVon) + " – " + ltrText(dBis) : ltrText(dVon),
+      isoBis: bis,
+      marke: esc(marke),
+      kurz: esc(wt) + NBSP + ltrHtml(tagMonat(von)) + (mehr ? " – " + esc(wtagKurz(bis, l)) + NBSP + ltrHtml(tagMonat(bis)) : ""),
+      lang: esc(wtagLang(von, l)) + komma + (mehr ? ltrHtml(jahrGleich ? tagMonat(von) : dVon) + " – " + esc(wtagLang(bis, l)) + komma + ltrHtml(dBis) : ltrHtml(dVon)),
+      modulText: esc(modulText),
+      modulSatz: modulSatz,
+      notiz: e.art === "kurs" ? "" : esc(freitext(e.notiz)),
+      id: e.id, kurs: e.kurs, zusatz: !!e.zusatz
+    };
+    return t;
   }
 
   /* ─── Termine: zeichnen ──────────────────────────────────────────────
-     render(t) bekommt einen fertig aufgelösten Termin und gibt HTML
-     zurück (ein Element pro Termin). Jeder Entwurf bringt sein eigenes
-     Aussehen mit; die Daten sind für alle gleich.                       */
+     render(t) bekommt einen aufgelösten Termin und gibt HTML zurück (ein
+     Element pro Termin). planZeile ist das gemeinsame Aussehen von
+     Entwurf A; ältere Entwürfe bringen ihr eigenes mit.                  */
+  function planZeile(t) {
+    if (!t) return "";
+    var marke = t.marke ? ' <span class="plan-status ' + (t.art === "ausfall" ? "st-voll" : "st-wenige") + '">' + t.marke + "</span>" : "";
+    var was = (t.was ? '<span class="plan-was">' + t.was + "</span>" : "") + (t.notiz ? '<span class="plan-was">' + t.notiz + "</span>" : "");
+    var knopf = t.waLink ? '<a class="plan-anmelden" href="' + escAttr(t.waLink) + '" target="_blank" rel="noopener">' + t.knopf + "</a>" : "";
+    return '<div class="plan-zeile' + (t.art === "modul" ? "" : " plan-" + t.art) + '">' +
+      '<span class="mod">' + t.badge + "</span>" +
+      '<span><span class="plan-titel">' + t.titel + "</span>" + marke + was + "</span>" +
+      '<span class="plan-datum">' + t.wtag + NBSP + t.datum + (t.zeit ? "<small>" + t.zeit + "</small>" : "") + "</span>" +
+      knopf +
+    "</div>";
+  }
+
   var renderer = null;
+  /* #terminliste: Modul-95-Termine (Samstage, Zusatztermine, Wochenkurse). Ausfälle mit
+     anzeigen:true nur im gemeinsamen Aussehen (planZeile). Ohne Termine bleibt der Ersatztext stehen. */
   function terminZeichnen(render) {
     if (render) renderer = render;
     var ziel = document.getElementById("terminliste");
     if (!ziel || !renderer) return;
-    var P = DATEN.terminplan, l = sprache();
+    var zeilen = termine({ arten: ["modul", "woche"], mitAusfall: renderer === planZeile ? "anzeigen" : false })
+      .map(aufloesen).filter(Boolean);
+    if (!zeilen.length) return;
     ziel.innerHTML = "";
-    terminListe().forEach(function (t) {
-      var datum = datumText(t.datum);
-      var titel = text(t.modul.titel);
-      var frage = text(DATEN.anfrage).replace("{nr}", t.modul.nr).replace("{titel}", titel).replace("{datum}", datum);
-      var fertig = {
-        nr: t.modul.nr,
-        titel: titel,
-        was: text(t.modul.was),
-        wtag: DATEN.wochentage[l][t.datum.getDay()],
-        datum: datum,
-        iso: iso(t.datum),
-        zeit: P.beginn + " – " + P.ende + DATEN.uhr[l],
-        knopf: DATEN.knopf[l],
-        waLink: "https://wa.me/" + DATEN.whatsapp + "?text=" + encodeURIComponent(frage)
-      };
-      ziel.insertAdjacentHTML("beforeend", renderer(fertig));
+    zeilen.forEach(function (t) { ziel.insertAdjacentHTML("beforeend", renderer(t)); });
+  }
+
+  /* #kursliste (Block #weitere-kurse) und <p data-kurs-termin="stapler"> in den Kurskarten */
+  function kurseZeichnen() {
+    var liste = document.getElementById("kursliste"), block = document.getElementById("weitere-kurse");
+    var karten = document.querySelectorAll("[data-kurs-termin]");
+    if (!liste && !karten.length) return;
+    var alle = termine({ arten: ["kurs"], anzahl: 200 }).map(aufloesen).filter(Boolean);
+    if (liste) {
+      var zeigen = alle.slice(0, DATEN.terminplan.anzeigen);
+      if (zeigen.length) liste.innerHTML = zeigen.map(planZeile).join("");
+      if (block) block.hidden = !zeigen.length;
+    }
+    Array.prototype.forEach.call(karten, function (p) {
+      var id = p.getAttribute("data-kurs-termin"), t = null;
+      for (var i = 0; i < alle.length && !t; i++) if (alle[i].kurs === id) t = alle[i];
+      if (!t) { p.hidden = true; return; }
+      /* Zeitspanne bricht nicht am Gedankenstrich um (375 px); Komma je Sprache wie in aufloesen() */
+      p.innerHTML = '<span class="kurs-termin-k">' + esc(text(TERMIN_TEXTE.naechster)) + ":</span> " +
+        t.wtag + NBSP + t.datum + (t.zeit ? (sprache() === "ar" ? "، " : ", ") + '<span class="kurs-termin-zeit">' + t.zeit + "</span>" : "") +
+        (t.waLink ? ' · <a href="' + escAttr(t.waLink) + '" target="_blank" rel="noopener">' + t.knopf + "</a>" : "");
+      p.hidden = false;
     });
+  }
+
+  /* Hinweis-Band (#hinweis, erstes Kind von .oben): Text nur per textContent */
+  function hinweisZeigen() {
+    var el = document.getElementById("hinweis");
+    if (!el) return null;
+    var h = bereit ? KERN.hinweisAktiv(TD, heute()) : null;
+    var txt = h && h.text ? String(h.text[sprache()] || h.text.de || "").trim() : "";
+    if (!txt) { el.hidden = true; return null; }
+    el.textContent = "";
+    var p = document.createElement("p");
+    p.className = "spalte hinweis-text";
+    p.textContent = txt;
+    el.appendChild(p);
+    el.setAttribute("data-phase", h.phase);
+    el.hidden = false;
+    return h;
   }
 
   /* ─── Fristen-Rechner ──────────────────────────────────────────────
@@ -453,16 +689,20 @@ window.BZS = (function () {
      unabhängig davon, ob GSAP geladen ist oder Bewegung reduziert wird. */
   function start(opts) {
     opts = opts || {};
+    sicher(hinweisZeigen);          /* vor kopf(): die gemessene Kopfhöhe enthält das Band */
     farbwelt();
     kopf();
     formular();
-    if (opts.termin) terminZeichnen(opts.termin);
+    if (opts.termin) sicher(function () { terminZeichnen(opts.termin); });
+    sicher(kurseZeichnen);
     rechner();
     sprachen();
   }
 
   return {
-    DATEN: DATEN, start: start, sprache: sprache, text: text,
-    terminListe: terminListe, terminZeichnen: terminZeichnen, datumText: datumText
+    DATEN: DATEN, TERMIN_TEXTE: TERMIN_TEXTE, start: start, sprache: sprache, text: text,
+    terminListe: terminListe, terminZeichnen: terminZeichnen, datumText: datumText,
+    termine: termine, naechster: naechster, aufloesen: aufloesen, planZeile: planZeile,
+    kurseZeichnen: kurseZeichnen, hinweisZeigen: hinweisZeigen, heute: heute, esc: esc, ltrText: ltrText
   };
 })();

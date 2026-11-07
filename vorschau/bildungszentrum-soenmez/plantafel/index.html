@@ -75,6 +75,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-modul95",
    "name": "Weiterbildung Schlüsselzahl 95 (Modul 95, 5 Module)",
    "description": "Fünf Module, jeden Samstag ein Modul von 08:00 bis 16:00, nach Absprache auch eine Woche am Stück. Alle fünf Jahre 35 Stunden nach BKrFQG. Bescheinigung, Verpflegung, Getränke, Lernmaterial und Parkplatz inklusive.",
    "provider": {
@@ -105,23 +106,26 @@
     }
    ],
    "educationalCredentialAwarded": "Teilnahmebescheinigung nach BKrFQG",
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#betrieb"
-    },
-    "courseSchedule": {
-     "@type": "Schedule",
-     "byDay": "https://schema.org/Saturday",
-     "startTime": "08:00",
-     "endTime": "16:00",
-     "repeatFrequency": "P1W"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#betrieb"
+     },
+     "courseSchedule": {
+      "@type": "Schedule",
+      "byDay": "https://schema.org/Saturday",
+      "startTime": "08:00",
+      "endTime": "16:00",
+      "repeatFrequency": "P1W"
+     }
     }
-   }
+   ]
   },
   {
    "@type": "Course",
+   "@id": "#kurs-grundquali",
    "name": "Beschleunigte Grundqualifikation",
    "description": "Der Einstieg für alle, die neu als Berufskraftfahrer anfangen. Die Prüfung nimmt die IHK ab.",
    "provider": {
@@ -145,6 +149,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-stapler",
    "name": "Gabelstapler",
    "description": "Der Staplerschein für Lager und Hof.",
    "provider": {
@@ -168,6 +173,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-ladekran",
    "name": "Ladekran",
    "description": "Bedienerschulung für den Kran am Fahrzeug.",
    "provider": {
@@ -191,6 +197,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-bagger",
    "name": "Bagger und Erdbaumaschinen",
    "description": "Termin und Umfang nach Absprache, Preis auf Anfrage.",
    "provider": {
@@ -209,6 +216,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-fachseminar",
    "name": "Fachseminar für Unternehmer und Verkehrsleiter",
    "description": "Für die Geschäftsführung, nicht für Fahrer. Termin nach Absprache.",
    "provider": {
@@ -1013,7 +1021,7 @@ section[id],div[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
         <ul>
           <li data-de="Rechtliche Grundlagen" data-tr="Rechtliche Grundlagen" data-en="Rechtliche Grundlagen">Rechtliche Grundlagen</li>
           <li data-de="Physikalische Grundlagen" data-tr="Physikalische Grundlagen" data-en="Physikalische Grundlagen">Physikalische Grundlagen</li>
-          <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-tr="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-en="Aufbauten von Fahrzeugarten nach DIN EN 12640">Aufbauten von Fahrzeugarten nach DIN EN 12640</li>
+          <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12642" data-tr="Aufbauten von Fahrzeugarten nach DIN EN 12642" data-en="Aufbauten von Fahrzeugarten nach DIN EN 12642">Aufbauten von Fahrzeugarten nach DIN EN 12642</li>
           <li data-de="Arten der Ladungssicherung" data-tr="Arten der Ladungssicherung" data-en="Arten der Ladungssicherung">Arten der Ladungssicherung</li>
           <li data-de="Ermittlung der erforderlichen Sicherungskräfte" data-tr="Ermittlung der erforderlichen Sicherungskräfte" data-en="Ermittlung der erforderlichen Sicherungskräfte">Ermittlung der erforderlichen Sicherungskräfte</li>
           <li data-de="Zurrmittel und weitere Hilfsmittel" data-tr="Zurrmittel und weitere Hilfsmittel" data-en="Zurrmittel und weitere Hilfsmittel">Zurrmittel und weitere Hilfsmittel</li>
@@ -1154,6 +1162,8 @@ section[id],div[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   </div>
 </footer>
 
+<script src="../js/termine.js"></script>
+<script src="../js/termine-kern.js"></script>
 <script src="../js/bzs.js"></script>
 <script>
 (function () {

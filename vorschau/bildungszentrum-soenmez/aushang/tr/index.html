@@ -464,6 +464,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   },
   {
    "@type": "Course",
+   "@id": "#kurs-modul95",
    "name": "Weiterbildung Schlüsselzahl 95 (Modul 95)",
    "description": "Gesetzliche Weiterbildung für Berufskraftfahrer nach BKrFQG: 35 Stunden in fünf Modulen, alle fünf Jahre. Samstags 08:00–16:00 Uhr, ein Modul pro Tag, auch als ganze Woche oder nach Absprache. 120 € je Modul, Zertifikat, Verpflegung und Lernmaterial enthalten.",
    "provider": {
@@ -479,19 +480,21 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bildungszentrum-soenmez"
-    },
-    "courseSchedule": {
-     "@type": "Schedule",
-     "byDay": "https://schema.org/Saturday",
-     "startTime": "08:00",
-     "endTime": "16:00"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bildungszentrum-soenmez"
+     },
+     "courseSchedule": {
+      "@type": "Schedule",
+      "byDay": "https://schema.org/Saturday",
+      "startTime": "08:00",
+      "endTime": "16:00"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "120",
@@ -500,6 +503,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   },
   {
    "@type": "Course",
+   "@id": "#kurs-grundquali",
    "name": "Beschleunigte Grundqualifikation",
    "description": "Der Einstieg in den Beruf Berufskraftfahrer, anerkannt nach BKrFQG. 2.500 € je Teilnehmer.",
    "provider": {
@@ -515,13 +519,15 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bildungszentrum-soenmez"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bildungszentrum-soenmez"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "2500",
@@ -530,6 +536,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   },
   {
    "@type": "Course",
+   "@id": "#kurs-stapler",
    "name": "Gabelstapler",
    "description": "Staplerschein nach DGUV Grundsatz 308-001. 250 € je Teilnehmer.",
    "provider": {
@@ -545,13 +552,15 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bildungszentrum-soenmez"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bildungszentrum-soenmez"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "250",
@@ -560,6 +569,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   },
   {
    "@type": "Course",
+   "@id": "#kurs-ladekran",
    "name": "Ladekran",
    "description": "Ladekranschulung nach DGUV Grundsatz 309-003. 199 € je Teilnehmer.",
    "provider": {
@@ -575,13 +585,15 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bildungszentrum-soenmez"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bildungszentrum-soenmez"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "199",
@@ -590,6 +602,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   },
   {
    "@type": "Course",
+   "@id": "#kurs-bagger",
    "name": "Bagger und Erdbaumaschinen",
    "description": "Bagger und Erdbaumaschinen. Preis auf Anfrage.",
    "provider": {
@@ -605,16 +618,19 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bildungszentrum-soenmez"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bildungszentrum-soenmez"
+     }
     }
-   }
+   ]
   },
   {
    "@type": "Course",
+   "@id": "#kurs-fachseminar",
    "name": "Fachseminar für Unternehmer und Verkehrsleiter",
    "description": "Fachseminar für Unternehmer und Verkehrsleiter. 1.200 € je Teilnehmer.",
    "provider": {
@@ -630,13 +646,15 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bildungszentrum-soenmez"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bildungszentrum-soenmez"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "1200",
@@ -917,7 +935,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
           <ul>
             <li>Rechtliche Grundlagen</li>
             <li>Physikalische Grundlagen</li>
-            <li>Aufbauten von Fahrzeugarten nach DIN EN 12640</li>
+            <li>Aufbauten von Fahrzeugarten nach DIN EN 12642</li>
             <li>Arten der Ladungssicherung</li>
             <li>Ermittlung der erforderlichen Sicherungskräfte</li>
             <li>Zurrmittel und weitere Hilfsmittel</li>
@@ -1017,6 +1035,8 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
   </div>
 </footer>
 
+<script src="../../js/termine.js"></script>
+<script src="../../js/termine-kern.js"></script>
 <script src="../../js/bzs.js"></script>
 <script>
 (function () {

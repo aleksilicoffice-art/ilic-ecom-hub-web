@@ -20,7 +20,7 @@
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
- "inLanguage": "de",
+ "inLanguage": "tr",
  "@graph": [
   {
    "@type": [
@@ -78,6 +78,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-modul95",
    "name": "Kod 95 yenileme eğitimi",
    "description": "BKrFQG uyarınca yasal zorunlu eğitim, kısaca Kod 95: beş modülde 35 saat, her beş yılda bir. Geçerli Kod 95 olmadan hiç kimse ticari olarak kamyon ya da otobüs kullanamaz. 120 € modül başına.",
    "provider": {
@@ -93,20 +94,22 @@
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
-    },
-    "courseSchedule": {
-     "@type": "Schedule",
-     "byDay": "https://schema.org/Saturday",
-     "startTime": "08:00",
-     "endTime": "16:00",
-     "repeatFrequency": "P1W"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     },
+     "courseSchedule": {
+      "@type": "Schedule",
+      "byDay": "https://schema.org/Saturday",
+      "startTime": "08:00",
+      "endTime": "16:00",
+      "repeatFrequency": "P1W"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "120",
@@ -115,6 +118,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-grundquali",
    "name": "Hızlandırılmış temel yeterlilik",
    "description": "Mesleğe yeni başlayanlar için giriş. BKrFQG uyarınca onaylı eğitim, deneyimli eğitmenlerle.",
    "provider": {
@@ -130,13 +134,15 @@
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "2500",
@@ -145,6 +151,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-stapler",
    "name": "Forklift",
    "description": "Forklift belgesi (Staplerschein), DGUV Grundsatz 308-001'e göre eğitim. Belge fiyata dahildir. 250 €.",
    "provider": {
@@ -160,13 +167,15 @@
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "250",
@@ -175,6 +184,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-ladekran",
    "name": "Yükleme vinci",
    "description": "Yükleme vinci (araç üstü vinç) eğitimi, DGUV Grundsatz 309-003'e göre. Belge fiyata dahildir. 199 €.",
    "provider": {
@@ -190,13 +200,15 @@
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "199",
@@ -205,6 +217,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-bagger",
    "name": "Kepçe ve iş makineleri",
    "description": "Kepçe ve iş makineleri eğitimi. Tarih, kapsam ve fiyat için bize ulaşın.",
    "provider": {
@@ -220,16 +233,19 @@
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     }
     }
-   }
+   ]
   },
   {
    "@type": "Course",
+   "@id": "#kurs-fachseminar",
    "name": "İşletme sahipleri için uzmanlık semineri",
    "description": "Taşımacılık işletmesi sahipleri ve taşımacılık yöneticileri (Verkehrsleiter) için uzmanlık semineri. Tarihler anlaşmaya göre. 1.200 €.",
    "provider": {
@@ -245,13 +261,15 @@
     "sr",
     "bs"
    ],
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     }
     }
-   },
+   ],
    "offers": {
     "@type": "Offer",
     "price": "1200",
@@ -270,6 +288,8 @@
 <body>
 
 <div class="oben">
+  <!-- Hinweis-Band (Urlaub, Schließtage): Text aus js/termine.js (hinweise), gesetzt von bzs.js -->
+  <div class="hinweis-band" id="hinweis" role="note" hidden></div>
   <div class="entwurf" translate="no">
     <span>Entwurf A · „Der Fuhrpark" · unverbindlicher Vorschlag von ILIC ECOM HUB</span>
     <span class="farbwahl" role="group" aria-label="Farbwelt wählen">
@@ -463,9 +483,15 @@
       <p class="fuehrt" data-de="Die fünf Module laufen im Wechsel, eins bis fünf und wieder von vorn. Wann Sie am besten einsteigen, klären wir bei der Anmeldung.">Beş modül sırayla döner: birden beşe, sonra yeniden baştan. Ne zaman başlamanızın en uygun olduğunu kayıt sırasında netleştiririz.</p>
     </div>
 
-    <!-- Die Termine werden aus TERMINPLAN im Skript unten berechnet.
-         Hier steht bewusst nichts fest Eingetragenes mehr. -->
-    <div class="plan" id="terminliste"></div>
+    <!-- Die Termine rechnet bzs.js aus js/termine.js (Rhythmus, Ausfälle, Zusatz- und Wochenkurse).
+         Hier steht bewusst kein Termin; der Satz gilt nur ohne JavaScript. -->
+    <div class="plan" id="terminliste"><p class="plan-ersatz" data-de="Modul 95 läuft jeden Samstag von 08:00 bis 16:00 Uhr, jedes Mal ein anderes Modul. Welches Modul an welchem Samstag dran ist, sagen wir Ihnen gern am Telefon: 0173 9324879.">Kod 95 yenileme eğitimi her cumartesi 08:00 – 16:00 arasında yapılır; her seferinde farklı bir modül işlenir. Hangi cumartesi hangi modülün işlendiğini size telefonda memnuniyetle söyleriz: 0173 9324879.</p></div>
+
+    <!-- Feste Termine der übrigen Schulungen (kursTermine in js/termine.js) — erscheint nur, wenn welche eingetragen sind -->
+    <div class="weitere-kurse" id="weitere-kurse" hidden>
+      <h3 data-de="Weitere Schulungen mit festem Termin">Belirli tarihli diğer eğitimler</h3>
+      <div class="plan" id="kursliste"></div>
+    </div>
 
     <div class="plan-fuss">
       <p class="weich" style="font-size:.93rem; max-width:42em" data-de="Sie brauchen einen anderen Termin oder eine geschlossene Gruppe für Ihren Betrieb? Wir richten Kurse auch nach Absprache ein." data-tr="Başka bir tarihe ya da işletmenize özel kapalı bir gruba mı ihtiyacınız var? Anlaşmaya göre de kurs açıyoruz." data-en="Need a different date or a closed group for your company? We also set up courses by arrangement.">Başka bir tarihe ya da işletmenize özel kapalı bir gruba mı ihtiyacınız var? Anlaşmaya göre de kurs açıyoruz.</p>
@@ -489,22 +515,27 @@
       <div class="kurs">
         <div class="kurs-kopf"><h3 data-de="Beschleunigte Grundqualifikation" data-tr="Hızlandırılmış temel yeterlilik" data-en="Accelerated initial qualification">Hızlandırılmış temel yeterlilik</h3><span class="preis">2.500 €</span></div>
         <p data-de="Der Einstieg in den Beruf für alle, die neu anfangen. Anerkannte Schulung nach BKrFQG mit erfahrenen Dozenten." data-tr="Mesleğe yeni başlayanlar için giriş. BKrFQG uyarınca onaylı eğitim, deneyimli eğitmenlerle." data-en="The way into the job for anyone starting out. Approved training under the BKrFQG (German Professional Drivers' Qualification Act) with experienced instructors.">Mesleğe yeni başlayanlar için giriş. BKrFQG uyarınca onaylı eğitim, deneyimli eğitmenlerle.</p>
+        <p class="kurs-termin" data-kurs-termin="grundquali" hidden></p>
       </div>
       <div class="kurs">
         <div class="kurs-kopf"><h3 data-de="Gabelstapler" data-tr="Forklift" data-en="Forklift">Forklift</h3><span class="preis">250 €</span></div>
         <p data-de="Der Staplerschein, geschult nach DGUV Grundsatz 308-001. Bescheinigung im Preis enthalten." data-tr="Forklift belgesi (Staplerschein), DGUV Grundsatz 308-001&#39;e göre eğitim. Belge fiyata dahildir." data-en="The forklift licence, training to DGUV Grundsatz 308-001. Certificate included in the price.">Forklift belgesi (Staplerschein), DGUV Grundsatz 308-001'e göre eğitim. Belge fiyata dahildir.</p>
+        <p class="kurs-termin" data-kurs-termin="stapler" hidden></p>
       </div>
       <div class="kurs">
         <div class="kurs-kopf"><h3 data-de="Ladekran" data-tr="Yükleme vinci" data-en="Loader crane">Yükleme vinci</h3><span class="preis">199 €</span></div>
         <p data-de="Schulung für den Ladekran nach DGUV Grundsatz 309-003. Bescheinigung im Preis enthalten." data-tr="Yükleme vinci (araç üstü vinç) eğitimi, DGUV Grundsatz 309-003&#39;e göre. Belge fiyata dahildir." data-en="Training for the loader crane to DGUV Grundsatz 309-003. Certificate included in the price.">Yükleme vinci (araç üstü vinç) eğitimi, DGUV Grundsatz 309-003'e göre. Belge fiyata dahildir.</p>
+        <p class="kurs-termin" data-kurs-termin="ladekran" hidden></p>
       </div>
       <div class="kurs">
         <div class="kurs-kopf"><h3 data-de="Bagger &amp; Erdbaumaschinen" data-tr="Kepçe ve iş makineleri" data-en="Excavators &amp; earthmoving machinery">Kepçe ve iş makineleri</h3><span class="preis" data-de="auf Anfrage" data-tr="fiyat için bize ulaşın" data-en="price on request">fiyat için bize ulaşın</span></div>
         <p data-de="Schulung für Bagger und Erdbaumaschinen. Termin, Umfang und Preis besprechen wir mit Ihnen." data-tr="Kepçe ve iş makineleri (ekskavatör) eğitimi. Tarih, kapsam ve fiyat için bize ulaşın." data-en="Training for excavators and earthmoving machinery (plant). Dates, scope and price on request.">Kepçe ve iş makineleri (ekskavatör) eğitimi. Tarih, kapsam ve fiyat için bize ulaşın.</p>
+        <p class="kurs-termin" data-kurs-termin="bagger" hidden></p>
       </div>
       <div class="kurs">
         <div class="kurs-kopf"><h3 data-de="Fachseminar für Unternehmer" data-tr="İşletme sahipleri için uzmanlık semineri" data-en="Specialist seminar for haulage operators">İşletme sahipleri için uzmanlık semineri</h3><span class="preis">1.200 €</span></div>
         <p data-de="Für Inhaber von Transportbetrieben und Verkehrsleiter. Termine nach Absprache." data-tr="Taşımacılık işletmesi sahipleri ve taşımacılık yöneticileri (Verkehrsleiter) için. Tarihler anlaşmaya göre." data-en="For haulage operators and transport managers. Dates by arrangement.">Taşımacılık işletmesi sahipleri ve taşımacılık yöneticileri (Verkehrsleiter) için. Tarihler anlaşmaya göre.</p>
+        <p class="kurs-termin" data-kurs-termin="fachseminar" hidden></p>
       </div>
     </div>
     <div class="dozent">
@@ -704,7 +735,7 @@
     </div>
     <div class="fuss-unten">
       <span data-de="© 2026 Bildungszentrum Sönmez · Inhaber Zülküf Sönmez" data-tr="© 2026 Bildungszentrum Sönmez · Sahibi Zülküf Sönmez" data-en="© 2026 Bildungszentrum Sönmez · Owner Zülküf Sönmez">© 2026 Bildungszentrum Sönmez · Sahibi Zülküf Sönmez</span>
-      <span><a href="../../impressum.html" data-de="Impressum" data-tr="Künye" data-en="Legal notice">Künye</a> · <a href="../../datenschutz.html" data-de="Datenschutz" data-tr="Gizlilik politikası" data-en="Privacy policy">Gizlilik politikası</a><span class="rechts-sprache"> · yasal metinler yalnızca Almanca</span></span>
+      <span class="fuss-rechts"><span><a href="../../impressum.html" data-de="Impressum" data-tr="Künye" data-en="Legal notice">Künye</a> · <a href="../../datenschutz.html" data-de="Datenschutz" data-tr="Gizlilik politikası" data-en="Privacy policy">Gizlilik politikası</a><span class="rechts-sprache"> · yasal metinler yalnızca Almanca</span></span> · <a class="urheber" href="https://ilic-ecomhub.de/" target="_blank" rel="nofollow noopener" data-de="Website von Aleksandar Ilic · ILIC ECOM HUB">Web sitesi tasarımı: Aleksandar Ilic · ILIC ECOM HUB</a></span>
     </div>
   </div>
 </footer>
@@ -716,25 +747,18 @@
 
 <script src="../../js/gsap.min.js"></script>
 <script src="../../js/ScrollTrigger.min.js"></script>
+<script src="../../js/termine.js"></script>
+<script src="../../js/termine-kern.js"></script>
 <script src="../../js/bzs.js"></script>
 <script>
 (function () {
   "use strict";
 
   /* Gemeinsame Logik (Termine, Sprachen, Rechner, Farbwelt, Kopf) liegt
-     in ../js/bzs.js — dort wird auch der Terminplan gepflegt. Hier nur
-     noch das Aussehen einer Terminzeile und die Bewegung dieses Entwurfs. */
-  BZS.start({
-    termin: function (t) {
-      return '<div class="plan-zeile">' +
-        '<span class="mod">' + t.nr + '</span>' +
-        '<span><span class="plan-titel">' + t.titel + '</span>' +
-        '<span class="plan-was">' + t.was + '</span></span>' +
-        '<span class="plan-datum">' + t.wtag + ' ' + t.datum + '<small>' + t.zeit + '</small></span>' +
-        '<a class="plan-anmelden" href="' + t.waLink + '" target="_blank" rel="noopener">' + t.knopf + '</a>' +
-      '</div>';
-    }
-  });
+     in ../js/bzs.js, die Termine selbst in ../js/termine.js. Hier nur noch
+     die Leiste und die Bewegung dieses Entwurfs; die Zeilen zeichnet
+     BZS.planZeile (gleiches Aussehen wie auf fahrer/). */
+  BZS.start({ termin: BZS.planZeile });
 
   /* Texte, die dieses Skript selbst schreibt — je Sprache */
   var T = {
@@ -744,13 +768,13 @@
                en: "Two deadlines have passed. <b>Two drivers may no longer drive.</b>", ru: "Два срока истекли. <b>Два водителя больше не имеют права водить.</b>", ar: "انتهت مهلتان. <b>سائقان لم يعد يحقّ لهما القيادة.</b>", hr: "Dva roka su istekla. <b>Dva vozača više ne smiju voziti.</b>" }
   };
 
-  /* ═══ Leiste „Nächster Kurstag" — aus demselben Terminplan wie die Liste ═══ */
+  /* ═══ Leiste „Nächster Kurstag" — nächster Modul-95-Termin (Samstag, Zusatztermin
+         oder Wochenkurs) aus derselben Quelle wie die Liste. Felder sind fertiges HTML. ═══ */
   (function () {
-    var el = document.getElementById("naechster"), t = BZS.terminListe(1)[0];
+    var el = document.getElementById("naechster"), e = BZS.naechster({ arten: ["modul", "woche"] });
+    var t = e && BZS.aufloesen(e);
     if (!el || !t) return;
-    var D = BZS.DATEN, l = BZS.sprache();
-    el.textContent = D.wochentage[l][t.datum.getDay()] + " " + BZS.datumText(t.datum) + " · " +
-      BZS.text({ de: "Modul", tr: "Modül", en: "Module", ru: "Модуль", ar: "الوحدة", hr: "Modul" }) + " " + t.modul.nr + " · " + BZS.text(t.modul.titel);
+    el.innerHTML = t.wtag + " " + t.datum + " · " + (t.art === "woche" ? t.marke : t.modulText) + " · " + t.titel;
   })();
 
   /* ═══ Bewegung nur, wenn erwünscht und GSAP geladen ═══ */

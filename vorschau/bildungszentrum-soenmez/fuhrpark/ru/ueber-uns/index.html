@@ -28,6 +28,8 @@
 <!-- Unterseite von Entwurf A. Stil: ../stil.css (gemeinsam mit der Startseite).
      Vorerst nur Deutsch — TR/EN führen zur übersetzten Startseite. -->
 <div class="oben">
+  <!-- Hinweis-Band (Urlaub, Schließtage): Text aus js/termine.js (hinweise), gesetzt von bzs.js -->
+  <div class="hinweis-band" id="hinweis" role="note" hidden></div>
   <div class="entwurf" translate="no">
     <span>Entwurf A · „Über uns" · unverbindlicher Vorschlag von ILIC ECOM HUB</span>
     <span class="farbwahl" role="group" aria-label="Farbwelt wählen">
@@ -250,7 +252,7 @@
     </div>
     <div class="fuss-unten">
       <span data-de="© 2026 Bildungszentrum Sönmez · Inhaber Zülküf Sönmez">© 2026 Bildungszentrum Sönmez · Владелец Zülküf Sönmez</span>
-      <span data-de="&lt;a href=&quot;../../impressum.html&quot;&gt;Impressum&lt;/a&gt; · &lt;a href=&quot;../../datenschutz.html&quot;&gt;Datenschutz&lt;/a&gt;"><a href="../../../impressum.html">Правовая информация</a> · <a href="../../../datenschutz.html">Защита данных</a><span class="rechts-sprache"> · юридические тексты только на немецком</span></span>
+      <span class="fuss-rechts"><span data-de="&lt;a href=&quot;../../impressum.html&quot;&gt;Impressum&lt;/a&gt; · &lt;a href=&quot;../../datenschutz.html&quot;&gt;Datenschutz&lt;/a&gt;"><a href="../../../impressum.html">Правовая информация</a> · <a href="../../../datenschutz.html">Защита данных</a><span class="rechts-sprache"> · юридические тексты только на немецком</span></span> · <a class="urheber" href="https://ilic-ecomhub.de/" target="_blank" rel="nofollow noopener" data-de="Website von Aleksandar Ilic · ILIC ECOM HUB">Разработка сайта: Aleksandar Ilic · ILIC ECOM HUB</a></span>
     </div>
   </div>
 </footer>
@@ -260,6 +262,8 @@
   <a class="btn btn-dunkel" href="https://wa.me/491739324879" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8.2 19z"/></svg><span data-de="WhatsApp">WhatsApp</span></a>
 </div>
 
+<script src="../../../js/termine.js"></script>
+<script src="../../../js/termine-kern.js"></script>
 <script src="../../../js/bzs.js"></script>
 <script>BZS.start();</script>
 </body>

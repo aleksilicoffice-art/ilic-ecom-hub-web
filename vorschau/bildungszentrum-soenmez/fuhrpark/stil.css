@@ -5,8 +5,8 @@
    binden ../stil.css ein (setzt _bauen.mjs automatisch).
    ══════════════════════════════════════════════════════════════════ */
 /* ══════════════════════════════════════════════════════════════════
-   TERMINE PFLEGEN → weiter unten der Block <!-- TERMINE -->.
-   Dort eine Zeile pro Kurstag ändern, sonst nichts anfassen.
+   TERMINE PFLEGEN → nicht hier und nicht im HTML, sondern in
+   ../js/termine.js (Werkzeug: node _termine.mjs). Hier nur das Aussehen.
    ══════════════════════════════════════════════════════════════════ */
 
 :root{
@@ -93,6 +93,13 @@ img{max-width:100%; display:block}
 .farbwahl button:hover{transform:scale(1.14)}
 .farbwahl button[aria-pressed="true"]{border-color:var(--papier)}
 .f-rot{background:#c2192a} .f-blau{background:#1e4e8c} .f-sand{background:#a8541f}
+
+/* ═══ Hinweis-Band (Urlaub, Schließtage) — erstes Kind von .oben, Text aus js/termine.js.
+   Laufend: kräftig in der Akzentfarbe. Angekündigt: zart, damit es nicht wie eine Störung wirkt. ═══ */
+.hinweis-band{background:var(--akzent); color:var(--auf-akzent); font-size:.92rem; line-height:1.45; font-weight:600}
+.hinweis-band[hidden]{display:none}
+.hinweis-band[data-phase="angekuendigt"]{background:var(--akzent-zart); color:var(--akzent-tief); border-bottom:1px solid color-mix(in oklab, var(--akzent) 18%, transparent)}
+.hinweis-text{padding-block:.55rem; text-align:center; text-wrap:balance; overflow-wrap:anywhere}
 
 .kopf{background:color-mix(in oklab, var(--papier) 84%, transparent); backdrop-filter:blur(16px); border-bottom:1px solid transparent; transition:border-color .25s var(--ease), background-color .25s var(--ease)}
 .kopf.fest{border-bottom-color:var(--linie); background:color-mix(in oklab, var(--papier) 95%, transparent)}
@@ -213,6 +220,16 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 }
 .plan-anmelden:hover{background:var(--akzent); color:var(--auf-akzent, #fff)}
 .plan-fuss{display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; align-items:center; margin-top:1.4rem}
+/* Ersatzsatz ohne JavaScript, Marken (Wochenkurs, Zusatztermin, Kein Kurs), weitere Kurse */
+.plan-ersatz{padding:1.05rem clamp(1rem,2.4vw,1.5rem); color:var(--tinte-weich); font-size:.95rem; max-width:52em}
+.plan-zeile .plan-status{display:inline-block; vertical-align:.1em; margin-inline-start:.45rem; line-height:1.3}
+.plan-woche .mod, .plan-kurs .mod{font-size:.9rem; letter-spacing:-.02em}
+.plan-ausfall, .plan-ausfall:hover{background:var(--sand)}
+.plan-ausfall .mod{background:var(--weiss); color:var(--tinte-weich)}
+.plan-ausfall .plan-titel{color:var(--tinte-weich); text-decoration:line-through; text-decoration-thickness:1px}
+.weitere-kurse{margin-top:clamp(1.8rem,4vw,2.6rem)}
+.weitere-kurse[hidden]{display:none}
+.weitere-kurse h3{margin-bottom:.9rem}
 
 /* ══════════ Schulungen ══════════ */
 .kurse{display:grid; grid-template-columns:minmax(0,1fr); gap:1px; background:var(--linie); border:1px solid var(--linie); border-radius:12px; overflow:hidden}
@@ -223,6 +240,10 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .kurs .preis{font-family:var(--disp); font-weight:800; font-size:1.22rem; color:var(--akzent-tief); white-space:nowrap; font-variant-numeric:tabular-nums}
 .kurs .preis small{display:block; font-weight:400; font-size:.72rem; color:var(--tinte-weich); text-align:end; margin-top:.1rem}
 .kurs p{font-size:.94rem; color:var(--tinte-weich)}
+.kurs .kurs-termin{margin-top:auto; padding-top:.7rem; border-top:1px solid var(--linie-zart); color:var(--tinte); font-size:.92rem}
+.kurs .kurs-termin[hidden]{display:none}
+.kurs-termin-k{font-weight:700; color:var(--akzent-tief)}
+.kurs .kurs-termin a{color:var(--akzent-text, var(--akzent)); font-weight:600}
 
 /* ══════════ Sprachen ══════════ */
 .sprachen{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.8rem}
@@ -598,13 +619,19 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 8rem) + 1rem)}
 .p-ergebnis .p-satz{font-size:1rem; color:var(--tinte-weich); max-width:60ch}
 .vorschlag{list-style:none; margin:1rem 0 0; padding:0}
 .vorschlag li{display:grid; gap:.2rem 1.2rem; padding:.85rem 0; border-bottom:1px solid var(--linie)}
-@media (min-width:52rem){.vorschlag li{grid-template-columns:12rem 1fr}}
+/* minmax(0,1fr): die Terminspalte darf schmaler werden als ihr längster Eintrag — mit 1fr lief der Vorschlag
+   am Desktop (1024/1280, ru/de) über die Planer-Karte hinaus (Prüfung 07.11.2026) */
+@media (min-width:52rem){.vorschlag li{grid-template-columns:12rem minmax(0,1fr)}}
 .vorschlag .v-name{font-weight:700}
 .vorschlag .v-termine{display:flex; flex-wrap:wrap; gap:.3rem .9rem; font-variant-numeric:tabular-nums; font-size:1rem}
-.vorschlag .v-termine span{white-space:nowrap}
+/* Modulnamen und Wochenkurs-Zeilen umbrechen, statt Karte oder Seite zu verbreitern (Handy und Desktop);
+   nur das Datum im <b> („Sa 07.11.2026", „Mo 23.11. – Fr 27.11.2026") bleibt zusammen */
+.vorschlag .v-termine span{white-space:normal}
+.vorschlag .v-termine b{white-space:nowrap}
 .vorschlag li.knapp .v-name{color:var(--akzent-tief)}
 .vorschlag li.knapp .v-name::before{content:""; display:inline-block; width:.6rem; height:.6rem; background:var(--akzent); margin-inline-end:.5rem}
 .vorschlag .v-knapp{color:var(--akzent-tief); font-size:.95rem}
+.vorschlag .v-alt{color:var(--tinte-weich); font-size:.95rem}
 .p-senden{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:1.4rem}
 .p-fallback{margin-top:1.2rem; font-size:.95rem; color:var(--tinte-weich)}
 .p-fallback a{color:var(--tinte)}
@@ -657,3 +684,4 @@ html[dir="rtl"] .planer select{background-position:.68rem 50%, 1.02rem 50%}
 html[dir="rtl"] .einstieg-raster, html[dir="rtl"] .seitenkopf-raster{direction:rtl}
 .formular-status{margin:1rem 0 0; font-size:.92rem; line-height:1.55; color:var(--tinte)}
 .formular-status a{color:var(--akzent-text, var(--akzent)); font-weight:600}
+.kurs-termin-zeit{white-space:nowrap}   /* Kurskarte: „08:00 – 15:00" bricht nicht am Gedankenstrich um (375 px) */

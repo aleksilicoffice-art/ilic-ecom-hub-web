@@ -12,7 +12,7 @@
 <link rel="alternate" hreflang="x-default" href="../">
 <meta name="description" content="Dortmund-Wickede'de her cumartesi Kod 95 yenileme eğitimi, modül başına 120 €. Türkçe ders, BKrFQG § 9 onaylı. Sürücüler ve nakliye firmaları için." data-content-de="Modul 95 für Berufskraftfahrer, samstags in Dortmund-Wickede, 120 € je Modul. Anerkannt nach § 9 BKrFQG, 6 Unterrichtssprachen. Für Fahrer und Speditionen." data-content-tr="Dortmund-Wickede'de her cumartesi Kod 95 yenileme eğitimi, modül başına 120 €. Türkçe ders, BKrFQG § 9 onaylı. Sürücüler ve nakliye firmaları için." data-content-en="Code 95 every Saturday in Dortmund, 120 € per module. Taught in English and 5 more languages, approved under Section 9 BKrFQG. For drivers and fleets.">
 <meta name="theme-color" content="#f6f5f2">
-<!-- Strukturierte Daten. Fragen (aus #faq), Kursnamen und -beschreibungen (aus den Zeilen mit data-kurs), inLanguage und Kurszeiten (aus js/bzs.js) trägt _bauen.mjs beim Bauen je Sprachfassung ein — hier nichts von Hand nachziehen, nur Stammdaten und Preise pflegen. -->
+<!-- Strukturierte Daten. Fragen (aus #faq), Kursnamen und -beschreibungen (aus den Zeilen mit data-kurs), inLanguage, Kurs-@id, Kurszeiten und künftige Kurstermine (aus js/termine.js) trägt _bauen.mjs beim Bauen je Sprachfassung ein — hier nichts von Hand nachziehen, nur Stammdaten und Preise pflegen. -->
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -73,6 +73,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-modul95",
    "name": "Kod 95 yenileme eğitimi (Weiterbildung, Modul 95)",
    "description": "Beş modülde 35 saat, her beş yılda bir (BKrFQG uyarınca yenileme eğitimi). Cumartesileri, günde bir modül.",
    "educationalCredentialAwarded": "Katılım belgesi (Teilnahmebescheinigung)",
@@ -94,23 +95,26 @@
     "price": "120",
     "priceCurrency": "EUR"
    },
-   "hasCourseInstance": {
-    "@type": "CourseInstance",
-    "courseMode": "Onsite",
-    "location": {
-     "@id": "#bzs"
-    },
-    "courseSchedule": {
-     "@type": "Schedule",
-     "byDay": "https://schema.org/Saturday",
-     "startTime": "08:00",
-     "endTime": "16:00",
-     "repeatFrequency": "P1W"
+   "hasCourseInstance": [
+    {
+     "@type": "CourseInstance",
+     "courseMode": "Onsite",
+     "location": {
+      "@id": "#bzs"
+     },
+     "courseSchedule": {
+      "@type": "Schedule",
+      "byDay": "https://schema.org/Saturday",
+      "startTime": "08:00",
+      "endTime": "16:00",
+      "repeatFrequency": "P1W"
+     }
     }
-   }
+   ]
   },
   {
    "@type": "Course",
+   "@id": "#kurs-grundquali",
    "name": "Hızlandırılmış temel yeterlilik",
    "description": "Mesleğe yeni başlayanlar için giriş.",
    "provider": {
@@ -134,6 +138,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-stapler",
    "name": "Forklift",
    "description": "İşletme için forklift belgesi (Staplerschein).",
    "provider": {
@@ -157,6 +162,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-ladekran",
    "name": "Yükleme vinci",
    "description": "Yükleme vinci (araç üstü vinç) için operatör eğitimi.",
    "provider": {
@@ -180,6 +186,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-bagger",
    "name": "Kepçe ve iş makineleri",
    "description": "İş makineleri (ekskavatör) için operatör eğitimi.",
    "provider": {
@@ -198,6 +205,7 @@
   },
   {
    "@type": "Course",
+   "@id": "#kurs-fachseminar",
    "name": "İşletme sahipleri ve taşımacılık yöneticileri (Verkehrsleiter) için uzmanlık semineri",
    "description": "İşletmede araç filosundan sorumlu olan herkes için.",
    "provider": {
@@ -961,7 +969,7 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
         <ul lang="de">
           <li data-de="Rechtliche Grundlagen" data-tr="Rechtliche Grundlagen" data-en="Rechtliche Grundlagen">Rechtliche Grundlagen</li>
           <li data-de="Physikalische Grundlagen" data-tr="Physikalische Grundlagen" data-en="Physikalische Grundlagen">Physikalische Grundlagen</li>
-          <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-tr="Aufbauten von Fahrzeugarten nach DIN EN 12640" data-en="Aufbauten von Fahrzeugarten nach DIN EN 12640">Aufbauten von Fahrzeugarten nach DIN EN 12640</li>
+          <li data-de="Aufbauten von Fahrzeugarten nach DIN EN 12642" data-tr="Aufbauten von Fahrzeugarten nach DIN EN 12642" data-en="Aufbauten von Fahrzeugarten nach DIN EN 12642">Aufbauten von Fahrzeugarten nach DIN EN 12642</li>
           <li data-de="Arten der Ladungssicherung" data-tr="Arten der Ladungssicherung" data-en="Arten der Ladungssicherung">Arten der Ladungssicherung</li>
           <li data-de="Ermittlung der erforderlichen Sicherungskräfte" data-tr="Ermittlung der erforderlichen Sicherungskräfte" data-en="Ermittlung der erforderlichen Sicherungskräfte">Ermittlung der erforderlichen Sicherungskräfte</li>
           <li data-de="Zurrmittel und weitere Hilfsmittel" data-tr="Zurrmittel und weitere Hilfsmittel" data-en="Zurrmittel und weitere Hilfsmittel">Zurrmittel und weitere Hilfsmittel</li>
@@ -1089,6 +1097,8 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
   </div>
 </footer>
 
+<script src="../../js/termine.js"></script>
+<script src="../../js/termine-kern.js"></script>
 <script src="../../js/bzs.js"></script>
 <script>
 (function () {
@@ -1177,8 +1187,11 @@ section[id]{scroll-margin-top:calc(var(--kopf-hoehe, 9rem) + 1rem)}
   }
 
   /* ─── Muster-Bescheinigung: Beispieldatum = letzter Kurssamstag, nie eingetippt ─ */
-  var letzter = new Date(BZS.terminListe(1)[0].datum); letzter.setDate(letzter.getDate() - 7);
-  document.querySelectorAll("[data-musterdatum]").forEach(function (el) { el.textContent = BZS.datumText(letzter); });
+  var erster = BZS.terminListe(1)[0];   /* ohne Termindaten bleibt das Beispieldatum im HTML stehen */
+  if (erster) {
+    var letzter = new Date(erster.datum); letzter.setDate(letzter.getDate() - 7);
+    document.querySelectorAll("[data-musterdatum]").forEach(function (el) { el.textContent = BZS.datumText(letzter); });
+  }
 
 })();
 </script>
