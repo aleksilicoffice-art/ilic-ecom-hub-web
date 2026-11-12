@@ -6,18 +6,18 @@ import { PAKETE, UPSELLS, ABOS, getPaket, getAbo, berechneSummen, eur } from "./
 /* ============================================================================
    >>> VON ALEKS ZU PFLEGEN — die einzigen zwei Stellen: <<<
 
-   1) FORMSPREE_ENDPOINT — Formular-Versand.
-      Kostenloses Formular auf formspree.io anlegen → URL hier eintragen,
-      z. B. "https://formspree.io/f/abcdwxyz".
-      SOLANGE LEER: Fallback öffnet das E-Mail-Programm des Kunden mit fertig
-      ausgefülltem Text an KONTAKT_MAIL — kein Lead geht verloren.
+   1) FORMULAR_ENDPOINT — Formular-Versand über den eigenen Endpunkt
+      (Cloudflare + Brevo, seit 13.11.2026 statt Formspree). Empfänger und
+      Felder legt der Endpunkt fest, nicht diese Datei.
+      LEER oder Versand gescheitert: Der Danke-Screen zeigt WhatsApp-/E-Mail-
+      Knöpfe mit fertig ausgefülltem Text an KONTAKT_MAIL — kein Lead geht verloren.
 
    2) PAY_LINK — Bezahllink für die Anzahlung (Stripe/PayPal), kommt SPÄTER.
       Laut Prozess wird der Link NACH der Demo per E-Mail verschickt.
       Wenn hier trotzdem ein Link steht, zeigt der Danke-Screen zusätzlich
       einen optionalen "Anzahlung direkt sichern"-Button für ganz Eilige.
    ============================================================================ */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykanorw";
+const FORMULAR_ENDPOINT = "https://ilic-formular.pages.dev/api/bestellen";
 const PAY_LINK = "";
 const KONTAKT_MAIL = "kontakt@ilic-ecomhub.de";
 
@@ -239,12 +239,14 @@ async function submitAnfrage() {
   btn.disabled = true; btn.textContent = "Sende …";
 
   let ok = false;
-  if (FORMSPREE_ENDPOINT) {
+  if (FORMULAR_ENDPOINT) {
     try {
-      const r = await fetch(FORMSPREE_ENDPOINT, {
+      const r = await fetch(FORMULAR_ENDPOINT, {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ ...d, message: anfrageText(d), _subject: `Demo-Anfrage: ${d.betrieb} (${d.ort})`, _replyto: d.email }),
+        // _gotcha: unsichtbares Feld, nur Bots füllen es (der Endpunkt weist die Anfrage dann ab)
+        body: JSON.stringify({ ...d, message: anfrageText(d), _gotcha: $("fGotcha")?.value || "" }),
+        ...(AbortSignal.timeout ? { signal: AbortSignal.timeout(20000) } : {}),
       });
       ok = r.ok;
     } catch { ok = false; }
@@ -260,7 +262,7 @@ function showDanke(d, viaMail) {
   $("wzFoot").style.display = "none";
   $("dkName").textContent = (d.name.split(" ")[0] || d.name) + "!";
   if (viaMail) {
-    // Fallback (kein/fehlgeschlagener Formspree): Kunde schickt die fertige
+    // Fallback (kein/fehlgeschlagener Versand): Kunde schickt die fertige
     // Anfrage selbst ab — ein Tipp auf WhatsApp oder E-Mail, Text ist vorbefüllt.
     $("danke").querySelector("h3").textContent = "Fast geschafft — ein Tipp noch!";
     $("danke").querySelector("p").innerHTML =

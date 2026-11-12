@@ -1,17 +1,17 @@
 // Exposé Boost — Landingpage-Verhalten. Reines ES-Modul, kein Build.
-// Vorher/Nachher-Regler, Reveals, FAQ, Anfrage-Versand an Formspree.
+// Vorher/Nachher-Regler, Reveals, FAQ, Anfrage-Versand an den eigenen Formular-Endpunkt.
 
 /* ============================================================================
    >>> VON ALEKS ZU PFLEGEN: <<<
 
-   FORMSPREE_ENDPOINT — geteilt mit der Bestellseite (bestellen/app.js).
-   Die Anfragen sind über den Betreff "Exposé-Boost-Anfrage" unterscheidbar.
-   Ein eigener Endpoint wäre sauberer, kostet im Free-Tier aber ein zweites
-   Formular-Kontingent (50 Einsendungen/Monat je Formular).
-   SOLANGE LEER: Der Danke-Zustand zeigt WhatsApp-/E-Mail-Buttons mit fertig
-   vorbereitetem Text — kein Lead geht verloren.
+   FORMULAR_ENDPOINT — eigener Versand (Cloudflare + Brevo, seit 13.11.2026
+   statt Formspree), gleicher Endpunkt wie die Bestellseite, eigener Pfad.
+   Empfänger, Felder und den Betreff "Exposé-Boost-Anfrage" legt der
+   Endpunkt fest, nicht diese Datei.
+   LEER oder Versand gescheitert: Der Danke-Zustand zeigt WhatsApp-/E-Mail-
+   Buttons mit fertig vorbereitetem Text — kein Lead geht verloren.
    ============================================================================ */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykanorw";
+const FORMULAR_ENDPOINT = "https://ilic-formular.pages.dev/api/expose-boost";
 const KONTAKT_MAIL = "kontakt@ilic-ecomhub.de";
 const WHATSAPP_NR = "4917643478923";
 
@@ -179,17 +179,14 @@ if (formular) {
     knopf.textContent = "Sende …";
 
     let ok = false;
-    if (FORMSPREE_ENDPOINT) {
+    if (FORMULAR_ENDPOINT) {
       try {
-        const r = await fetch(FORMSPREE_ENDPOINT, {
+        const r = await fetch(FORMULAR_ENDPOINT, {
           method: "POST",
           headers: { Accept: "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...d,
-            message: anfrageText(d),
-            _subject: `Exposé-Boost-Anfrage: ${d.buero || d.name}`,
-            _replyto: d.email,
-          }),
+          // _gotcha: unsichtbares Feld, nur Bots füllen es (der Endpunkt weist die Anfrage dann ab)
+          body: JSON.stringify({ ...d, _gotcha: $("fGotcha")?.value || "" }),
+          ...(AbortSignal.timeout ? { signal: AbortSignal.timeout(20000) } : {}),
         });
         ok = r.ok;
       } catch {
